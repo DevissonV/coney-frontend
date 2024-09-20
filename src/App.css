@@ -1,0 +1,41 @@
+/* Estilos específicos para la aplicación */
+
+.app-container {
+  padding: 20px;
+}
+
+.header {
+  background-color: var(--header-bg-color);
+  color: var(--header-text-color);
+  padding: 10px;
+  text-align: center;
+}
+
+.main-content {
+  margin: 20px 0;
+}
+
+.footer {
+  background-color: var(--footer-bg-color);
+  color: var(--footer-text-color);
+  padding: 10px;
+  text-align: center;
+}
+
+/* Temas light y dark */
+
+[data-theme='dark'] .header,
+[data-theme='dark'] .footer {
+  --header-bg-color: #333;
+  --header-text-color: #fff;
+  --footer-bg-color: #333;
+  --footer-text-color: #fff;
+}
+
+[data-theme='light'] .header,
+[data-theme='light'] .footer {
+  --header-bg-color: #f1f1f1;
+  --header-text-color: #000;
+  --footer-bg-color: #f1f1f1;
+  --footer-text-color: #000;
+}
