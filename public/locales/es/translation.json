@@ -40,5 +40,21 @@
   "search_placeholder": "Buscar usuario",
   "dashboard": "Inicio",
   "logout": "Cerrar Sesión",
-  "open_settings": "Abrir configuración"
+  "open_settings": "Abrir configuración",
+  "confirm_delete_title": "¿Estás seguro?",
+  "confirm_delete_text": "¡No podrás revertir esto!",
+  "yes_delete": "Sí, eliminarlo",
+  "cancel": "Cancelar",
+  "deleted_title": "¡Eliminado!",
+  "deleted_success": "El usuario ha sido eliminado correctamente.",
+  "actions": "Acciones",
+  "edit": "Editar",
+  "error_deleting_user": "Error al eliminar el usuario.",
+  "are_you_sure": "¿Estás seguro?",
+  "confirm_delete": "Esta acción no se puede deshacer. ¿Deseas eliminar este usuario?",
+  "delete": "Eliminar",
+  "user_deleted": "Usuario eliminado correctamente.",
+  "user_updated": "Usuario actualizado correctamente.",
+  "edit_user": "Editar Usuario",
+  "confirm_delete_message": "Esta acción no se puede deshacer. ¿Deseas eliminar este usuario?"
 }

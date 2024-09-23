@@ -35,3 +35,27 @@ export const getUserById = async (id) => {
 
   return data;
 };
+
+export const deleteUser = async (id) => {
+  const response = await privateAxios.delete(`${API_URL}/User/deleteUser/${id}`);
+  const { status, code } = response.data;
+
+  if (!status || code !== 200) {
+    throw new Error(`Error deleting user with ID ${id}`);
+  }
+
+  return true; 
+};
+
+export const editUser = async (id, userData) => {
+  const response = await privateAxios.put(`${API_URL}/User/updateUser/${id}`, userData);
+  const { status, code, data } = response.data;
+
+  if (!status || code !== 200) {
+    throw new Error('Error updating user');
+  }
+
+  return data;
+};
+
+

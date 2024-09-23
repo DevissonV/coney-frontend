@@ -1,10 +1,10 @@
-import React from 'react';
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import UserActions from './UserActions'; // Importamos el componente de acciones
+import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
-const UsersTable = ({ rows, pageSize, setPageSize, loading }) => {
+const UsersTable = ({ rows, pageSize, setPageSize, loading, onEdit, onDelete }) => {
   const { t } = useTranslation();
 
   const columns = [
@@ -12,6 +12,20 @@ const UsersTable = ({ rows, pageSize, setPageSize, loading }) => {
     { field: 'lastName', headerName: t('last_name'), flex: 1 },
     { field: 'email', headerName: t('email'), flex: 1 },
     { field: 'createdAt', headerName: t('created_at'), flex: 1 },
+    {
+      field: 'actions',
+      headerName: t('actions'), 
+      renderCell: (params) => (
+        <UserActions
+          userId={params.row.id}
+          onEdit={onEdit}
+          onDelete={onDelete}
+        />
+      ),
+      flex: 1,
+      sortable: false,
+      filterable: false,
+    },
   ];
 
   return (
@@ -22,11 +36,11 @@ const UsersTable = ({ rows, pageSize, setPageSize, loading }) => {
         pagination
         autoHeight
         initialState={{
-            pagination: {
-              paginationModel: { pageSize: 5 }, 
-            },
-          }}
-        pageSizeOptions={[5, 10, 20, 50]} 
+          pagination: {
+            paginationModel: { pageSize: 5 },
+          },
+        }}
+        pageSizeOptions={[5, 10, 20, 50]}
         loading={loading}
         checkboxSelection
         disableRowSelectionOnClick
@@ -41,6 +55,8 @@ UsersTable.propTypes = {
   pageSize: PropTypes.number.isRequired,
   setPageSize: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
+  onEdit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default UsersTable;
