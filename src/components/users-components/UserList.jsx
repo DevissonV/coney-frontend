@@ -1,4 +1,3 @@
-import React from 'react'
 import { Table, TableBody, TableCell, TableHead, TableRow, Paper } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 

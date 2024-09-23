@@ -1,65 +1,65 @@
-import React, { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { fetchUsers, createUser } from '../../services/users/UserService';
 import UsersTable from '../../components/users-components/UsersTable';
 import CreateUserModal from '../../components/users-components/CreateUserModal';
-import { toast, errorAlert } from '../../services/generic/alertService'; 
-import SearchToolbar from '../../components/generic/search-toolbar/SearchToolbar'; 
+import EditUserModal from '../../components/users-components/EditUserModal';
+import { toast, errorAlert, confirmDelete } from '../../services/generic/alertService'; 
+import SearchToolbar from '../../components/generic/search-toolbar/SearchToolbar';
 
-const UsersPage = () => {
+const UsersPage = ({ users, loading, onDelete, onUpdate, onCreate }) => {
   const { t } = useTranslation();
-  const [rows, setRows] = useState([]);
-  const [filteredRows, setFilteredRows] = useState([]); 
-  const [loading, setLoading] = useState(true);
+  const [filteredRows, setFilteredRows] = useState(users); 
   const [pageSize, setPageSize] = useState(5);
-  const [openModal, setOpenModal] = useState(false);
+  const [openCreateModal, setOpenCreateModal] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false); 
+  const [currentUser, setCurrentUser] = useState(null); 
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    const loadUsers = async () => {
-      try {
-        const userData = await fetchUsers();
-        const formattedData = userData.map((user) => ({
-          ...user,
-          createdAt: new Date(user.createdAt).toLocaleDateString(),
-        }));
-        setRows(formattedData);
-        setFilteredRows(formattedData); 
-      } catch (error) {
-        errorAlert({ messageKey: 'error_loading_users' });
-        console.error('Error loading users:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    setFilteredRows(users); 
+  }, [users]);
 
-    loadUsers();
-  }, []);
+  const handleEditUser = (userId) => {
+    const userToEdit = users.find((user) => user.id === userId);
+    setCurrentUser(userToEdit);
+    setOpenEditModal(true);
+  };
 
-  const handleCreateUser = async (userData) => {
+  const handleUpdateUser = async (userId, updatedUserData) => {
     try {
-      await createUser(userData); 
-      const updatedUsers = await fetchUsers();
-      const formattedData = updatedUsers.map((user) => ({
-        ...user,
-        createdAt: new Date(user.createdAt).toLocaleDateString(),
-      }));
-      setRows(formattedData);
-      setFilteredRows(formattedData);
-      toast({ icon: 'success', titleKey: 'success', messageKey: 'user_created' }); 
+      await onUpdate(userId, updatedUserData); 
+      toast({ icon: 'success', titleKey: 'success', messageKey: 'user_updated' });
     } catch (error) {
-      errorAlert({ messageKey: 'error_creating_user' });
-      console.error('Error creating user:', error);
+      errorAlert({ messageKey: 'error_updating_user' });
+      console.error('Error updating user:', error);
+    }
+  };
+
+  const handleDeleteUser = async (userId) => {
+    try {
+      const result = await confirmDelete({
+        titleKey: 'confirm_delete_title',
+        messageKey: 'confirm_delete_message',
+      });
+
+      if (result && result.isConfirmed) {
+        await onDelete(userId); 
+        toast({ icon: 'success', titleKey: 'success', messageKey: 'user_deleted' });
+      }
+
+    } catch (error) {
+      errorAlert({ messageKey: 'error_deleting_user' });
+      console.error('Error deleting user:', error);
     }
   };
 
   const handleSearchChange = (query) => {
     setSearchQuery(query);
     if (query === '') {
-      setFilteredRows(rows);
+      setFilteredRows(users);
     } else {
-      const filtered = rows.filter(
+      const filtered = users.filter(
         (user) =>
           user.firstName.toLowerCase().includes(query.toLowerCase()) ||
           user.lastName.toLowerCase().includes(query.toLowerCase()) ||
@@ -69,9 +69,19 @@ const UsersPage = () => {
     }
   };
 
+  const handleCreateUser = async (newUserData) => {
+    try {
+      await onCreate(newUserData); 
+      toast({ icon: 'success', titleKey: 'success', messageKey: 'user_created' });
+      setOpenCreateModal(false);  
+    } catch (error) {
+      errorAlert({ messageKey: 'error_creating_user' });
+      console.error('Error creating user:', error);
+    }
+  };
+
   return (
     <Box padding={2}>
-      {/* Contenedor principal para el título centrado y el botón a la derecha */}
       <Box display="flex" justifyContent="center" alignItems="center" mb={2} position="relative">
         <Typography variant="h4" gutterBottom textAlign="center" style={{ flexGrow: 1 }}>
           {t('users')}
@@ -79,33 +89,41 @@ const UsersPage = () => {
         <Button 
           variant="contained" 
           color="primary" 
-          onClick={() => setOpenModal(true)}
-          style={{ position: 'absolute', right: 0 }}  // Botón alineado a la derecha
+          onClick={() => setOpenCreateModal(true)}
+          style={{ position: 'absolute', right: 0 }}
         >
           {t('create_user')}
         </Button>
       </Box>
 
-      {/* Campo de búsqueda alineado a la izquierda */}
-      <Box display="flex" justifyContent="flex-start" mb={2}>  
-        <SearchToolbar 
+      <Box display="flex" justifyContent="flex-start" mb={2}>
+        <SearchToolbar
           searchQuery={searchQuery} 
-          onSearchChange={handleSearchChange} 
+          onSearchChange={handleSearchChange}
           placeholder={t('search_placeholder')}
         />
       </Box>
 
       <UsersTable
-        rows={filteredRows} 
+        rows={filteredRows}
         pageSize={pageSize}
         setPageSize={setPageSize}
         loading={loading}
+        onEdit={handleEditUser} 
+        onDelete={handleDeleteUser}
       />
 
       <CreateUserModal
-        open={openModal}
-        onClose={() => setOpenModal(false)}
-        onCreateUser={handleCreateUser}
+        open={openCreateModal}
+        onClose={() => setOpenCreateModal(false)}
+        onCreateUser={handleCreateUser} 
+      />
+
+      <EditUserModal
+        open={openEditModal}
+        onClose={() => setOpenEditModal(false)} 
+        currentUser={currentUser} 
+        onEditUser={handleUpdateUser}
       />
     </Box>
   );

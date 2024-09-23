@@ -4,34 +4,28 @@ import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { formatName } from '../../utils/generic/convertText';
-import { containsDangerousCharacters, hasSQLInjectionPatterns } from '../../utils/generic/securityValidations'; 
-import { toast, errorAlert } from '../../services/generic/alertService'; 
+import { toast } from '../../services/generic/alertService';
 
-const CreateUserModal = ({ open, onClose, onCreateUser }) => {
+const EditUserModal = ({ open, onClose, currentUser, onEditUser }) => {
   const { t } = useTranslation();
-  const [newUser, setNewUser] = useState({
+  const [user, setUser] = useState({
     firstName: '',
     lastName: '',
-    email: '',
-    password: '',
   });
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    if (!open) {
-      setNewUser({
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
+    if (currentUser) {
+      setUser({
+        firstName: currentUser.firstName,
+        lastName: currentUser.lastName,
       });
-      setErrors({});
     }
-  }, [open]);
+  }, [currentUser]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNewUser((prevUser) => ({
+    setUser((prevUser) => ({
       ...prevUser,
       [name]: value,
     }));
@@ -39,28 +33,11 @@ const CreateUserModal = ({ open, onClose, onCreateUser }) => {
 
   const validate = () => {
     let tempErrors = {};
-    
-    
-    if (containsDangerousCharacters(newUser.firstName) || hasSQLInjectionPatterns(newUser.firstName)) {
-      errorAlert({ messageKey: 'error_invalid_input' });
-      onClose(); 
-      return false;
-    }
-    
-    if (containsDangerousCharacters(newUser.lastName) || hasSQLInjectionPatterns(newUser.lastName)) {
-      errorAlert({ messageKey: 'error_invalid_input' });
-      onClose(); 
-      return false;
-    }
-    
-    if (!newUser.firstName || newUser.firstName.length < 2)
+
+    if (!user.firstName || user.firstName.length < 2)
       tempErrors.firstName = t('first_name_error');
-    if (!newUser.lastName || newUser.lastName.length < 2)
+    if (!user.lastName || user.lastName.length < 2)
       tempErrors.lastName = t('last_name_error');
-    if (!newUser.email || !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(newUser.email))
-      tempErrors.email = t('email_error');
-    if (!newUser.password || newUser.password.length < 6)
-      tempErrors.password = t('password_error');
 
     setErrors(tempErrors);
     return Object.keys(tempErrors).length === 0;
@@ -69,13 +46,12 @@ const CreateUserModal = ({ open, onClose, onCreateUser }) => {
   const handleSubmit = () => {
     if (validate()) {
       const formattedUser = {
-        ...newUser,
-        firstName: formatName(newUser.firstName),
-        lastName: formatName(newUser.lastName),
+        ...user,
+        firstName: formatName(user.firstName),
+        lastName: formatName(user.lastName),
       };
-
-      onCreateUser(formattedUser); 
-      toast({ icon: 'success', titleKey: 'success', messageKey: 'user_created' });
+  
+      onEditUser(currentUser.id, formattedUser); 
       onClose(); 
     }
   };
@@ -84,8 +60,8 @@ const CreateUserModal = ({ open, onClose, onCreateUser }) => {
     <Modal
       open={open}
       onClose={onClose}
-      aria-labelledby="create-user-modal"
-      aria-describedby="create-user-modal-description"
+      aria-labelledby="edit-user-modal"
+      aria-describedby="edit-user-modal-description"
     >
       <Box
         sx={{
@@ -112,7 +88,7 @@ const CreateUserModal = ({ open, onClose, onCreateUser }) => {
         </IconButton>
 
         <Typography variant="h6" gutterBottom>
-          {t('create_user')}
+          {t('edit_user')}
         </Typography>
         <Box component="form">
           <TextField
@@ -120,7 +96,7 @@ const CreateUserModal = ({ open, onClose, onCreateUser }) => {
             name="firstName"
             fullWidth
             margin="normal"
-            value={newUser.firstName}
+            value={user.firstName}
             onChange={handleInputChange}
             error={!!errors.firstName}
             helperText={errors.firstName}
@@ -131,34 +107,11 @@ const CreateUserModal = ({ open, onClose, onCreateUser }) => {
             name="lastName"
             fullWidth
             margin="normal"
-            value={newUser.lastName}
+            value={user.lastName}
             onChange={handleInputChange}
             error={!!errors.lastName}
             helperText={errors.lastName}
             inputProps={{ maxLength: 50 }}
-          />
-          <TextField
-            label={t('email')}
-            name="email"
-            fullWidth
-            margin="normal"
-            value={newUser.email}
-            onChange={handleInputChange}
-            error={!!errors.email}
-            helperText={errors.email}
-            inputProps={{ maxLength: 100 }} 
-          />
-          <TextField
-            label={t('password')}
-            name="password"
-            type="password"
-            fullWidth
-            margin="normal"
-            value={newUser.password}
-            onChange={handleInputChange}
-            error={!!errors.password}
-            helperText={errors.password}
-            inputProps={{ maxLength: 20 }}
           />
           <Box mt={2} display="flex" justifyContent="flex-end">
             <Button variant="contained" color="primary" onClick={handleSubmit}>
@@ -171,10 +124,11 @@ const CreateUserModal = ({ open, onClose, onCreateUser }) => {
   );
 };
 
-CreateUserModal.propTypes = {
+EditUserModal.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  onCreateUser: PropTypes.func.isRequired,
+  currentUser: PropTypes.object,
+  onEditUser: PropTypes.func.isRequired,
 };
 
-export default CreateUserModal;
+export default EditUserModal;
