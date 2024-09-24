@@ -8,9 +8,9 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    lng: navigator.language || 'en', // Esto lee el idioma del navegador
+    lng: navigator.language || 'en', 
     fallbackLng: 'en', 
-    debug: true,
+    debug: false,
     interpolation: {
       escapeValue: false, 
     },
@@ -18,8 +18,8 @@ i18n
       loadPath: '/locales/{{lng}}/translation.json', 
     },
     detection: {
-      order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag', 'path', 'subdomain'], // Orden de detección
-      caches: ['localStorage', 'cookie'], // Caching
+      order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag', 'path', 'subdomain'], 
+      caches: ['localStorage', 'cookie'],
     },
   });
 

@@ -56,5 +56,13 @@
   "user_deleted": "Usuario eliminado correctamente.",
   "user_updated": "Usuario actualizado correctamente.",
   "edit_user": "Editar Usuario",
-  "confirm_delete_message": "Esta acción no se puede deshacer. ¿Deseas eliminar este usuario?"
+  "confirm_delete_message": "Esta acción no se puede deshacer. ¿Deseas eliminar este usuario?",
+  "error_updating_user": "Error Actualizando usuario",
+  "sort_asc": "Ordenar ascendente",
+  "sort_desc": "Ordenar descendente",
+  "filter": "Filtrar",
+  "hide_column": "Ocultar columna",
+  "manage_columns": "Gestionar columnas",
+  "no_rows": "Sin registros",
+  "rows_per_page": "Filas por página"
 }

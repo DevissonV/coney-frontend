@@ -7,6 +7,19 @@ import { useTranslation } from 'react-i18next';
 const UsersTable = ({ rows, pageSize, setPageSize, loading, onEdit, onDelete }) => {
   const { t } = useTranslation();
 
+  // datagrid text translation
+   const localeText = {
+    columnMenuSortAsc: t('sort_asc'),         
+    columnMenuSortDesc: t('sort_desc'),       
+    columnMenuFilter: t('filter'),            
+    columnMenuHideColumn: t('hide_column'),   
+    columnMenuManageColumns: t('manage_columns'),
+    noRowsLabel: t('no_rows'),  
+    MuiTablePagination: {
+      labelRowsPerPage: t('rows_per_page'),
+    },
+  };
+
   const columns = [
     { field: 'firstName', headerName: t('first_name'), flex: 1 },
     { field: 'lastName', headerName: t('last_name'), flex: 1 },
@@ -42,9 +55,9 @@ const UsersTable = ({ rows, pageSize, setPageSize, loading, onEdit, onDelete }) 
         }}
         pageSizeOptions={[5, 10, 20, 50]}
         loading={loading}
-        checkboxSelection
         disableRowSelectionOnClick
         components={{ Toolbar: GridToolbar }}
+        localeText={localeText}
       />
     </Box>
   );
