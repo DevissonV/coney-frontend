@@ -1,6 +1,5 @@
 import { privateAxios } from '../../utils/api/axios'; 
 
-// Obtener la URL desde las variables de entorno con Vite
 const API_URL = import.meta.env.VITE_API_URL;
 
 export const fetchUsers = async () => {
