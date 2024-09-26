@@ -5,6 +5,8 @@ import DashboardContainer from '../containers/dashboard/DashboardContainer';
 import NotFoundPage from '../pages/NotFoundPage'; 
 import useAuthStore from '../stores/auth/useAuthStore';
 import Layout from '../components/dashboard-components/layout/Layout'; 
+import CountriesContainer from '../containers/countries/CountriesContainer';
+
 
 const ProtectedRoute = ({ children }) => {
   const token = useAuthStore((state) => state.token);
@@ -48,6 +50,18 @@ const AppRouter = () => {
             <ProtectedRoute>
               <Layout>
                 <UsersContainer />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+        
+        {/* Ruta protegida para los paises */}
+        <Route
+          path="/countries"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <CountriesContainer />
               </Layout>
             </ProtectedRoute>
           }

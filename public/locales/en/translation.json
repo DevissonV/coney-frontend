@@ -37,7 +37,8 @@
   "error_creating_user": "Error creating user.",
   "error_invalid_input": "Entrada inválida detectada",
   "search": "Search",
-  "search_placeholder": "Search user",
+  "search_placeholder_user": "Search user",
+  "search_placeholder_country": "Search country",
   "dashboard": "dashboard" ,
   "logout": "Cerrar Sesión",
   "open_settings": "Open settings",
@@ -64,5 +65,12 @@
   "hide_column": "Hide column",
   "manage_columns": "Manage columns",
   "no_rows": "No rows",
-  "rows_per_page": "Rows per page"
+  "rows_per_page": "Rows per page",
+  "id": "ID",
+  "create_country": "Create Country",
+  "countries": "countries",
+  "edit_country": "Edit Country",
+  "error_deleting_country": "Error deleting country",
+  "error_creating_country": "Error creating country",
+  "error_updating_country": "Error updating country"
 }

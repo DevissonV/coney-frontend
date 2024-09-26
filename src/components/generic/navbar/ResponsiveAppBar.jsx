@@ -43,6 +43,10 @@ const ResponsiveAppBar = () => {
           {t('users')} 
         </Button>
 
+        <Button component={Link} to="/countries" color="inherit" sx={{ mx: 1 }}>
+          {t('countries')} 
+        </Button>
+
         <IconButton color="inherit" onClick={toggleDarkMode} sx={{ mx: 1 }}>
           {darkMode ? t('light_mode') : t('dark_mode')}
         </IconButton>
