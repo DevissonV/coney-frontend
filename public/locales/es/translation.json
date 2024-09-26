@@ -37,7 +37,8 @@
   "error_creating_user": "Error al crear el usuario.",
   "error_invalid_input": "Se detectó una entrada no válida.",
   "search": "Buscar",
-  "search_placeholder": "Buscar usuario",
+  "search_placeholder_user": "Buscar usuario",
+  "search_placeholder_country": "Buscar País",
   "dashboard": "Inicio",
   "logout": "Cerrar Sesión",
   "open_settings": "Abrir configuración",
@@ -64,5 +65,12 @@
   "hide_column": "Ocultar columna",
   "manage_columns": "Gestionar columnas",
   "no_rows": "Sin registros",
-  "rows_per_page": "Filas por página"
+  "rows_per_page": "Filas por página",
+  "id": "ID",
+  "create_country": "Crear País",
+  "countries": "Países",
+  "edit_country": "Editar País",
+  "error_deleting_country": "Error eliminando usuario",
+  "error_creating_country": "Error creando usuario",
+  "error_updating_country": "Error actualizando usuario"
 }
