@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { fetchUsers, deleteUser, editUser, createUser } from '../../services/users/UserService';
-import { errorAlert } from '../../services/generic/alertService';
+import { errorAlert } from '../../services/generic/AlertService.js';
 import useUserStore from '../../stores/users/useUserStore';
 
 export const useUsers = () => {

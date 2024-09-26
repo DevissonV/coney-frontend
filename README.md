@@ -64,7 +64,7 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┣ 📂dashboard
 ┃ ┃ ┃ ┗ 📜DashboardService.js
 ┃ ┃ ┣ 📂generic
-┃ ┃ ┃ ┗ 📜alertService.js
+┃ ┃ ┃ ┗ 📜AlertService.js.js
 ┃ ┃ ┗ 📂users
 ┃ ┃   ┗ 📜UserService.js
 ┃ ┣ 📂stores

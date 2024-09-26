@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import useUserStore from '../../stores/users/useUserStore';
 import { fetchUsers } from '../../services/users/UserService';
 import UsersPage from '../../pages/users/UsersPage';
-import { errorAlert } from '../../services/generic/alertService';
-import { useUsers } from '../../hooks/users/useUsers'; // Importamos el hook personalizado
+import { errorAlert } from '../../services/generic/AlertService.js';
+import { useUsers } from '../../hooks/users/useUsers'; 
 
 const UsersContainer = () => {
   const [loading, setLoading] = useState(true);

@@ -4,7 +4,7 @@ import useAuthStore from '../../stores/auth/useAuthStore';
 import { login } from '../../services/auth/AuthService';
 import LoginPage from '../../pages/auth/LoginPage';
 import { useTranslation } from 'react-i18next';
-import { toast, errorAlert } from '../../services/generic/alertService'; 
+import { toast, errorAlert } from '../../services/generic/AlertService.js'; 
 
 const AuthContainer = () => {
   const { t } = useTranslation();

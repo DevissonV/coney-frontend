@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import UsersTable from '../../components/users-components/UsersTable';
 import CreateUserModal from '../../components/users-components/CreateUserModal';
 import EditUserModal from '../../components/users-components/EditUserModal';
-import { toast, errorAlert, confirmDelete } from '../../services/generic/alertService'; 
+import { toast, errorAlert, confirmDelete } from '../../services/generic/AlertService.js'; 
 import SearchToolbar from '../../components/generic/search-toolbar/SearchToolbar';
 
 const UsersPage = ({ users, loading, onDelete, onUpdate, onCreate }) => {
@@ -100,7 +100,7 @@ const UsersPage = ({ users, loading, onDelete, onUpdate, onCreate }) => {
         <SearchToolbar
           searchQuery={searchQuery} 
           onSearchChange={handleSearchChange}
-          placeholder={t('search_placeholder')}
+          placeholder={t('search_placeholder_user')}
         />
       </Box>
 
