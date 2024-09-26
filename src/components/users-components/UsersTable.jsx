@@ -1,14 +1,13 @@
 import { Box } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import UserActions from './UserActions'; // Importamos el componente de acciones
+import UserActions from './UserActions';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
-const UsersTable = ({ rows, pageSize, setPageSize, loading, onEdit, onDelete }) => {
+const UsersTable = ({ rows, loading, onEdit, onDelete }) => {
   const { t } = useTranslation();
 
-  // datagrid text translation
-   const localeText = {
+  const localeText = {
     columnMenuSortAsc: t('sort_asc'),         
     columnMenuSortDesc: t('sort_desc'),       
     columnMenuFilter: t('filter'),            
@@ -50,10 +49,10 @@ const UsersTable = ({ rows, pageSize, setPageSize, loading, onEdit, onDelete }) 
         autoHeight
         initialState={{
           pagination: {
-            paginationModel: { pageSize: 5 },
+            paginationModel: { pageSize: 5 }, 
           },
         }}
-        pageSizeOptions={[5, 10, 20, 50]}
+        pageSizeOptions={[5, 10, 20, 50]} 
         loading={loading}
         disableRowSelectionOnClick
         components={{ Toolbar: GridToolbar }}
@@ -65,8 +64,6 @@ const UsersTable = ({ rows, pageSize, setPageSize, loading, onEdit, onDelete }) 
 
 UsersTable.propTypes = {
   rows: PropTypes.array.isRequired,
-  pageSize: PropTypes.number.isRequired,
-  setPageSize: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   onEdit: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,

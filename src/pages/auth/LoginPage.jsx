@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, TextField, Button, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { errorAlert } from '../../services/generic/alertService';
+import { errorAlert } from '../../services/generic/AlertService.js';
 
 const LoginPage = ({ onLogin, error, loading }) => {
   const { t } = useTranslation(); // Hook para usar traducciones

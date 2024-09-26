@@ -4,7 +4,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { formatName } from '../../utils/generic/convertText';
-import { toast } from '../../services/generic/alertService';
+import { toast } from '../../services/generic/AlertService.js';
 
 const EditUserModal = ({ open, onClose, currentUser, onEditUser }) => {
   const { t } = useTranslation();

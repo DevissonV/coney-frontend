@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { formatName } from '../../utils/generic/convertText';
 import { containsDangerousCharacters, hasSQLInjectionPatterns } from '../../utils/generic/securityValidations'; 
-import { toast, errorAlert } from '../../services/generic/alertService'; 
+import { toast, errorAlert } from '../../services/generic/AlertService.js'; 
 
 const CreateUserModal = ({ open, onClose, onCreateUser }) => {
   const { t } = useTranslation();
@@ -75,7 +75,6 @@ const CreateUserModal = ({ open, onClose, onCreateUser }) => {
       };
 
       onCreateUser(formattedUser); 
-      toast({ icon: 'success', titleKey: 'success', messageKey: 'user_created' });
       onClose(); 
     }
   };
