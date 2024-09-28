@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { useThemeContext } from '../../../wrappers/ThemeWrapper';
 import useAuthStore from '../../../stores/auth/useAuthStore';
 import AdbIcon from '@mui/icons-material/Adb';
-import { useTheme } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next'; 
 
 const ResponsiveAppBar = () => {
@@ -12,7 +11,6 @@ const ResponsiveAppBar = () => {
   const [anchorElUser, setAnchorElUser] = useState(null); 
   const logout = useAuthStore((state) => state.logout); 
   const navigate = useNavigate();
-  const theme = useTheme(); 
   const { t } = useTranslation(); 
 
   const handleOpenUserMenu = (event) => {
