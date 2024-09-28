@@ -29,7 +29,7 @@ const UsersPage = ({ users, loading, onDelete, onUpdate, onCreate }) => {
   const handleUpdateUser = async (userId, updatedUserData) => {
     try {
       await onUpdate(userId, updatedUserData); 
-      toast({ icon: 'success', titleKey: 'success', messageKey: 'user_updated' });
+      toast({ icon: 'success', titleKey: 'success', messageKey: 'edit_success' });
     } catch (error) {
       errorAlert({ messageKey: 'error_updating_user' });
       console.error('Error updating user:', error);
@@ -45,7 +45,7 @@ const UsersPage = ({ users, loading, onDelete, onUpdate, onCreate }) => {
 
       if (result && result.isConfirmed) {
         await onDelete(userId); 
-        toast({ icon: 'success', titleKey: 'success', messageKey: 'user_deleted' });
+        toast({ icon: 'success', titleKey: 'success', messageKey: 'delete_success' });
       }
 
     } catch (error) {
@@ -72,7 +72,7 @@ const UsersPage = ({ users, loading, onDelete, onUpdate, onCreate }) => {
   const handleCreateUser = async (newUserData) => {
     try {
       await onCreate(newUserData); 
-      toast({ icon: 'success', titleKey: 'success', messageKey: 'user_created' });
+      toast({ icon: 'success', titleKey: 'success', messageKey: 'create_success' });
       setOpenCreateModal(false);  
     } catch (error) {
       errorAlert({ messageKey: 'error_creating_user' });
