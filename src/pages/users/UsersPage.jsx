@@ -25,35 +25,7 @@ const UsersPage = ({ users, loading, onDelete, onUpdate, onCreate }) => {
     setCurrentUser(userToEdit);
     setOpenEditModal(true);
   };
-
-  const handleUpdateUser = async (userId, updatedUserData) => {
-    try {
-      await onUpdate(userId, updatedUserData); 
-      toast({ icon: 'success', titleKey: 'success', messageKey: 'edit_success' });
-    } catch (error) {
-      errorAlert({ messageKey: 'error_updating_user' });
-      console.error('Error updating user:', error);
-    }
-  };
-
-  const handleDeleteUser = async (userId) => {
-    try {
-      const result = await confirmDelete({
-        titleKey: 'confirm_delete_title',
-        messageKey: 'confirm_delete_message',
-      });
-
-      if (result && result.isConfirmed) {
-        await onDelete(userId); 
-        toast({ icon: 'success', titleKey: 'success', messageKey: 'delete_success' });
-      }
-
-    } catch (error) {
-      errorAlert({ messageKey: 'error_deleting_user' });
-      console.error('Error deleting user:', error);
-    }
-  };
-
+  
   const handleSearchChange = (query) => {
     setSearchQuery(query);
     if (query === '') {
@@ -66,17 +38,6 @@ const UsersPage = ({ users, loading, onDelete, onUpdate, onCreate }) => {
           user.email.toLowerCase().includes(query.toLowerCase())
       );
       setFilteredRows(filtered);
-    }
-  };
-
-  const handleCreateUser = async (newUserData) => {
-    try {
-      await onCreate(newUserData); 
-      toast({ icon: 'success', titleKey: 'success', messageKey: 'create_success' });
-      setOpenCreateModal(false);  
-    } catch (error) {
-      errorAlert({ messageKey: 'error_creating_user' });
-      console.error('Error creating user:', error);
     }
   };
 
@@ -110,20 +71,20 @@ const UsersPage = ({ users, loading, onDelete, onUpdate, onCreate }) => {
         setPageSize={setPageSize}
         loading={loading}
         onEdit={handleEditUser} 
-        onDelete={handleDeleteUser}
+        onDelete={onDelete}
       />
 
       <CreateUserModal
         open={openCreateModal}
         onClose={() => setOpenCreateModal(false)}
-        onCreateUser={handleCreateUser} 
+        onCreateUser={onCreate} 
       />
 
       <EditUserModal
         open={openEditModal}
         onClose={() => setOpenEditModal(false)} 
         currentUser={currentUser} 
-        onEditUser={handleUpdateUser}
+        onEditUser={onUpdate}
       />
     </Box>
   );
