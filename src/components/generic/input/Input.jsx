@@ -1,4 +1,3 @@
-import React from 'react'
 import { TextField } from '@mui/material'
 
 const Input = ({ value, onChange, label, type = 'text', ...props }) => {

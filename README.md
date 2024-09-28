@@ -13,12 +13,17 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┗ 📂es
 ┃ ┃   ┗ 📜translation.json
 ┃ ┣ 📂static
+┃ ┃ ┣ 📜countries.json
 ┃ ┃ ┗ 📜login.json
 ┃ ┗ 📜vite.svg
 ┣ 📂src
 ┃ ┣ 📂assets
 ┃ ┃ ┗ 📜react.svg
 ┃ ┣ 📂components
+┃ ┃ ┣ 📂countries-components
+┃ ┃ ┃ ┣ 📜CountriesTable.jsx
+┃ ┃ ┃ ┣ 📜CountryActions.jsx
+┃ ┃ ┃ ┗ 📜CountryFormModal.jsx
 ┃ ┃ ┣ 📂dashboard-components
 ┃ ┃ ┃ ┣ 📂layout
 ┃ ┃ ┃ ┃ ┗ 📜Layout.jsx
@@ -34,23 +39,33 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┃ ┗ 📂search-toolbar
 ┃ ┃ ┃   ┗ 📜SearchToolbar.jsx
 ┃ ┃ ┗ 📂users-components
-┃ ┃   ┣ 📜CreateUserModal.jsx
-┃ ┃   ┣ 📜UserForm.jsx
-┃ ┃   ┣ 📜UserList.jsx
+┃ ┃   ┣ 📜UserActions.jsx
+┃ ┃   ┣ 📜UserCreateModal.jsx
+┃ ┃   ┣ 📜UserEditModal.jsx
 ┃ ┃   ┗ 📜UsersTable.jsx
 ┃ ┣ 📂containers
 ┃ ┃ ┣ 📂auth
 ┃ ┃ ┃ ┗ 📜AuthContainer.jsx
+┃ ┃ ┣ 📂countries
+┃ ┃ ┃ ┗ 📜CountriesContainer.jsx
 ┃ ┃ ┣ 📂dashboard
 ┃ ┃ ┃ ┗ 📜DashboardContainer.jsx
 ┃ ┃ ┗ 📂users
 ┃ ┃   ┗ 📜UsersContainer.jsx
 ┃ ┣ 📂hooks
-┃ ┃ ┣ 📜useAuth.js
-┃ ┃ ┗ 📜useTheme.js
+┃ ┃ ┣ 📂auth
+┃ ┃ ┃ ┗ 📜useAuth.js
+┃ ┃ ┣ 📂countries
+┃ ┃ ┃ ┗ 📜useCountries.js
+┃ ┃ ┣ 📂generic
+┃ ┃ ┃ ┗ 📜useSearch.js
+┃ ┃ ┗ 📂users
+┃ ┃   ┗ 📜useUsers.jsx
 ┃ ┣ 📂pages
 ┃ ┃ ┣ 📂auth
 ┃ ┃ ┃ ┗ 📜LoginPage.jsx
+┃ ┃ ┣ 📂countries
+┃ ┃ ┃ ┗ 📜CountriesPage.jsx
 ┃ ┃ ┣ 📂dashboard
 ┃ ┃ ┃ ┗ 📜DashboardPage.jsx
 ┃ ┃ ┣ 📂users
@@ -61,10 +76,12 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┣ 📂services
 ┃ ┃ ┣ 📂auth
 ┃ ┃ ┃ ┗ 📜AuthService.js
+┃ ┃ ┣ 📂countries
+┃ ┃ ┃ ┗ 📜CountryService.js
 ┃ ┃ ┣ 📂dashboard
 ┃ ┃ ┃ ┗ 📜DashboardService.js
 ┃ ┃ ┣ 📂generic
-┃ ┃ ┃ ┗ 📜AlertService.js.js
+┃ ┃ ┃ ┗ 📜AlertService.js
 ┃ ┃ ┗ 📂users
 ┃ ┃   ┗ 📜UserService.js
 ┃ ┣ 📂stores
@@ -77,10 +94,10 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┣ 📂utils
 ┃ ┃ ┣ 📂api
 ┃ ┃ ┃ ┗ 📜axios.js
-┃ ┃ ┣ 📂generic
-┃ ┃ ┃ ┣ 📜convertText.js
-┃ ┃ ┃ ┗ 📜securityValidations.js
-┃ ┃ ┗ 📜i18n.js
+┃ ┃ ┗ 📂generic
+┃ ┃   ┣ 📜convertText.js
+┃ ┃   ┣ 📜i18n.js
+┃ ┃   ┗ 📜securityValidations.js
 ┃ ┣ 📂wrappers
 ┃ ┃ ┣ 📜AuthWrapper.jsx
 ┃ ┃ ┗ 📜ThemeWrapper.jsx
@@ -88,6 +105,7 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┣ 📜App.jsx
 ┃ ┣ 📜index.css
 ┃ ┗ 📜main.jsx
+┣ 📜.env
 ┣ 📜.env.local
 ┣ 📜.env.local.example
 ┣ 📜.eslintrc.js
@@ -99,7 +117,6 @@ La estructura de carpetas del proyecto es la siguiente:
 ┣ 📜package.json
 ┣ 📜README.md
 ┗ 📜vite.config.js
-
 ```
 ### Descripción de carpetas:
 

@@ -4,9 +4,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { formatName } from '../../utils/generic/convertText';
-import { toast } from '../../services/generic/AlertService.js';
 
-const EditUserModal = ({ open, onClose, currentUser, onEditUser }) => {
+const UserEditModal = ({ open, onClose, currentUser, onEditUser }) => {
   const { t } = useTranslation();
   const [user, setUser] = useState({
     firstName: '',
@@ -124,11 +123,11 @@ const EditUserModal = ({ open, onClose, currentUser, onEditUser }) => {
   );
 };
 
-EditUserModal.propTypes = {
+UserEditModal.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   currentUser: PropTypes.object,
   onEditUser: PropTypes.func.isRequired,
 };
 
-export default EditUserModal;
+export default UserEditModal;

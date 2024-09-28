@@ -2,9 +2,8 @@ import { useState, useEffect } from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import UsersTable from '../../components/users-components/UsersTable';
-import CreateUserModal from '../../components/users-components/CreateUserModal';
-import EditUserModal from '../../components/users-components/EditUserModal';
-import { toast, errorAlert, confirmDelete } from '../../services/generic/AlertService.js'; 
+import UserCreateModal from '../../components/users-components/UserCreateModal';
+import UserEditModal from '../../components/users-components/UserEditModal';
 import SearchToolbar from '../../components/generic/search-toolbar/SearchToolbar';
 
 const UsersPage = ({ users, loading, onDelete, onUpdate, onCreate }) => {
@@ -74,13 +73,13 @@ const UsersPage = ({ users, loading, onDelete, onUpdate, onCreate }) => {
         onDelete={onDelete}
       />
 
-      <CreateUserModal
+      <UserCreateModal
         open={openCreateModal}
         onClose={() => setOpenCreateModal(false)}
         onCreateUser={onCreate} 
       />
 
-      <EditUserModal
+      <UserEditModal
         open={openEditModal}
         onClose={() => setOpenEditModal(false)} 
         currentUser={currentUser} 
