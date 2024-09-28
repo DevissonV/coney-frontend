@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { fetchUsers, deleteUser, editUser, createUser } from '../../services/users/UserService';
-import { errorAlert } from '../../services/generic/AlertService.js';
+import { errorAlert,confirmDelete,toast } from '../../services/generic/AlertService.js';
 import useUserStore from '../../stores/users/useUserStore';
 
 export const useUsers = () => {
@@ -8,9 +8,17 @@ export const useUsers = () => {
 
   const handleDeleteUser = useCallback(async (userId) => {
     try {
-      await deleteUser(userId);
-      const updatedUsers = await fetchUsers();
-      setUsers(updatedUsers);
+      const result = await confirmDelete({
+        titleKey: 'confirm_delete_title',
+        messageKey: 'confirm_delete_message',
+      });
+
+      if (result && result.isConfirmed) {
+        await deleteUser(userId);
+        toast({ icon: 'success', titleKey: 'success', messageKey: 'delete_success' });
+        const updatedUsers = await fetchUsers();
+        setUsers(updatedUsers);
+      }
     } catch (error) {
       errorAlert({ messageKey: 'error_deleting_user' });
     }
@@ -19,6 +27,7 @@ export const useUsers = () => {
   const handleUpdateUser = useCallback(async (userId, updatedUserData) => {
     try {
       await editUser(userId, updatedUserData);
+      toast({ icon: 'success', titleKey: 'success', messageKey: 'edit_success' });
       const updatedUsers = await fetchUsers();
       setUsers(updatedUsers);
     } catch (error) {
@@ -29,6 +38,7 @@ export const useUsers = () => {
   const handleCreateUser = useCallback(async (newUserData) => {
     try {
       await createUser(newUserData);
+      toast({ icon: 'success', titleKey: 'success', messageKey: 'create_success' });
       const updatedUsers = await fetchUsers();
       setUsers(updatedUsers);
     } catch (error) {
