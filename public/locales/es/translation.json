@@ -62,6 +62,13 @@
   "create_country": "Crear País",
   "countries": "Países",
   "edit_country": "Editar País",
+  "riffle": "Rifas",
+  "search_placeholder_riffle": "Buscar rifas",
+  "description": "Descripción",
+  "initDate": "Fecha de inicio",
+  "endDate": "Fecha Fin",
+  "edit_riffle": "Editar rifa",
+  "create_riffle": "Crear rifa",
   "error_unexpected": "Ha ocurrido un error inesperado.",
   "error_loading_users": "Error al cargar los usuarios.",
   "error_creating_user": "Error al crear el usuario.",
@@ -71,5 +78,9 @@
   "error_deleting_country": "Error eliminando país",
   "error_creating_country": "Error creando país",
   "error_updating_country": "Error actualizando país",
-  "error_loading_countries": "Error cargando paises"
+  "error_loading_countries": "Error cargando paises",
+  "error_creating_riffle": "Error creando rifa",
+  "error_updating_riffle": "Error actualizando rifa",
+  "error_loading_riffle": "Error cargando rifas",
+  "error_deleting_riffle": "Error eliminando rifa"
 }

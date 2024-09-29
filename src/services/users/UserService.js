@@ -36,7 +36,7 @@ export const getUserById = async (id) => {
 };
 
 export const deleteUser = async (id) => {
-  const response = await privateAxios.delete(`${API_URL}/User/deleteUser/${id}`);
+  const response = await privateAxios.delete(`${API_URL}/Users/deleteUser/${id}`);
   const { status, code } = response.data;
 
   if (!status || code !== 200) {
