@@ -1,9 +1,9 @@
-import { publicAxios } from '../../utils/api/axios'; 
+import { privateAxios } from '../../utils/api/axios'; 
 
-const API_URL = '/static/countries.json';
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const fetchCountries = async () => {
-  const response = await publicAxios.get(API_URL); 
+  const response = await privateAxios.get(`${API_URL}/Countries/getAllCountries`); 
   const { status, code, data } = response.data;
 
   if (!status || code !== 200) {
@@ -14,7 +14,7 @@ export const fetchCountries = async () => {
 };
 
 export const createCountry = async (countryData) => {
-  const response = await publicAxios.post(`${API_URL}/Country/createCountry`, countryData);
+  const response = await privateAxios.post(`${API_URL}/Countries/createCountry`, countryData);
   const { status, code, data } = response.data;
 
   if (!status || code !== 201) {
@@ -25,7 +25,7 @@ export const createCountry = async (countryData) => {
 };
 
 export const getCountryById = async (id) => {
-  const response = await publicAxios.get(`${API_URL}/Country/getCountryById/${id}`);
+  const response = await privateAxios.get(`${API_URL}/Countries/getCountry/${id}`);
   const { status, code, data } = response.data;
 
   if (!status || code !== 200) {
@@ -36,7 +36,7 @@ export const getCountryById = async (id) => {
 };
 
 export const deleteCountry = async (id) => {
-  const response = await publicAxios.delete(`${API_URL}/Country/deleteCountry/${id}`);
+  const response = await privateAxios.delete(`${API_URL}/Countries/deleteCountry/${id}`);
   const { status, code } = response.data;
 
   if (!status || code !== 200) {
@@ -47,7 +47,12 @@ export const deleteCountry = async (id) => {
 };
 
 export const editCountry = async (id, countryData) => {
-  const response = await publicAxios.put(`${API_URL}/Country/updateCountry/${id}`, countryData);
+  const updatedCountryData = {
+    id: id,          
+    ...countryData   
+  };
+
+  const response = await privateAxios.put(`${API_URL}/Countries/updateCountry`, updatedCountryData);
   const { status, code, data } = response.data;
 
   if (!status || code !== 200) {
