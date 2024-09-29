@@ -38,6 +38,10 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┃ ┃ ┗ 📜ResponsiveAppBar.jsx
 ┃ ┃ ┃ ┗ 📂search-toolbar
 ┃ ┃ ┃   ┗ 📜SearchToolbar.jsx
+┃ ┃ ┣ 📂riffle-components
+┃ ┃ ┃ ┣ 📜RiffeTable.jsx
+┃ ┃ ┃ ┣ 📜RiffleActions.jsx
+┃ ┃ ┃ ┗ 📜RiffleFormModal.jsx
 ┃ ┃ ┗ 📂users-components
 ┃ ┃   ┣ 📜UserActions.jsx
 ┃ ┃   ┣ 📜UserCreateModal.jsx
@@ -50,6 +54,8 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┃ ┗ 📜CountriesContainer.jsx
 ┃ ┃ ┣ 📂dashboard
 ┃ ┃ ┃ ┗ 📜DashboardContainer.jsx
+┃ ┃ ┣ 📂riffle
+┃ ┃ ┃ ┗ 📜RiffleContainer.jsx
 ┃ ┃ ┗ 📂users
 ┃ ┃   ┗ 📜UsersContainer.jsx
 ┃ ┣ 📂hooks
@@ -59,6 +65,8 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┃ ┗ 📜useCountries.js
 ┃ ┃ ┣ 📂generic
 ┃ ┃ ┃ ┗ 📜useSearch.js
+┃ ┃ ┣ 📂riffle
+┃ ┃ ┃ ┗ 📜useRiffle.js
 ┃ ┃ ┗ 📂users
 ┃ ┃   ┗ 📜useUsers.jsx
 ┃ ┣ 📂pages
@@ -68,6 +76,8 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┃ ┗ 📜CountriesPage.jsx
 ┃ ┃ ┣ 📂dashboard
 ┃ ┃ ┃ ┗ 📜DashboardPage.jsx
+┃ ┃ ┣ 📂riffle
+┃ ┃ ┃ ┗ 📜RifflePage.jsx
 ┃ ┃ ┣ 📂users
 ┃ ┃ ┃ ┗ 📜UsersPage.jsx
 ┃ ┃ ┗ 📜NotFoundPage.jsx
@@ -82,6 +92,8 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┃ ┗ 📜DashboardService.js
 ┃ ┃ ┣ 📂generic
 ┃ ┃ ┃ ┗ 📜AlertService.js
+┃ ┃ ┣ 📂riffle
+┃ ┃ ┃ ┗ 📜RiffleService.js
 ┃ ┃ ┗ 📂users
 ┃ ┃   ┗ 📜UserService.js
 ┃ ┣ 📂stores
@@ -97,7 +109,8 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┗ 📂generic
 ┃ ┃   ┣ 📜convertText.js
 ┃ ┃   ┣ 📜i18n.js
-┃ ┃   ┗ 📜securityValidations.js
+┃ ┃   ┣ 📜securityValidations.js
+┃ ┃   ┗ 📜transformDates.js
 ┃ ┣ 📂wrappers
 ┃ ┃ ┣ 📜AuthWrapper.jsx
 ┃ ┃ ┗ 📜ThemeWrapper.jsx
@@ -117,6 +130,7 @@ La estructura de carpetas del proyecto es la siguiente:
 ┣ 📜package.json
 ┣ 📜README.md
 ┗ 📜vite.config.js
+
 ```
 ### Descripción de carpetas:
 
