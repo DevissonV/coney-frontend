@@ -39,7 +39,7 @@ const RifflePage = ({
           }}
           style={{ position: 'absolute', right: 0 }}
         >
-          {t('create_rifle')}
+          {t('create_riffle')}
         </Button>
       </Box>
 
