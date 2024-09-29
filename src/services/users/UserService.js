@@ -3,7 +3,7 @@ import { privateAxios } from '../../utils/api/axios';
 const API_URL = import.meta.env.VITE_API_URL;
 
 export const fetchUsers = async () => {
-  const response = await privateAxios.get(`${API_URL}/User/getUsers`);
+  const response = await privateAxios.get(`${API_URL}/Users/getAllUsers`);
   const { status, code, data } = response.data;
 
   if (!status || code !== 200) {
@@ -14,7 +14,7 @@ export const fetchUsers = async () => {
 };
 
 export const createUser = async (userData) => {
-  const response = await privateAxios.post(`${API_URL}/User/createUser`, userData);
+  const response = await privateAxios.post(`${API_URL}/Users/createUser`, userData);
   const { status, code, data } = response.data;
 
   if (!status || code !== 201) {
@@ -25,7 +25,7 @@ export const createUser = async (userData) => {
 };
 
 export const getUserById = async (id) => {
-  const response = await privateAxios.get(`${API_URL}/User/getUserById/${id}`);
+  const response = await privateAxios.get(`${API_URL}/Users/getUser/${id}`);
   const { status, code, data } = response.data;
 
   if (!status || code !== 200) {
@@ -47,7 +47,7 @@ export const deleteUser = async (id) => {
 };
 
 export const editUser = async (id, userData) => {
-  const response = await privateAxios.put(`${API_URL}/User/updateUser/${id}`, userData);
+  const response = await privateAxios.put(`${API_URL}/Users/updateUser/${id}`, userData);
   const { status, code, data } = response.data;
 
   if (!status || code !== 200) {
