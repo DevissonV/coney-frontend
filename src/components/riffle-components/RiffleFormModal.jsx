@@ -75,7 +75,7 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
         />
 
         <TextField
-          label={t('endtDate')}
+          label={t('endDate')}
           type="datetime-local"
           value={endtDate}
           onChange={(e) => setendtDate(e.target.value)}
