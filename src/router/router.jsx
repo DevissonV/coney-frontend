@@ -1,11 +1,12 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import Layout from '../components/dashboard-components/layout/Layout'; 
+import DashboardContainer from '../containers/dashboard/DashboardContainer';
+import useAuthStore from '../stores/auth/useAuthStore';
+import NotFoundPage from '../pages/NotFoundPage'; 
 import AuthContainer from '../containers/auth/AuthContainer';
 import UsersContainer from '../containers/users/UsersContainer';
-import DashboardContainer from '../containers/dashboard/DashboardContainer';
-import NotFoundPage from '../pages/NotFoundPage'; 
-import useAuthStore from '../stores/auth/useAuthStore';
-import Layout from '../components/dashboard-components/layout/Layout'; 
 import CountriesContainer from '../containers/countries/CountriesContainer';
+import RiffleContainer from '../containers/riffle/RiffleContainer';
 
 
 const ProtectedRoute = ({ children }) => {
@@ -62,6 +63,18 @@ const AppRouter = () => {
             <ProtectedRoute>
               <Layout>
                 <CountriesContainer />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Ruta protegida para las reglas */}
+        <Route
+          path="/riffle"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <RiffleContainer />
               </Layout>
             </ProtectedRoute>
           }
