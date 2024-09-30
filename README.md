@@ -42,6 +42,10 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┃ ┣ 📜RiffeTable.jsx
 ┃ ┃ ┃ ┣ 📜RiffleActions.jsx
 ┃ ┃ ┃ ┗ 📜RiffleFormModal.jsx
+┃ ┃ ┣ 📂tickets-components
+┃ ┃ ┃ ┣ 📜TicketActions.jsx
+┃ ┃ ┃ ┣ 📜TicketFormModal.jsx
+┃ ┃ ┃ ┗ 📜TicketsTable.jsx
 ┃ ┃ ┗ 📂users-components
 ┃ ┃   ┣ 📜UserActions.jsx
 ┃ ┃   ┣ 📜UserCreateModal.jsx
@@ -56,6 +60,8 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┃ ┗ 📜DashboardContainer.jsx
 ┃ ┃ ┣ 📂riffle
 ┃ ┃ ┃ ┗ 📜RiffleContainer.jsx
+┃ ┃ ┣ 📂tickets
+┃ ┃ ┃ ┗ 📜TicketsContainer.jsx
 ┃ ┃ ┗ 📂users
 ┃ ┃   ┗ 📜UsersContainer.jsx
 ┃ ┣ 📂hooks
@@ -67,6 +73,8 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┃ ┗ 📜useSearch.js
 ┃ ┃ ┣ 📂riffle
 ┃ ┃ ┃ ┗ 📜useRiffle.js
+┃ ┃ ┣ 📂tickets
+┃ ┃ ┃ ┗ 📜useTickets.js
 ┃ ┃ ┗ 📂users
 ┃ ┃   ┗ 📜useUsers.jsx
 ┃ ┣ 📂pages
@@ -78,6 +86,8 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┃ ┗ 📜DashboardPage.jsx
 ┃ ┃ ┣ 📂riffle
 ┃ ┃ ┃ ┗ 📜RifflePage.jsx
+┃ ┃ ┣ 📂tickets
+┃ ┃ ┃ ┗ 📜TicketsPage.jsx
 ┃ ┃ ┣ 📂users
 ┃ ┃ ┃ ┗ 📜UsersPage.jsx
 ┃ ┃ ┗ 📜NotFoundPage.jsx
@@ -94,6 +104,8 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┃ ┗ 📜AlertService.js
 ┃ ┃ ┣ 📂riffle
 ┃ ┃ ┃ ┗ 📜RiffleService.js
+┃ ┃ ┣ 📂tickets
+┃ ┃ ┃ ┗ 📜TicketService.js
 ┃ ┃ ┗ 📂users
 ┃ ┃   ┗ 📜UserService.js
 ┃ ┣ 📂stores
@@ -130,6 +142,7 @@ La estructura de carpetas del proyecto es la siguiente:
 ┣ 📜package.json
 ┣ 📜README.md
 ┗ 📜vite.config.js
+
 
 ```
 ### Descripción de carpetas:
