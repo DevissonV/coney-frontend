@@ -81,7 +81,7 @@ const AppRouter = () => {
           element={
             <ProtectedRoute>
               <Layout>
-                <RiffleContainer />
+                <TicketsContainer />
               </Layout>
             </ProtectedRoute>
           }
