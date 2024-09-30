@@ -7,6 +7,7 @@ import AuthContainer from '../containers/auth/AuthContainer';
 import UsersContainer from '../containers/users/UsersContainer';
 import CountriesContainer from '../containers/countries/CountriesContainer';
 import RiffleContainer from '../containers/riffle/RiffleContainer';
+import TicketsContainer from '../containers/tickets/TicketsContainer';
 
 
 const ProtectedRoute = ({ children }) => {
@@ -68,13 +69,25 @@ const AppRouter = () => {
           }
         />
 
-        {/* Ruta protegida para las reglas */}
+        {/* Ruta protegida para las rifas */}
         <Route
           path="/riffle"
           element={
             <ProtectedRoute>
               <Layout>
                 <RiffleContainer />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Ruta protegida para las boletas*/}
+        <Route
+          path="/tickets"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <TicketsContainer />
               </Layout>
             </ProtectedRoute>
           }

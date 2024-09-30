@@ -44,3 +44,27 @@ export const confirmDelete = async ({ titleKey = 'confirm_delete_title', message
 
   return result;
 };
+
+
+export const confirmReservation = async (
+  { 
+    titleKey = 'confirm_reservation_title',
+    messageKey = 'confirm_delete_message' 
+  }) => {
+  const result = await Swal.fire({
+    title: i18n.t(titleKey),
+    text: i18n.t(messageKey),
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: i18n.t('yes_reserve'),
+    cancelButtonText: i18n.t('cancel'),
+  });
+
+  if (result.isConfirmed) {
+    Swal.close();  
+  }
+
+  return result;
+};

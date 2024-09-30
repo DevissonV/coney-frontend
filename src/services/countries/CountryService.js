@@ -47,12 +47,7 @@ export const deleteCountry = async (id) => {
 };
 
 export const editCountry = async (id, countryData) => {
-  const updatedCountryData = {
-    id: id,          
-    ...countryData   
-  };
-
-  const response = await privateAxios.put(`${API_URL}/Countries/updateCountry`, updatedCountryData);
+  const response = await privateAxios.put(`${API_URL}/Countries/updateCountry/${id}`, countryData);
   const { status, code, data } = response.data;
 
   if (!status || code !== 200) {
