@@ -48,6 +48,10 @@ const ResponsiveAppBar = () => {
         <Button component={Link} to="/riffle" color="inherit" sx={{ mx: 1 }}>
           {t('riffle')} 
         </Button>
+
+        <Button component={Link} to="/tickets" color="inherit" sx={{ mx: 1 }}>
+          {t('tickets')} 
+        </Button>
         
         <IconButton color="inherit" onClick={toggleDarkMode} sx={{ mx: 1 }}>
           {darkMode ? t('light_mode') : t('dark_mode')}

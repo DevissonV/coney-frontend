@@ -47,12 +47,7 @@ export const deleteRiffle = async (id) => {
 };
 
 export const editRiffle = async (id, riffleData) => {
-  const updatedRiffleData = {
-    id: id,          
-    ...riffleData   
-  };
-
-  const response = await privateAxios.put(`${API_URL}/Riffles/updateRiffle`, updatedRiffleData);
+  const response = await privateAxios.put(`${API_URL}/Riffles/updateRiffle/${id}`, riffleData);
   const { status, code, data } = response.data;
 
   if (!status || code !== 200) {
