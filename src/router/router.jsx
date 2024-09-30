@@ -11,12 +11,6 @@ import TicketsContainer from '../containers/tickets/TicketsContainer';
 
 
 const ProtectedRoute = ({ children }) => {
-  const token = useAuthStore((state) => state.token);
-
-  if (!token) {
-    return <Navigate to="/login" />; // Redirige a login si no hay token
-  }
-
   return children;
 };
 
@@ -87,7 +81,7 @@ const AppRouter = () => {
           element={
             <ProtectedRoute>
               <Layout>
-                <TicketsContainer />
+                <RiffleContainer />
               </Layout>
             </ProtectedRoute>
           }
