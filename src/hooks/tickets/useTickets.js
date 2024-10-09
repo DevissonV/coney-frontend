@@ -1,11 +1,6 @@
 import { useState } from 'react';
-import { fetchTickets, createTicket, editTicket, deleteTicket } from '../../services/tickets/TicketService';
-import { 
-  errorAlert, 
-  toast, 
-  confirmDelete,
-  confirmReservation
-} from '../../services/generic/AlertService';
+import { fetchTickets, editTicket, deleteTicket } from '../../services/tickets/TicketService';
+import { errorAlert, toast, confirmDelete, confirmReservation } from '../../services/generic/AlertService';
 
 export const useTickets = () => {
   const [loading, setLoading] = useState(true);
@@ -23,35 +18,35 @@ export const useTickets = () => {
     }
   };
 
-  const handleCreateTicket = async (ticketData) => {
-    try {
-      await createTicket(ticketData);
-      toast({ icon: 'success', titleKey: 'create_success' });
-      loadTickets();
-    } catch (error) {
-      errorAlert({ messageKey: 'error_creating_ticket' });
+  const handleEditTicket = async (ticketData) => {
+    const result = await confirmReservation({
+      titleKey: 'confirm_reservation_title',
+      messageKey: 'confirm_reservation_message'
+    });
+
+    if (result.isConfirmed) {
+      try {
+        const updatedTicketData = {
+          ticketNumber: ticketData.ticketNumber,
+          riffleId: ticketData.riffleId,
+          userId: ticketData.userId,
+        };
+        await editTicket(ticketData.id, updatedTicketData);
+        toast({ icon: 'success', titleKey: 'edit_success' });
+        loadTickets();
+      } catch (error) {
+        errorAlert({ messageKey: 'error_updating_ticket' });
+      }
     }
   };
 
-  const handleEditTicket = async (id, ticketData) => {
-      const result = await confirmReservation({
-        titleKey: 'confirm_reservation_title', 
-        messageKey: 'confirm_reservation_message'
-      });
-      
-      await deleteTicket(id);
-      loadTickets();
-      toast({ icon: 'success', titleKey: 'reservation_success' });
-
-  };  
-
   const handleDeleteTicket = async (id) => {
     const result = await confirmDelete({
-      titleKey: 'confirm_delete_title', 
+      titleKey: 'confirm_delete_title',
       messageKey: 'confirm_delete_message'
     });
-  
-    if (result.isConfirmed) { 
+
+    if (result.isConfirmed) {
       try {
         await deleteTicket(id);
         toast({ icon: 'success', titleKey: 'delete_success' });
@@ -59,14 +54,13 @@ export const useTickets = () => {
       } catch (error) {
         errorAlert({ messageKey: 'error_deleting_ticket' });
       }
-    } 
+    }
   };
 
   return {
     tickets,
     loading,
     loadTickets,
-    handleCreateTicket,
     handleEditTicket,
     handleDeleteTicket,
   };

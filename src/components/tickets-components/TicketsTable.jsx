@@ -1,9 +1,8 @@
-import { Box, IconButton } from '@mui/material';
+import { Box } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import TicketActions from './TicketActions';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const TicketsTable = ({ rows, pageSize, setPageSize, loading, onEdit, onDelete }) => {
   const { t } = useTranslation();
@@ -46,9 +45,7 @@ const TicketsTable = ({ rows, pageSize, setPageSize, loading, onEdit, onDelete }
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         loading={loading}
-        components={{
-          Toolbar: GridToolbar,
-        }}
+        components={{ Toolbar: GridToolbar }}
         localeText={localeText}
       />
     </Box>
