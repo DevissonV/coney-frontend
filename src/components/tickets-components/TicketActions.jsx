@@ -4,7 +4,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const TicketActions = ({ ticketId, onEdit, onDelete }) => (
   <>
-    <IconButton color="primary" onClick={() => onEdit(ticketId)}>
+    <IconButton color="primary" onClick={ onEdit }>
       <ShoppingCartIcon />
     </IconButton>
     <IconButton color="error" onClick={() => onDelete(ticketId)}>
