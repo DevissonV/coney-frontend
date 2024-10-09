@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Typography, Button, useMediaQuery } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import UsersTable from '../../components/users-components/UsersTable';
 import UserCreateModal from '../../components/users-components/UserCreateModal';
 import UserEditModal from '../../components/users-components/UserEditModal';
 import SearchToolbar from '../../components/generic/search-toolbar/SearchToolbar';
+import { useTheme } from '@mui/material/styles';
 
 const UsersPage = ({ users, loading, onDelete, onUpdate, onCreate }) => {
   const { t } = useTranslation();
@@ -14,6 +15,9 @@ const UsersPage = ({ users, loading, onDelete, onUpdate, onCreate }) => {
   const [openEditModal, setOpenEditModal] = useState(false); 
   const [currentUser, setCurrentUser] = useState(null); 
   const [searchQuery, setSearchQuery] = useState('');
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm')); 
 
   useEffect(() => {
     setFilteredRows(users); 
@@ -42,7 +46,13 @@ const UsersPage = ({ users, loading, onDelete, onUpdate, onCreate }) => {
 
   return (
     <Box padding={2}>
-      <Box display="flex" justifyContent="center" alignItems="center" mb={2} position="relative">
+      <Box 
+        display="flex" 
+        justifyContent={isMobile ? "center" : "space-between"} 
+        alignItems={isMobile ? "center" : "flex-start"} 
+        mb={2} 
+        flexDirection={isMobile ? "column" : "row"}
+      >
         <Typography variant="h4" gutterBottom textAlign="center" style={{ flexGrow: 1 }}>
           {t('users')}
         </Typography>
@@ -50,13 +60,13 @@ const UsersPage = ({ users, loading, onDelete, onUpdate, onCreate }) => {
           variant="contained" 
           color="primary" 
           onClick={() => setOpenCreateModal(true)}
-          style={{ position: 'absolute', right: 0 }}
+          style={{ marginTop: isMobile ? "16px" : "0", right: 0 }}
         >
           {t('create_user')}
         </Button>
       </Box>
 
-      <Box display="flex" justifyContent="flex-start" mb={2}>
+      <Box display="flex" justifyContent={isMobile ? "center" : "flex-start"} mb={2}>
         <SearchToolbar
           searchQuery={searchQuery} 
           onSearchChange={handleSearchChange}
