@@ -4,6 +4,7 @@ import UserActions from './UserActions';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
+import CellContent from '../generic/table/CellContent'; 
 
 const UsersTable = ({ rows, loading, onEdit, onDelete }) => {
   const { t } = useTranslation();
@@ -98,12 +99,6 @@ const UsersTable = ({ rows, loading, onEdit, onDelete }) => {
   );
 };
 
-const CellContent = ({ value }) => (
-  <div style={{ whiteSpace: 'normal', wordWrap: 'break-word' }}>
-    {value}
-  </div>
-);
-
 UsersTable.propTypes = {
   rows: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
@@ -111,8 +106,5 @@ UsersTable.propTypes = {
   onDelete: PropTypes.func.isRequired,
 };
 
-CellContent.propTypes = {
-  value: PropTypes.string.isRequired,
-};
 
 export default UsersTable;
