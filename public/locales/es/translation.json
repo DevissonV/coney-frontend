@@ -81,6 +81,8 @@
   "continue": "Continuar para reservar",
   "confirm_reservation_title": "¿Estás seguro?",
   "confirm_reservation_message": "Esta acción no se puede deshacer. ¿Deseas reservar esta boleta?",
+  "login": "Iniciar sesión",
+  "session_ended": "Sesión Finalizada",
   "error_unexpected": "Ha ocurrido un error inesperado.",
   "error_loading_users": "Error al cargar los usuarios.",
   "error_creating_user": "Error al crear el usuario.",

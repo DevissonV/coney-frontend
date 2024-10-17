@@ -14,9 +14,14 @@ const ProtectedRoute = ({ children }) => {
   const token = useAuthStore((state) => state.token);
 
   if (!token) {
-    return <Navigate to="/login" />; // Redirige a login si no hay token
+    return <Navigate to="/login" />; 
   }
 
+  return children;
+};
+
+const AnonymousRoute = ({ children }) => {
+  const token = useAuthStore((state) => state.token);
   return children;
 };
 
@@ -24,28 +29,37 @@ const AppRouter = () => {
   return (
     <Router>
       <Routes>
-        {/* Rutas abiertas */}
+        {/* Routes open to everyone */}
         <Route path="/login" element={<AuthContainer />} />
-        
-        {/* Redirigir la raíz "/" a "/dashboard" */}
+
+        <Route 
+          path="/dashboard" 
+          element={
+            <AnonymousRoute>
+              <Layout>
+                <DashboardContainer />
+              </Layout>
+            </AnonymousRoute>
+          } 
+        />
+
+        <Route 
+          path="/riffle" 
+          element={
+            <AnonymousRoute>
+              <Layout>
+                <RiffleContainer />
+              </Layout>
+            </AnonymousRoute>
+          } 
+        />
+
         <Route 
           path="/" 
           element={<Navigate to="/dashboard" />} 
         />
 
-        {/* Ruta protegida para el Dashboard */}
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Layout>
-                <DashboardContainer />
-              </Layout>
-            </ProtectedRoute>
-          }
-        />
-        
-        {/* Ruta protegida para Usuarios */}
+        {/* Protected routes that require authentication */}
         <Route
           path="/users"
           element={
@@ -57,7 +71,6 @@ const AppRouter = () => {
           }
         />
         
-        {/* Ruta protegida para los paises */}
         <Route
           path="/countries"
           element={
@@ -69,19 +82,6 @@ const AppRouter = () => {
           }
         />
 
-        {/* Ruta protegida para las rifas */}
-        <Route
-          path="/riffle"
-          element={
-            <ProtectedRoute>
-              <Layout>
-                <RiffleContainer />
-              </Layout>
-            </ProtectedRoute>
-          }
-        />
-
-        {/* Ruta protegida para las boletas*/}
         <Route
           path="/tickets"
           element={
@@ -93,7 +93,7 @@ const AppRouter = () => {
           }
         />
 
-        {/* Ruta para manejar 404 */}
+        {/* Route to handle 404 */}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>

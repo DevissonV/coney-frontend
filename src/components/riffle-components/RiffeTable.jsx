@@ -5,9 +5,11 @@ import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 import RiffleActions from './RiffleActions';
 import CellContent from '../generic/table/CellContent'; 
+import useAuthStore from '../../stores/auth/useAuthStore';
 
 const RiffleTable = ({ rows, loading, onEdit, onDelete }) => {
   const { t } = useTranslation();
+  const token = useAuthStore((state) => state.token); 
 
   const localeText = useMemo(() => ({
     columnMenuSortAsc: t('sort_asc'),
@@ -21,56 +23,71 @@ const RiffleTable = ({ rows, loading, onEdit, onDelete }) => {
     },
   }), [t]);
 
-  const columns = useMemo(() => [
-    {
-      field: 'name',
-      headerName: t('name'),
-      flex: 1,
-      minWidth: 120,
-      renderCell: (params) => <CellContent value={params.value} />,
-    },
-    {
-      field: 'description',
-      headerName: t('description'),
-      flex: 1,
-      minWidth: 120,
-      renderCell: (params) => <CellContent value={params.value} />,
-    },
-    {
-      field: 'initDate',
-      headerName: t('initDate'),
-      flex: 1,
-      minWidth: 150,
-      renderCell: (params) => <CellContent value={params.value} />,
-    },
-    {
-      field: 'endDate',
-      headerName: t('endDate'),
-      flex: 1,
-      minWidth: 150,
-      renderCell: (params) => <CellContent value={params.value} />,
-    },
-    {
-      field: 'actions',
-      headerName: t('actions'),
-      renderCell: (params) => (
-        <RiffleActions riffleId={params.row.id} onEdit={onEdit} onDelete={onDelete} />
-      ),
-      flex: 0.3,
-      minWidth: 100,
-      sortable: false,
-      filterable: false,
-    },
-  ], [t, onEdit, onDelete]);
+  const columns = useMemo(() => {
+    const baseColumns = [
+      {
+        field: 'name',
+        headerName: t('name'),
+        flex: 1.5, 
+        minWidth: 180, 
+        renderCell: (params) => <CellContent value={params.value} />,
+      },
+      {
+        field: 'description',
+        headerName: t('description'),
+        flex: 1.5,
+        minWidth: 180,
+        renderCell: (params) => <CellContent value={params.value} />,
+      },
+      {
+        field: 'initDate',
+        headerName: t('initDate'),
+        flex: 1.2, 
+        minWidth: 180,
+        renderCell: (params) => {
+          const formattedDate = new Date(params.value).toLocaleDateString();
+          return <CellContent value={formattedDate} />;
+        },
+      },
+      {
+        field: 'endtDate',
+        headerName: t('endDate'),
+        flex: 1.2,
+        minWidth: 180,
+        renderCell: (params) => {
+          const formattedDate = params.value 
+            ? new Date(params.value).toLocaleDateString()
+            : t('no_data');
+          return <CellContent value={formattedDate} />;
+        },
+      },
+    ];
+
+    if (token) {
+      baseColumns.push({
+        field: 'actions',
+        headerName: t('actions'),
+        renderCell: (params) => (
+          <RiffleActions riffleId={params.row.id} onEdit={onEdit} onDelete={onDelete} />
+        ),
+        flex: 0.5, 
+        minWidth: 150, 
+        sortable: false,
+        filterable: false,
+      });
+    }
+
+    return baseColumns;
+  }, [t, onEdit, onDelete, token]);
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: '100%', padding: 2 }}>
       <DataGrid
         rows={rows}
         columns={columns}
         pagination
         autoHeight
-        getRowHeight={() => 'auto'}
+        getRowHeight={() => 60}
         initialState={{
           pagination: {
             paginationModel: { pageSize: 5 },
@@ -82,15 +99,20 @@ const RiffleTable = ({ rows, loading, onEdit, onDelete }) => {
         components={{ Toolbar: GridToolbar }}
         localeText={localeText}
         sx={{
+          maxHeight: 600, 
           '& .MuiDataGrid-cell': {
             whiteSpace: 'normal',
             wordWrap: 'break-word',
             lineHeight: '1.5',
+            minHeight: 60,
           },
           '& .MuiDataGrid-columnHeaderTitle': {
             overflow: 'visible',
             whiteSpace: 'normal',
             wordWrap: 'break-word',
+          },
+          '& .MuiDataGrid-root': {
+            border: 'none',
           },
         }}
       />

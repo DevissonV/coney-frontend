@@ -21,7 +21,6 @@ const UsersTable = ({ rows, loading, onEdit, onDelete }) => {
     },
   }), [t]);
 
-  
   const columns = useMemo(() => [
     {
       field: 'firstName',
@@ -49,7 +48,12 @@ const UsersTable = ({ rows, loading, onEdit, onDelete }) => {
       headerName: t('created_at'),
       flex: 1,
       minWidth: 150,
-      renderCell: (params) => <CellContent value={params.value} />,
+      renderCell: (params) => {
+        const formattedDate = params.value
+          ? new Date(params.value).toLocaleDateString()
+          : t('no_data');
+        return <CellContent value={formattedDate} />;
+      },
     },
     {
       field: 'actions',
@@ -105,6 +109,5 @@ UsersTable.propTypes = {
   onEdit: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
 };
-
 
 export default UsersTable;

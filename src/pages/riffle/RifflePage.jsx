@@ -5,6 +5,7 @@ import RiffleTable from '../../components/riffle-components/RiffeTable';
 import RiffleFormModal from '../../components/riffle-components/RiffleFormModal';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@mui/material/styles';
+import useAuthStore from '../../stores/auth/useAuthStore'; 
 
 const RifflePage = ({
   riffle,
@@ -25,6 +26,7 @@ const RifflePage = ({
   
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm')); 
+  const token = useAuthStore((state) => state.token); 
 
   return (
     <Box>
@@ -38,20 +40,23 @@ const RifflePage = ({
         <Typography variant="h4" gutterBottom textAlign="center" style={{ flexGrow: 1 }}>
           {t('riffle')}
         </Typography>
-        <Button 
-          variant="contained" 
-          color="primary" 
-          onClick={() => {
-            setRiffleToEdit(null);
-            setOpenModal(true);
-          }}
-          sx={{
-            mt: isMobile ? 2 : 0,  
-            textAlign: 'center'
-          }}
-        >
-          {t('create_riffle')}
-        </Button>
+
+        {token && (
+          <Button 
+            variant="contained" 
+            color="primary" 
+            onClick={() => {
+              setRiffleToEdit(null);
+              setOpenModal(true);
+            }}
+            sx={{
+              mt: isMobile ? 2 : 0,  
+              textAlign: 'center'
+            }}
+          >
+            {t('create_riffle')}
+          </Button>
+        )}
       </Box>
 
       <Box 
