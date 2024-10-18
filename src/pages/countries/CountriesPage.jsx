@@ -5,6 +5,7 @@ import CountriesTable from '../../components/countries-components/CountriesTable
 import CountryFormModal from '../../components/countries-components/CountryFormModal';
 import SearchToolbar from '../../components/generic/search-toolbar/SearchToolbar';
 import { useTheme } from '@mui/material/styles';
+import  useAuthStore  from '../../stores/auth/useAuthStore';
 
 const CountriesPage = ({
   countries,
@@ -24,7 +25,9 @@ const CountriesPage = ({
   const [pageSize, setPageSize] = useState(5);
 
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm')); 
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  
+  const { user } = useAuthStore(); 
 
   return (
     <Box>
@@ -38,17 +41,20 @@ const CountriesPage = ({
         <Typography variant="h4" gutterBottom textAlign="center" style={{ flexGrow: 1 }}>
           {t('countries')}
         </Typography>
-        <Button 
-          variant="contained" 
-          color="primary" 
-          onClick={() => {
-            setCountryToEdit(null);
-            setOpenModal(true);
-          }}
-          style={{ marginTop: isMobile ? "16px" : "0" }} 
-        >
-          {t('create_country')}
-        </Button>
+
+        {user?.role === 'admin' && (
+          <Button 
+            variant="contained" 
+            color="primary" 
+            onClick={() => {
+              setCountryToEdit(null);
+              setOpenModal(true);
+            }}
+            style={{ marginTop: isMobile ? "16px" : "0" }} 
+          >
+            {t('create_country')}
+          </Button>
+        )}
       </Box>
 
       <Box 

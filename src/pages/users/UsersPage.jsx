@@ -6,6 +6,7 @@ import UserCreateModal from '../../components/users-components/UserCreateModal';
 import UserEditModal from '../../components/users-components/UserEditModal';
 import SearchToolbar from '../../components/generic/search-toolbar/SearchToolbar';
 import { useTheme } from '@mui/material/styles';
+import  useAuthStore  from '../../stores/auth/useAuthStore';
 
 const UsersPage = ({ users, loading, onDelete, onUpdate, onCreate }) => {
   const { t } = useTranslation();
@@ -18,6 +19,7 @@ const UsersPage = ({ users, loading, onDelete, onUpdate, onCreate }) => {
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm')); 
+  const { user } = useAuthStore();
 
   useEffect(() => {
     setFilteredRows(users); 
@@ -56,14 +58,17 @@ const UsersPage = ({ users, loading, onDelete, onUpdate, onCreate }) => {
         <Typography variant="h4" gutterBottom textAlign="center" style={{ flexGrow: 1 }}>
           {t('users')}
         </Typography>
-        <Button 
-          variant="contained" 
-          color="primary" 
-          onClick={() => setOpenCreateModal(true)}
-          style={{ marginTop: isMobile ? "16px" : "0", right: 0 }}
-        >
-          {t('create_user')}
-        </Button>
+
+        {user?.role === 'admin' && (
+          <Button 
+            variant="contained" 
+            color="primary" 
+            onClick={() => setOpenCreateModal(true)}
+            style={{ marginTop: isMobile ? "16px" : "0", right: 0 }}
+          >
+            {t('create_user')}
+          </Button>
+        )}
       </Box>
 
       <Box display="flex" justifyContent={isMobile ? "center" : "flex-start"} mb={2}>

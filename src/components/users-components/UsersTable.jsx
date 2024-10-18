@@ -1,13 +1,15 @@
 import { Box } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import UserActions from './UserActions';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
-import CellContent from '../generic/table/CellContent'; 
+import UserActions from './UserActions';
+import CellContent from '../generic/table/CellContent';
+import useAuthStore from '../../stores/auth/useAuthStore';
 
 const UsersTable = ({ rows, loading, onEdit, onDelete }) => {
   const { t } = useTranslation();
+  const { user } = useAuthStore();
 
   const localeText = useMemo(() => ({
     columnMenuSortAsc: t('sort_asc'),
@@ -21,57 +23,68 @@ const UsersTable = ({ rows, loading, onEdit, onDelete }) => {
     },
   }), [t]);
 
-  
-  const columns = useMemo(() => [
-    {
-      field: 'firstName',
-      headerName: t('first_name'),
-      flex: 1,
-      minWidth: 120,
-      renderCell: (params) => <CellContent value={params.value} />,
-    },
-    {
-      field: 'lastName',
-      headerName: t('last_name'),
-      flex: 1,
-      minWidth: 120,
-      renderCell: (params) => <CellContent value={params.value} />,
-    },
-    {
-      field: 'email',
-      headerName: t('email'),
-      flex: 1,
-      minWidth: 200,
-      renderCell: (params) => <CellContent value={params.value} />,
-    },
-    {
-      field: 'createdAt',
-      headerName: t('created_at'),
-      flex: 1,
-      minWidth: 150,
-      renderCell: (params) => <CellContent value={params.value} />,
-    },
-    {
-      field: 'actions',
-      headerName: t('actions'),
-      renderCell: (params) => (
-        <UserActions userId={params.row.id} onEdit={onEdit} onDelete={onDelete} />
-      ),
-      flex: 0.3,
-      minWidth: 100,
-      sortable: false,
-      filterable: false,
-    },
-  ], [t, onEdit, onDelete]);
+  const columns = useMemo(() => {
+    const baseColumns = [
+      {
+        field: 'firstName',
+        headerName: t('first_name'),
+        flex: 1.5,
+        minWidth: 120,
+        renderCell: (params) => <CellContent value={params.value} />,
+      },
+      {
+        field: 'lastName',
+        headerName: t('last_name'),
+        flex: 1.5,
+        minWidth: 120,
+        renderCell: (params) => <CellContent value={params.value} />,
+      },
+      {
+        field: 'email',
+        headerName: t('email'),
+        flex: 1.5,
+        minWidth: 200,
+        renderCell: (params) => <CellContent value={params.value} />,
+      },
+      {
+        field: 'createdAt',
+        headerName: t('created_at'),
+        flex: 1.2,
+        minWidth: 150,
+        renderCell: (params) => {
+          const formattedDate = params.value
+            ? new Date(params.value).toLocaleDateString()
+            : t('no_data');
+          return <CellContent value={formattedDate} />;
+        },
+      },
+    ];
+
+    if (user?.role === 'admin') {
+      baseColumns.push({
+        field: 'actions',
+        headerName: t('actions'),
+        renderCell: (params) => (
+          <UserActions userId={params.row.id} onEdit={onEdit} onDelete={onDelete} />
+        ),
+        flex: 0.5,
+        minWidth: 150,
+        sortable: false,
+        filterable: false,
+      });
+    }
+
+    return baseColumns;
+  }, [t, onEdit, onDelete, user?.role]);
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: '100%', padding: 2 }}>
       <DataGrid
         rows={rows}
         columns={columns}
         pagination
         autoHeight
-        getRowHeight={() => 'auto'}
+        getRowHeight={() => 45}
         initialState={{
           pagination: {
             paginationModel: { pageSize: 5 },
@@ -83,15 +96,20 @@ const UsersTable = ({ rows, loading, onEdit, onDelete }) => {
         components={{ Toolbar: GridToolbar }}
         localeText={localeText}
         sx={{
+          maxHeight: 600,
           '& .MuiDataGrid-cell': {
             whiteSpace: 'normal',
             wordWrap: 'break-word',
             lineHeight: '1.5',
+            minHeight: 45,
           },
           '& .MuiDataGrid-columnHeaderTitle': {
             overflow: 'visible',
             whiteSpace: 'normal',
             wordWrap: 'break-word',
+          },
+          '& .MuiDataGrid-root': {
+            border: 'none',
           },
         }}
       />
@@ -105,6 +123,5 @@ UsersTable.propTypes = {
   onEdit: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
 };
-
 
 export default UsersTable;

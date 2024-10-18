@@ -12,9 +12,6 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┃ ┗ 📜translation.json
 ┃ ┃ ┗ 📂es
 ┃ ┃   ┗ 📜translation.json
-┃ ┣ 📂static
-┃ ┃ ┣ 📜countries.json
-┃ ┃ ┗ 📜login.json
 ┃ ┗ 📜vite.svg
 ┣ 📂src
 ┃ ┣ 📂assets
@@ -35,9 +32,15 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┃ ┣ 📂input
 ┃ ┃ ┃ ┃ ┗ 📜Input.jsx
 ┃ ┃ ┃ ┣ 📂navbar
-┃ ┃ ┃ ┃ ┗ 📜ResponsiveAppBar.jsx
-┃ ┃ ┃ ┗ 📂search-toolbar
-┃ ┃ ┃   ┗ 📜SearchToolbar.jsx
+┃ ┃ ┃ ┃ ┣ 📜NavLinks.jsx
+┃ ┃ ┃ ┃ ┣ 📜ResponsiveAppBar.jsx
+┃ ┃ ┃ ┃ ┣ 📜ResponsiveDrawer.jsx
+┃ ┃ ┃ ┃ ┣ 📜ThemeToggleButton.jsx
+┃ ┃ ┃ ┃ ┗ 📜UserMenu.jsx
+┃ ┃ ┃ ┣ 📂search-toolbar
+┃ ┃ ┃ ┃ ┗ 📜SearchToolbar.jsx
+┃ ┃ ┃ ┗ 📂table
+┃ ┃ ┃   ┗ 📜CellContent.jsx
 ┃ ┃ ┣ 📂riffle-components
 ┃ ┃ ┃ ┣ 📜RiffeTable.jsx
 ┃ ┃ ┃ ┣ 📜RiffleActions.jsx
@@ -65,8 +68,6 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┗ 📂users
 ┃ ┃   ┗ 📜UsersContainer.jsx
 ┃ ┣ 📂hooks
-┃ ┃ ┣ 📂auth
-┃ ┃ ┃ ┗ 📜useAuth.js
 ┃ ┃ ┣ 📂countries
 ┃ ┃ ┃ ┗ 📜useCountries.js
 ┃ ┃ ┣ 📂generic
@@ -144,6 +145,7 @@ La estructura de carpetas del proyecto es la siguiente:
 ┗ 📜vite.config.js
 
 
+
 ```
 ### Descripción de carpetas:
 
@@ -151,7 +153,6 @@ La estructura de carpetas del proyecto es la siguiente:
   - **locales**: Aquí tienes las traducciones para i18n (internacionalización), lo que permite que la aplicación soporte múltiples idiomas.
     - en/translation.json: Traducciones al inglés.
     - es/translation.json: Traducciones al español.
-  - **static/login.json:**:  Archivo estático donde hay información para simular el login
 
 
 - **.📂src/**: 

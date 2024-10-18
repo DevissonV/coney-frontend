@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { IconButton, Menu, MenuItem, Avatar, Tooltip } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import useAuthStore from '../../../stores/auth/useAuthStore'; 
 
 const UserMenu = ({ handleLogout }) => {
   const [anchorElUser, setAnchorElUser] = useState(null);
   const { t } = useTranslation();
+  const token = useAuthStore((state) => state.token);
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -12,6 +14,10 @@ const UserMenu = ({ handleLogout }) => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleLogin = () => {
+    window.location.href = "/login"; 
   };
 
   return (
@@ -31,7 +37,11 @@ const UserMenu = ({ handleLogout }) => {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        <MenuItem onClick={handleLogout}>{t('logout')}</MenuItem>
+        {token ? (
+          <MenuItem onClick={handleLogout}>{t('logout')}</MenuItem>
+        ) : (
+          <MenuItem onClick={handleLogin}>{t('login')}</MenuItem>
+        )}
       </Menu>
     </>
   );

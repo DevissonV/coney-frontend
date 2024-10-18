@@ -7,11 +7,14 @@ import ResponsiveDrawer from './ResponsiveDrawer';
 import NavLinks from './NavLinks';
 import { useThemeContext } from '../../../wrappers/ThemeWrapper';
 import useAuthStore from '../../../stores/auth/useAuthStore';
+import { useNavigate } from 'react-router-dom';
+import { toast } from '../../../services/generic/AlertService';
 
 const ResponsiveAppBar = () => {
   const { darkMode, toggleDarkMode } = useThemeContext();
   const [mobileOpen, setMobileOpen] = useState(false); 
   const logout = useAuthStore((state) => state.logout); 
+  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -19,7 +22,8 @@ const ResponsiveAppBar = () => {
 
   const handleLogout = () => {
     logout();
-    navigate('/login'); 
+    navigate('/dashboard'); 
+    toast({ icon: 'success', titleKey: 'session_ended' });
   };
 
   return (
@@ -45,7 +49,6 @@ const ResponsiveAppBar = () => {
             <NavLinks darkMode={darkMode} />
           </Box>
 
-  
           <ThemeToggleButton darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
 
           <UserMenu handleLogout={handleLogout} />

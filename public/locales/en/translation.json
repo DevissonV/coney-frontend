@@ -87,6 +87,8 @@
   "error_invalid_input": "Invalid input detected.",
   "error_deleting_user": "Error deleting user.",
   "error_updating_user": "Error updating user",
+  "login": "Login",
+  "session_ended": "session ended",
   "error_deleting_country": "Error deleting country",
   "error_creating_country": "Error creating country",
   "error_updating_country": "Error updating country",
