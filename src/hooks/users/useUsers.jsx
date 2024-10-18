@@ -1,10 +1,13 @@
 import { useCallback } from 'react';
 import { fetchUsers, deleteUser, editUser, createUser } from '../../services/users/UserService';
-import { errorAlert,confirmDelete,toast } from '../../services/generic/AlertService.js';
+import { errorAlert, confirmDelete, toast } from '../../services/generic/AlertService.js';
 import useUserStore from '../../stores/users/useUserStore';
+import useAuthStore from '../../stores/auth/useAuthStore'; 
 
 export const useUsers = () => {
-  const setUsers = useUserStore((state) => state.setUsers); 
+  const setUsers = useUserStore((state) => state.setUsers);
+  const loggedInUser = useAuthStore((state) => state.user);
+  const updateAuthUser = useAuthStore((state) => state.updateUser);
 
   const handleDeleteUser = useCallback(async (userId) => {
     try {
@@ -30,10 +33,14 @@ export const useUsers = () => {
       toast({ icon: 'success', titleKey: 'success', messageKey: 'edit_success' });
       const updatedUsers = await fetchUsers();
       setUsers(updatedUsers);
+
+      if (loggedInUser.id === userId) {
+        updateAuthUser(updatedUserData);
+      }
     } catch (error) {
       errorAlert({ messageKey: 'error_updating_user' });
     }
-  }, [setUsers]);
+  }, [setUsers, loggedInUser, updateAuthUser]);
 
   const handleCreateUser = useCallback(async (newUserData) => {
     try {
