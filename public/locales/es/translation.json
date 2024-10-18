@@ -83,6 +83,7 @@
   "confirm_reservation_message": "Esta acción no se puede deshacer. ¿Deseas reservar esta boleta?",
   "login": "Iniciar sesión",
   "session_ended": "Sesión Finalizada",
+  "edit_profile": "Editar perfil",
   "error_unexpected": "Ha ocurrido un error inesperado.",
   "error_loading_users": "Error al cargar los usuarios.",
   "error_creating_user": "Error al crear el usuario.",
