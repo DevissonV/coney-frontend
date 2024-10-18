@@ -9,7 +9,7 @@ const NavLinks = ({ darkMode }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   
-  const token = useAuthStore((state) => state.token); 
+  const { token, user } = useAuthStore(); 
 
   return (
     <Box sx={{ display: isMobile ? 'block' : 'flex', gap: 2 }}>
@@ -25,12 +25,20 @@ const NavLinks = ({ darkMode }) => {
       {/* Only show these links if the user is authenticated (has a token) */}
       {token && (
         <>
-          <ListItem component={Link} to="/users" sx={{ width: 'auto' }}>
-            <ListItemText primary={t('users')} sx={{ color: darkMode ? '#fff' : '#000' }} />
-          </ListItem>
-          <ListItem component={Link} to="/countries" sx={{ width: 'auto' }}>
-            <ListItemText primary={t('countries')} sx={{ color: darkMode ? '#fff' : '#000' }} />
-          </ListItem>
+          {/* Only admins can see the 'users' link */}
+          {user?.role === 'admin' && (
+            <ListItem component={Link} to="/users" sx={{ width: 'auto' }}>
+              <ListItemText primary={t('users')} sx={{ color: darkMode ? '#fff' : '#000' }} />
+            </ListItem>
+          )}
+
+          {/* Only admins can see the 'countries' link */}
+          {user?.role === 'admin' && (
+            <ListItem component={Link} to="/countries" sx={{ width: 'auto' }}>
+              <ListItemText primary={t('countries')} sx={{ color: darkMode ? '#fff' : '#000' }} />
+            </ListItem>
+          )}
+
           <ListItem component={Link} to="/tickets" sx={{ width: 'auto' }}>
             <ListItemText primary={t('tickets')} sx={{ color: darkMode ? '#fff' : '#000' }} />
           </ListItem>

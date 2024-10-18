@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 import RiffleActions from './RiffleActions';
-import CellContent from '../generic/table/CellContent'; 
+import CellContent from '../generic/table/CellContent';
 import useAuthStore from '../../stores/auth/useAuthStore';
 
 const RiffleTable = ({ rows, loading, onEdit, onDelete }) => {
   const { t } = useTranslation();
-  const token = useAuthStore((state) => state.token); 
+  const { user } = useAuthStore(); 
 
   const localeText = useMemo(() => ({
     columnMenuSortAsc: t('sort_asc'),
@@ -28,8 +28,8 @@ const RiffleTable = ({ rows, loading, onEdit, onDelete }) => {
       {
         field: 'name',
         headerName: t('name'),
-        flex: 1.5, 
-        minWidth: 180, 
+        flex: 1.5,
+        minWidth: 180,
         renderCell: (params) => <CellContent value={params.value} />,
       },
       {
@@ -42,7 +42,7 @@ const RiffleTable = ({ rows, loading, onEdit, onDelete }) => {
       {
         field: 'initDate',
         headerName: t('initDate'),
-        flex: 1.2, 
+        flex: 1.2,
         minWidth: 180,
         renderCell: (params) => {
           const formattedDate = new Date(params.value).toLocaleDateString();
@@ -55,7 +55,7 @@ const RiffleTable = ({ rows, loading, onEdit, onDelete }) => {
         flex: 1.2,
         minWidth: 180,
         renderCell: (params) => {
-          const formattedDate = params.value 
+          const formattedDate = params.value
             ? new Date(params.value).toLocaleDateString()
             : t('no_data');
           return <CellContent value={formattedDate} />;
@@ -63,22 +63,22 @@ const RiffleTable = ({ rows, loading, onEdit, onDelete }) => {
       },
     ];
 
-    if (token) {
+    if (user?.role === 'admin') {
       baseColumns.push({
         field: 'actions',
         headerName: t('actions'),
         renderCell: (params) => (
           <RiffleActions riffleId={params.row.id} onEdit={onEdit} onDelete={onDelete} />
         ),
-        flex: 0.5, 
-        minWidth: 150, 
+        flex: 0.5,
+        minWidth: 150,
         sortable: false,
         filterable: false,
       });
     }
 
     return baseColumns;
-  }, [t, onEdit, onDelete, token]);
+  }, [t, onEdit, onDelete, user?.role]);
 
   return (
     <Box sx={{ width: '100%', padding: 2 }}>
@@ -99,7 +99,7 @@ const RiffleTable = ({ rows, loading, onEdit, onDelete }) => {
         components={{ Toolbar: GridToolbar }}
         localeText={localeText}
         sx={{
-          maxHeight: 600, 
+          maxHeight: 600,
           '& .MuiDataGrid-cell': {
             whiteSpace: 'normal',
             wordWrap: 'break-word',
