@@ -28,7 +28,7 @@ const TicketsTable = ({ rows, pageSize, loading, onEdit, onDelete }) => {
         <TicketActions
           ticketId={params.row.id}
           onEdit={() => onEdit(params.row)}
-          onDelete={onDelete}
+          onDelete={() => onDelete(params.row.id)} 
         />
       ),
       flex: 1,
@@ -59,7 +59,6 @@ const TicketsTable = ({ rows, pageSize, loading, onEdit, onDelete }) => {
 TicketsTable.propTypes = {
   rows: PropTypes.array.isRequired,
   pageSize: PropTypes.number.isRequired,
-  setPageSize: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   onEdit: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,

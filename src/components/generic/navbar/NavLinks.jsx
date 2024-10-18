@@ -38,10 +38,6 @@ const NavLinks = ({ darkMode }) => {
               <ListItemText primary={t('countries')} sx={{ color: darkMode ? '#fff' : '#000' }} />
             </ListItem>
           )}
-
-          <ListItem component={Link} to="/tickets" sx={{ width: 'auto' }}>
-            <ListItemText primary={t('tickets')} sx={{ color: darkMode ? '#fff' : '#000' }} />
-          </ListItem>
         </>
       )}
     </Box>

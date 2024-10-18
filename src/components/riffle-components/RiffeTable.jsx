@@ -7,7 +7,7 @@ import RiffleActions from './RiffleActions';
 import CellContent from '../generic/table/CellContent';
 import useAuthStore from '../../stores/auth/useAuthStore';
 
-const RiffleTable = ({ rows, loading, onEdit, onDelete }) => {
+const RiffleTable = ({ rows, loading, onEdit, onDelete, onViewTickets }) => {
   const { t } = useTranslation();
   const { user } = useAuthStore(); 
 
@@ -68,7 +68,12 @@ const RiffleTable = ({ rows, loading, onEdit, onDelete }) => {
         field: 'actions',
         headerName: t('actions'),
         renderCell: (params) => (
-          <RiffleActions riffleId={params.row.id} onEdit={onEdit} onDelete={onDelete} />
+          <RiffleActions
+            riffleId={params.row.id}
+            onEdit={() => onEdit(params.row)}
+            onDelete={onDelete}
+            onViewTickets={onViewTickets}
+          />
         ),
         flex: 0.5,
         minWidth: 150,
@@ -125,6 +130,7 @@ RiffleTable.propTypes = {
   loading: PropTypes.bool.isRequired,
   onEdit: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
+  onViewTickets: PropTypes.func.isRequired,
 };
 
 export default RiffleTable;
