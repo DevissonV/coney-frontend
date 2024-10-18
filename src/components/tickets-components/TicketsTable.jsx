@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import TicketActions from './TicketActions';
 
-const TicketsTable = ({ rows, pageSize, setPageSize, loading, onEdit, onDelete }) => {
+const TicketsTable = ({ rows, pageSize, loading, onEdit, onDelete }) => {
   const { t } = useTranslation();
 
   const localeText = {
@@ -42,8 +42,12 @@ const TicketsTable = ({ rows, pageSize, setPageSize, loading, onEdit, onDelete }
       <DataGrid
         rows={rows}
         columns={columns}
-        pageSize={pageSize}
-        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+        initialState={{
+          pagination: {
+            paginationModel: { pageSize },
+          },
+        }}
+        pageSizeOptions={[20, 40 , 60, 100]}
         loading={loading}
         components={{ Toolbar: GridToolbar }}
         localeText={localeText}
