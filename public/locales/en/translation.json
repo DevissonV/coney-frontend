@@ -80,7 +80,7 @@
   "confirm_buys_message": "Good luck!",
   "continue": "Continue to reserve",
   "confirm_reservation_title": "Are you sure?",
-  "confirm_reservation_message": "This action cannot be undone. Do you want to reserve this ticket?",
+  "confirm_reservation_message": "The reservation will be made for the ticket number: ",
   "error_unexpected": "An unexpected error has occurred.",
   "error_loading_users": "Error loading users.",
   "error_creating_user": "Error creating user.",

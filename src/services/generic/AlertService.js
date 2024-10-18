@@ -26,7 +26,10 @@ export const errorAlert = ({ messageKey = 'error_unexpected' }) => {
   });
 };
 
-export const confirmDelete = async ({ titleKey = 'confirm_delete_title', messageKey = 'confirm_delete_message' }) => {
+export const confirmDelete = async ({ 
+  titleKey = 'confirm_delete_title', 
+  messageKey = 'confirm_delete_message' 
+}) => {
   const result = await Swal.fire({
     title: i18n.t(titleKey),
     text: i18n.t(messageKey),
@@ -49,11 +52,12 @@ export const confirmDelete = async ({ titleKey = 'confirm_delete_title', message
 export const confirmReservation = async (
   { 
     titleKey = 'confirm_reservation_title',
-    messageKey = 'confirm_delete_message' 
+    messageKey = 'confirm_reservation_message',
+    ticketNumber 
   }) => {
   const result = await Swal.fire({
     title: i18n.t(titleKey),
-    text: i18n.t(messageKey),
+    text: `${i18n.t(messageKey)} ${ticketNumber}`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#d33',

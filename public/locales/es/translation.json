@@ -80,7 +80,7 @@
   "confirm_buys_message": "¡Mucha suerte!",
   "continue": "Continuar para reservar",
   "confirm_reservation_title": "¿Estás seguro?",
-  "confirm_reservation_message": "Esta acción no se puede deshacer. ¿Deseas reservar esta boleta?",
+  "confirm_reservation_message": "Se realizará la reserva de la boleta numero: ",
   "login": "Iniciar sesión",
   "session_ended": "Sesión Finalizada",
   "edit_profile": "Editar perfil",

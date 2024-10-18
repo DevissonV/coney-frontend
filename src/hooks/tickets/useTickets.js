@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { fetchTickets, editTicket, deleteTicket } from '../../services/tickets/TicketService';
 import { errorAlert, toast, confirmDelete, confirmReservation } from '../../services/generic/AlertService';
+import useAuthStore from '../../stores/auth/useAuthStore';
 
 export const useTickets = () => {
   const [loading, setLoading] = useState(true);
   const [tickets, setTickets] = useState([]);
+  const { user } = useAuthStore();
 
   const loadTickets = async () => {
     setLoading(true);
@@ -21,7 +23,8 @@ export const useTickets = () => {
   const handleEditTicket = async (ticketData) => {
     const result = await confirmReservation({
       titleKey: 'confirm_reservation_title',
-      messageKey: 'confirm_reservation_message'
+      messageKey: 'confirm_reservation_message',
+      ticketNumber: ticketData.ticketNumber,
     });
 
     if (result.isConfirmed) {
@@ -29,7 +32,7 @@ export const useTickets = () => {
         const updatedTicketData = {
           ticketNumber: ticketData.ticketNumber,
           riffleId: ticketData.riffleId,
-          userId: ticketData.userId,
+          userId: user.id,
         };
         await editTicket(ticketData.id, updatedTicketData);
         toast({ icon: 'success', titleKey: 'edit_success' });

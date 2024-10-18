@@ -3,7 +3,7 @@ import { privateAxios } from '../../utils/api/axios';
 const API_URL = import.meta.env.VITE_API_URL;
 
 export const fetchTickets = async () => {
-  const response = await privateAxios.get(`${API_URL}/Tickets/getAllTickets`); 
+  const response = await privateAxios.get(`${API_URL}/Tickets/getAllTicketsForReservation`); 
   const { status, code, data } = response.data;
 
   if (!status || code !== 200) {
