@@ -1,16 +1,17 @@
 import { useState } from 'react';
-import { IconButton, Menu, MenuItem, Avatar, Tooltip, Typography } from '@mui/material';
+import { IconButton, Menu, MenuItem, Avatar, Tooltip, Typography, ListItemIcon } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import useAuthStore from '../../../stores/auth/useAuthStore'; 
 import UserEditModal from '../../users-components/UserEditModal';
 import { useUsers } from '../../../hooks/users/useUsers'; 
+import { Edit as EditIcon, Logout as LogoutIcon } from '@mui/icons-material'; 
 
 const UserMenu = ({ handleLogout }) => {
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [openEditModal, setOpenEditModal] = useState(false); 
   const { t } = useTranslation();
   const { token, user } = useAuthStore(); 
-  const { handleUpdateUser} = useUsers(); 
+  const { handleUpdateUser } = useUsers(); 
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -28,7 +29,6 @@ const UserMenu = ({ handleLogout }) => {
     setOpenEditModal(true); 
     setAnchorElUser(null); 
   };
-
 
   return (
     <>
@@ -56,9 +56,16 @@ const UserMenu = ({ handleLogout }) => {
             </MenuItem>,
 
             <MenuItem key="edit-profile" onClick={handleEditProfile}>
+              <ListItemIcon>
+                <EditIcon fontSize="small" />
+              </ListItemIcon>
               {t('edit_profile')}
             </MenuItem>,
+            
             <MenuItem key="logout" onClick={handleLogout}>
+              <ListItemIcon>
+                <LogoutIcon fontSize="small" />
+              </ListItemIcon>
               {t('logout')}
             </MenuItem>
           ]
