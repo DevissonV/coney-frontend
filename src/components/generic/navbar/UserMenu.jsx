@@ -29,7 +29,10 @@ const UserMenu = ({ handleLogout }) => {
   };
 
   const handleChangePassword = () => {
-    setOpenPasswordModal(true);
+    // Only open the modal if the user is logged ins
+    if (user && user.id) {
+      setOpenPasswordModal(true);
+    }
     setAnchorElUser(null);
   };
 
@@ -88,9 +91,14 @@ const UserMenu = ({ handleLogout }) => {
         )}
       </Menu>
 
-      {/* Modals */}
       <UserEditModal open={openEditModal} onClose={() => setOpenEditModal(false)} currentUser={user} onEditUser={handleUpdateUser} />
-      <UserChangePasswordModal open={openPasswordModal} onClose={() => setOpenPasswordModal(false)} userId={user?.id} />
+      {user && user.id && (
+        <UserChangePasswordModal 
+          open={openPasswordModal} 
+          onClose={() => setOpenPasswordModal(false)} 
+          userId={user.id} 
+        />
+      )}
     </>
   );
 };

@@ -6,6 +6,7 @@ import { useMemo } from 'react';
 import RiffleActions from './RiffleActions';
 import CellContent from '../generic/table/CellContent';
 import useAuthStore from '../../stores/auth/useAuthStore';
+import { ROLE_ANONYMOUS } from '../../utils/generic/constants';
 
 const RiffleTable = ({ rows, loading, onEdit, onDelete, onViewTickets }) => {
   const { t } = useTranslation();
@@ -63,7 +64,8 @@ const RiffleTable = ({ rows, loading, onEdit, onDelete, onViewTickets }) => {
       },
     ];
 
-    if (user) {
+    // Agregamos acciones solo si el usuario no es "anonymous"
+    if (user && user.role !== ROLE_ANONYMOUS) {
       baseColumns.push({
         field: 'actions',
         headerName: t('actions'),
@@ -83,7 +85,7 @@ const RiffleTable = ({ rows, loading, onEdit, onDelete, onViewTickets }) => {
     }
 
     return baseColumns;
-  }, [t, onEdit, onDelete, user]);
+  }, [t, onEdit, onDelete, onViewTickets, user]);
 
   return (
     <Box sx={{ width: '100%', padding: 2 }}>

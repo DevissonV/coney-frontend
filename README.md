@@ -15,7 +15,8 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┗ 📜vite.svg
 ┣ 📂src
 ┃ ┣ 📂assets
-┃ ┃ ┗ 📜react.svg
+┃ ┃ ┣ 📜react.svg
+┃ ┃ ┗ 📜trofeo.ico
 ┃ ┣ 📂components
 ┃ ┃ ┣ 📂countries-components
 ┃ ┃ ┃ ┣ 📜CountriesTable.jsx
@@ -51,6 +52,7 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┃ ┗ 📜TicketsTable.jsx
 ┃ ┃ ┗ 📂users-components
 ┃ ┃   ┣ 📜UserActions.jsx
+┃ ┃   ┣ 📜UserChangePasswordModal.jsx
 ┃ ┃   ┣ 📜UserCreateModal.jsx
 ┃ ┃   ┣ 📜UserEditModal.jsx
 ┃ ┃   ┗ 📜UsersTable.jsx
@@ -120,6 +122,7 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┣ 📂api
 ┃ ┃ ┃ ┗ 📜axios.js
 ┃ ┃ ┗ 📂generic
+┃ ┃   ┣ 📜constants.js
 ┃ ┃   ┣ 📜convertText.js
 ┃ ┃   ┣ 📜i18n.js
 ┃ ┃   ┣ 📜securityValidations.js
@@ -143,8 +146,6 @@ La estructura de carpetas del proyecto es la siguiente:
 ┣ 📜package.json
 ┣ 📜README.md
 ┗ 📜vite.config.js
-
-
 
 ```
 ### Descripción de carpetas:

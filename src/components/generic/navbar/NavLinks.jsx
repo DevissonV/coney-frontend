@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '@mui/material/styles';
 import { Dashboard, ConfirmationNumber, Group, Public} from '@mui/icons-material';
 import useAuthStore from '../../../stores/auth/useAuthStore'; 
+import { ROLE_ADMIN } from '../../../utils/generic/constants';
 
 const NavLinks = ({ darkMode }) => {
   const { t } = useTranslation();
@@ -48,7 +49,7 @@ const NavLinks = ({ darkMode }) => {
       {token && (
         <>
           {/* Only admins can see the 'users' link */}
-          {user?.role === 'admin' && (
+          {user?.role === ROLE_ADMIN && (
             <ListItem component={Link} to="/users" sx={{ width: 'auto' }}>
               <ListItemIcon>
                 <Group sx={{ color: isMobile ? (darkMode ? '#fff' : '#000') : '#fff' }} />
@@ -66,7 +67,7 @@ const NavLinks = ({ darkMode }) => {
           )}
 
           {/* Only admins can see the 'countries' link */}
-          {user?.role === 'admin' && (
+          {user?.role === ROLE_ADMIN && (
             <ListItem component={Link} to="/countries" sx={{ width: 'auto' }}>
               <ListItemIcon>
                 <Public sx={{ color: isMobile ? (darkMode ? '#fff' : '#000') : '#fff' }} />

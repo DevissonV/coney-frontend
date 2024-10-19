@@ -4,11 +4,15 @@ import LockIcon from '@mui/icons-material/Lock';
 import EmailIcon from '@mui/icons-material/Email';
 import { useTranslation } from 'react-i18next';
 import { errorAlert } from '../../services/generic/AlertService.js';
+import UserCreateModal from '../../components/users-components/UserCreateModal';
+import { useUsers } from '../../hooks/users/useUsers';
 
 const LoginPage = ({ onLogin, error, loading }) => {
   const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [openCreateModal, setOpenCreateModal] = useState(false);
+  const { handleCreateUser } = useUsers();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -105,6 +109,16 @@ const LoginPage = ({ onLogin, error, loading }) => {
             {loading ? t('loading') : t('signin')}
           </Button>
         </form>
+
+        <Typography align="center" sx={{ mt: 2 }}>
+          <Button onClick={() => setOpenCreateModal(true)}>{t('create_new_account')}</Button>
+        </Typography>
+
+        <UserCreateModal
+          open={openCreateModal}
+          onClose={() => setOpenCreateModal(false)}
+          onCreateUser={handleCreateUser}
+        />
       </Paper>
     </Box>
   );

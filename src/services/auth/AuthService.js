@@ -29,7 +29,6 @@ export const login = async (credentials) => {
       token,
     };
   } catch (error) {
-    console.error('Error en login:', error);
     throw error; 
   }
 };
@@ -56,10 +55,6 @@ const simulateLogin = (credentials) => {
 };
 
 export const logout = () => {
-  try {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-  } catch (error) {
-    console.error('Error en logout:', error);
-  }
+  localStorage.removeItem('token');
+  localStorage.removeItem('user');
 };

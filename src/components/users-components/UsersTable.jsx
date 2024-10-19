@@ -6,6 +6,7 @@ import { useMemo } from 'react';
 import UserActions from './UserActions';
 import CellContent from '../generic/table/CellContent';
 import useAuthStore from '../../stores/auth/useAuthStore';
+import { ROLE_ADMIN } from '../../utils/generic/constants';
 
 const UsersTable = ({ rows, loading, onEdit, onDelete }) => {
   const { t } = useTranslation();
@@ -60,7 +61,7 @@ const UsersTable = ({ rows, loading, onEdit, onDelete }) => {
       },
     ];
 
-    if (user?.role === 'admin') {
+    if (user?.role === ROLE_ADMIN) {
       baseColumns.push({
         field: 'actions',
         headerName: t('actions'),
