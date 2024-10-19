@@ -6,7 +6,8 @@ import UserCreateModal from '../../components/users-components/UserCreateModal';
 import UserEditModal from '../../components/users-components/UserEditModal';
 import SearchToolbar from '../../components/generic/search-toolbar/SearchToolbar';
 import { useTheme } from '@mui/material/styles';
-import  useAuthStore  from '../../stores/auth/useAuthStore';
+import useAuthStore from '../../stores/auth/useAuthStore';
+import { ROLE_ADMIN } from '../../utils/generic/constants';
 
 const UsersPage = ({ users, loading, onDelete, onUpdate, onCreate }) => {
   const { t } = useTranslation();
@@ -59,7 +60,7 @@ const UsersPage = ({ users, loading, onDelete, onUpdate, onCreate }) => {
           {t('users')}
         </Typography>
 
-        {user?.role === 'admin' && (
+        {user?.role === ROLE_ADMIN && (
           <Button 
             variant="contained" 
             color="primary" 

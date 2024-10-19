@@ -122,6 +122,7 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┣ 📂api
 ┃ ┃ ┃ ┗ 📜axios.js
 ┃ ┃ ┗ 📂generic
+┃ ┃   ┣ 📜constants.js
 ┃ ┃   ┣ 📜convertText.js
 ┃ ┃   ┣ 📜i18n.js
 ┃ ┃   ┣ 📜securityValidations.js
@@ -145,8 +146,6 @@ La estructura de carpetas del proyecto es la siguiente:
 ┣ 📜package.json
 ┣ 📜README.md
 ┗ 📜vite.config.js
-
-
 
 ```
 ### Descripción de carpetas:

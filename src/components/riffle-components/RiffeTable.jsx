@@ -6,7 +6,7 @@ import { useMemo } from 'react';
 import RiffleActions from './RiffleActions';
 import CellContent from '../generic/table/CellContent';
 import useAuthStore from '../../stores/auth/useAuthStore';
-import { ROLE_ANONYMOUS } from '../../utils/generic/constants'; // Importamos el rol 'anonymous'
+import { ROLE_ANONYMOUS } from '../../utils/generic/constants';
 
 const RiffleTable = ({ rows, loading, onEdit, onDelete, onViewTickets }) => {
   const { t } = useTranslation();

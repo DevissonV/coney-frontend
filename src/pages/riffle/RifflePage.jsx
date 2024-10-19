@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '@mui/material/styles';
 import useAuthStore from '../../stores/auth/useAuthStore'; 
 import { useNavigate } from 'react-router-dom';
-import { ROLE_ANONYMOUS } from '../../utils/generic/constants'; // Importamos el rol 'anonymous'
+import { ROLE_ANONYMOUS } from '../../utils/generic/constants';
 
 const RifflePage = ({
   riffle,
