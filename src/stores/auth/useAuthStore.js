@@ -18,6 +18,14 @@ const useAuthStore = create(
         localStorage.removeItem('user');
         set({ token: null, user: null });
       },
+
+      updateUser: (updatedUserData) => {
+        set((state) => {
+          const updatedUser = { ...state.user, ...updatedUserData };
+          localStorage.setItem('user', JSON.stringify(updatedUser));
+          return { user: updatedUser };
+        });
+      },
     }),
     {
       name: 'auth',

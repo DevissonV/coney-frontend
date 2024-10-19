@@ -13,7 +13,7 @@ const TicketsPage = ({
   onSearchChange 
 }) => {
   const { t } = useTranslation();
-  const [pageSize, setPageSize] = useState(5);
+  const [ pageSize ] = useState(20);
 
   return (
     <Box>
@@ -34,7 +34,6 @@ const TicketsPage = ({
       <TicketsTable
         rows={tickets}
         pageSize={pageSize}
-        setPageSize={setPageSize}
         loading={loading}
         onEdit={onEdit}
         onDelete={onDelete}

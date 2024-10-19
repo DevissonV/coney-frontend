@@ -1,12 +1,16 @@
 import { useState } from 'react';
-import { IconButton, Menu, MenuItem, Avatar, Tooltip } from '@mui/material';
+import { IconButton, Menu, MenuItem, Avatar, Tooltip, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import useAuthStore from '../../../stores/auth/useAuthStore'; 
+import UserEditModal from '../../users-components/UserEditModal';
+import { useUsers } from '../../../hooks/users/useUsers'; 
 
 const UserMenu = ({ handleLogout }) => {
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const [openEditModal, setOpenEditModal] = useState(false); 
   const { t } = useTranslation();
-  const token = useAuthStore((state) => state.token);
+  const { token, user } = useAuthStore(); 
+  const { handleUpdateUser} = useUsers(); 
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -19,6 +23,12 @@ const UserMenu = ({ handleLogout }) => {
   const handleLogin = () => {
     window.location.href = "/login"; 
   };
+
+  const handleEditProfile = () => {
+    setOpenEditModal(true); 
+    setAnchorElUser(null); 
+  };
+
 
   return (
     <>
@@ -38,11 +48,31 @@ const UserMenu = ({ handleLogout }) => {
         onClose={handleCloseUserMenu}
       >
         {token ? (
-          <MenuItem onClick={handleLogout}>{t('logout')}</MenuItem>
+          [
+            <MenuItem key="user-infos" disabled>
+              <Typography variant="h5" textAlign="center">
+                {`${user?.firstName} ${user?.lastName}`}  
+              </Typography>
+            </MenuItem>,
+
+            <MenuItem key="edit-profile" onClick={handleEditProfile}>
+              {t('edit_profile')}
+            </MenuItem>,
+            <MenuItem key="logout" onClick={handleLogout}>
+              {t('logout')}
+            </MenuItem>
+          ]
         ) : (
           <MenuItem onClick={handleLogin}>{t('login')}</MenuItem>
         )}
       </Menu>
+
+      <UserEditModal 
+        open={openEditModal} 
+        onClose={() => setOpenEditModal(false)} 
+        currentUser={user} 
+        onEditUser={handleUpdateUser} 
+      />
     </>
   );
 };

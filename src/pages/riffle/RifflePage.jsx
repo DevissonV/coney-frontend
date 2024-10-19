@@ -6,6 +6,7 @@ import RiffleFormModal from '../../components/riffle-components/RiffleFormModal'
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@mui/material/styles';
 import useAuthStore from '../../stores/auth/useAuthStore'; 
+import { useNavigate } from 'react-router-dom';
 
 const RifflePage = ({
   riffle,
@@ -27,6 +28,11 @@ const RifflePage = ({
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm')); 
   const token = useAuthStore((state) => state.token); 
+  const navigate = useNavigate();
+
+  const handleViewTickets = (riffleId) => {
+    navigate(`/tickets/${riffleId}`);
+  };
 
   return (
     <Box>
@@ -80,6 +86,7 @@ const RifflePage = ({
         loading={loading}
         onEdit={onEdit}
         onDelete={onDelete}
+        onViewTickets={handleViewTickets}
       />
 
       <RiffleFormModal

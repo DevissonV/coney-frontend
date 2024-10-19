@@ -83,7 +83,7 @@ const AppRouter = () => {
         />
 
         <Route
-          path="/tickets"
+          path="/tickets/:riffleId"
           element={
             <ProtectedRoute>
               <Layout>
