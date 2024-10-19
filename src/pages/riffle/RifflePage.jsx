@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '@mui/material/styles';
 import useAuthStore from '../../stores/auth/useAuthStore'; 
 import { useNavigate } from 'react-router-dom';
+import { ROLE_ANONYMOUS } from '../../utils/generic/constants'; // Importamos el rol 'anonymous'
 
 const RifflePage = ({
   riffle,
@@ -27,7 +28,7 @@ const RifflePage = ({
   
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm')); 
-  const token = useAuthStore((state) => state.token); 
+  const { token, user } = useAuthStore(); // Obtenemos el token y el usuario
   const navigate = useNavigate();
 
   const handleViewTickets = (riffleId) => {
@@ -47,7 +48,8 @@ const RifflePage = ({
           {t('riffle')}
         </Typography>
 
-        {token && (
+        {/* Verificamos si el usuario está logueado y no es anonymous */}
+        {token && user?.role !== ROLE_ANONYMOUS && (
           <Button 
             variant="contained" 
             color="primary" 
