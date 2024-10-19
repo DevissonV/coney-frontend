@@ -1,10 +1,11 @@
 import { AppBar, Toolbar, Typography, IconButton, Box, CssBaseline } from '@mui/material';
-import { useState } from 'react'; 
-import MenuIcon from '@mui/icons-material/Menu';  
+import { useState } from 'react';
+import MenuIcon from '@mui/icons-material/Menu';
 import ThemeToggleButton from './ThemeToggleButton';
 import UserMenu from './UserMenu';
 import ResponsiveDrawer from './ResponsiveDrawer';
 import NavLinks from './NavLinks';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'; 
 import { useThemeContext } from '../../../wrappers/ThemeWrapper';
 import useAuthStore from '../../../stores/auth/useAuthStore';
 import { useNavigate } from 'react-router-dom';
@@ -12,8 +13,8 @@ import { toast } from '../../../services/generic/AlertService';
 
 const ResponsiveAppBar = () => {
   const { darkMode, toggleDarkMode } = useThemeContext();
-  const [mobileOpen, setMobileOpen] = useState(false); 
-  const logout = useAuthStore((state) => state.logout); 
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const logout = useAuthStore((state) => state.logout);
   const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
@@ -22,7 +23,7 @@ const ResponsiveAppBar = () => {
 
   const handleLogout = () => {
     logout();
-    navigate('/dashboard'); 
+    navigate('/dashboard');
     toast({ icon: 'success', titleKey: 'session_ended' });
   };
 
@@ -40,7 +41,8 @@ const ResponsiveAppBar = () => {
           >
             <MenuIcon />
           </IconButton>
-          
+
+          <EmojiEventsIcon sx={{ mr: 1 }} />
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             CONEY
           </Typography>

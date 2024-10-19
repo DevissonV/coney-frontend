@@ -9,7 +9,7 @@ import useAuthStore from '../../stores/auth/useAuthStore';
 
 const RiffleTable = ({ rows, loading, onEdit, onDelete, onViewTickets }) => {
   const { t } = useTranslation();
-  const { user } = useAuthStore(); 
+  const { user } = useAuthStore();
 
   const localeText = useMemo(() => ({
     columnMenuSortAsc: t('sort_asc'),
@@ -63,7 +63,7 @@ const RiffleTable = ({ rows, loading, onEdit, onDelete, onViewTickets }) => {
       },
     ];
 
-    if (user?.role === 'admin') {
+    if (user) {
       baseColumns.push({
         field: 'actions',
         headerName: t('actions'),
@@ -83,7 +83,7 @@ const RiffleTable = ({ rows, loading, onEdit, onDelete, onViewTickets }) => {
     }
 
     return baseColumns;
-  }, [t, onEdit, onDelete, user?.role]);
+  }, [t, onEdit, onDelete, user]);
 
   return (
     <Box sx={{ width: '100%', padding: 2 }}>
