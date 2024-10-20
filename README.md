@@ -56,6 +56,7 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃   ┣ 📜UserCreateModal.jsx
 ┃ ┃   ┣ 📜UserEditModal.jsx
 ┃ ┃   ┣ 📜UserPasswordRecoveryModal.jsx
+┃ ┃   ┣ 📜UserResendActivationModal.jsx
 ┃ ┃   ┗ 📜UsersTable.jsx
 ┃ ┣ 📂containers
 ┃ ┃ ┣ 📂auth
