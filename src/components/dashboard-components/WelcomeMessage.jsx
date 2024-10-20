@@ -1,9 +1,8 @@
-import { Typography, Box, useTheme } from '@mui/material'
-import { useTranslation } from 'react-i18next'
+import { Typography, Box, useTheme } from '@mui/material';
+import PropTypes from 'prop-types';
 
-const WelcomeMessage = () => {
-  const { t } = useTranslation()
-  const theme = useTheme()
+const WelcomeMessage = ({ title, subtitle, message, actionMessage, footerMessage }) => {
+  const theme = useTheme();
 
   return (
     <Box
@@ -17,27 +16,41 @@ const WelcomeMessage = () => {
       style={{ border: `1px solid ${theme.palette.divider}` }}
     >
       <Typography variant="h4" gutterBottom color="primary">
-        {t('welcome')}
+        {title}
       </Typography>
-      <Typography 
-        variant="h5" 
-        gutterBottom 
-        color={theme.palette.mode === 'dark' ? 'warning.light' : 'warning.dark'}
-        style={{ fontWeight: 'bold' }}
-      >
-        {t('attention')}
-      </Typography>
+      {subtitle && (
+        <Typography 
+          variant="h5" 
+          gutterBottom 
+          color={theme.palette.mode === 'dark' ? 'warning.light' : 'warning.dark'}
+          style={{ fontWeight: 'bold' }}
+        >
+          {subtitle}
+        </Typography>
+      )}
       <Typography variant="body1" color="textPrimary" paragraph>
-        {t('verification_required')}
+        {message}
       </Typography>
-      <Typography variant="body1" color="error.main" paragraph>
-        {t('check_email')}
-      </Typography>
-      <Typography variant="body2" color="textSecondary">
-        {t('admin_approval')}
-      </Typography>
+      {actionMessage && (
+        <Typography variant="body1" color="error.main" paragraph>
+          {actionMessage}
+        </Typography>
+      )}
+      {footerMessage && (
+        <Typography variant="body2" color="textSecondary">
+          {footerMessage}
+        </Typography>
+      )}
     </Box>
-  )
-}
+  );
+};
 
-export default WelcomeMessage
+WelcomeMessage.propTypes = {
+  title: PropTypes.string.isRequired,
+  subtitle: PropTypes.string,
+  message: PropTypes.string.isRequired,
+  actionMessage: PropTypes.string,
+  footerMessage: PropTypes.string,
+};
+
+export default WelcomeMessage;
