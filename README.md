@@ -96,6 +96,7 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┣ 📂tickets
 ┃ ┃ ┃ ┗ 📜TicketsPage.jsx
 ┃ ┃ ┗ 📂users
+┃ ┃   ┣ 📜PasswordChangePage.jsx
 ┃ ┃   ┗ 📜UsersPage.jsx
 ┃ ┣ 📂router
 ┃ ┃ ┗ 📜router.jsx

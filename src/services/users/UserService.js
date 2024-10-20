@@ -89,3 +89,17 @@ export const recoverPassword = async (email) => {
 
   return data;
 };
+
+export const changeUserPassword = async (email, newPassword) => {
+  const response = await privateAxios.post(`${API_URL}/Users/changeUserPassword`, {
+    NewPassword: newPassword,
+    Email: email
+  });
+  const { status, code, data } = response.data;
+
+  if (!status || code !== 200) {
+    throw new Error('Error changing user password');
+  }
+
+  return data;
+};

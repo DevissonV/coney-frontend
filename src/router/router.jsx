@@ -9,6 +9,8 @@ import CountriesContainer from '../containers/countries/CountriesContainer';
 import RiffleContainer from '../containers/riffle/RiffleContainer';
 import TicketsContainer from '../containers/tickets/TicketsContainer';
 import ThankYouPage from '../pages/generic/ThankYouPage';
+import PasswordChangePage from '../pages/users/PasswordChangePage';
+
 
 const ProtectedRoute = ({ children }) => {
   const token = useAuthStore((state) => state.token);
@@ -32,6 +34,7 @@ const AppRouter = () => {
         {/* Routes open to everyone */}
         <Route path="/login" element={<AuthContainer />} />
         <Route path="/thank-you" element={<ThankYouPage />} />
+        <Route path="/password-change" element={<PasswordChangePage />} /> 
         <Route path="*" element={<NotFoundPage />} />
 
         <Route 
