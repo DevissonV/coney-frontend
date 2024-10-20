@@ -68,4 +68,13 @@ export const approveUser = async (email) => {
   return data;
 };
 
+export const resendEmail = async (email) => {
+  const response = await privateAxios.post(`${API_URL}/Users/sendEmail/${email}`);
+  const { status, code, data } = response.data;
 
+  if (!status || code !== 201) {
+    throw new Error('Error resending email');
+  }
+
+  return data;
+};

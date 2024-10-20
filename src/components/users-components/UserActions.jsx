@@ -3,10 +3,20 @@ import { IconButton, Tooltip } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import EmailIcon from '@mui/icons-material/Email';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
-const UserActions = ({ userId, email, isEmailValidated, isUserAuthorized, onEdit, onDelete, onApprove }) => {
+const UserActions = ({ 
+  userId, 
+  email, 
+  isEmailValidated, 
+  isUserAuthorized, 
+  onEdit, 
+  onDelete, 
+  onApprove, 
+  onResendEmail 
+}) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const { t } = useTranslation();
 
@@ -25,6 +35,10 @@ const UserActions = ({ userId, email, isEmailValidated, isUserAuthorized, onEdit
 
   const handleApprove = () => {
     onApprove(email);
+  };
+
+  const handleResendEmail = () => {
+    onResendEmail(email);
   };
 
   return (
@@ -48,6 +62,14 @@ const UserActions = ({ userId, email, isEmailValidated, isUserAuthorized, onEdit
           </IconButton>
         </Tooltip>
       )}
+
+      {isEmailValidated == null &&(
+      <Tooltip title={t('resend_email')}> 
+        <IconButton color="primary" onClick={handleResendEmail}>
+          <EmailIcon />
+        </IconButton>
+      </Tooltip>
+      )}
     </div>
   );
 };
@@ -60,6 +82,7 @@ UserActions.propTypes = {
   onEdit: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   onApprove: PropTypes.func.isRequired,
+  onResendEmail: PropTypes.func.isRequired,
 };
 
 export default UserActions;

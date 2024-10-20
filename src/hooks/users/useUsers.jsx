@@ -4,7 +4,8 @@ import {
   deleteUser,
   editUser, 
   createUser,
-  approveUser  
+  approveUser,
+  resendEmail
 } from '../../services/users/UserService';
 import { errorAlert, confirmDelete, toast } from '../../services/generic/AlertService.js';
 import useUserStore from '../../stores/users/useUserStore';
@@ -70,10 +71,22 @@ export const useUsers = () => {
     }
   }, [setUsers]);
 
+  const handleResendEmail = useCallback(async (email) => {
+    try {
+      await resendEmail(email);
+      toast({ icon: 'success', titleKey: 'success', messageKey: 'email_resent' });
+      const updatedUsers = await fetchUsers();
+      setUsers(updatedUsers);
+    } catch (error) {
+      errorAlert({ messageKey: 'error_resending_email' });
+    }
+  }, [setUsers]);
+
   return {
     handleDeleteUser,
     handleUpdateUser,
     handleCreateUser,
-    handleApproveUser
+    handleApproveUser,
+    handleResendEmail
   };
 };

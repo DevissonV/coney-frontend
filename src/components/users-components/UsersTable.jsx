@@ -8,7 +8,14 @@ import CellContent from '../generic/table/CellContent';
 import useAuthStore from '../../stores/auth/useAuthStore';
 import { ROLE_ADMIN } from '../../utils/generic/constants';
 
-const UsersTable = ({ rows, loading, onEdit, onDelete, onApprove }) => {
+const UsersTable = ({ 
+  rows, 
+  loading, 
+  onEdit, 
+  onDelete, 
+  onApprove, 
+  onResendEmail 
+}) => {
   const { t } = useTranslation();
   const { user } = useAuthStore();
 
@@ -73,7 +80,8 @@ const UsersTable = ({ rows, loading, onEdit, onDelete, onApprove }) => {
             isUserAuthorized={params.row.isUserAuthorized}
             onEdit={onEdit} 
             onDelete={onDelete} 
-            onApprove={onApprove} 
+            onApprove={onApprove}
+            onResendEmail={onResendEmail}
           />
         ),
         flex: 0.5,
@@ -84,7 +92,7 @@ const UsersTable = ({ rows, loading, onEdit, onDelete, onApprove }) => {
     }
 
     return baseColumns;
-  }, [t, onEdit, onDelete, onApprove, user?.role]);
+  }, [t, onEdit, onDelete, onApprove, onResendEmail, user?.role]);
 
   return (
     <Box sx={{ width: '100%', padding: 2 }}>
@@ -132,6 +140,7 @@ UsersTable.propTypes = {
   onEdit: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   onApprove: PropTypes.func.isRequired,
+  onResendEmail: PropTypes.func.isRequired,
 };
 
 export default UsersTable;
