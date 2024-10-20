@@ -15,10 +15,6 @@ const ThankYouPage = () => {
       sx={{
         border: '1px solid',
         boxShadow: 5,
-        '@media (max-width: 600px)': {
-          marginTop: '60px',
-          padding: '20px',
-        },
       }}
     >
       <Typography variant="h4" color="primary" fontWeight={700}>
