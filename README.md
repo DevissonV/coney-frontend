@@ -55,6 +55,7 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃   ┣ 📜UserChangePasswordModal.jsx
 ┃ ┃   ┣ 📜UserCreateModal.jsx
 ┃ ┃   ┣ 📜UserEditModal.jsx
+┃ ┃   ┣ 📜UserPasswordRecoveryModal.jsx
 ┃ ┃   ┗ 📜UsersTable.jsx
 ┃ ┣ 📂containers
 ┃ ┃ ┣ 📂auth
@@ -87,13 +88,16 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┃ ┗ 📜CountriesPage.jsx
 ┃ ┃ ┣ 📂dashboard
 ┃ ┃ ┃ ┗ 📜DashboardPage.jsx
+┃ ┃ ┣ 📂generic
+┃ ┃ ┃ ┣ 📜NotFoundPage.jsx
+┃ ┃ ┃ ┗ 📜ThankYouPage.jsx
 ┃ ┃ ┣ 📂riffle
 ┃ ┃ ┃ ┗ 📜RifflePage.jsx
 ┃ ┃ ┣ 📂tickets
 ┃ ┃ ┃ ┗ 📜TicketsPage.jsx
-┃ ┃ ┣ 📂users
-┃ ┃ ┃ ┗ 📜UsersPage.jsx
-┃ ┃ ┗ 📜NotFoundPage.jsx
+┃ ┃ ┗ 📂users
+┃ ┃   ┣ 📜PasswordChangePage.jsx
+┃ ┃   ┗ 📜UsersPage.jsx
 ┃ ┣ 📂router
 ┃ ┃ ┗ 📜router.jsx
 ┃ ┣ 📂services
@@ -146,6 +150,8 @@ La estructura de carpetas del proyecto es la siguiente:
 ┣ 📜package.json
 ┣ 📜README.md
 ┗ 📜vite.config.js
+
+
 
 ```
 ### Descripción de carpetas:

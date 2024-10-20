@@ -5,6 +5,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import { useTranslation } from 'react-i18next';
 import { errorAlert } from '../../services/generic/AlertService.js';
 import UserCreateModal from '../../components/users-components/UserCreateModal';
+import UserPasswordRecoveryModal from '../../components/users-components/UserPasswordRecoveryModal';
 import { useUsers } from '../../hooks/users/useUsers';
 
 const LoginPage = ({ onLogin, error, loading }) => {
@@ -12,6 +13,7 @@ const LoginPage = ({ onLogin, error, loading }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [openCreateModal, setOpenCreateModal] = useState(false);
+  const [openRecoveryModal, setOpenRecoveryModal] = useState(false);
   const { handleCreateUser } = useUsers();
 
   const handleSubmit = (e) => {
@@ -25,7 +27,7 @@ const LoginPage = ({ onLogin, error, loading }) => {
     onLogin({ email, password });
   };
 
-  return (
+    return (
     <Box
       sx={{
         minHeight: '100vh',
@@ -111,6 +113,10 @@ const LoginPage = ({ onLogin, error, loading }) => {
         </form>
 
         <Typography align="center" sx={{ mt: 2 }}>
+          <Button onClick={() => setOpenRecoveryModal(true)}>{t('forgot_password')}</Button>
+        </Typography>
+
+        <Typography align="center" sx={{ mt: 2 }}>
           <Button onClick={() => setOpenCreateModal(true)}>{t('create_new_account')}</Button>
         </Typography>
 
@@ -118,6 +124,11 @@ const LoginPage = ({ onLogin, error, loading }) => {
           open={openCreateModal}
           onClose={() => setOpenCreateModal(false)}
           onCreateUser={handleCreateUser}
+        />
+
+        <UserPasswordRecoveryModal
+          open={openRecoveryModal}
+          onClose={() => setOpenRecoveryModal(false)}
         />
       </Paper>
     </Box>
