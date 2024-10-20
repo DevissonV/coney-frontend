@@ -6,7 +6,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
-const UserActions = ({ userId, email, onEdit, onDelete, onApprove }) => {
+const UserActions = ({ userId, email, isEmailValidated, isUserAuthorized, onEdit, onDelete, onApprove }) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const { t } = useTranslation();
 
@@ -41,11 +41,13 @@ const UserActions = ({ userId, email, onEdit, onDelete, onApprove }) => {
         </IconButton>
       </Tooltip>
 
-      <Tooltip title={t('approve')}> 
-        <IconButton color="success" onClick={handleApprove}>
-          <CheckCircleIcon />
-        </IconButton>
-      </Tooltip>
+      {isEmailValidated && isUserAuthorized == null && (
+        <Tooltip title={t('approve')}> 
+          <IconButton color="success" onClick={handleApprove}>
+            <CheckCircleIcon />
+          </IconButton>
+        </Tooltip>
+      )}
     </div>
   );
 };
@@ -53,6 +55,8 @@ const UserActions = ({ userId, email, onEdit, onDelete, onApprove }) => {
 UserActions.propTypes = {
   userId: PropTypes.number.isRequired,
   email: PropTypes.string.isRequired,
+  isEmailValidated: PropTypes.bool,
+  isUserAuthorized: PropTypes.bool,
   onEdit: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   onApprove: PropTypes.func.isRequired,

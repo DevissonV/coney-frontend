@@ -68,10 +68,12 @@ const UsersTable = ({ rows, loading, onEdit, onDelete, onApprove }) => {
         renderCell: (params) => (
           <UserActions 
             userId={params.row.id} 
-            email={params.row.email}
+            email={params.row.email} 
+            isEmailValidated={params.row.isEmailValidated}
+            isUserAuthorized={params.row.isUserAuthorized}
             onEdit={onEdit} 
             onDelete={onDelete} 
-            onApprove={onApprove}
+            onApprove={onApprove} 
           />
         ),
         flex: 0.5,
