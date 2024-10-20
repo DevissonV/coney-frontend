@@ -1,5 +1,12 @@
 import { useCallback } from 'react';
-import { fetchUsers, deleteUser, editUser, createUser } from '../../services/users/UserService';
+import { 
+  fetchUsers, 
+  deleteUser,
+  editUser, 
+  createUser,
+  approveUser,
+  resendEmail
+} from '../../services/users/UserService';
 import { errorAlert, confirmDelete, toast } from '../../services/generic/AlertService.js';
 import useUserStore from '../../stores/users/useUserStore';
 import useAuthStore from '../../stores/auth/useAuthStore'; 
@@ -53,9 +60,33 @@ export const useUsers = () => {
     }
   }, [setUsers]);
 
+  const handleApproveUser = useCallback(async (email) => {
+    try {
+      await approveUser(email);
+      toast({ icon: 'success', titleKey: 'success', messageKey: 'user_approved' });
+      const updatedUsers = await fetchUsers();
+      setUsers(updatedUsers);
+    } catch (error) {
+      errorAlert({ messageKey: 'error_approving_user' });
+    }
+  }, [setUsers]);
+
+  const handleResendEmail = useCallback(async (email) => {
+    try {
+      await resendEmail(email);
+      toast({ icon: 'success', titleKey: 'success', messageKey: 'email_resent' });
+      const updatedUsers = await fetchUsers();
+      setUsers(updatedUsers);
+    } catch (error) {
+      errorAlert({ messageKey: 'error_resending_email' });
+    }
+  }, [setUsers]);
+
   return {
     handleDeleteUser,
     handleUpdateUser,
-    handleCreateUser
+    handleCreateUser,
+    handleApproveUser,
+    handleResendEmail
   };
 };
