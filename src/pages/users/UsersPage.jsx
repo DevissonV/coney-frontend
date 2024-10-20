@@ -9,7 +9,14 @@ import { useTheme } from '@mui/material/styles';
 import useAuthStore from '../../stores/auth/useAuthStore';
 import { ROLE_ADMIN } from '../../utils/generic/constants';
 
-const UsersPage = ({ users, loading, onDelete, onUpdate, onCreate }) => {
+const UsersPage = ({
+  users, 
+  loading, 
+  onDelete, 
+  onUpdate, 
+  onCreate, 
+  onApprove 
+}) => {
   const { t } = useTranslation();
   const [filteredRows, setFilteredRows] = useState(users); 
   const [pageSize, setPageSize] = useState(5);
@@ -87,6 +94,7 @@ const UsersPage = ({ users, loading, onDelete, onUpdate, onCreate }) => {
         loading={loading}
         onEdit={handleEditUser} 
         onDelete={onDelete}
+        onApprove={onApprove}
       />
 
       <UserCreateModal

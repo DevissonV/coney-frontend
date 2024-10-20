@@ -57,4 +57,15 @@ export const editUser = async (id, userData) => {
   return data;
 };
 
+export const approveUser = async (email) => {
+  const response = await privateAxios.post(`${API_URL}/Users/adminVerification/${email}`);
+  const { status, code, data } = response.data;
+
+  if (!status || code !== 201) {
+    throw new Error('Error approving user');
+  }
+
+  return data;
+};
+
 

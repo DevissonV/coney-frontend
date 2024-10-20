@@ -8,7 +8,7 @@ import CellContent from '../generic/table/CellContent';
 import useAuthStore from '../../stores/auth/useAuthStore';
 import { ROLE_ADMIN } from '../../utils/generic/constants';
 
-const UsersTable = ({ rows, loading, onEdit, onDelete }) => {
+const UsersTable = ({ rows, loading, onEdit, onDelete, onApprove }) => {
   const { t } = useTranslation();
   const { user } = useAuthStore();
 
@@ -66,7 +66,13 @@ const UsersTable = ({ rows, loading, onEdit, onDelete }) => {
         field: 'actions',
         headerName: t('actions'),
         renderCell: (params) => (
-          <UserActions userId={params.row.id} onEdit={onEdit} onDelete={onDelete} />
+          <UserActions 
+            userId={params.row.id} 
+            email={params.row.email}
+            onEdit={onEdit} 
+            onDelete={onDelete} 
+            onApprove={onApprove}
+          />
         ),
         flex: 0.5,
         minWidth: 150,
@@ -76,7 +82,7 @@ const UsersTable = ({ rows, loading, onEdit, onDelete }) => {
     }
 
     return baseColumns;
-  }, [t, onEdit, onDelete, user?.role]);
+  }, [t, onEdit, onDelete, onApprove, user?.role]);
 
   return (
     <Box sx={{ width: '100%', padding: 2 }}>
@@ -123,6 +129,7 @@ UsersTable.propTypes = {
   loading: PropTypes.bool.isRequired,
   onEdit: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
+  onApprove: PropTypes.func.isRequired,
 };
 
 export default UsersTable;
