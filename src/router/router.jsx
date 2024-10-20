@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Layout from '../components/dashboard-components/layout/Layout'; 
 import DashboardContainer from '../containers/dashboard/DashboardContainer';
 import useAuthStore from '../stores/auth/useAuthStore';
-import NotFoundPage from '../pages/NotFoundPage'; 
+import NotFoundPage from '../pages/generic/NotFoundPage';
 import AuthContainer from '../containers/auth/AuthContainer';
 import UsersContainer from '../containers/users/UsersContainer';
 import CountriesContainer from '../containers/countries/CountriesContainer';
