@@ -78,3 +78,14 @@ export const resendEmail = async (email) => {
 
   return data;
 };
+
+export const recoverPassword = async (email) => {
+  const response = await privateAxios.post(`${API_URL}/Users/recoveryUserPassword/${email}`);
+  const { status, code, data } = response.data;
+
+  if (!status || code !== 200) {
+    throw new Error('Error recovering password');
+  }
+
+  return data;
+};

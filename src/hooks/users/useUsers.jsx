@@ -5,7 +5,8 @@ import {
   editUser, 
   createUser,
   approveUser,
-  resendEmail
+  resendEmail,
+  recoverPassword
 } from '../../services/users/UserService';
 import { errorAlert, confirmDelete, toast } from '../../services/generic/AlertService.js';
 import useUserStore from '../../stores/users/useUserStore';
@@ -82,11 +83,21 @@ export const useUsers = () => {
     }
   }, [setUsers]);
 
+  const handleRecoverPassword = useCallback(async (email) => {
+    try {
+      await recoverPassword(email);
+      toast({ icon: 'success', titleKey: 'success', messageKey: 'email_sent' });
+    } catch (error) {
+      errorAlert({ messageKey: 'error_sending_email' });
+    }
+  }, []);
+
   return {
     handleDeleteUser,
     handleUpdateUser,
     handleCreateUser,
     handleApproveUser,
-    handleResendEmail
+    handleResendEmail,
+    handleRecoverPassword
   };
 };

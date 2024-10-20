@@ -55,6 +55,7 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃   ┣ 📜UserChangePasswordModal.jsx
 ┃ ┃   ┣ 📜UserCreateModal.jsx
 ┃ ┃   ┣ 📜UserEditModal.jsx
+┃ ┃   ┣ 📜UserPasswordRecoveryModal.jsx
 ┃ ┃   ┗ 📜UsersTable.jsx
 ┃ ┣ 📂containers
 ┃ ┃ ┣ 📂auth
@@ -148,6 +149,7 @@ La estructura de carpetas del proyecto es la siguiente:
 ┣ 📜package.json
 ┣ 📜README.md
 ┗ 📜vite.config.js
+
 
 
 ```
