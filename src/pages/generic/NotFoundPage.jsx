@@ -17,13 +17,13 @@ const NotFoundPage = () => {
         boxShadow: 5,
       }}
     >
-      <Typography variant="h4" color="primary" fontWeight={700}>
+      <Typography variant="h4" color="primary" fontWeight={700} gutterBottom>
         {t('page_not_found')}
       </Typography>
-      <Typography variant="body1" paragraph>
+      <Typography variant="body1" sx={{ marginBottom: '16px' }}>
         {t('not_found_message')}
       </Typography>
-      <Button component={Link} to="/" variant="contained" color="primary" sx={{ marginTop: '20px' }}>
+      <Button component={Link} to="/" variant="contained" color="primary">
         {t('back_to_home')}
       </Button>
     </Box>

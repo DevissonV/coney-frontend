@@ -17,10 +17,10 @@ const ThankYouPage = () => {
         boxShadow: 5,
       }}
     >
-      <Typography variant="h4" color="primary" fontWeight={700}>
+      <Typography variant="h4" color="primary" fontWeight={700} gutterBottom>
         {t('thank_you')}
       </Typography>
-      <Typography variant="body1" paragraph>
+      <Typography variant="body1" sx={{ marginBottom: '16px' }}>
         {t('thank_you_message')}
       </Typography>
       <Button component={Link} to="/login" variant="contained" color="primary" sx={{ marginTop: '20px' }}>

@@ -40,10 +40,10 @@ const PasswordChangePage = () => {
         boxShadow: 5,
       }}
     >
-      <Typography variant="h4" color="primary" fontWeight={700}>
+      <Typography variant="h4" color="primary" fontWeight={700} gutterBottom>
         {t('change_password')}
       </Typography>
-      <Typography variant="body1" paragraph>
+      <Typography variant="body1" sx={{ marginBottom: '16px' }}>
         {t('enter_new_password')}
       </Typography>
       
