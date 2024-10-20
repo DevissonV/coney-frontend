@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { errorAlert } from '../../services/generic/AlertService.js';
 import UserCreateModal from '../../components/users-components/UserCreateModal';
 import UserPasswordRecoveryModal from '../../components/users-components/UserPasswordRecoveryModal';
+import UserResendActivationModal from '../../components/users-components/UserResendActivationModal';
 import { useUsers } from '../../hooks/users/useUsers';
 
 const LoginPage = ({ onLogin, error, loading }) => {
@@ -14,6 +15,7 @@ const LoginPage = ({ onLogin, error, loading }) => {
   const [password, setPassword] = useState('');
   const [openCreateModal, setOpenCreateModal] = useState(false);
   const [openRecoveryModal, setOpenRecoveryModal] = useState(false);
+  const [openResendModal, setOpenResendModal] = useState(false);
   const { handleCreateUser } = useUsers();
 
   const handleSubmit = (e) => {
@@ -27,7 +29,7 @@ const LoginPage = ({ onLogin, error, loading }) => {
     onLogin({ email, password });
   };
 
-    return (
+  return (
     <Box
       sx={{
         minHeight: '100vh',
@@ -120,6 +122,10 @@ const LoginPage = ({ onLogin, error, loading }) => {
           <Button onClick={() => setOpenCreateModal(true)}>{t('create_new_account')}</Button>
         </Typography>
 
+        <Typography align="center" sx={{ mt: 2 }}>
+          <Button onClick={() => setOpenResendModal(true)}>{t('resend_activation_email')}</Button>
+        </Typography>
+
         <UserCreateModal
           open={openCreateModal}
           onClose={() => setOpenCreateModal(false)}
@@ -129,6 +135,11 @@ const LoginPage = ({ onLogin, error, loading }) => {
         <UserPasswordRecoveryModal
           open={openRecoveryModal}
           onClose={() => setOpenRecoveryModal(false)}
+        />
+
+        <UserResendActivationModal
+          open={openResendModal}
+          onClose={() => setOpenResendModal(false)}
         />
       </Paper>
     </Box>

@@ -1,22 +1,31 @@
+import { Typography, Box, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { Typography, Box } from '@mui/material';
-import { useTranslation } from 'react-i18next'; 
+import { useTranslation } from 'react-i18next';
 
 const NotFoundPage = () => {
-  const { t } = useTranslation(); 
+  const { t } = useTranslation();
 
   return (
-    <Box textAlign="center" mt={5}>
-      <Typography variant="h1" component="div">
-        404
+    <Box
+      padding={4}
+      textAlign="center"
+      borderRadius={3}
+      maxWidth="400px"
+      margin="40px auto"
+      sx={{
+        border: '1px solid',
+        boxShadow: 5,
+      }}
+    >
+      <Typography variant="h4" color="primary" fontWeight={700} gutterBottom>
+        {t('page_not_found')}
       </Typography>
-      <Typography variant="h4" component="div">
-        {t('page_not_found')} 
+      <Typography variant="body1" sx={{ marginBottom: '16px' }}>
+        {t('not_found_message')}
       </Typography>
-      <Typography variant="body1" mt={2}>
-        {t('not_found_message')} 
-        <Link to="/"> {t('back_to_home')}</Link> 
-      </Typography>
+      <Button component={Link} to="/" variant="contained" color="primary">
+        {t('back_to_home')}
+      </Button>
     </Box>
   );
 };

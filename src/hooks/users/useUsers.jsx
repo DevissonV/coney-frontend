@@ -77,8 +77,6 @@ export const useUsers = () => {
     try {
       await resendEmail(email);
       toast({ icon: 'success', titleKey: 'success', messageKey: 'email_resent' });
-      const updatedUsers = await fetchUsers();
-      setUsers(updatedUsers);
     } catch (error) {
       errorAlert({ messageKey: 'error_resending_email' });
     }
@@ -109,6 +107,6 @@ export const useUsers = () => {
     handleApproveUser,
     handleResendEmail,
     handleRecoverPassword,
-    handleChangePassword 
+    handleChangePassword
   };
 };

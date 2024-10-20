@@ -13,7 +13,7 @@ const WelcomeMessage = ({ title, subtitle, message, actionMessage, footerMessage
       boxShadow={5}
       maxWidth="800px"
       margin="20px auto"
-      style={{ border: `1px solid ${theme.palette.divider}` }}
+      sx={{ border: `1px solid ${theme.palette.divider}` }}
     >
       <Typography variant="h4" gutterBottom color="primary">
         {title}
@@ -23,16 +23,16 @@ const WelcomeMessage = ({ title, subtitle, message, actionMessage, footerMessage
           variant="h5" 
           gutterBottom 
           color={theme.palette.mode === 'dark' ? 'warning.light' : 'warning.dark'}
-          style={{ fontWeight: 'bold' }}
+          sx={{ fontWeight: 'bold' }}
         >
           {subtitle}
         </Typography>
       )}
-      <Typography variant="body1" color="textPrimary" paragraph>
+      <Typography variant="body1" color="textPrimary" sx={{ marginBottom: '16px' }}>
         {message}
       </Typography>
       {actionMessage && (
-        <Typography variant="body1" color="error.main" paragraph>
+        <Typography variant="body1" color="error.main" sx={{ marginBottom: '16px' }}>
           {actionMessage}
         </Typography>
       )}
