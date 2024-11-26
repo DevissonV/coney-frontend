@@ -11,7 +11,6 @@ import TicketsContainer from '../containers/tickets/TicketsContainer';
 import ThankYouPage from '../pages/generic/ThankYouPage';
 import PasswordChangePage from '../pages/users/PasswordChangePage';
 
-
 const ProtectedRoute = ({ children }) => {
   const token = useAuthStore((state) => state.token);
 
@@ -29,9 +28,8 @@ const AnonymousRoute = ({ children }) => {
 
 const AppRouter = () => {
   return (
-    <Router>
+    <Router basename="/Coney.Frontend">
       <Routes>
-        {/* Routes open to everyone */}
         <Route path="/login" element={<AuthContainer />} />
         <Route path="/thank-you" element={<ThankYouPage />} />
         <Route path="/password-change" element={<PasswordChangePage />} /> 
@@ -64,7 +62,6 @@ const AppRouter = () => {
           element={<Navigate to="/dashboard" />} 
         />
 
-        {/* Protected routes that require authentication */}
         <Route
           path="/users"
           element={
