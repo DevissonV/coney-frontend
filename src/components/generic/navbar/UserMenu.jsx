@@ -6,6 +6,7 @@ import useAuthStore from '../../../stores/auth/useAuthStore';
 import UserEditModal from '../../users-components/UserEditModal';
 import UserChangePasswordModal from '../../users-components/UserChangePasswordModal'; 
 import { useUsers } from '../../../hooks/users/useUsers';
+import { useNavigate } from 'react-router-dom';
 
 const UserMenu = ({ handleLogout }) => {
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -14,6 +15,7 @@ const UserMenu = ({ handleLogout }) => {
   const { t } = useTranslation();
   const { token, user } = useAuthStore();
   const { handleUpdateUser } = useUsers();
+  const navigate = useNavigate(); 
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -29,7 +31,6 @@ const UserMenu = ({ handleLogout }) => {
   };
 
   const handleChangePassword = () => {
-    // Only open the modal if the user is logged ins
     if (user && user.id) {
       setOpenPasswordModal(true);
     }
@@ -37,7 +38,7 @@ const UserMenu = ({ handleLogout }) => {
   };
 
   const handleLogin = () => {
-    window.location.href = "/login";
+    navigate('/login'); 
   };
 
   return (
