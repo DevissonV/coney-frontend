@@ -15,7 +15,7 @@ i18n
       escapeValue: false, 
     },
     backend: {
-      loadPath: '/locales/{{lng}}/translation.json', 
+      loadPath: '/Coney.Frontend/locales/{{lng}}/translation.json', 
     },
     detection: {
       order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag', 'path', 'subdomain'], 
