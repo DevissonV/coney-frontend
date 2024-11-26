@@ -1,9 +1,15 @@
 import { Typography, Box, Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 const ThankYouPage = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const handleGoToLogin = () => {
+    navigate('/login', { replace: true });
+    navigate(0);
+  };
 
   return (
     <Box
@@ -23,7 +29,12 @@ const ThankYouPage = () => {
       <Typography variant="body1" sx={{ marginBottom: '16px' }}>
         {t('thank_you_message')}
       </Typography>
-      <Button component={Link} to="/login" variant="contained" color="primary" sx={{ marginTop: '20px' }}>
+      <Button
+        onClick={handleGoToLogin}
+        variant="contained"
+        color="primary"
+        sx={{ marginTop: '20px' }}
+      >
         {t('go_to_login')}
       </Button>
     </Box>

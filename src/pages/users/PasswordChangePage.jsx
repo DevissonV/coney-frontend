@@ -1,6 +1,6 @@
 import { Typography, Box, Button, TextField } from '@mui/material';
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useUsers } from '../../hooks/users/useUsers'; 
 import { errorAlert, toast } from '../../services/generic/AlertService';
@@ -9,9 +9,19 @@ const PasswordChangePage = () => {
   const { t } = useTranslation();
   const { handleChangePassword } = useUsers();
   const navigate = useNavigate();
+  const location = useLocation();
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [email, setEmail] = useState('');
+
+  useEffect(() => {
+    const hasReloaded = sessionStorage.getItem('password-change-reloaded');
+
+    if (!hasReloaded) {
+      sessionStorage.setItem('password-change-reloaded', 'true');
+      window.location.reload();
+    }
+  }, [location]);
 
   const handleSubmit = async () => {
     if (newPassword !== confirmPassword) {
