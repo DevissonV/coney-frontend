@@ -9,7 +9,13 @@ const UsersContainer = () => {
   const [loading, setLoading] = useState(true);
   const setUsers = useUserStore((state) => state.setUsers);
   const users = useUserStore((state) => state.users);
-  const { handleDeleteUser, handleUpdateUser, handleCreateUser } = useUsers(); 
+  const { 
+    handleDeleteUser, 
+    handleUpdateUser, 
+    handleCreateUser, 
+    handleApproveUser, 
+    handleResendEmail 
+  } = useUsers();
 
   useEffect(() => {
     const loadUsers = async () => {
@@ -33,6 +39,8 @@ const UsersContainer = () => {
       onDelete={handleDeleteUser}
       onUpdate={handleUpdateUser}
       onCreate={handleCreateUser}
+      onApprove={handleApproveUser}
+      onResendEmail={handleResendEmail}
     />
   );
 };

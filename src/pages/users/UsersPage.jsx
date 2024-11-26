@@ -1,12 +1,23 @@
 import { useState, useEffect } from 'react';
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Typography, Button, useMediaQuery } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import UsersTable from '../../components/users-components/UsersTable';
 import UserCreateModal from '../../components/users-components/UserCreateModal';
 import UserEditModal from '../../components/users-components/UserEditModal';
 import SearchToolbar from '../../components/generic/search-toolbar/SearchToolbar';
+import { useTheme } from '@mui/material/styles';
+import useAuthStore from '../../stores/auth/useAuthStore';
+import { ROLE_ADMIN } from '../../utils/generic/constants';
 
-const UsersPage = ({ users, loading, onDelete, onUpdate, onCreate }) => {
+const UsersPage = ({ 
+  users, 
+  loading, 
+  onDelete, 
+  onUpdate, 
+  onCreate, 
+  onApprove, 
+  onResendEmail 
+}) => {
   const { t } = useTranslation();
   const [filteredRows, setFilteredRows] = useState(users); 
   const [pageSize, setPageSize] = useState(5);
@@ -14,6 +25,10 @@ const UsersPage = ({ users, loading, onDelete, onUpdate, onCreate }) => {
   const [openEditModal, setOpenEditModal] = useState(false); 
   const [currentUser, setCurrentUser] = useState(null); 
   const [searchQuery, setSearchQuery] = useState('');
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm')); 
+  const { user } = useAuthStore();
 
   useEffect(() => {
     setFilteredRows(users); 
@@ -42,21 +57,30 @@ const UsersPage = ({ users, loading, onDelete, onUpdate, onCreate }) => {
 
   return (
     <Box padding={2}>
-      <Box display="flex" justifyContent="center" alignItems="center" mb={2} position="relative">
+      <Box 
+        display="flex" 
+        justifyContent={isMobile ? "center" : "space-between"} 
+        alignItems={isMobile ? "center" : "flex-start"} 
+        mb={2} 
+        flexDirection={isMobile ? "column" : "row"}
+      >
         <Typography variant="h4" gutterBottom textAlign="center" style={{ flexGrow: 1 }}>
           {t('users')}
         </Typography>
-        <Button 
-          variant="contained" 
-          color="primary" 
-          onClick={() => setOpenCreateModal(true)}
-          style={{ position: 'absolute', right: 0 }}
-        >
-          {t('create_user')}
-        </Button>
+
+        {user?.role === ROLE_ADMIN && (
+          <Button 
+            variant="contained" 
+            color="primary" 
+            onClick={() => setOpenCreateModal(true)}
+            style={{ marginTop: isMobile ? "16px" : "0", right: 0 }}
+          >
+            {t('create_user')}
+          </Button>
+        )}
       </Box>
 
-      <Box display="flex" justifyContent="flex-start" mb={2}>
+      <Box display="flex" justifyContent={isMobile ? "center" : "flex-start"} mb={2}>
         <SearchToolbar
           searchQuery={searchQuery} 
           onSearchChange={handleSearchChange}
@@ -71,6 +95,8 @@ const UsersPage = ({ users, loading, onDelete, onUpdate, onCreate }) => {
         loading={loading}
         onEdit={handleEditUser} 
         onDelete={onDelete}
+        onApprove={onApprove}
+        onResendEmail={onResendEmail}
       />
 
       <UserCreateModal

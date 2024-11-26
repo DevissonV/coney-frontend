@@ -12,13 +12,11 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┃ ┗ 📜translation.json
 ┃ ┃ ┗ 📂es
 ┃ ┃   ┗ 📜translation.json
-┃ ┣ 📂static
-┃ ┃ ┣ 📜countries.json
-┃ ┃ ┗ 📜login.json
 ┃ ┗ 📜vite.svg
 ┣ 📂src
 ┃ ┣ 📂assets
-┃ ┃ ┗ 📜react.svg
+┃ ┃ ┣ 📜react.svg
+┃ ┃ ┗ 📜trofeo.ico
 ┃ ┣ 📂components
 ┃ ┃ ┣ 📂countries-components
 ┃ ┃ ┃ ┣ 📜CountriesTable.jsx
@@ -35,9 +33,15 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┃ ┣ 📂input
 ┃ ┃ ┃ ┃ ┗ 📜Input.jsx
 ┃ ┃ ┃ ┣ 📂navbar
-┃ ┃ ┃ ┃ ┗ 📜ResponsiveAppBar.jsx
-┃ ┃ ┃ ┗ 📂search-toolbar
-┃ ┃ ┃   ┗ 📜SearchToolbar.jsx
+┃ ┃ ┃ ┃ ┣ 📜NavLinks.jsx
+┃ ┃ ┃ ┃ ┣ 📜ResponsiveAppBar.jsx
+┃ ┃ ┃ ┃ ┣ 📜ResponsiveDrawer.jsx
+┃ ┃ ┃ ┃ ┣ 📜ThemeToggleButton.jsx
+┃ ┃ ┃ ┃ ┗ 📜UserMenu.jsx
+┃ ┃ ┃ ┣ 📂search-toolbar
+┃ ┃ ┃ ┃ ┗ 📜SearchToolbar.jsx
+┃ ┃ ┃ ┗ 📂table
+┃ ┃ ┃   ┗ 📜CellContent.jsx
 ┃ ┃ ┣ 📂riffle-components
 ┃ ┃ ┃ ┣ 📜RiffeTable.jsx
 ┃ ┃ ┃ ┣ 📜RiffleActions.jsx
@@ -48,8 +52,11 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┃ ┗ 📜TicketsTable.jsx
 ┃ ┃ ┗ 📂users-components
 ┃ ┃   ┣ 📜UserActions.jsx
+┃ ┃   ┣ 📜UserChangePasswordModal.jsx
 ┃ ┃   ┣ 📜UserCreateModal.jsx
 ┃ ┃   ┣ 📜UserEditModal.jsx
+┃ ┃   ┣ 📜UserPasswordRecoveryModal.jsx
+┃ ┃   ┣ 📜UserResendActivationModal.jsx
 ┃ ┃   ┗ 📜UsersTable.jsx
 ┃ ┣ 📂containers
 ┃ ┃ ┣ 📂auth
@@ -65,8 +72,6 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┗ 📂users
 ┃ ┃   ┗ 📜UsersContainer.jsx
 ┃ ┣ 📂hooks
-┃ ┃ ┣ 📂auth
-┃ ┃ ┃ ┗ 📜useAuth.js
 ┃ ┃ ┣ 📂countries
 ┃ ┃ ┃ ┗ 📜useCountries.js
 ┃ ┃ ┣ 📂generic
@@ -84,13 +89,16 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┃ ┗ 📜CountriesPage.jsx
 ┃ ┃ ┣ 📂dashboard
 ┃ ┃ ┃ ┗ 📜DashboardPage.jsx
+┃ ┃ ┣ 📂generic
+┃ ┃ ┃ ┣ 📜NotFoundPage.jsx
+┃ ┃ ┃ ┗ 📜ThankYouPage.jsx
 ┃ ┃ ┣ 📂riffle
 ┃ ┃ ┃ ┗ 📜RifflePage.jsx
 ┃ ┃ ┣ 📂tickets
 ┃ ┃ ┃ ┗ 📜TicketsPage.jsx
-┃ ┃ ┣ 📂users
-┃ ┃ ┃ ┗ 📜UsersPage.jsx
-┃ ┃ ┗ 📜NotFoundPage.jsx
+┃ ┃ ┗ 📂users
+┃ ┃   ┣ 📜PasswordChangePage.jsx
+┃ ┃   ┗ 📜UsersPage.jsx
 ┃ ┣ 📂router
 ┃ ┃ ┗ 📜router.jsx
 ┃ ┣ 📂services
@@ -119,6 +127,7 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┣ 📂api
 ┃ ┃ ┃ ┗ 📜axios.js
 ┃ ┃ ┗ 📂generic
+┃ ┃   ┣ 📜constants.js
 ┃ ┃   ┣ 📜convertText.js
 ┃ ┃   ┣ 📜i18n.js
 ┃ ┃   ┣ 📜securityValidations.js
@@ -144,6 +153,7 @@ La estructura de carpetas del proyecto es la siguiente:
 ┗ 📜vite.config.js
 
 
+
 ```
 ### Descripción de carpetas:
 
@@ -151,7 +161,6 @@ La estructura de carpetas del proyecto es la siguiente:
   - **locales**: Aquí tienes las traducciones para i18n (internacionalización), lo que permite que la aplicación soporte múltiples idiomas.
     - en/translation.json: Traducciones al inglés.
     - es/translation.json: Traducciones al español.
-  - **static/login.json:**:  Archivo estático donde hay información para simular el login
 
 
 - **.📂src/**: 

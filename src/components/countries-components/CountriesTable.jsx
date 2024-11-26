@@ -3,9 +3,12 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import CountryActions from './CountryActions';
+import useAuthStore from '../../stores/auth/useAuthStore';
+import { ROLE_ADMIN } from '../../utils/generic/constants';
 
 const CountriesTable = ({ rows, pageSize, setPageSize, loading, onEdit, onDelete }) => {
   const { t } = useTranslation();
+  const { user } = useAuthStore(); 
 
   const localeText = {
     columnMenuSortAsc: t('sort_asc'),
@@ -18,11 +21,14 @@ const CountriesTable = ({ rows, pageSize, setPageSize, loading, onEdit, onDelete
       labelRowsPerPage: t('rows_per_page'),
     },
   };
-
+  
   const columns = [
     { field: 'id', headerName: t('id'), flex: 1 },
     { field: 'name', headerName: t('name'), flex: 1 },
-    {
+  ];
+
+  if (user?.role === ROLE_ADMIN) {
+    columns.push({
       field: 'actions',
       headerName: t('actions'),
       renderCell: (params) => (
@@ -35,8 +41,8 @@ const CountriesTable = ({ rows, pageSize, setPageSize, loading, onEdit, onDelete
       flex: 1,
       sortable: false,
       filterable: false,
-    },
-  ];
+    });
+  }
 
   return (
     <Box sx={{ width: '100%' }}>

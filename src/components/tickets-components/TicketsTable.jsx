@@ -1,11 +1,10 @@
-import { Box, IconButton } from '@mui/material';
+import { Box } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import TicketActions from './TicketActions';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
-const TicketsTable = ({ rows, pageSize, setPageSize, loading, onEdit, onDelete }) => {
+const TicketsTable = ({ rows, pageSize, loading, onEdit, onDelete }) => {
   const { t } = useTranslation();
 
   const localeText = {
@@ -29,7 +28,7 @@ const TicketsTable = ({ rows, pageSize, setPageSize, loading, onEdit, onDelete }
         <TicketActions
           ticketId={params.row.id}
           onEdit={() => onEdit(params.row)}
-          onDelete={onDelete}
+          onDelete={() => onDelete(params.row.id)} 
         />
       ),
       flex: 1,
@@ -43,12 +42,14 @@ const TicketsTable = ({ rows, pageSize, setPageSize, loading, onEdit, onDelete }
       <DataGrid
         rows={rows}
         columns={columns}
-        pageSize={pageSize}
-        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-        loading={loading}
-        components={{
-          Toolbar: GridToolbar,
+        initialState={{
+          pagination: {
+            paginationModel: { pageSize },
+          },
         }}
+        pageSizeOptions={[20, 40 , 60, 100]}
+        loading={loading}
+        components={{ Toolbar: GridToolbar }}
         localeText={localeText}
       />
     </Box>
@@ -58,7 +59,6 @@ const TicketsTable = ({ rows, pageSize, setPageSize, loading, onEdit, onDelete }
 TicketsTable.propTypes = {
   rows: PropTypes.array.isRequired,
   pageSize: PropTypes.number.isRequired,
-  setPageSize: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   onEdit: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,

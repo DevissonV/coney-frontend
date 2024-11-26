@@ -57,4 +57,49 @@ export const editUser = async (id, userData) => {
   return data;
 };
 
+export const approveUser = async (email) => {
+  const response = await privateAxios.post(`${API_URL}/Users/adminVerification/${email}`);
+  const { status, code, data } = response.data;
 
+  if (!status || code !== 201) {
+    throw new Error('Error approving user');
+  }
+
+  return data;
+};
+
+export const resendEmail = async (email) => {
+  const response = await privateAxios.post(`${API_URL}/Users/sendEmail/${email}`);
+  const { status, code, data } = response.data;
+
+  if (!status || code !== 201) {
+    throw new Error('Error resending email');
+  }
+
+  return data;
+};
+
+export const recoverPassword = async (email) => {
+  const response = await privateAxios.post(`${API_URL}/Users/recoveryUserPassword/${email}`);
+  const { status, code, data } = response.data;
+
+  if (!status || code !== 200) {
+    throw new Error('Error recovering password');
+  }
+
+  return data;
+};
+
+export const changeUserPassword = async (email, newPassword) => {
+  const response = await privateAxios.post(`${API_URL}/Users/changeUserPassword`, {
+    NewPassword: newPassword,
+    Email: email
+  });
+  const { status, code, data } = response.data;
+
+  if (!status || code !== 200) {
+    throw new Error('Error changing user password');
+  }
+
+  return data;
+};

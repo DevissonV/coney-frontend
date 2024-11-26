@@ -1,15 +1,14 @@
-import React from 'react'
-import { Navigate } from 'react-router-dom'
-import useAuth from '../hooks/auth'
+import { Navigate } from 'react-router-dom';
+import useAuthStore from '../stores/auth/useAuthStore';
 
 const AuthWrapper = ({ children }) => {
-  const { token } = useAuth()
+  const token = useAuthStore((state) => state.token); 
 
   if (!token) {
-    return <Navigate to="/login" />
+    return <Navigate to="/login" />;
   }
 
-  return children
-}
+  return children; 
+};
 
-export default AuthWrapper
+export default AuthWrapper;

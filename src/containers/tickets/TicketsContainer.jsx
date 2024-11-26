@@ -1,55 +1,34 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import TicketsPage from '../../pages/tickets/TicketsPage';
 import { useTickets } from '../../hooks/tickets/useTickets';
 import { useSearch } from '../../hooks/generic/useSearch';
 
 const TicketsContainer = () => {
-  const { 
-    tickets, 
-    loading, 
-    loadTickets, 
-    handleCreateTicket, 
-    handleDeleteTicket,
-    handleEditTicket 
-  } = useTickets();
-  
-  const { 
-    searchQuery, 
-    setSearchQuery, 
-    filteredData: filteredTickets 
-  } = useSearch(tickets, ['ticketNumber']);
-  
-  const [openModal, setOpenModal] = useState(false);
-  const [ticketToEdit, setTicketToEdit] = useState(null);
+  const { riffleId } = useParams();
+  const { tickets, loading, loadTickets, handleEditTicket, handleDeleteTicket } = useTickets();
+  const { searchQuery, setSearchQuery, filteredData: filteredTickets } = useSearch(tickets, ['ticketNumber']);
 
   useEffect(() => {
-    loadTickets();
-  }, []);
+    loadTickets(riffleId);
+  }, [riffleId]);
+
+  const onEdit = (ticketData) => {
+    handleEditTicket({ ...ticketData, riffleId }); 
+  };
+
+  const onDelete = (ticketId) => {
+    handleDeleteTicket(ticketId, riffleId);
+  };
 
   return (
     <TicketsPage
-      tickets={filteredTickets} 
+      tickets={filteredTickets}
       loading={loading}
-      onCreate={handleCreateTicket}
-      onEdit={(ticket) => {
-        setTicketToEdit(ticket); 
-        setOpenModal(true); 
-      }}
-      onDelete={handleDeleteTicket}
+      onEdit={onEdit}
+      onDelete={onDelete}
       searchQuery={searchQuery}
       onSearchChange={setSearchQuery}
-      openModal={openModal}
-      setOpenModal={setOpenModal}
-      ticketToEdit={ticketToEdit}
-      setTicketToEdit={setTicketToEdit}
-      onSubmit={(ticketData) => {
-        if (ticketToEdit) {
-          handleEditTicket(ticketToEdit.id, ticketData); 
-        } else {
-          handleCreateTicket(ticketData);
-        }
-        setOpenModal(false); 
-      }}
     />
   );
 };
