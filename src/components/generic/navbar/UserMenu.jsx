@@ -37,7 +37,7 @@ const UserMenu = ({ handleLogout }) => {
   };
 
   const handleLogin = () => {
-    window.location.href = "/login";
+    window.location.href = "Coney.Frontend/login";
   };
 
   return (
