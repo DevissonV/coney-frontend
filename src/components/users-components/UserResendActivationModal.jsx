@@ -29,13 +29,6 @@ const UserResendActivationModal = ({ open, onClose }) => {
     <Dialog open={open} onClose={onClose}>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', pr: 1 }}>
         <DialogTitle>{t('resend_activation_email')}</DialogTitle>
-        <IconButton
-          aria-label="close"
-          onClick={onClose}
-          sx={{ color: (theme) => theme.palette.grey[500] }}
-        >
-          <CloseIcon />
-        </IconButton>
       </Box>
       <DialogContent>
         <TextField
@@ -49,7 +42,11 @@ const UserResendActivationModal = ({ open, onClose }) => {
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleResend} color="primary">
+        <Button onClick={onClose} color="secondary"  variant="contained">
+          {t('cancel')}
+        </Button>
+
+        <Button onClick={handleResend} color="primary" variant="contained">
           {t('send')}
         </Button>
       </DialogActions>

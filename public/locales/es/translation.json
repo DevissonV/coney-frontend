@@ -120,7 +120,7 @@
   "send": "Enviar",
   "enter_new_password": "Por favor ingrese su nueva contraseña",
   "password_change_success": "La contraseña se cambió correctamente.",
-  "resend_activation_email": "Reenviar correo de activación de cuenta",
+  "resend_activation_email": "Reenviar correo de activación",
   "error_changing_password": "Error al cambiar la contraseña.",
   "error_resending_email": "Error reenviando correo",
   "error_sending_email": "Error enviando correo",

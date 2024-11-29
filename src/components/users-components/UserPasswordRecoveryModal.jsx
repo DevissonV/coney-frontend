@@ -31,15 +31,6 @@ const UserPasswordRecoveryModal = ({ open, onClose }) => {
         <DialogTitle>
           {t('recover_password')}
         </DialogTitle>
-        <IconButton
-          aria-label="close"
-          onClick={onClose}
-          sx={{
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
       </Box>
       <DialogContent>
         <TextField
@@ -54,6 +45,10 @@ const UserPasswordRecoveryModal = ({ open, onClose }) => {
         />
       </DialogContent>
       <DialogActions>
+        <Button onClick={onClose} color="secondary"  variant="contained">
+          {t('cancel')}
+        </Button>
+        
         <Button onClick={handleRecover} color="primary" variant="contained">
           {t('send')}
         </Button>

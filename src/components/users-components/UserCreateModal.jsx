@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Box, Modal, TextField, Typography, Button, IconButton } from '@mui/material';
+import { Box, Modal, TextField, Typography, Button, IconButton, DialogActions } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close'; 
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
@@ -159,11 +159,16 @@ const UserCreateModal = ({ open, onClose, onCreateUser }) => {
             helperText={errors.password}
             inputProps={{ maxLength: 20 }}
           />
-          <Box mt={2} display="flex" justifyContent="flex-end">
+          <DialogActions>
+            <Button onClick={onClose} color="secondary"  variant="contained">
+              {t('cancel')}
+            </Button>
+
             <Button variant="contained" color="primary" onClick={handleSubmit}>
               {t('save')}
             </Button>
-          </Box>
+          </DialogActions> 
+          
         </Box>
       </Box>
     </Modal>
