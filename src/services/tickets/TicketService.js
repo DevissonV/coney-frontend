@@ -76,8 +76,7 @@ export const editTicket = async (id, ticketData) => {
   return data;
 };
 
-export const fetchTicketsByRiffle = async (riffleId) => {
-  const limit = 100;
+export const fetchTicketsByRiffle = async (riffleId, limit = 100) => {
   const response = await privateAxios.get(
     `${API_URL}/tickets/?limit=${limit}&raffle_id=${riffleId}`
   );
