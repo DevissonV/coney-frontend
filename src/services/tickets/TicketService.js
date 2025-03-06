@@ -1,11 +1,11 @@
 import { privateAxios } from '../../utils/api/axios';
-import { getToken } from "../../utils/authHelpers";
+import { getToken } from '../../utils/authHelpers';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const getHeaders = () => {
   const token = getToken();
-  if (!token) throw new Error("Token no disponible. Por favor, inicia sesión.");
+  if (!token) throw new Error('Token no disponible. Por favor, inicia sesión.');
   return {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -14,7 +14,7 @@ const getHeaders = () => {
 };
 
 export const fetchTickets = async () => {
-  const response = await privateAxios.get(`${API_URL}/Tickets/getAllRiffles`); 
+  const response = await privateAxios.get(`${API_URL}/Tickets/getAllRiffles`);
   const { status, code, data } = response.data;
 
   if (!status || code !== 200) {
@@ -25,7 +25,10 @@ export const fetchTickets = async () => {
 };
 
 export const createTicket = async (ticketData) => {
-  const response = await privateAxios.post(`${API_URL}/Tickets/createTicket`, ticketData);
+  const response = await privateAxios.post(
+    `${API_URL}/Tickets/createTicket`,
+    ticketData
+  );
   const { status, code, data } = response.data;
 
   if (!status || code !== 201) {
@@ -47,18 +50,23 @@ export const getTicketById = async (id) => {
 };
 
 export const deleteTicket = async (id) => {
-  const response = await privateAxios.delete(`${API_URL}/Tickets/deleteTicket/${id}`);
+  const response = await privateAxios.delete(
+    `${API_URL}/Tickets/deleteTicket/${id}`
+  );
   const { status, code } = response.data;
 
   if (!status || code !== 200) {
     throw new Error(`Error deleting ticket with ID ${id}`);
   }
 
-  return true; 
+  return true;
 };
 
 export const editTicket = async (id, ticketData) => {
-  const response = await privateAxios.put(`${API_URL}/Tickets/updateTicket/${id}`, ticketData);
+  const response = await privateAxios.put(
+    `${API_URL}/Tickets/updateTicket/${id}`,
+    ticketData
+  );
   const { status, code, data } = response.data;
 
   if (!status || code !== 200) {
@@ -68,21 +76,11 @@ export const editTicket = async (id, ticketData) => {
   return data;
 };
 
-// export const fetchTicketsByRiffle = async (riffleId) => {
-//   const response = await privateAxios.get(`${API_URL}/Tickets/getAllTicketsForReservation/${riffleId}`);
-//   const { status, code, data } = response.data;
-
-//   if (!status || code !== 200) {
-//     throw new Error('Error fetching tickets');
-//   }
-
-//   return data;
-// };
-
-
-//Modificado por andres lora
 export const fetchTicketsByRiffle = async (riffleId) => {
-  const response = await privateAxios.get(`${API_URL}/tickets/?raffle_id=${riffleId}`,getHeaders());
+  const limit = 100;
+  const response = await privateAxios.get(
+    `${API_URL}/tickets/?limit=${limit}&raffle_id=${riffleId}`
+  );
   const { status, code, data } = response.data;
 
   if (!status || code !== 200) {
