@@ -9,7 +9,7 @@ export const login = async (credentials) => {
   }
 
   try {
-    const response = await privateAxios.post(`${API_URL}/Auths/login`, credentials);
+    const response = await privateAxios.post(`${API_URL}/api/users/login`, credentials);
     const { status, code, data } = response.data;
 
     if (!status || code !== 200) {

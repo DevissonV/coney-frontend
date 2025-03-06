@@ -78,6 +78,7 @@
   "edit_ticket": "Editar boleta",
   "tickets": "Boletas",
   "ticket_number": "Número de boleta",
+  
   "confirm_buys_title": "¿Seguro desea comprar esta boleta?",
   "confirm_buys_message": "¡Mucha suerte!",
   "continue": "Continuar para reservar",
@@ -141,5 +142,6 @@
   "error_creating_ticket": "Error creando boleta",
   "error_updating_ticket": "Error actualizando boleta",
   "error_loading_tickets": "Error cargando boletas",
-  "error_deleting_ticket": "Error eliminando boleta"
+  "error_deleting_ticket": "Error eliminando boleta",
+  "Tickets_available": "Boletas disponibles"
 }

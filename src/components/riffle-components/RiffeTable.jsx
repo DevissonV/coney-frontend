@@ -41,26 +41,32 @@ const RiffleTable = ({ rows, loading, onEdit, onDelete, onViewTickets }) => {
         renderCell: (params) => <CellContent value={params.value} />,
       },
       {
-        field: 'initDate',
-        headerName: t('initDate'),
-        flex: 1.2,
+        field: 'boletas',
+        headerName: '# de boletas',
+        flex: 1.5,
         minWidth: 180,
-        renderCell: (params) => {
-          const formattedDate = new Date(params.value).toLocaleDateString();
-          return <CellContent value={formattedDate} />;
-        },
+        renderCell: (params) => <CellContent value="Boletas disponibles" />,
       },
       {
-        field: 'endtDate',
-        headerName: t('endDate'),
-        flex: 1.2,
+        field:'expired',
+        headerName: t('expired'),
+        flex: 1.5,
         minWidth: 180,
-        renderCell: (params) => {
-          const formattedDate = params.value
-            ? new Date(params.value).toLocaleDateString()
-            : t('no_data');
-          return <CellContent value={formattedDate} />;
-        },
+        renderCell: (params) => <CellContent value="4 dias" />,
+      },
+      {
+        field: 'actions',
+        headerName: t('actions'),
+        renderCell: (params) => (
+          <RiffleActions
+            riffleId={params.row.id}
+            onEdit={() => onEdit(params.row)}
+            onDelete={() => onDelete(params.row.id)} 
+          />
+        ),
+        flex: 1,
+        sortable: false,
+        filterable: false,
       },
     ];
 
@@ -100,7 +106,7 @@ const RiffleTable = ({ rows, loading, onEdit, onDelete, onViewTickets }) => {
             paginationModel: { pageSize: 5 },
           },
         }}
-        pageSizeOptions={[5, 10, 20, 50]}
+        pageSizeOptions={[5, 10, 20, 50,100]}
         loading={loading}
         disableRowSelectionOnClick
         components={{ Toolbar: GridToolbar }}

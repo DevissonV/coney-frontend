@@ -7,8 +7,7 @@ import { useSearch } from '../../hooks/generic/useSearch';
 const TicketsContainer = () => {
   const { riffleId } = useParams();
   const { tickets, loading, loadTickets, handleEditTicket, handleDeleteTicket } = useTickets();
-  const { searchQuery, setSearchQuery, filteredData: filteredTickets } = useSearch(tickets, ['ticketNumber']);
-
+  const { searchQuery, setSearchQuery, filteredData: filteredTickets } = useSearch(tickets, ['ticket_number']);
   useEffect(() => {
     loadTickets(riffleId);
   }, [riffleId]);

@@ -7,7 +7,7 @@ const RiffleContainer = () => {
   const { 
     riffle, 
     loading, 
-    loadRiffle, 
+    loadRaffle, 
     handleCreateRiffle, 
     handleDeleteRiffle,
     handleEditRiffle 
@@ -22,9 +22,8 @@ const RiffleContainer = () => {
   const [riffleToEdit, setRiffleToEdit] = useState(null);
 
   useEffect(() => {
-    loadRiffle();
+    loadRaffle();
   }, []);
-
   return (
     <RifflePage
       riffle={filteredRiffle} 

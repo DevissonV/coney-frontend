@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import { fetchRiffle, createRiffle, editRiffle, deleteRiffle } from '../../services/riffle/RiffleService';
+import { fetchRaffle, createRiffle, editRiffle, deleteRiffle } from '../../services/riffle/RiffleService';
 import { errorAlert, toast, confirmDelete } from '../../services/generic/AlertService';
 
 export const useRiffle = () => {
   const [loading, setLoading] = useState(true);
   const [riffle, setRiffle] = useState([]);
 
-  const loadRiffle = async () => {
+  const loadRaffle = async () => {
     setLoading(true);
     try {
-      const data = await fetchRiffle();
+      const data = await fetchRaffle();
       setRiffle(data);
     } catch (error) {
       errorAlert({ messageKey: 'error_loading_riffle' });
@@ -22,7 +22,7 @@ export const useRiffle = () => {
     try {
       await createRiffle(riffleData);
       toast({ icon: 'success', titleKey: 'create_success' });
-      loadRiffle();
+      loadRaffle();
     } catch (error) {
       errorAlert({ messageKey: 'error_creating_riffle' });
     }
@@ -32,7 +32,7 @@ export const useRiffle = () => {
     try {
       await editRiffle(id, riffleData);
       toast({ icon: 'success', titleKey: 'edit_success' });
-      loadRiffle();
+      loadRaffle();
     } catch (error) {
       errorAlert({ messageKey: 'error_updating_riffle' });
     }
@@ -48,7 +48,7 @@ export const useRiffle = () => {
       try {
         await deleteRiffle(id);
         toast({ icon: 'success', titleKey: 'delete_success' });
-        loadRiffle();
+        loadRaffle();
       } catch (error) {
         errorAlert({ messageKey: 'error_deleting_riffle' });
       }
@@ -58,7 +58,7 @@ export const useRiffle = () => {
   return {
     riffle,
     loading,
-    loadRiffle,
+    loadRaffle,
     handleCreateRiffle,
     handleEditRiffle,
     handleDeleteRiffle,

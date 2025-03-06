@@ -6,7 +6,6 @@ import TicketActions from './TicketActions';
 
 const TicketsTable = ({ rows, pageSize, loading, onEdit, onDelete }) => {
   const { t } = useTranslation();
-
   const localeText = {
     columnMenuSortAsc: t('sort_asc'),
     columnMenuSortDesc: t('sort_desc'),
@@ -20,7 +19,7 @@ const TicketsTable = ({ rows, pageSize, loading, onEdit, onDelete }) => {
   };
 
   const columns = [
-    { field: 'ticketNumber', headerName: t('ticket_number'), flex: 1 },
+    { field: 'ticket_number', headerName: t('ticket_number'), flex: 1 },
     {
       field: 'actions',
       headerName: t('actions'),
@@ -56,7 +55,7 @@ const TicketsTable = ({ rows, pageSize, loading, onEdit, onDelete }) => {
   );
 };
 
-TicketsTable.propTypes = {
+TicketsTable.prototype = {
   rows: PropTypes.array.isRequired,
   pageSize: PropTypes.number.isRequired,
   loading: PropTypes.bool.isRequired,

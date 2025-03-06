@@ -1,6 +1,17 @@
-import { privateAxios } from '../../utils/api/axios'; 
+import { privateAxios } from '../../utils/api/axios';
+import { getToken } from "../../utils/authHelpers";
 
 const API_URL = import.meta.env.VITE_API_URL;
+
+const getHeaders = () => {
+  const token = getToken();
+  if (!token) throw new Error("Token no disponible. Por favor, inicia sesión.");
+  return {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+};
 
 export const fetchTickets = async () => {
   const response = await privateAxios.get(`${API_URL}/Tickets/getAllRiffles`); 
@@ -57,12 +68,26 @@ export const editTicket = async (id, ticketData) => {
   return data;
 };
 
+// export const fetchTicketsByRiffle = async (riffleId) => {
+//   const response = await privateAxios.get(`${API_URL}/Tickets/getAllTicketsForReservation/${riffleId}`);
+//   const { status, code, data } = response.data;
+
+//   if (!status || code !== 200) {
+//     throw new Error('Error fetching tickets');
+//   }
+
+//   return data;
+// };
+
+
+//Modificado por andres lora
 export const fetchTicketsByRiffle = async (riffleId) => {
-  const response = await privateAxios.get(`${API_URL}/Tickets/getAllTicketsForReservation/${riffleId}`);
+  const response = await privateAxios.get(`${API_URL}/tickets/?raffle_id=${riffleId}`,getHeaders());
   const { status, code, data } = response.data;
 
   if (!status || code !== 200) {
-    throw new Error('Error fetching tickets');
+    // throw new Error('Error fetching tickets');
+    console.log('Error fetching tickets');
   }
 
   return data;

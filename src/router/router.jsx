@@ -90,11 +90,9 @@ const AppRouter = () => {
         <Route
           path="/tickets/:riffleId"
           element={
-            <ProtectedRoute>
               <Layout>
                 <TicketsContainer />
               </Layout>
-            </ProtectedRoute>
           }
         />
 
