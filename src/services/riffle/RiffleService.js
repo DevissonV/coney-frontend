@@ -25,7 +25,7 @@ export const fetchRaffle = async () => {
 
 export const fetchTicketsByRiffle = async (riffleId) => {
   const response = await privateAxios.get(
-    `${API_URL}/tickets/?raffle_id=${riffleId}`
+    `${API_URL}/tickets/?raffle_id=${riffleId}`,
   );
   const { status, code, data } = response.data;
 
@@ -60,7 +60,7 @@ export const getRiffleById = async (id) => {
 
 export const deleteRiffle = async (id) => {
   const response = await privateAxios.delete(
-    `${API_URL}/Riffles/deleteRiffle/${id}`
+    `${API_URL}/Riffles/deleteRiffle/${id}`,
   );
   const { status, code } = response.data;
 
@@ -74,7 +74,7 @@ export const deleteRiffle = async (id) => {
 export const editRiffle = async (id, riffleData) => {
   const response = await privateAxios.put(
     `${API_URL}/Riffles/updateRiffle/${id}`,
-    riffleData
+    riffleData,
   );
   const { status, code, data } = response.data;
 

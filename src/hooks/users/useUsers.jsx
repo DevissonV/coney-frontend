@@ -52,7 +52,7 @@ export const useUsers = () => {
         errorAlert({ messageKey: 'error_deleting_user' });
       }
     },
-    [setUsers]
+    [setUsers],
   );
 
   /**
@@ -79,7 +79,7 @@ export const useUsers = () => {
         errorAlert({ messageKey: 'error_updating_user' });
       }
     },
-    [setUsers, loggedInUser, updateAuthUser]
+    [setUsers, loggedInUser, updateAuthUser],
   );
 
   /**
@@ -101,7 +101,7 @@ export const useUsers = () => {
         errorAlert({ messageKey: 'error_creating_user' });
       }
     },
-    [setUsers]
+    [setUsers],
   );
 
   /**
@@ -123,7 +123,7 @@ export const useUsers = () => {
         errorAlert({ messageKey: 'error_approving_user' });
       }
     },
-    [setUsers]
+    [setUsers],
   );
 
   /**
@@ -143,7 +143,7 @@ export const useUsers = () => {
         errorAlert({ messageKey: 'error_resending_email' });
       }
     },
-    [setUsers]
+    [setUsers],
   );
 
   /**

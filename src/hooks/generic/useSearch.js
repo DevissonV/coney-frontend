@@ -13,7 +13,7 @@ export const useSearch = (data, searchFields) => {
           item[field]
             ?.toString()
             .toLowerCase()
-            .includes(searchQuery.toLowerCase())
+            .includes(searchQuery.toLowerCase()),
         ),
       );
       setFilteredData(filtered);

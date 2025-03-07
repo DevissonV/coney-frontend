@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 const TicketFormModal = ({ open, onClose, onSubmit, initialValues }) => {
   const { t } = useTranslation();
   const [ticketTicketNumber, setTicketTicketNumber] = useState(
-    initialValues.ticketNumber || ''
+    initialValues.ticketNumber || '',
   );
 
   useEffect(() => {

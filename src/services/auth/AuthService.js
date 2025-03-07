@@ -23,7 +23,7 @@ export const login = async (credentials) => {
   try {
     const response = await privateAxios.post(
       `${API_URL}/api/users/login`,
-      credentials
+      credentials,
     );
     const { status, code, data } = response.data;
 
@@ -45,7 +45,7 @@ export const login = async (credentials) => {
     };
   } catch (error) {
     throw new Error(
-      `Login failed: ${error.response?.data?.message || error.message}`
+      `Login failed: ${error.response?.data?.message || error.message}`,
     );
   }
 };

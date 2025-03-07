@@ -31,7 +31,7 @@ const UsersTable = ({
         labelRowsPerPage: t('rows_per_page'),
       },
     }),
-    [t]
+    [t],
   );
 
   const columns = useMemo(() => {

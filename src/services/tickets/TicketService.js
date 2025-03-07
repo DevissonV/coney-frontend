@@ -43,7 +43,7 @@ export const fetchTickets = async () => {
 export const createTicket = async (ticketData) => {
   const response = await privateAxios.post(
     `${API_URL}/Tickets/createTicket`,
-    ticketData
+    ticketData,
   );
   const { status, code, data } = response.data;
 
@@ -79,7 +79,7 @@ export const getTicketById = async (id) => {
  */
 export const deleteTicket = async (id) => {
   const response = await privateAxios.delete(
-    `${API_URL}/Tickets/deleteTicket/${id}`
+    `${API_URL}/Tickets/deleteTicket/${id}`,
   );
   const { status, code } = response.data;
 
@@ -100,7 +100,7 @@ export const deleteTicket = async (id) => {
 export const editTicket = async (id, ticketData) => {
   const response = await privateAxios.put(
     `${API_URL}/Tickets/updateTicket/${id}`,
-    ticketData
+    ticketData,
   );
   const { status, code, data } = response.data;
 
@@ -119,7 +119,7 @@ export const editTicket = async (id, ticketData) => {
  */
 export const fetchTicketsByRiffle = async (riffleId, limit = 100) => {
   const response = await privateAxios.get(
-    `${API_URL}/tickets/?limit=${limit}&raffle_id=${riffleId}`
+    `${API_URL}/tickets/?limit=${limit}&raffle_id=${riffleId}`,
   );
   const { status, code, data } = response.data;
 

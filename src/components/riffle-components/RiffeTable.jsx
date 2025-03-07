@@ -24,7 +24,7 @@ const RiffleTable = ({ rows, loading, onEdit, onDelete, onViewTickets }) => {
         labelRowsPerPage: t('rows_per_page'),
       },
     }),
-    [t]
+    [t],
   );
 
   const columns = useMemo(() => {

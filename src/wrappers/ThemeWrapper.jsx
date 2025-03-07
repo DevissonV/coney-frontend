@@ -46,7 +46,7 @@ const ThemeWrapper = ({ children }) => {
           mode: darkMode ? 'dark' : 'light',
         },
       }),
-    [darkMode]
+    [darkMode],
   );
 
   return (

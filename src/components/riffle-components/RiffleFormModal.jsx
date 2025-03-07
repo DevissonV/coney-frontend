@@ -19,13 +19,13 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
 
   const [riffleName, setRiffleName] = useState(initialValues.name || '');
   const [riffleDescription, setRiffleDescription] = useState(
-    initialValues.description || ''
+    initialValues.description || '',
   );
   const [initDate, setInitDate] = useState(
-    formatDateForInput(initialValues.initDate)
+    formatDateForInput(initialValues.initDate),
   );
   const [endtDate, setendtDate] = useState(
-    formatDateForInput(initialValues.endtDate)
+    formatDateForInput(initialValues.endtDate),
   );
 
   useEffect(() => {

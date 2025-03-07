@@ -71,7 +71,7 @@ const UsersPage = ({
         (user) =>
           user.firstName.toLowerCase().includes(query.toLowerCase()) ||
           user.lastName.toLowerCase().includes(query.toLowerCase()) ||
-          user.email.toLowerCase().includes(query.toLowerCase())
+          user.email.toLowerCase().includes(query.toLowerCase()),
       );
       setFilteredRows(filtered);
     }

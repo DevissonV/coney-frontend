@@ -27,7 +27,7 @@ export const fetchUsers = async () => {
 export const createUser = async (userData) => {
   const response = await privateAxios.post(
     `${API_URL}/Users/createUser`,
-    userData
+    userData,
   );
   const { status, code, data } = response.data;
 
@@ -63,7 +63,7 @@ export const getUserById = async (id) => {
  */
 export const deleteUser = async (id) => {
   const response = await privateAxios.delete(
-    `${API_URL}/Users/deleteUser/${id}`
+    `${API_URL}/Users/deleteUser/${id}`,
   );
   const { status, code } = response.data;
 
@@ -84,7 +84,7 @@ export const deleteUser = async (id) => {
 export const editUser = async (id, userData) => {
   const response = await privateAxios.put(
     `${API_URL}/Users/updateUser/${id}`,
-    userData
+    userData,
   );
   const { status, code, data } = response.data;
 
@@ -103,7 +103,7 @@ export const editUser = async (id, userData) => {
  */
 export const approveUser = async (email) => {
   const response = await privateAxios.post(
-    `${API_URL}/Users/adminVerification/${email}`
+    `${API_URL}/Users/adminVerification/${email}`,
   );
   const { status, code, data } = response.data;
 
@@ -122,7 +122,7 @@ export const approveUser = async (email) => {
  */
 export const resendEmail = async (email) => {
   const response = await privateAxios.post(
-    `${API_URL}/Users/sendEmail/${email}`
+    `${API_URL}/Users/sendEmail/${email}`,
   );
   const { status, code, data } = response.data;
 
@@ -141,7 +141,7 @@ export const resendEmail = async (email) => {
  */
 export const recoverPassword = async (email) => {
   const response = await privateAxios.post(
-    `${API_URL}/Users/recoveryUserPassword/${email}`
+    `${API_URL}/Users/recoveryUserPassword/${email}`,
   );
   const { status, code, data } = response.data;
 
@@ -165,7 +165,7 @@ export const changeUserPassword = async (email, newPassword) => {
     {
       NewPassword: newPassword,
       Email: email,
-    }
+    },
   );
   const { status, code, data } = response.data;
 

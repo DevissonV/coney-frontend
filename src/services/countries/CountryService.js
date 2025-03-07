@@ -9,7 +9,7 @@ const API_URL = import.meta.env.VITE_API_URL;
  */
 export const fetchCountries = async () => {
   const response = await privateAxios.get(
-    `${API_URL}/Countries/getAllCountries`
+    `${API_URL}/Countries/getAllCountries`,
   );
   const { status, code, data } = response.data;
 
@@ -29,7 +29,7 @@ export const fetchCountries = async () => {
 export const createCountry = async (countryData) => {
   const response = await privateAxios.post(
     `${API_URL}/Countries/createCountry`,
-    countryData
+    countryData,
   );
   const { status, code, data } = response.data;
 
@@ -48,7 +48,7 @@ export const createCountry = async (countryData) => {
  */
 export const getCountryById = async (id) => {
   const response = await privateAxios.get(
-    `${API_URL}/Countries/getCountry/${id}`
+    `${API_URL}/Countries/getCountry/${id}`,
   );
   const { status, code, data } = response.data;
 
@@ -67,7 +67,7 @@ export const getCountryById = async (id) => {
  */
 export const deleteCountry = async (id) => {
   const response = await privateAxios.delete(
-    `${API_URL}/Countries/deleteCountry/${id}`
+    `${API_URL}/Countries/deleteCountry/${id}`,
   );
   const { status, code } = response.data;
 
@@ -88,7 +88,7 @@ export const deleteCountry = async (id) => {
 export const editCountry = async (id, countryData) => {
   const response = await privateAxios.put(
     `${API_URL}/Countries/updateCountry/${id}`,
-    countryData
+    countryData,
   );
   const { status, code, data } = response.data;
 
