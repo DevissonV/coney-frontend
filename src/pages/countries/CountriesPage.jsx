@@ -11,7 +11,7 @@ import { ROLE_ADMIN } from '../../utils/generic/constants';
 const CountriesPage = ({
   countries,
   loading,
-  onCreate,
+  //onCreate,
   onEdit,
   onDelete,
   searchQuery,

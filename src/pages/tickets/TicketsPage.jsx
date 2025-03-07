@@ -19,96 +19,89 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const TicketsPage = ({
   tickets,
-  loading,
-  onEdit,
-  onDelete,
+  //loading,
+  //onEdit,
+  //onDelete,
   searchQuery,
   onSearchChange,
 }) => {
   const { t } = useTranslation();
 
-  /** Open Es una variable de estado que controla si el modal (diálogo) está abierto o cerrado.
-   * setOpen Es una función que se utiliza para actualizar el estado de open.
-   * useState(false) Establece el valor inicial de open como false, lo que significa que el modal está cerrado inicialmente.
+  /**
+   * State variable to manage the open/close state.
+   * @type {boolean}
    */
   const [open, setOpen] = useState(false);
 
-  /**selectedTicket Es una variable de estado que mantiene la información del ticket actualmente seleccionado.
-   * setSelectedTicket Es una función que se utiliza para actualizar el estado de selectedTicket.
-   * useState(null) Establece el valor inicial de selectedTicket como null, lo que significa que no hay ningún ticket seleccionado inicialmente.
+  /**
+   * State to hold the currently selected ticket.
+   * @type {[Object|null, Function]} selectedTicket - The selected ticket object or null if no ticket is selected.
+   * @type {Function} setSelectedTicket - Function to update the selected ticket state.
    */
   const [selectedTicket, setSelectedTicket] = useState(null);
 
-  /**Estado para el índice del ticket actual en la lista de tickets
-   * currentIndex: Es una variable de estado que mantiene el índice del ticket actualmente seleccionado o mostrado.
-   * setCurrentIndex: Es una función que se utiliza para actualizar el estado de currentIndex.
-   * useState(0): Establece el valor inicial de currentIndex como 0, lo que significa que inicialmente se selecciona el primer ticket en la lista.
+  /**
+   * State variable to keep track of the current index.
+   * @type {[number, Function]}
    */
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  /**Estado para la página actual de la lista de tickets
-   * currentPage:Es una variable de estado que mantiene el número de la página actual en la lista de tickets.
-   * setCurrentPage:Es una función que se utiliza para actualizar el estado de currentPage.
-   * useState(1):Establece el valor inicial de currentPage como 1, lo que significa
-   * que inicialmente se muestra la primera página de la lista de tickets.
-   */
-  const [currentPage, setCurrentPage] = useState(1);
 
-  /** Estado para el número de tickets por página
-   * ticketsPerPage: Es una variable de estado que mantiene el número de tickets que se deben mostrar por página.
-   * setTicketsPerPage: Es una función que se utiliza para actualizar el estado de ticketsPerPage.
-   * useState(5): Establece el valor inicial de ticketsPerPage como 5, lo que significa que inicialmente se muestran 5 tickets por página.
+  /**
+   * State variable to keep track of the current page number.
+   * @type {number}
    */
   const [ticketsPerPage, setTicketsPerPage] = useState(5);
 
-  /**Estado para el botón seleccionado en la lista de tickets
-   * selectedButtonIndex: Es una variable de estado que mantiene el índice del botón de ticket actualmente seleccionado.
-   * setSelectedButtonIndex: Es una función que se utiliza para actualizar el estado de selectedButtonIndex.
-   * useState(null): Establece el valor inicial de selectedButtonIndex como null, lo que significa que no hay ningún botón seleccionado inicialmente.
+  /**
+   * State variable to keep track of the index of the selected button.
+   * @type {[number|null, Function]}
    */
   const [selectedButtonIndex, setSelectedButtonIndex] = useState(null);
 
-  // Funcion para abrir el modal (dialog) con la información del ticket seleccionado
+  /**
+   * Handles the click event to open a ticket.
+   * Sets the selected ticket based on the provided index and opens the dialog.
+   *
+   * @param {number} index - The index of the ticket to be selected.
+   */
   const handleClickOpen = (index) => {
-    // Establecer el ticket seleccionado y abrir el modal en base al indice seleccionado
     setSelectedTicket(tickets[index]);
-    // Abre el modal estableciendo el estado 'open' a true
     setOpen(true);
   };
 
-  // Funcion para cerrar el modal (dialog)
+  /**
+   * Handles the closing of a modal or dialog.
+   * Sets the state to close the modal and clears the selected ticket.
+   */
   const handleClose = () => {
-    // Cierra el modal estableciendo el estado 'open' a false
     setOpen(false);
-    // Limpia el ticket seleccionado estableciendo el estado 'selectedTicket' a null
     setSelectedTicket(null);
   };
 
-  // Funciones para navegar dentro de la tarjeta de los tickets
+  /**
+   * Advances to the next ticket in the list.
+   * Updates the current index and the selected button index.
+   * If the current index is at the end of the list, it wraps around to the beginning.
+   */
   const handleNextTicket = () => {
-    // Acutalizar el índice del ticket actual
     setCurrentIndex((prevIndex) => {
-      // Calcular el nuevo índice del ticket
       const newIndex = (prevIndex + 1) % tickets.length;
-      // Estabece el nuevo indice el boton seleccionado (esto es un hook para manejar estados de react)
       setSelectedButtonIndex(newIndex);
-      // Retorna el nuevo indice para actualizar el estado
       return newIndex;
     });
   };
 
-  // Funcion para devolverse en la tarjeta de los tickets cuando se presiona el boton 'Anterior'
+  /**
+   * Handles the action of reversing the ticket selection.
+   * If the current index is greater than 0, it decrements the current index
+   * and updates the selected button index accordingly.
+   */
   const handleReverseTicket = () => {
-    // Verifica si el indice actual es mayor a 0 para no retroceder más allá del primer ticket
     if (currentIndex > 0) {
-      // Actualiza el indice del ticket actual
       setCurrentIndex((prevIndex) => {
-        // Calcula el nuevo índice del ticket restando 1 al índice anterior y utilizando el operador
-        // módulo (%) para asegurarse de que el índice se mantenga dentro del rango de la lista de tickets.
         const newIndex = (prevIndex - 1) % tickets.length;
-        // Establece el nuevo indice del boton seleccionado
         setSelectedButtonIndex(newIndex);
-        // Retorna el nuevo indice para actualizar el estado
         return newIndex;
       });
     }

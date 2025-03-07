@@ -7,7 +7,6 @@ export const getToken = () => {
   try {
     return localStorage.getItem('token') || null;
   } catch (error) {
-    console.error('Error retrieving token from storage:', error);
-    return null;
+    return error;
   }
 };

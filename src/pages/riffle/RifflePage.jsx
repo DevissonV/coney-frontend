@@ -5,14 +5,14 @@ import RiffleTable from '../../components/riffle-components/RiffeTable';
 import RiffleFormModal from '../../components/riffle-components/RiffleFormModal';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@mui/material/styles';
-import useAuthStore from '../../stores/auth/useAuthStore';
+//import useAuthStore from '../../stores/auth/useAuthStore';
 import { useNavigate } from 'react-router-dom';
-import { ROLE_ANONYMOUS } from '../../utils/generic/constants';
+//import { ROLE_ANONYMOUS } from '../../utils/generic/constants';
 
 const RifflePage = ({
   riffle,
   loading,
-  onCreate,
+  //onCreate,
   onEdit,
   onDelete,
   searchQuery,
@@ -28,7 +28,7 @@ const RifflePage = ({
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const { token, user } = useAuthStore(); // Obtenemos el token y el usuario
+  //const { token, user } = useAuthStore(); // Obtenemos el token y el usuario
   const navigate = useNavigate();
 
   const handleViewTickets = (riffleId) => {

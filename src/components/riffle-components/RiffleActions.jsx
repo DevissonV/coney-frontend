@@ -8,16 +8,25 @@ import { useTranslation } from 'react-i18next';
 import { ROLE_ADMIN } from '../../utils/generic/constants';
 import { useNavigate } from 'react-router-dom';
 
-const RiffleActions = ({ riffleId, onEdit, onDelete, onViewTickets }) => {
+/**
+ * RiffleActions component renders action buttons for editing, deleting, and viewing tickets related to a riffle.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {string} props.riffleId - The ID of the riffle.
+ * @param {function} props.onEdit - Callback function to handle the edit action.
+ * @param {function} props.onDelete - Callback function to handle the delete action.
+ * @returns {JSX.Element} The rendered component.
+ *
+ */
+const RiffleActions = ({ riffleId, onEdit, onDelete }) => {
   const { user } = useAuthStore();
   const { t } = useTranslation();
-  const navigate = useNavigate(); // Crear una instancia de useNavigate
+  const navigate = useNavigate();
 
-  // Función para manejar la navegación a la ruta de tickets con el parámetro riffleId
   const handleViewTickets = (riffleId) => {
     navigate(`/tickets/${riffleId}`);
   };
-  console.log(riffleId);
   return (
     <>
       {user?.role === ROLE_ADMIN && (
@@ -43,9 +52,6 @@ const RiffleActions = ({ riffleId, onEdit, onDelete, onViewTickets }) => {
         >
           <VisibilityIcon />
         </ArrowForwardIcon>
-        {/* <IconButton color="info" onClick={() => onViewTickets(riffleId)}>
-          <VisibilityIcon />
-        </IconButton> */}
       </Tooltip>
     </>
   );

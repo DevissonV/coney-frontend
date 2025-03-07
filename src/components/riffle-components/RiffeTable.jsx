@@ -48,14 +48,14 @@ const RiffleTable = ({ rows, loading, onEdit, onDelete, onViewTickets }) => {
         headerName: '# de boletas',
         flex: 1.5,
         minWidth: 180,
-        renderCell: (params) => <CellContent value="Boletas disponibles" />,
+        renderCell: () => <CellContent value="Boletas disponibles" />,
       },
       {
         field: 'expired',
         headerName: t('expired'),
         flex: 1.5,
         minWidth: 180,
-        renderCell: (params) => <CellContent value="4 dias" />,
+        renderCell: () => <CellContent value="4 dias" />,
       },
       {
         field: 'actions',

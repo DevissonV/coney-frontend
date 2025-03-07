@@ -1,17 +1,7 @@
 import { privateAxios } from '../../utils/api/axios';
-import { getToken } from '../../utils/authHelpers';
+import { getHeaders } from '../../utils/api/headers';
 
 const API_URL = import.meta.env.VITE_API_URL;
-
-const getHeaders = () => {
-  const token = getToken();
-  if (!token) throw new Error('Token no disponible. Por favor, inicia sesión.');
-  return {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-};
 
 export const fetchRaffle = async () => {
   const response = await privateAxios.get(`${API_URL}/raffles/`);
@@ -30,15 +20,18 @@ export const fetchTicketsByRiffle = async (riffleId) => {
   const { status, code, data } = response.data;
 
   if (!status || code !== 200) {
-    // throw new Error('Error fetching tickets');
-    console.log('Error fetching tickets');
+    throw new Error('Error fetching tickets');
   }
 
   return data;
 };
 
 export const createRiffle = async (riffleData) => {
-  const response = await privateAxios.post(`${API_URL}/raffles/`, riffleData);
+  const response = await privateAxios.post(
+    `${API_URL}/raffles/`,
+    riffleData,
+    getHeaders(),
+  );
   const { status, code, data } = response.data;
   if (!status || code !== 201) {
     throw new Error('Error creating riffle');

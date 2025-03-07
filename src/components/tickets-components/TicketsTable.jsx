@@ -6,6 +6,7 @@ import TicketActions from './TicketActions';
 
 const TicketsTable = ({ rows, pageSize, loading, onEdit, onDelete }) => {
   const { t } = useTranslation();
+
   const localeText = {
     columnMenuSortAsc: t('sort_asc'),
     columnMenuSortDesc: t('sort_desc'),

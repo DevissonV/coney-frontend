@@ -1,22 +1,7 @@
 import { privateAxios } from '../../utils/api/axios';
-import { getToken } from '../../utils/authHelpers';
+import { getHeaders } from '../../utils/api/headers';
 
 const API_URL = import.meta.env.VITE_API_URL;
-
-/**
- * Retrieves authentication headers with the Bearer token.
- * @throws {Error} If the token is not available.
- * @returns {Object} Headers object with Authorization token.
- */
-const getHeaders = () => {
-  const token = getToken();
-  if (!token) throw new Error('Token no disponible. Por favor, inicia sesión.');
-  return {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-};
 
 /**
  * Fetches all raffle tickets from the API.
@@ -44,6 +29,7 @@ export const createTicket = async (ticketData) => {
   const response = await privateAxios.post(
     `${API_URL}/Tickets/createTicket`,
     ticketData,
+    getHeaders(),
   );
   const { status, code, data } = response.data;
 
