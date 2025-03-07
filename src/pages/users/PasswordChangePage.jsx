@@ -2,9 +2,14 @@ import { Typography, Box, Button, TextField } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useUsers } from '../../hooks/users/useUsers'; 
+import { useUsers } from '../../hooks/users/useUsers';
 import { errorAlert, toast } from '../../services/generic/AlertService';
 
+/**
+ * Page component for handling password change requests.
+ *
+ * @component
+ */
 const PasswordChangePage = () => {
   const { t } = useTranslation();
   const { handleChangePassword } = useUsers();
@@ -23,6 +28,10 @@ const PasswordChangePage = () => {
     }
   }, [location]);
 
+  /**
+   * Handles the password change submission.
+   * Validates password fields and calls the password change function.
+   */
   const handleSubmit = async () => {
     if (newPassword !== confirmPassword) {
       errorAlert({ messageKey: 'passwords_do_not_match' });
@@ -33,7 +42,7 @@ const PasswordChangePage = () => {
       await handleChangePassword(email, newPassword);
       toast({ messageKey: 'password_change_success' });
       navigate('/login');
-    } catch (error) {
+    } catch {
       errorAlert({ messageKey: 'error_changing_password' });
     }
   };
@@ -56,7 +65,7 @@ const PasswordChangePage = () => {
       <Typography variant="body1" sx={{ marginBottom: '16px' }}>
         {t('enter_new_password')}
       </Typography>
-      
+
       <TextField
         fullWidth
         margin="normal"
@@ -74,7 +83,7 @@ const PasswordChangePage = () => {
         value={newPassword}
         onChange={(e) => setNewPassword(e.target.value)}
       />
-      
+
       <TextField
         fullWidth
         margin="normal"
@@ -84,17 +93,22 @@ const PasswordChangePage = () => {
         onChange={(e) => setConfirmPassword(e.target.value)}
       />
 
-      <Button 
+      <Button
         onClick={handleSubmit}
-        variant="contained" 
-        color="primary" 
+        variant="contained"
+        color="primary"
         sx={{ marginTop: '20px' }}
         fullWidth
       >
         {t('change_password')}
       </Button>
-      
-      <Button component={Link} to="/login" variant="text" sx={{ marginTop: '10px' }}>
+
+      <Button
+        component={Link}
+        to="/login"
+        variant="text"
+        sx={{ marginTop: '10px' }}
+      >
         {t('go_to_login')}
       </Button>
     </Box>

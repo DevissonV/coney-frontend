@@ -1,6 +1,13 @@
 import { useState, useEffect } from 'react';
-import { Box, Modal, TextField, Typography, Button, IconButton } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close'; 
+import {
+  Box,
+  Modal,
+  TextField,
+  Typography,
+  Button,
+  IconButton,
+} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { useUsers } from '../../hooks/users/useUsers';
@@ -10,7 +17,7 @@ const UserChangePasswordModal = ({ open, onClose, userId }) => {
   const { handleUpdateUser } = useUsers();
   const [passwords, setPasswords] = useState({
     newPassword: '',
-    confirmPassword: ''
+    confirmPassword: '',
   });
   const [errors, setErrors] = useState({});
 
@@ -18,7 +25,7 @@ const UserChangePasswordModal = ({ open, onClose, userId }) => {
     if (open) {
       setPasswords({
         newPassword: '',
-        confirmPassword: ''
+        confirmPassword: '',
       });
       setErrors({});
     }
@@ -28,7 +35,7 @@ const UserChangePasswordModal = ({ open, onClose, userId }) => {
     const { name, value } = e.target;
     setPasswords((prevPasswords) => ({
       ...prevPasswords,
-      [name]: value
+      [name]: value,
     }));
   };
 

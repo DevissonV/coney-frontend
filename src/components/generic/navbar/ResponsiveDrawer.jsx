@@ -1,5 +1,5 @@
 import { Box, Drawer, Divider, Typography } from '@mui/material';
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'; 
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import NavLinks from './NavLinks';
 
 const ResponsiveDrawer = ({ mobileOpen, handleDrawerToggle, darkMode }) => {
@@ -16,11 +16,16 @@ const ResponsiveDrawer = ({ mobileOpen, handleDrawerToggle, darkMode }) => {
       }}
     >
       <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', my: 2 }}>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            my: 2,
+          }}
+        >
           <EmojiEventsIcon sx={{ mr: 1 }} />
-          <Typography variant="h6">
-            CONEY
-          </Typography>
+          <Typography variant="h6">CONEY</Typography>
         </Box>
         <Divider />
         <NavLinks darkMode={darkMode} />

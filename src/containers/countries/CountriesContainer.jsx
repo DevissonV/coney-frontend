@@ -4,21 +4,21 @@ import { useCountries } from '../../hooks/countries/useCountries';
 import { useSearch } from '../../hooks/generic/useSearch';
 
 const CountriesContainer = () => {
-  const { 
-    countries, 
-    loading, 
-    loadCountries, 
-    handleCreateCountry, 
+  const {
+    countries,
+    loading,
+    loadCountries,
+    handleCreateCountry,
     handleDeleteCountry,
-    handleEditCountry 
+    handleEditCountry,
   } = useCountries();
-  
-  const { 
-    searchQuery, 
-    setSearchQuery, 
-    filteredData: filteredCountries 
+
+  const {
+    searchQuery,
+    setSearchQuery,
+    filteredData: filteredCountries,
   } = useSearch(countries, ['name']);
-  
+
   const [openModal, setOpenModal] = useState(false);
   const [countryToEdit, setCountryToEdit] = useState(null);
 
@@ -28,12 +28,12 @@ const CountriesContainer = () => {
 
   return (
     <CountriesPage
-      countries={filteredCountries} 
+      countries={filteredCountries}
       loading={loading}
       onCreate={handleCreateCountry}
       onEdit={(country) => {
-        setCountryToEdit(country); 
-        setOpenModal(true); 
+        setCountryToEdit(country);
+        setOpenModal(true);
       }}
       onDelete={handleDeleteCountry}
       searchQuery={searchQuery}
@@ -44,11 +44,11 @@ const CountriesContainer = () => {
       setCountryToEdit={setCountryToEdit}
       onSubmit={(countryData) => {
         if (countryToEdit) {
-          handleEditCountry(countryToEdit.id, countryData); 
+          handleEditCountry(countryToEdit.id, countryData);
         } else {
           handleCreateCountry(countryData);
         }
-        setOpenModal(false); 
+        setOpenModal(false);
       }}
     />
   );

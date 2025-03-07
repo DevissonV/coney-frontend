@@ -6,14 +6,24 @@ import { useSearch } from '../../hooks/generic/useSearch';
 
 const TicketsContainer = () => {
   const { riffleId } = useParams();
-  const { tickets, loading, loadTickets, handleEditTicket, handleDeleteTicket } = useTickets();
-  const { searchQuery, setSearchQuery, filteredData: filteredTickets } = useSearch(tickets, ['ticket_number']);
+  const {
+    tickets,
+    loading,
+    loadTickets,
+    handleEditTicket,
+    handleDeleteTicket,
+  } = useTickets();
+  const {
+    searchQuery,
+    setSearchQuery,
+    filteredData: filteredTickets,
+  } = useSearch(tickets, ['ticket_number']);
   useEffect(() => {
     loadTickets(riffleId);
   }, [riffleId]);
 
   const onEdit = (ticketData) => {
-    handleEditTicket({ ...ticketData, riffleId }); 
+    handleEditTicket({ ...ticketData, riffleId });
   };
 
   const onDelete = (ticketId) => {

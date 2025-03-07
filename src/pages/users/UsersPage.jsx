@@ -9,37 +9,59 @@ import { useTheme } from '@mui/material/styles';
 import useAuthStore from '../../stores/auth/useAuthStore';
 import { ROLE_ADMIN } from '../../utils/generic/constants';
 
-const UsersPage = ({ 
-  users, 
-  loading, 
-  onDelete, 
-  onUpdate, 
-  onCreate, 
-  onApprove, 
-  onResendEmail 
+/**
+ * Users management page component.
+ * Displays a list of users with search, creation, editing, and deletion functionalities.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {Array<Object>} props.users - List of users to display.
+ * @param {boolean} props.loading - Loading state for data fetching.
+ * @param {Function} props.onDelete - Function to handle user deletion.
+ * @param {Function} props.onUpdate - Function to handle user updates.
+ * @param {Function} props.onCreate - Function to handle user creation.
+ * @param {Function} props.onApprove - Function to handle user approval.
+ * @param {Function} props.onResendEmail - Function to resend user activation email.
+ */
+const UsersPage = ({
+  users,
+  loading,
+  onDelete,
+  onUpdate,
+  onCreate,
+  onApprove,
+  onResendEmail,
 }) => {
   const { t } = useTranslation();
-  const [filteredRows, setFilteredRows] = useState(users); 
+  const [filteredRows, setFilteredRows] = useState(users);
   const [pageSize, setPageSize] = useState(5);
   const [openCreateModal, setOpenCreateModal] = useState(false);
-  const [openEditModal, setOpenEditModal] = useState(false); 
-  const [currentUser, setCurrentUser] = useState(null); 
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
 
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm')); 
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { user } = useAuthStore();
 
   useEffect(() => {
-    setFilteredRows(users); 
+    setFilteredRows(users);
   }, [users]);
 
+  /**
+   * Handles editing a user by opening the edit modal.
+   * @param {number} userId - The ID of the user to edit.
+   */
   const handleEditUser = (userId) => {
     const userToEdit = users.find((user) => user.id === userId);
     setCurrentUser(userToEdit);
     setOpenEditModal(true);
   };
-  
+
+  /**
+   * Handles search input changes and filters the user list.
+   * @param {string} query - The search query.
+   */
   const handleSearchChange = (query) => {
     setSearchQuery(query);
     if (query === '') {
@@ -57,32 +79,41 @@ const UsersPage = ({
 
   return (
     <Box padding={2}>
-      <Box 
-        display="flex" 
-        justifyContent={isMobile ? "center" : "space-between"} 
-        alignItems={isMobile ? "center" : "flex-start"} 
-        mb={2} 
-        flexDirection={isMobile ? "column" : "row"}
+      <Box
+        display="flex"
+        justifyContent={isMobile ? 'center' : 'space-between'}
+        alignItems={isMobile ? 'center' : 'flex-start'}
+        mb={2}
+        flexDirection={isMobile ? 'column' : 'row'}
       >
-        <Typography variant="h4" gutterBottom textAlign="center" style={{ flexGrow: 1 }}>
+        <Typography
+          variant="h4"
+          gutterBottom
+          textAlign="center"
+          style={{ flexGrow: 1 }}
+        >
           {t('users')}
         </Typography>
 
         {user?.role === ROLE_ADMIN && (
-          <Button 
-            variant="contained" 
-            color="primary" 
+          <Button
+            variant="contained"
+            color="primary"
             onClick={() => setOpenCreateModal(true)}
-            style={{ marginTop: isMobile ? "16px" : "0", right: 0 }}
+            style={{ marginTop: isMobile ? '16px' : '0', right: 0 }}
           >
             {t('create_user')}
           </Button>
         )}
       </Box>
 
-      <Box display="flex" justifyContent={isMobile ? "center" : "flex-start"} mb={2}>
+      <Box
+        display="flex"
+        justifyContent={isMobile ? 'center' : 'flex-start'}
+        mb={2}
+      >
         <SearchToolbar
-          searchQuery={searchQuery} 
+          searchQuery={searchQuery}
           onSearchChange={handleSearchChange}
           placeholder={t('search_placeholder_user')}
         />
@@ -93,7 +124,7 @@ const UsersPage = ({
         pageSize={pageSize}
         setPageSize={setPageSize}
         loading={loading}
-        onEdit={handleEditUser} 
+        onEdit={handleEditUser}
         onDelete={onDelete}
         onApprove={onApprove}
         onResendEmail={onResendEmail}
@@ -102,13 +133,13 @@ const UsersPage = ({
       <UserCreateModal
         open={openCreateModal}
         onClose={() => setOpenCreateModal(false)}
-        onCreateUser={onCreate} 
+        onCreateUser={onCreate}
       />
 
       <UserEditModal
         open={openEditModal}
-        onClose={() => setOpenEditModal(false)} 
-        currentUser={currentUser} 
+        onClose={() => setOpenEditModal(false)}
+        currentUser={currentUser}
         onEditUser={onUpdate}
       />
     </Box>

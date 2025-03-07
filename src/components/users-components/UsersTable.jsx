@@ -8,28 +8,31 @@ import CellContent from '../generic/table/CellContent';
 import useAuthStore from '../../stores/auth/useAuthStore';
 import { ROLE_ADMIN } from '../../utils/generic/constants';
 
-const UsersTable = ({ 
-  rows, 
-  loading, 
-  onEdit, 
-  onDelete, 
-  onApprove, 
-  onResendEmail 
+const UsersTable = ({
+  rows,
+  loading,
+  onEdit,
+  onDelete,
+  onApprove,
+  onResendEmail,
 }) => {
   const { t } = useTranslation();
   const { user } = useAuthStore();
 
-  const localeText = useMemo(() => ({
-    columnMenuSortAsc: t('sort_asc'),
-    columnMenuSortDesc: t('sort_desc'),
-    columnMenuFilter: t('filter'),
-    columnMenuHideColumn: t('hide_column'),
-    columnMenuManageColumns: t('manage_columns'),
-    noRowsLabel: t('no_rows'),
-    MuiTablePagination: {
-      labelRowsPerPage: t('rows_per_page'),
-    },
-  }), [t]);
+  const localeText = useMemo(
+    () => ({
+      columnMenuSortAsc: t('sort_asc'),
+      columnMenuSortDesc: t('sort_desc'),
+      columnMenuFilter: t('filter'),
+      columnMenuHideColumn: t('hide_column'),
+      columnMenuManageColumns: t('manage_columns'),
+      noRowsLabel: t('no_rows'),
+      MuiTablePagination: {
+        labelRowsPerPage: t('rows_per_page'),
+      },
+    }),
+    [t]
+  );
 
   const columns = useMemo(() => {
     const baseColumns = [
@@ -73,13 +76,13 @@ const UsersTable = ({
         field: 'actions',
         headerName: t('actions'),
         renderCell: (params) => (
-          <UserActions 
-            userId={params.row.id} 
-            email={params.row.email} 
+          <UserActions
+            userId={params.row.id}
+            email={params.row.email}
             isEmailValidated={params.row.isEmailValidated}
             isUserAuthorized={params.row.isUserAuthorized}
-            onEdit={onEdit} 
-            onDelete={onDelete} 
+            onEdit={onEdit}
+            onDelete={onDelete}
             onApprove={onApprove}
             onResendEmail={onResendEmail}
           />

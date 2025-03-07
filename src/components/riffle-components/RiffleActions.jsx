@@ -35,10 +35,13 @@ const RiffleActions = ({ riffleId, onEdit, onDelete, onViewTickets }) => {
           </Tooltip>
         </>
       )}
-      
+
       <Tooltip title={t('view_tickets')}>
-        <ArrowForwardIcon color="info" onClick={() => handleViewTickets(riffleId)}>
-        <VisibilityIcon />
+        <ArrowForwardIcon
+          color="info"
+          onClick={() => handleViewTickets(riffleId)}
+        >
+          <VisibilityIcon />
         </ArrowForwardIcon>
         {/* <IconButton color="info" onClick={() => onViewTickets(riffleId)}>
           <VisibilityIcon />

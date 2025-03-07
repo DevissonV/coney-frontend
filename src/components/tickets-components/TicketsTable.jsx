@@ -27,7 +27,7 @@ const TicketsTable = ({ rows, pageSize, loading, onEdit, onDelete }) => {
         <TicketActions
           ticketId={params.row.id}
           onEdit={() => onEdit(params.row)}
-          onDelete={() => onDelete(params.row.id)} 
+          onDelete={() => onDelete(params.row.id)}
         />
       ),
       flex: 1,
@@ -46,7 +46,7 @@ const TicketsTable = ({ rows, pageSize, loading, onEdit, onDelete }) => {
             paginationModel: { pageSize },
           },
         }}
-        pageSizeOptions={[20, 40 , 60, 100]}
+        pageSizeOptions={[20, 40, 60, 100]}
         loading={loading}
         components={{ Toolbar: GridToolbar }}
         localeText={localeText}

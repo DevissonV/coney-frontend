@@ -1,10 +1,22 @@
 import { useState } from 'react';
-import { IconButton, Menu, MenuItem, Avatar, Tooltip, Typography, ListItemIcon } from '@mui/material';
-import { Edit as EditIcon, Logout as LogoutIcon, Lock as LockIcon } from '@mui/icons-material'; 
+import {
+  IconButton,
+  Menu,
+  MenuItem,
+  Avatar,
+  Tooltip,
+  Typography,
+  ListItemIcon,
+} from '@mui/material';
+import {
+  Edit as EditIcon,
+  Logout as LogoutIcon,
+  Lock as LockIcon,
+} from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
-import useAuthStore from '../../../stores/auth/useAuthStore'; 
+import useAuthStore from '../../../stores/auth/useAuthStore';
 import UserEditModal from '../../users-components/UserEditModal';
-import UserChangePasswordModal from '../../users-components/UserChangePasswordModal'; 
+import UserChangePasswordModal from '../../users-components/UserChangePasswordModal';
 import { useUsers } from '../../../hooks/users/useUsers';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,7 +27,7 @@ const UserMenu = ({ handleLogout }) => {
   const { t } = useTranslation();
   const { token, user } = useAuthStore();
   const { handleUpdateUser } = useUsers();
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -38,7 +50,7 @@ const UserMenu = ({ handleLogout }) => {
   };
 
   const handleLogin = () => {
-    navigate('/login'); 
+    navigate('/login');
   };
 
   return (
@@ -62,24 +74,24 @@ const UserMenu = ({ handleLogout }) => {
           <div>
             <MenuItem key="user-infos" disabled>
               <Typography variant="h5" textAlign="center">
-                {`${user?.firstName} ${user?.lastName}`}  
+                {`${user?.firstName} ${user?.lastName}`}
               </Typography>
             </MenuItem>
 
             <MenuItem key="edit-profile" onClick={handleEditProfile}>
               <ListItemIcon>
-                <EditIcon fontSize="small" /> 
+                <EditIcon fontSize="small" />
               </ListItemIcon>
               {t('edit_profile')}
             </MenuItem>
 
             <MenuItem key="change-password" onClick={handleChangePassword}>
               <ListItemIcon>
-                <LockIcon fontSize="small" /> 
+                <LockIcon fontSize="small" />
               </ListItemIcon>
               {t('change_password')}
             </MenuItem>
-            
+
             <MenuItem key="logout" onClick={handleLogout}>
               <ListItemIcon>
                 <LogoutIcon fontSize="small" />
@@ -92,12 +104,17 @@ const UserMenu = ({ handleLogout }) => {
         )}
       </Menu>
 
-      <UserEditModal open={openEditModal} onClose={() => setOpenEditModal(false)} currentUser={user} onEditUser={handleUpdateUser} />
+      <UserEditModal
+        open={openEditModal}
+        onClose={() => setOpenEditModal(false)}
+        currentUser={user}
+        onEditUser={handleUpdateUser}
+      />
       {user && user.id && (
-        <UserChangePasswordModal 
-          open={openPasswordModal} 
-          onClose={() => setOpenPasswordModal(false)} 
-          userId={user.id} 
+        <UserChangePasswordModal
+          open={openPasswordModal}
+          onClose={() => setOpenPasswordModal(false)}
+          userId={user.id}
         />
       )}
     </>

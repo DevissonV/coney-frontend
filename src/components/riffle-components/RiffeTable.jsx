@@ -12,17 +12,20 @@ const RiffleTable = ({ rows, loading, onEdit, onDelete, onViewTickets }) => {
   const { t } = useTranslation();
   const { user } = useAuthStore();
 
-  const localeText = useMemo(() => ({
-    columnMenuSortAsc: t('sort_asc'),
-    columnMenuSortDesc: t('sort_desc'),
-    columnMenuFilter: t('filter'),
-    columnMenuHideColumn: t('hide_column'),
-    columnMenuManageColumns: t('manage_columns'),
-    noRowsLabel: t('no_rows'),
-    MuiTablePagination: {
-      labelRowsPerPage: t('rows_per_page'),
-    },
-  }), [t]);
+  const localeText = useMemo(
+    () => ({
+      columnMenuSortAsc: t('sort_asc'),
+      columnMenuSortDesc: t('sort_desc'),
+      columnMenuFilter: t('filter'),
+      columnMenuHideColumn: t('hide_column'),
+      columnMenuManageColumns: t('manage_columns'),
+      noRowsLabel: t('no_rows'),
+      MuiTablePagination: {
+        labelRowsPerPage: t('rows_per_page'),
+      },
+    }),
+    [t]
+  );
 
   const columns = useMemo(() => {
     const baseColumns = [
@@ -48,7 +51,7 @@ const RiffleTable = ({ rows, loading, onEdit, onDelete, onViewTickets }) => {
         renderCell: (params) => <CellContent value="Boletas disponibles" />,
       },
       {
-        field:'expired',
+        field: 'expired',
         headerName: t('expired'),
         flex: 1.5,
         minWidth: 180,
@@ -61,7 +64,7 @@ const RiffleTable = ({ rows, loading, onEdit, onDelete, onViewTickets }) => {
           <RiffleActions
             riffleId={params.row.id}
             onEdit={() => onEdit(params.row)}
-            onDelete={() => onDelete(params.row.id)} 
+            onDelete={() => onDelete(params.row.id)}
           />
         ),
         flex: 1,
@@ -106,7 +109,7 @@ const RiffleTable = ({ rows, loading, onEdit, onDelete, onViewTickets }) => {
             paginationModel: { pageSize: 5 },
           },
         }}
-        pageSizeOptions={[5, 10, 20, 50,100]}
+        pageSizeOptions={[5, 10, 20, 50, 100]}
         loading={loading}
         disableRowSelectionOnClick
         components={{ Toolbar: GridToolbar }}

@@ -1,4 +1,4 @@
-import { useState } from 'react'; 
+import { useState } from 'react';
 import { IconButton, Tooltip } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -7,29 +7,29 @@ import EmailIcon from '@mui/icons-material/Email';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
-const UserActions = ({ 
-  userId, 
-  email, 
-  isEmailValidated, 
-  isUserAuthorized, 
-  onEdit, 
-  onDelete, 
-  onApprove, 
-  onResendEmail 
+const UserActions = ({
+  userId,
+  email,
+  isEmailValidated,
+  isUserAuthorized,
+  onEdit,
+  onDelete,
+  onApprove,
+  onResendEmail,
 }) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const { t } = useTranslation();
 
   const handleEdit = () => {
-    onEdit(userId); 
+    onEdit(userId);
   };
 
   const handleDelete = async () => {
     try {
       setIsDeleting(true);
-      await onDelete(userId); 
+      await onDelete(userId);
     } finally {
-      setIsDeleting(false); 
+      setIsDeleting(false);
     }
   };
 
@@ -43,32 +43,32 @@ const UserActions = ({
 
   return (
     <div>
-      <Tooltip title={t('edit')}> 
+      <Tooltip title={t('edit')}>
         <IconButton color="primary" onClick={handleEdit}>
           <EditIcon />
         </IconButton>
       </Tooltip>
 
-      <Tooltip title={t('delete')}> 
+      <Tooltip title={t('delete')}>
         <IconButton color="error" onClick={handleDelete} disabled={isDeleting}>
           <DeleteIcon />
         </IconButton>
       </Tooltip>
 
       {isEmailValidated && isUserAuthorized == null && (
-        <Tooltip title={t('approve')}> 
+        <Tooltip title={t('approve')}>
           <IconButton color="success" onClick={handleApprove}>
             <CheckCircleIcon />
           </IconButton>
         </Tooltip>
       )}
 
-      {isEmailValidated == null &&(
-      <Tooltip title={t('resend_email')}> 
-        <IconButton color="primary" onClick={handleResendEmail}>
-          <EmailIcon />
-        </IconButton>
-      </Tooltip>
+      {isEmailValidated == null && (
+        <Tooltip title={t('resend_email')}>
+          <IconButton color="primary" onClick={handleResendEmail}>
+            <EmailIcon />
+          </IconButton>
+        </Tooltip>
       )}
     </div>
   );

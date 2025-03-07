@@ -4,7 +4,7 @@ import ThemeWrapper from './wrappers/ThemeWrapper';
 import './App.css';
 
 const App = () => {
-  const { t } = useTranslation(); 
+  const { t } = useTranslation();
 
   return (
     <ThemeWrapper>
@@ -12,7 +12,9 @@ const App = () => {
         <main className="main-content">
           <AppRouter />
         </main>
-        <footer className="footer">© 2024 Coney. {t('all_rights_reserved')}</footer>
+        <footer className="footer">
+          © 2024 Coney. {t('all_rights_reserved')}
+        </footer>
       </div>
     </ThemeWrapper>
   );

@@ -1,10 +1,30 @@
-import { useState } from "react";
-import { Box, Typography, Button, Card, CardContent, Grid, Dialog, Paper, Select, MenuItem, FormControl, InputLabel } from "@mui/material";
-import SearchToolbar from "../../components/generic/search-toolbar/SearchToolbar";
-import { useTranslation } from "react-i18next";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState } from 'react';
+import {
+  Box,
+  Typography,
+  Button,
+  Card,
+  CardContent,
+  Grid,
+  Dialog,
+  Paper,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+} from '@mui/material';
+import SearchToolbar from '../../components/generic/search-toolbar/SearchToolbar';
+import { useTranslation } from 'react-i18next';
+import { motion, AnimatePresence } from 'framer-motion';
 
-const TicketsPage = ({ tickets, loading, onEdit, onDelete, searchQuery, onSearchChange }) => {
+const TicketsPage = ({
+  tickets,
+  loading,
+  onEdit,
+  onDelete,
+  searchQuery,
+  onSearchChange,
+}) => {
   const { t } = useTranslation();
 
   /** Open Es una variable de estado que controla si el modal (diálogo) está abierto o cerrado.
@@ -23,18 +43,18 @@ const TicketsPage = ({ tickets, loading, onEdit, onDelete, searchQuery, onSearch
    * currentIndex: Es una variable de estado que mantiene el índice del ticket actualmente seleccionado o mostrado.
    * setCurrentIndex: Es una función que se utiliza para actualizar el estado de currentIndex.
    * useState(0): Establece el valor inicial de currentIndex como 0, lo que significa que inicialmente se selecciona el primer ticket en la lista.
-  */
+   */
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  /**Estado para la página actual de la lista de tickets 
+  /**Estado para la página actual de la lista de tickets
    * currentPage:Es una variable de estado que mantiene el número de la página actual en la lista de tickets.
    * setCurrentPage:Es una función que se utiliza para actualizar el estado de currentPage.
-   * useState(1):Establece el valor inicial de currentPage como 1, lo que significa 
+   * useState(1):Establece el valor inicial de currentPage como 1, lo que significa
    * que inicialmente se muestra la primera página de la lista de tickets.
-  */
+   */
   const [currentPage, setCurrentPage] = useState(1);
 
-  /** Estado para el número de tickets por página 
+  /** Estado para el número de tickets por página
    * ticketsPerPage: Es una variable de estado que mantiene el número de tickets que se deben mostrar por página.
    * setTicketsPerPage: Es una función que se utiliza para actualizar el estado de ticketsPerPage.
    * useState(5): Establece el valor inicial de ticketsPerPage como 5, lo que significa que inicialmente se muestran 5 tickets por página.
@@ -64,7 +84,7 @@ const TicketsPage = ({ tickets, loading, onEdit, onDelete, searchQuery, onSearch
     setSelectedTicket(null);
   };
 
-  // Funciones para navegar dentro de la tarjeta de los tickets 
+  // Funciones para navegar dentro de la tarjeta de los tickets
   const handleNextTicket = () => {
     // Acutalizar el índice del ticket actual
     setCurrentIndex((prevIndex) => {
@@ -83,7 +103,7 @@ const TicketsPage = ({ tickets, loading, onEdit, onDelete, searchQuery, onSearch
     if (currentIndex > 0) {
       // Actualiza el indice del ticket actual
       setCurrentIndex((prevIndex) => {
-        // Calcula el nuevo índice del ticket restando 1 al índice anterior y utilizando el operador 
+        // Calcula el nuevo índice del ticket restando 1 al índice anterior y utilizando el operador
         // módulo (%) para asegurarse de que el índice se mantenga dentro del rango de la lista de tickets.
         const newIndex = (prevIndex - 1) % tickets.length;
         // Establece el nuevo indice del boton seleccionado
@@ -149,9 +169,13 @@ const TicketsPage = ({ tickets, loading, onEdit, onDelete, searchQuery, onSearch
 
       {/* Barra de búsqueda de tickets */}
       <Box display="flex" justifyContent="flex-start" mb={5}>
-        <SearchToolbar searchQuery={searchQuery} onSearchChange={onSearchChange} placeholder={t("search_placeholder_ticket")} />
+        <SearchToolbar
+          searchQuery={searchQuery}
+          onSearchChange={onSearchChange}
+          placeholder={t('search_placeholder_ticket')}
+        />
       </Box>
-      
+
       {/* Botones de tickets */}
       <Box
         display="flex"
@@ -169,40 +193,44 @@ const TicketsPage = ({ tickets, loading, onEdit, onDelete, searchQuery, onSearch
                   variant="contained"
                   onClick={() => handleSelectTicket(startIndex + index)} //Calcula el indice del ticket en la lsta completa de tickets.
                   sx={{
-                    width: "100%",
+                    width: '100%',
                     height: 60,
-                    borderRadius: "10px",
+                    borderRadius: '10px',
                     minWidth: 0,
-                    fontSize: "18px",
-                    backgroundColor: "#fdf1dc",
-                    border: "2px dashed #d32f2f",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    position: "relative",
+                    fontSize: '18px',
+                    backgroundColor: '#fdf1dc',
+                    border: '2px dashed #d32f2f',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    position: 'relative',
                     '&::before, &::after': {
                       content: '""',
-                      position: "absolute",
-                      width: "20px",
-                      height: "20px",
-                      backgroundColor: "#fdf1dc",
-                      border: "2px dashed #d32f2f",
-                      borderRadius: "50%",
+                      position: 'absolute',
+                      width: '20px',
+                      height: '20px',
+                      backgroundColor: '#fdf1dc',
+                      border: '2px dashed #d32f2f',
+                      borderRadius: '50%',
                     },
                     '&::before': {
-                      top: "-10px",
-                      left: "50%",
-                      transform: "translateX(-50%)",
+                      top: '-10px',
+                      left: '50%',
+                      transform: 'translateX(-50%)',
                     },
                     '&::after': {
-                      bottom: "-10px",
-                      left: "50%",
-                      transform: "translateX(-50%)",
+                      bottom: '-10px',
+                      left: '50%',
+                      transform: 'translateX(-50%)',
                     },
                   }}
                   disabled={selectedButtonIndex === startIndex + index} // Deshabilitar el botón si está seleccionado
                 >
-                  <Typography variant="h6" fontWeight="bold" sx={{ color: "#d32f2f" }}>
+                  <Typography
+                    variant="h6"
+                    fontWeight="bold"
+                    sx={{ color: '#d32f2f' }}
+                  >
                     {ticket.ticket_number}
                   </Typography>
                 </Button>
@@ -255,14 +283,14 @@ const TicketsPage = ({ tickets, loading, onEdit, onDelete, searchQuery, onSearch
           </FormControl>
         </Box>
       </Box>
-      
+
       {/* Tarjeta de tickets */}
       <Box
         display="flex"
         justifyContent="center"
         alignItems="center"
         width="100%"
-        sx={{ backgroundColor: "#fff", p: 3 }}
+        sx={{ backgroundColor: '#fff', p: 3 }}
       >
         {/* Card con animación de cambio de hoja */}
         {filteredTickets.length > 0 && (
@@ -273,20 +301,20 @@ const TicketsPage = ({ tickets, loading, onEdit, onDelete, searchQuery, onSearch
               animate={{ x: 0, opacity: 1 }} // Aparece con animación
               exit={{ x: -100, opacity: 0 }} // Se desliza hacia atrás
               transition={{ duration: 0.5 }} // Control de la velocidad
-              style={{ position: "relative" }}
+              style={{ position: 'relative' }}
             >
               <Paper
                 elevation={3}
                 sx={{
                   mt: 4,
                   p: 3,
-                  borderLeft: "2px dashed #d32f2f",
+                  borderLeft: '2px dashed #d32f2f',
                   borderRadius: 2,
-                  textAlign: "center",
-                  width: "320px",
-                  backgroundColor: "#fdf1dc",
-                  position: "relative",
-                  overflow: "hidden",
+                  textAlign: 'center',
+                  width: '320px',
+                  backgroundColor: '#fdf1dc',
+                  position: 'relative',
+                  overflow: 'hidden',
                 }}
               >
                 {/* Simulación de la boleta anterior */}
@@ -296,30 +324,30 @@ const TicketsPage = ({ tickets, loading, onEdit, onDelete, searchQuery, onSearch
                     animate={{ scale: 0.9, rotateY: 180, opacity: 0.3 }}
                     transition={{ duration: 0.5 }}
                     style={{
-                      position: "absolute",
-                      top: "10px",
-                      left: "10px",
-                      right: "10px",
-                      bottom: "10px",
-                      backgroundColor: "#fdf1dc",
-                      borderRadius: "5px",
-                      border: "2px dashed #d32f2f",
+                      position: 'absolute',
+                      top: '10px',
+                      left: '10px',
+                      right: '10px',
+                      bottom: '10px',
+                      backgroundColor: '#fdf1dc',
+                      borderRadius: '5px',
+                      border: '2px dashed #d32f2f',
                       zIndex: -1,
-                      transformStyle: "preserve-3d",
-                      backfaceVisibility: "hidden",
+                      transformStyle: 'preserve-3d',
+                      backfaceVisibility: 'hidden',
                     }}
                   >
                     <Typography
                       variant="h4"
                       fontWeight="bold"
                       sx={{
-                        color: "#d32f2f",
-                        border: "2px solid #d32f2f",
-                        display: "inline-block",
+                        color: '#d32f2f',
+                        border: '2px solid #d32f2f',
+                        display: 'inline-block',
                         px: 2,
                         py: 1,
                         mt: 1,
-                        backgroundColor: "#fff",
+                        backgroundColor: '#fff',
                       }}
                     >
                       {tickets[currentIndex - 1].ticket_number}
@@ -334,7 +362,8 @@ const TicketsPage = ({ tickets, loading, onEdit, onDelete, searchQuery, onSearch
                   Juega el 15 de junio de 2025
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
-                  Con las dos últimas cifras del Premio Mayor de la Lotería de medellín
+                  Con las dos últimas cifras del Premio Mayor de la Lotería de
+                  medellín
                 </Typography>
 
                 <Typography variant="h6" mt={2} fontWeight="bold">
@@ -344,13 +373,13 @@ const TicketsPage = ({ tickets, loading, onEdit, onDelete, searchQuery, onSearch
                   variant="h4"
                   fontWeight="bold"
                   sx={{
-                    color: "#d32f2f",
-                    border: "2px solid #d32f2f",
-                    display: "inline-block",
+                    color: '#d32f2f',
+                    border: '2px solid #d32f2f',
+                    display: 'inline-block',
                     px: 2,
                     py: 1,
                     mt: 1,
-                    backgroundColor: "#fff",
+                    backgroundColor: '#fff',
                   }}
                 >
                   {tickets[currentIndex].ticket_number}
@@ -359,8 +388,6 @@ const TicketsPage = ({ tickets, loading, onEdit, onDelete, searchQuery, onSearch
                 <Typography variant="body2" color="textSecondary" mt={2}>
                   Boleta sin cancelar no participa en el sorteo.
                 </Typography>
-
-              
 
                 <Button
                   variant="contained"
@@ -398,15 +425,24 @@ const TicketsPage = ({ tickets, loading, onEdit, onDelete, searchQuery, onSearch
       {/* Dialog para mostrar información del ticket seleccionado */}
       <Dialog open={open} onClose={handleClose}>
         <Card>
-          <CardContent style={{ textAlign: "center" }}>
+          <CardContent style={{ textAlign: 'center' }}>
             {selectedTicket && (
               <>
                 <h3>Ticket ID: {selectedTicket.id}</h3>
                 <h4>Número de Ticket: {selectedTicket.ticket_number}</h4>
-                <Button variant="contained" color="primary" onClick={handleClose}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleClose}
+                >
                   Inciar sesión
                 </Button>
-                <Button variant="contained" color="secondary" onClick={handleClose} style={{ marginLeft: 10 }}>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={handleClose}
+                  style={{ marginLeft: 10 }}
+                >
                   Ingresa con Google
                 </Button>
               </>

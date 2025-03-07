@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react';
-import { Dialog, DialogTitle, DialogContent, Button, TextField, IconButton } from '@mui/material';
+import { Dialog, Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import CloseIcon from '@mui/icons-material/Close';
 
 const TicketFormModal = ({ open, onClose, onSubmit, initialValues }) => {
   const { t } = useTranslation();
-  const [ticketTicketNumber, setTicketTicketNumber] = useState(initialValues.ticketNumber || '');
+  const [ticketTicketNumber, setTicketTicketNumber] = useState(
+    initialValues.ticketNumber || ''
+  );
 
   useEffect(() => {
     if (initialValues && initialValues.ticketNumber) {
       setTicketTicketNumber(initialValues.ticketNumber);
     } else {
-      setTicketTicketNumber(''); 
+      setTicketTicketNumber('');
     }
   }, [initialValues]);
 
@@ -23,7 +24,12 @@ const TicketFormModal = ({ open, onClose, onSubmit, initialValues }) => {
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <div style={{ textAlign: 'center' }}>
-        <Button onClick={handleSubmit} type="submit" variant="contained" color="primary">
+        <Button
+          onClick={handleSubmit}
+          type="submit"
+          variant="contained"
+          color="primary"
+        >
           {t('continue')}
         </Button>
       </div>

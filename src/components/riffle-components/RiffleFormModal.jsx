@@ -1,16 +1,32 @@
 import { useState, useEffect } from 'react';
-import { Dialog, DialogTitle, DialogContent, Button, TextField, IconButton } from '@mui/material';
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Button,
+  TextField,
+  IconButton,
+} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import CloseIcon from '@mui/icons-material/Close';
-import { getLocalDateTime, formatDateForInput } from '../../utils/generic/transformDates';
+import {
+  getLocalDateTime,
+  formatDateForInput,
+} from '../../utils/generic/transformDates';
 
 const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
   const { t } = useTranslation();
-  
+
   const [riffleName, setRiffleName] = useState(initialValues.name || '');
-  const [riffleDescription, setRiffleDescription] = useState(initialValues.description || '');
-  const [initDate, setInitDate] = useState(formatDateForInput(initialValues.initDate));
-  const [endtDate, setendtDate] = useState(formatDateForInput(initialValues.endtDate));
+  const [riffleDescription, setRiffleDescription] = useState(
+    initialValues.description || ''
+  );
+  const [initDate, setInitDate] = useState(
+    formatDateForInput(initialValues.initDate)
+  );
+  const [endtDate, setendtDate] = useState(
+    formatDateForInput(initialValues.endtDate)
+  );
 
   useEffect(() => {
     if (initialValues && initialValues.name) {
@@ -27,7 +43,12 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
   }, [initialValues]);
 
   const handleSubmit = () => {
-    onSubmit({ name: riffleName, description: riffleDescription, initDate, endtDate });
+    onSubmit({
+      name: riffleName,
+      description: riffleDescription,
+      initDate,
+      endtDate,
+    });
     onClose();
   };
   return (
@@ -87,7 +108,12 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
         />
       </DialogContent>
       <div style={{ textAlign: 'right', padding: '16px' }}>
-        <Button onClick={handleSubmit} type="submit" variant="contained" color="primary">
+        <Button
+          onClick={handleSubmit}
+          type="submit"
+          variant="contained"
+          color="primary"
+        >
           {t('save')}
         </Button>
       </div>

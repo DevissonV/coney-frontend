@@ -1,5 +1,13 @@
 import { useState } from 'react';
-import { Box, TextField, Button, Typography, Paper, InputAdornment, Avatar } from '@mui/material';
+import {
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Paper,
+  InputAdornment,
+  Avatar,
+} from '@mui/material';
 import LockIcon from '@mui/icons-material/Lock';
 import EmailIcon from '@mui/icons-material/Email';
 import { useTranslation } from 'react-i18next';
@@ -115,15 +123,21 @@ const LoginPage = ({ onLogin, error, loading }) => {
         </form>
 
         <Typography align="center" sx={{ mt: 2 }}>
-          <Button onClick={() => setOpenRecoveryModal(true)}>{t('forgot_password')}</Button>
+          <Button onClick={() => setOpenRecoveryModal(true)}>
+            {t('forgot_password')}
+          </Button>
         </Typography>
 
         <Typography align="center" sx={{ mt: 2 }}>
-          <Button onClick={() => setOpenCreateModal(true)}>{t('create_new_account')}</Button>
+          <Button onClick={() => setOpenCreateModal(true)}>
+            {t('create_new_account')}
+          </Button>
         </Typography>
 
         <Typography align="center" sx={{ mt: 2 }}>
-          <Button onClick={() => setOpenResendModal(true)}>{t('resend_activation_email')}</Button>
+          <Button onClick={() => setOpenResendModal(true)}>
+            {t('resend_activation_email')}
+          </Button>
         </Typography>
 
         <UserCreateModal

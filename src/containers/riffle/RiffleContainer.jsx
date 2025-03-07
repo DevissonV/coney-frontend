@@ -4,20 +4,20 @@ import { useRiffle } from '../../hooks/riffle/useRiffle';
 import { useSearch } from '../../hooks/generic/useSearch';
 
 const RiffleContainer = () => {
-  const { 
-    riffle, 
-    loading, 
-    loadRaffle, 
-    handleCreateRiffle, 
+  const {
+    riffle,
+    loading,
+    loadRaffle,
+    handleCreateRiffle,
     handleDeleteRiffle,
-    handleEditRiffle 
+    handleEditRiffle,
   } = useRiffle();
-  const { 
-    searchQuery, 
-    setSearchQuery, 
-    filteredData: filteredRiffle 
+  const {
+    searchQuery,
+    setSearchQuery,
+    filteredData: filteredRiffle,
   } = useSearch(riffle, ['name']);
-  
+
   const [openModal, setOpenModal] = useState(false);
   const [riffleToEdit, setRiffleToEdit] = useState(null);
 
@@ -26,12 +26,12 @@ const RiffleContainer = () => {
   }, []);
   return (
     <RifflePage
-      riffle={filteredRiffle} 
+      riffle={filteredRiffle}
       loading={loading}
       onCreate={handleCreateRiffle}
       onEdit={(riffle) => {
-        setRiffleToEdit(riffle); 
-        setOpenModal(true); 
+        setRiffleToEdit(riffle);
+        setOpenModal(true);
       }}
       onDelete={handleDeleteRiffle}
       searchQuery={searchQuery}
@@ -42,11 +42,11 @@ const RiffleContainer = () => {
       setRiffleToEdit={setRiffleToEdit}
       onSubmit={(riffleData) => {
         if (riffleToEdit) {
-          handleEditRiffle(riffleToEdit.id, riffleData); 
+          handleEditRiffle(riffleToEdit.id, riffleData);
         } else {
           handleCreateRiffle(riffleData);
         }
-        setOpenModal(false); 
+        setOpenModal(false);
       }}
     />
   );

@@ -1,13 +1,17 @@
-import { useTranslation } from 'react-i18next'; 
+import { useTranslation } from 'react-i18next';
 import DashboardPage from '../../pages/dashboard/DashboardPage';
 import WelcomeMessage from '../../components/dashboard-components/WelcomeMessage';
 import DashboardWidget from '../../components/dashboard-components/DashboardWidget';
 import { Grid, Box } from '@mui/material';
-import useAuthStore from '../../stores/auth/useAuthStore'; 
-import { ROLE_ANONYMOUS, ROLE_ADMIN, ROLE_USER } from '../../utils/generic/constants';
+import useAuthStore from '../../stores/auth/useAuthStore';
+import {
+  ROLE_ANONYMOUS,
+  ROLE_ADMIN,
+  ROLE_USER,
+} from '../../utils/generic/constants';
 
 const DashboardContainer = () => {
-  const { t } = useTranslation(); 
+  const { t } = useTranslation();
   const { user, token } = useAuthStore();
 
   const totalUsers = 100;
@@ -51,7 +55,10 @@ const DashboardContainer = () => {
             <DashboardWidget title={t('total_users')} value={totalUsers} />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <DashboardWidget title={t('active_raffles')} value={activeRaffles} />
+            <DashboardWidget
+              title={t('active_raffles')}
+              value={activeRaffles}
+            />
           </Grid>
         </Grid>
       </Box>

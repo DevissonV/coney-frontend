@@ -1,4 +1,4 @@
-import { TextField } from '@mui/material'
+import { TextField } from '@mui/material';
 
 const Input = ({ value, onChange, label, type = 'text', ...props }) => {
   return (
@@ -11,7 +11,7 @@ const Input = ({ value, onChange, label, type = 'text', ...props }) => {
       fullWidth
       {...props}
     />
-  )
-}
+  );
+};
 
-export default Input
+export default Input;

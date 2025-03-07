@@ -1,11 +1,18 @@
-import { AppBar, Toolbar, Typography, IconButton, Box, CssBaseline } from '@mui/material';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  Box,
+  CssBaseline,
+} from '@mui/material';
 import { useState } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import ThemeToggleButton from './ThemeToggleButton';
 import UserMenu from './UserMenu';
 import ResponsiveDrawer from './ResponsiveDrawer';
 import NavLinks from './NavLinks';
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'; 
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import { useThemeContext } from '../../../wrappers/ThemeWrapper';
 import useAuthStore from '../../../stores/auth/useAuthStore';
 import { useNavigate } from 'react-router-dom';
@@ -51,7 +58,10 @@ const ResponsiveAppBar = () => {
             <NavLinks darkMode={darkMode} />
           </Box>
 
-          <ThemeToggleButton darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+          <ThemeToggleButton
+            darkMode={darkMode}
+            toggleDarkMode={toggleDarkMode}
+          />
 
           <UserMenu handleLogout={handleLogout} />
         </Toolbar>
