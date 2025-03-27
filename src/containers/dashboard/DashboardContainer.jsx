@@ -2,24 +2,75 @@ import { useTranslation } from 'react-i18next';
 import DashboardPage from '../../pages/dashboard/DashboardPage';
 import WelcomeMessage from '../../components/dashboard-components/WelcomeMessage';
 import DashboardWidget from '../../components/dashboard-components/DashboardWidget';
-import { Grid, Box } from '@mui/material';
+import { Box } from '@mui/material';
+import Grid from '@mui/material/Grid';
 import useAuthStore from '../../stores/auth/useAuthStore';
+import { useUsers} from '../../hooks/users/useUsers';
+import { errorAlert } from '../../services/generic/AlertService.js';
+import { fetchUsers } from '../../services/users/UserService';
+import { fetchRaffle} from '../../services/riffle/RiffleService';
+import { getHeaders } from '../../utils/api/headers';
+import { jwtDecode } from 'jwt-decode';
+//import jwtDecode from 'jwt-decode';
+
 import {
   ROLE_ANONYMOUS,
   ROLE_ADMIN,
   ROLE_USER,
 } from '../../utils/generic/constants';
 
+import { useEffect,useState } from 'react';
+
 const DashboardContainer = () => {
+  const [loading, setLoading] = useState(true);
+  
+  const [totalUsers, setTotalUsers] = useState(0);
+  const [activeRaffles, setactiveRaffles] = useState(0);
+  const {
+    handleTotalUsers
+  } = useUsers();
+
   const { t } = useTranslation();
   const { user, token } = useAuthStore();
 
-  const totalUsers = 100;
-  const activeRaffles = 10;
+  // Obtener el token desde localStorage
+  let tokens = localStorage.getItem('token');
+
+
+  // Decodificar el token
+  let decodedToken = null;
+  if (tokens) {
+    try {
+      decodedToken = jwtDecode(tokens);
+    } catch (error) {
+      console.error('Error decoding token:', error);
+    }
+  }
 
   let welcomeMessage;
+  let content;
 
-  if (!token) {
+
+  if (!tokens) {
+        /**
+     * Fetches users from the API and updates the state.
+     */
+        useEffect(() => { 
+          const loadRaffles = async () => {
+            setLoading(true);
+            try {
+              const raffleData = await fetchRaffle();
+              setactiveRaffles(raffleData.length);
+            } catch(error) {
+              console.log(error);
+              errorAlert({ messageKey: 'error_loading_users' });
+            } finally {
+              setLoading(false);
+            }
+          }
+          loadRaffles();
+        }, []);
+
     welcomeMessage = (
       <WelcomeMessage
         title={t('welcome_to_coney')}
@@ -27,7 +78,24 @@ const DashboardContainer = () => {
         actionMessage={t('signup_invitation')}
       />
     );
-  } else if (user?.role === ROLE_ANONYMOUS) {
+
+    content = (
+      <>
+        {welcomeMessage}
+        <Box padding={4}>
+          <Grid container spacing={12}>
+            <Grid item xs={12} sm={12}>
+              <DashboardWidget
+                title={t('active_raffles')}
+                value={activeRaffles}
+              />
+            </Grid>
+          </Grid>
+        </Box>
+      </>
+    );
+  } else if (decodedToken?.role == ROLE_ANONYMOUS) {  
+    <h4>Role anonymous</h4>
     welcomeMessage = (
       <WelcomeMessage
         title={t('welcome')}
@@ -37,33 +105,68 @@ const DashboardContainer = () => {
         footerMessage={t('admin_approval')}
       />
     );
-  } else if (user?.role === ROLE_ADMIN || user?.role === ROLE_USER) {
+  } else if (decodedToken?.role == "admin" || decodedToken?.role == "user") {
+            /**
+     * Fetches users from the API and updates the state.
+     */
+            useEffect(() => {
+              const loadUsers = async () => {
+                setLoading(true);
+                try {
+                  const usersData = await fetchUsers();
+                  setTotalUsers(usersData.length);
+                } catch(error) {
+                  errorAlert({ messageKey: 'error_loading_users' });
+                } finally {
+                  setLoading(false);
+                }
+              };
+              
+              const loadRaffles = async () => {
+                setLoading(true);
+                try {
+                  const raffleData = await fetchRaffle();
+                  setactiveRaffles(raffleData.length);
+                } catch(error) {
+                  console.log(error);
+                  errorAlert({ messageKey: 'error_loading_users' });
+                } finally {
+                  setLoading(false);
+                }
+              }
+              
+              loadUsers();
+              loadRaffles();
+            }, []);
+
     welcomeMessage = (
       <WelcomeMessage
         title={t('welcome_to_coney')}
         message={t('welcome_to_tool')}
       />
     );
+
+    content = (
+      <>
+        {welcomeMessage}
+        <Box padding={4}>
+          <Grid container spacing={4}>
+            <Grid item xs={12} sm={6}>
+              <DashboardWidget title={t('total_users')} value={totalUsers} />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <DashboardWidget
+                title={t('active_raffles')}
+                value={activeRaffles}
+              />
+            </Grid>
+          </Grid>
+        </Box>
+      </>
+    );
   }
 
-  return (
-    <DashboardPage>
-      {welcomeMessage}
-      <Box padding={4}>
-        <Grid container spacing={4}>
-          <Grid item xs={12} sm={6}>
-            <DashboardWidget title={t('total_users')} value={totalUsers} />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <DashboardWidget
-              title={t('active_raffles')}
-              value={activeRaffles}
-            />
-          </Grid>
-        </Grid>
-      </Box>
-    </DashboardPage>
-  );
+  return <DashboardPage>{content}</DashboardPage>;
 };
 
 export default DashboardContainer;

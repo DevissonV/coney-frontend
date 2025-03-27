@@ -242,9 +242,10 @@ export const useTickets = () => {
    * Loads all available tickets.
    */
   const loadAllTickets = async () => {
-    setLoading(true);
     try {
-      await fetchTickets();
+      setLoading(true);
+      const response = await fetchTickets();
+      setTotalTickets(response.total);
     } catch {
       errorAlert({ messageKey: 'error_loading_tickets' });
     } finally {

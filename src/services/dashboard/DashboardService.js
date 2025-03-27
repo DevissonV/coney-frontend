@@ -1,7 +1,7 @@
 import { privateAxios } from '../../utils/api/axios';
+import { getHeaders } from '../../utils/api/headers';
 
-const API_URL = '/static/dashboard.json';
-
+const API_URL = import.meta.env.VITE_API_URL;
 /**
  * Fetches dashboard data from a static JSON file.
  * @returns {Promise<Object>} The dashboard data.

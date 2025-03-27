@@ -1,4 +1,5 @@
 import { privateAxios } from '../../utils/api/axios';
+import { getHeaders } from '../../utils/api/headers';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -8,7 +9,7 @@ const API_URL = import.meta.env.VITE_API_URL;
  * @throws {Error} If the request fails.
  */
 export const fetchUsers = async () => {
-  const response = await privateAxios.get(`${API_URL}/Users/getAllUsers`);
+  const response = await privateAxios.get(`${API_URL}/users/`, getHeaders());
   const { status, code, data } = response.data;
 
   if (!status || code !== 200) {

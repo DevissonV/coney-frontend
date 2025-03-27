@@ -8,9 +8,8 @@ const API_URL = import.meta.env.VITE_API_URL;
  * @returns {Promise<Array>} A promise resolving to an array of ticket data.
  */
 export const fetchTickets = async () => {
-  const response = await privateAxios.get(`${API_URL}/Tickets/getAllRiffles`);
+  const response = await privateAxios.get(`${API_URL}/tickets/`, getHeaders());
   const { status, code, data } = response.data;
-
   if (!status || code !== 200) {
     throw new Error('Error fetching tickets');
   }

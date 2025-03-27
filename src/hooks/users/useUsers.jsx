@@ -26,6 +26,17 @@ export const useUsers = () => {
   const loggedInUser = useAuthStore((state) => state.user);
   const updateAuthUser = useAuthStore((state) => state.updateUser);
 
+  const handleTotalUsers = useCallback(
+    async () => {
+      try {
+        const users = await fetchUsers();
+        setUsers(users);
+      } catch (error) {
+        errorAlert({ messageKey: 'error_fetching_users' });
+      }
+    }
+  );
+
   /**
    * Deletes a user after confirmation.
    * @param {number} userId - The ID of the user to delete.
@@ -185,5 +196,6 @@ export const useUsers = () => {
     handleResendEmail,
     handleRecoverPassword,
     handleChangePassword,
+    handleTotalUsers
   };
 };
