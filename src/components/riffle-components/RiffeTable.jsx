@@ -7,6 +7,7 @@ import RiffleActions from './RiffleActions';
 import CellContent from '../generic/table/CellContent';
 import useAuthStore from '../../stores/auth/useAuthStore';
 import { ROLE_ANONYMOUS } from '../../utils/generic/constants';
+import { format } from 'date-fns'; // Importa la función format de date-fns
 
 const RiffleTable = ({ rows, loading, onEdit, onDelete, onViewTickets }) => {
   const { t } = useTranslation();
@@ -44,18 +45,31 @@ const RiffleTable = ({ rows, loading, onEdit, onDelete, onViewTickets }) => {
         renderCell: (params) => <CellContent value={params.value} />,
       },
       {
-        field: 'boletas',
-        headerName: '# de boletas',
+        field: 'end_date',
+        headerName: t('end_date'),
         flex: 1.5,
         minWidth: 180,
-        renderCell: () => <CellContent value="Boletas disponibles" />,
+        renderCell: (params) => {
+          const formattedDate = format(
+            new Date(params.value),
+            'yyyy-MM-dd hh:mm',
+          ); // Formatea la fecha
+          return <CellContent value={formattedDate} />;
+        },
       },
       {
-        field: 'expired',
-        headerName: t('expired'),
+        field: 'available_tickets',
+        headerName: t('available_tickets'),
         flex: 1.5,
         minWidth: 180,
-        renderCell: () => <CellContent value="4 dias" />,
+        renderCell: (params) => <CellContent value={params.value} />,
+      },
+      {
+        field: 'price',
+        headerName: t('price'),
+        flex: 1.5,
+        minWidth: 180,
+        renderCell: (params) => <CellContent value={params.value} />,
       },
       {
         field: 'actions',

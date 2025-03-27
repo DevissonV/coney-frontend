@@ -2,7 +2,6 @@ import { privateAxios } from '../../utils/api/axios';
 import { getHeaders } from '../../utils/api/headers';
 
 const API_URL = import.meta.env.VITE_API_URL;
-
 /**
  * Fetches all raffle tickets from the API.
  * @throws {Error} If the request fails or the response status is not 200.
@@ -83,10 +82,14 @@ export const deleteTicket = async (id) => {
  * @throws {Error} If the request fails or the response status is not 200.
  * @returns {Promise<Object>} A promise resolving to the updated ticket data.
  */
-export const editTicket = async (id, ticketData) => {
-  const response = await privateAxios.put(
-    `${API_URL}/Tickets/updateTicket/${id}`,
-    ticketData,
+export const editTicket = async (id) => {
+  const idticket = id['ticketId'];
+  const userId = id['userid'];
+
+  const response = await privateAxios.patch(
+    `${API_URL}/tickets/${idticket}`,
+    { userId },
+    getHeaders(),
   );
   const { status, code, data } = response.data;
 
@@ -105,12 +108,46 @@ export const editTicket = async (id, ticketData) => {
  */
 export const fetchTicketsByRiffle = async (riffleId, limit = 100) => {
   const response = await privateAxios.get(
-    `${API_URL}/tickets/?limit=${limit}&raffle_id=${riffleId}`,
+    `${API_URL}/tickets/availables/?raffle_id=${riffleId}`,
   );
   const { status, code, data } = response.data;
 
   if (!status || code !== 200) {
     throw new Error('Error fetching tickets');
+  }
+
+  return data;
+};
+
+export const raffleById = async (id) => {
+  const response = await privateAxios.get(
+    `${API_URL}/raffles/${id}`,
+    getHeaders(),
+  );
+  const { status, code, data } = response.data;
+
+  if (!status || code !== 200) {
+    throw new Error(`Error fetching ticket with ID ${id}`);
+  }
+
+  return data;
+};
+
+/**
+ * Fetches available tickets for a given raffle.
+ *
+ * @param {number} raffleId - The ID of the raffle to fetch available tickets for.
+ * @returns {Promise<Object>} A promise that resolves to the data containing available tickets.
+ * @throws {Error} If the request fails or the response status code is not 200.
+ */
+export const ticketsAvaliables = async (raffle_id) => {
+  const response = await privateAxios.get(
+    `${API_URL}/tickets/availables/&raffle_id=${raffle_id}`,
+  );
+  const { status, code, data } = response.data;
+
+  if (!status || code !== 200) {
+    throw new Error(`Error fetching ticket with ID ${id}`);
   }
 
   return data;

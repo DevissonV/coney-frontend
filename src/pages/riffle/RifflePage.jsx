@@ -52,24 +52,6 @@ const RifflePage = ({
         >
           {t('riffle')}
         </Typography>
-
-        {/* Verificamos si el usuario está logueado y no es anonymous */}
-        {/* {token && user?.role !== ROLE_ANONYMOUS && (
-          <Button 
-            variant="contained" 
-            color="primary" 
-            onClick={() => {
-              setRiffleToEdit(null);
-              setOpenModal(true);
-            }}
-            sx={{
-              mt: isMobile ? 2 : 0,  
-              textAlign: 'center'
-            }}
-          >
-            {t('create_riffle')}
-          </Button>
-        )} */}
         <Button
           variant="contained"
           color="primary"

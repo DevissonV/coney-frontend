@@ -26,10 +26,10 @@ export const fetchTicketsByRiffle = async (riffleId) => {
   return data;
 };
 
-export const createRiffle = async (riffleData) => {
+export const createRaffles = async (raffleData) => {
   const response = await privateAxios.post(
     `${API_URL}/raffles/`,
-    riffleData,
+    raffleData,
     getHeaders(),
   );
   const { status, code, data } = response.data;

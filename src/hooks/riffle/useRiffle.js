@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import {
   fetchRaffle,
-  createRiffle,
+  createRaffles,
   editRiffle,
   deleteRiffle,
 } from '../../services/riffle/RiffleService';
@@ -36,15 +36,18 @@ export const useRiffle = () => {
 
   /**
    * Creates a new riffle.
-   * @param {Object} riffleData - The data for the new riffle.
+   * @param {Object} raffleData - The data for the new riffle.
    */
-  const handleCreateRiffle = async (riffleData) => {
+  const handleCreateRaffle = async (raffleData) => {
     try {
-      await createRiffle(riffleData);
+      await createRaffles(raffleData);
+      setLoading(true);
       toast({ icon: 'success', titleKey: 'create_success' });
       loadRaffle();
-    } catch {
-      errorAlert({ messageKey: 'error_creating_riffle' });
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || 'Error creating raffle';
+      errorAlert({ messageKey: errorMessage });
     }
   };
 
@@ -88,7 +91,7 @@ export const useRiffle = () => {
     riffle,
     loading,
     loadRaffle,
-    handleCreateRiffle,
+    handleCreateRaffle,
     handleEditRiffle,
     handleDeleteRiffle,
   };

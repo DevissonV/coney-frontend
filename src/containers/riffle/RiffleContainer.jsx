@@ -8,7 +8,7 @@ const RiffleContainer = () => {
     riffle,
     loading,
     loadRaffle,
-    handleCreateRiffle,
+    handleCreateRaffle,
     handleDeleteRiffle,
     handleEditRiffle,
   } = useRiffle();
@@ -28,7 +28,7 @@ const RiffleContainer = () => {
     <RifflePage
       riffle={filteredRiffle}
       loading={loading}
-      onCreate={handleCreateRiffle}
+      onCreate={handleCreateRaffle}
       onEdit={(riffle) => {
         setRiffleToEdit(riffle);
         setOpenModal(true);
@@ -40,11 +40,11 @@ const RiffleContainer = () => {
       setOpenModal={setOpenModal}
       riffleToEdit={riffleToEdit}
       setRiffleToEdit={setRiffleToEdit}
-      onSubmit={(riffleData) => {
+      onSubmit={(raffleData) => {
         if (riffleToEdit) {
-          handleEditRiffle(riffleToEdit.id, riffleData);
+          handleEditRiffle(riffleToEdit.id, raffleData);
         } else {
-          handleCreateRiffle(riffleData);
+          handleCreateRaffle(raffleData);
         }
         setOpenModal(false);
       }}

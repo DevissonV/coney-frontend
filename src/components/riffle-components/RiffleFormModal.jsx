@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import CloseIcon from '@mui/icons-material/Close';
+
 import {
   getLocalDateTime,
   formatDateForInput,
@@ -17,39 +18,58 @@ import {
 const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
   const { t } = useTranslation();
 
-  const [riffleName, setRiffleName] = useState(initialValues.name || '');
-  const [riffleDescription, setRiffleDescription] = useState(
+  const [raffleName, setRaffleName] = useState(initialValues.name || '');
+  const [raffleDescription, setRaffleDescription] = useState(
     initialValues.description || '',
   );
   const [initDate, setInitDate] = useState(
     formatDateForInput(initialValues.initDate),
   );
-  const [endtDate, setendtDate] = useState(
-    formatDateForInput(initialValues.endtDate),
+  const [endDate, setendDate] = useState(
+    formatDateForInput(initialValues.endDate),
   );
+  const [rafflePrice, setrafflePrice] = useState(initialValues.name || '');
+  const [raffleTicketCount, setraffleTicketCount] = useState(initialValues.name || '');
 
   useEffect(() => {
     if (initialValues && initialValues.name) {
-      setRiffleName(initialValues.name);
-      setRiffleDescription(initialValues.description || '');
+      setRaffleName(initialValues.name);
+      setRaffleDescription(initialValues.description || '');
       setInitDate(formatDateForInput(initialValues.initDate));
-      setendtDate(formatDateForInput(initialValues.endtDate));
+      setendDate(formatDateForInput(initialValues.endDate));
+      setrafflePrice(initialValues.price);
+      setraffleTicketCount(initialValues.ticketCount);
     } else {
-      setRiffleName('');
-      setRiffleDescription('');
+      setRaffleName('');
+      setRaffleDescription('');
       setInitDate(getLocalDateTime());
-      setendtDate(getLocalDateTime());
+      setendDate(getLocalDateTime());
+      setrafflePrice('');
+      setraffleTicketCount('');
     }
   }, [initialValues]);
 
   const handleSubmit = () => {
     onSubmit({
-      name: riffleName,
-      description: riffleDescription,
+      name: raffleName,
+      description: raffleDescription,
       initDate,
-      endtDate,
+      endDate,
+      price: rafflePrice,
+      ticketCount: raffleTicketCount,
     });
     onClose();
+  };
+
+  const handleisFormValid = () => {
+    return (
+      raffleName.trim() !== '' &&
+      raffleDescription.trim() !== '' &&
+      initDate.trim() !== '' &&
+      endDate.trim() !== '' &&
+      rafflePrice.trim() !== '' &&
+      raffleTicketCount.trim() !== ''
+    );
   };
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
@@ -71,15 +91,15 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
       <DialogContent>
         <TextField
           label={t('name')}
-          value={riffleName}
-          onChange={(e) => setRiffleName(e.target.value)}
+          value={raffleName}
+          onChange={(e) => setRaffleName(e.target.value)}
           fullWidth
           margin="normal"
         />
         <TextField
           label={t('description')}
-          value={riffleDescription}
-          onChange={(e) => setRiffleDescription(e.target.value)}
+          value={raffleDescription}
+          onChange={(e) => setRaffleDescription(e.target.value)}
           fullWidth
           margin="normal"
         />
@@ -98,13 +118,29 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
         <TextField
           label={t('endDate')}
           type="datetime-local"
-          value={endtDate}
-          onChange={(e) => setendtDate(e.target.value)}
+          value={endDate}
+          onChange={(e) => setendDate(e.target.value)}
           fullWidth
           margin="normal"
           slotProps={{
             inputLabel: { shrink: true },
           }}
+        />
+
+        <TextField
+          label={t('price')}
+          value={rafflePrice}
+          onChange={(e) => setrafflePrice(e.target.value)}
+          fullWidth
+          margin="normal"
+        />
+
+        <TextField
+          label={t('ticketCount')}
+          value={raffleTicketCount}
+          onChange={(e) => setraffleTicketCount(e.target.value)}
+          fullWidth
+          margin="normal"
         />
       </DialogContent>
       <div style={{ textAlign: 'right', padding: '16px' }}>
@@ -113,6 +149,7 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
           type="submit"
           variant="contained"
           color="primary"
+          disabled={!handleisFormValid()}
         >
           {t('save')}
         </Button>

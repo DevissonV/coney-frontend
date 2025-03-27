@@ -142,5 +142,9 @@
   "error_updating_ticket": "Error updating ticket",
   "error_loading_tickets": "Error loading tickets",
   "error_deleting_ticket": "Error deleting ticket",
-  "Tickets_available": "Tickets available"
+  "Available_Tickets": "Available Tickets",
+  "end_date": "end_date",
+  "price": "price",
+  "ticketCount" : "ticketCount",
+  "reserve":"reserve"
 }

@@ -142,6 +142,12 @@
   "error_creating_ticket": "Error creando boleta",
   "error_updating_ticket": "Error actualizando boleta",
   "error_loading_tickets": "Error cargando boletas",
+  "error_search_raffle": "Error buscando la rifa",
   "error_deleting_ticket": "Error eliminando boleta",
-  "Tickets_available": "Boletas disponibles"
+  "available_tickets": "Boletas disponibles",
+  "end_date": "Fecha de finalización",
+  "price": "Precio",
+  "ticketCount" : "Cantidad de boletas",
+  "initDate must be today or in the future": "La fecha de inicio debe ser hoy o en el futuro",
+  "reserve": "Reservar"
 }
