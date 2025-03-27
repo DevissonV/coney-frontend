@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useSearch } from '../../hooks/generic/useSearch';
+import { jwtDecode } from 'jwt-decode';
 
 import {
   fetchTickets,

@@ -31,6 +31,7 @@ const AuthContainer = () => {
     setLoading(true);
 
     try {
+ 
       const { user, token } = await login(credentials);
       setUserAndToken(user, token);
       toast({ icon: 'success', titleKey: 'login_success' });
@@ -41,6 +42,8 @@ const AuthContainer = () => {
       setLoading(false);
     }
   };
+
+ 
 
   return <LoginPage onLogin={handleLogin} loading={loading} />;
 };

@@ -42,6 +42,7 @@ const DashboardContainer = () => {
   if (tokens) {
     try {
       decodedToken = jwtDecode(tokens);
+      console.log('Decoded token:', decodedToken);
     } catch (error) {
       console.error('Error decoding token:', error);
     }
@@ -105,7 +106,7 @@ const DashboardContainer = () => {
         footerMessage={t('admin_approval')}
       />
     );
-  } else if (decodedToken?.role == "admin" || decodedToken?.role == "user") {
+  } else if (decodedToken?.role == "admin") {
             /**
      * Fetches users from the API and updates the state.
      */
@@ -164,6 +165,50 @@ const DashboardContainer = () => {
         </Box>
       </>
     );
+  }else if(decodedToken?.role == "user"){
+               /**
+     * Fetches users from the API and updates the state.
+     */
+               useEffect(() => {         
+                const loadRaffles = async () => {
+                  setLoading(true);
+                  try {
+                    const raffleData = await fetchRaffle();
+                    setactiveRaffles(raffleData.length);
+                  } catch(error) {
+                    console.log(error);
+                    errorAlert({ messageKey: 'error_loading_users' });
+                  } finally {
+                    setLoading(false);
+                  }
+                }
+                
+                loadRaffles();
+              }, []);
+  
+      welcomeMessage = (
+        <WelcomeMessage
+          title={t('welcome_to_coney')}
+          message={t('welcome_to_tool')}
+        />
+      );
+  
+      content = (
+        <>
+          {welcomeMessage}
+          <Box padding={4}>
+            <Grid container spacing={12}>
+
+              <Grid item xs={12} sm={12}>
+                <DashboardWidget
+                  title={t('active_raffles')}
+                  value={activeRaffles}
+                />
+              </Grid>
+            </Grid>
+          </Box>
+        </>
+      );
   }
 
   return <DashboardPage>{content}</DashboardPage>;

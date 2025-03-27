@@ -22,24 +22,24 @@ export const login = async (credentials) => {
 
   try {
     const response = await privateAxios.post(
-      `${API_URL}/api/users/login`,
+      `${API_URL}/users/login/`,
       credentials,
     );
     const { status, code, data } = response.data;
-
     if (!status || code !== 200) {
       throw new Error('Invalid credentials');
     }
 
-    const { user, token } = data;
+    const { role, token } = data;
 
     return {
       user: {
-        id: user.id,
-        email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        role: user.role,
+        //id: user.id,
+        email: credentials.email,
+        //firstName: user.firstName,
+        //lastName: user.lastName,
+        role: role,
+        //user: user.credentials.email,
       },
       token,
     };
