@@ -132,6 +132,17 @@ const UserCreateModal = ({ open, onClose, onCreateUser }) => {
           {t('create_user')}
         </Typography>
         <Box component="form">
+        <TextField
+            label={t('email')}
+            name="email"
+            fullWidth
+            margin="normal"
+            value={newUser.email}
+            onChange={handleInputChange}
+            error={!!errors.email}
+            helperText={errors.email}
+            inputProps={{ maxLength: 100 }}
+          />
           <TextField
             label={t('first_name')}
             name="firstName"
@@ -154,17 +165,7 @@ const UserCreateModal = ({ open, onClose, onCreateUser }) => {
             helperText={errors.lastName}
             inputProps={{ maxLength: 50 }}
           />
-          <TextField
-            label={t('email')}
-            name="email"
-            fullWidth
-            margin="normal"
-            value={newUser.email}
-            onChange={handleInputChange}
-            error={!!errors.email}
-            helperText={errors.email}
-            inputProps={{ maxLength: 100 }}
-          />
+          
           <TextField
             label={t('password')}
             name="password"

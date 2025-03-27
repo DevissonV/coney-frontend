@@ -26,10 +26,7 @@ export const fetchUsers = async () => {
  * @throws {Error} If the request fails.
  */
 export const createUser = async (userData) => {
-  const response = await privateAxios.post(
-    `${API_URL}/Users/createUser`,
-    userData,
-  );
+  const response = await privateAxios.post(`${API_URL}/users/`, userData);
   const { status, code, data } = response.data;
 
   if (!status || code !== 201) {

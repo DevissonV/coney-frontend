@@ -1,12 +1,11 @@
 import { jwtDecode } from 'jwt-decode';
 
-// Decodificar el token
-let decodedToken = null;
-if (tokens) {
+export const jwt_Decode = (token) => {
   try {
-    decodedToken = jwtDecode(tokens);
-    console.log('Decoded token:', decodedToken);
+    const decoded = jwtDecode(token);
+    return decoded;
   } catch (error) {
-    console.error('Error decoding token:', error);
+    console.error('Error decoding JWT:', error);
+    return null;
   }
-}
+};

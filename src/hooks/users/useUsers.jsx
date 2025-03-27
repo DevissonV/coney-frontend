@@ -106,8 +106,6 @@ export const useUsers = () => {
           titleKey: 'success',
           messageKey: 'create_success',
         });
-        const updatedUsers = await fetchUsers();
-        setUsers(updatedUsers);
       } catch {
         errorAlert({ messageKey: 'error_creating_user' });
       }

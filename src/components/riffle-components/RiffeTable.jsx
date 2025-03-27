@@ -71,20 +71,6 @@ const RiffleTable = ({ rows, loading, onEdit, onDelete, onViewTickets }) => {
         minWidth: 180,
         renderCell: (params) => <CellContent value={params.value} />,
       },
-      {
-        field: 'actions',
-        headerName: t('actions'),
-        renderCell: (params) => (
-          <RiffleActions
-            riffleId={params.row.id}
-            onEdit={() => onEdit(params.row)}
-            onDelete={() => onDelete(params.row.id)}
-          />
-        ),
-        flex: 1,
-        sortable: false,
-        filterable: false,
-      },
     ];
 
     // Agregamos acciones solo si el usuario no es "anonymous"
@@ -115,12 +101,11 @@ const RiffleTable = ({ rows, loading, onEdit, onDelete, onViewTickets }) => {
       <DataGrid
         rows={rows}
         columns={columns}
-        pagination
-        autoHeight
+        autoHeight={false}
         getRowHeight={() => 60}
         initialState={{
           pagination: {
-            paginationModel: { pageSize: 5 },
+            paginationModel: { pageSize: 5, page: 0 },
           },
         }}
         pageSizeOptions={[5, 10, 20, 50, 100]}
@@ -130,6 +115,7 @@ const RiffleTable = ({ rows, loading, onEdit, onDelete, onViewTickets }) => {
         localeText={localeText}
         sx={{
           maxHeight: 600,
+          overflow: 'auto',
           '& .MuiDataGrid-cell': {
             whiteSpace: 'normal',
             wordWrap: 'break-word',

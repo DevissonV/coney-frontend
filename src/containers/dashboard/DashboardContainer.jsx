@@ -9,9 +9,7 @@ import { useUsers} from '../../hooks/users/useUsers';
 import { errorAlert } from '../../services/generic/AlertService.js';
 import { fetchUsers } from '../../services/users/UserService';
 import { fetchRaffle} from '../../services/riffle/RiffleService';
-import { getHeaders } from '../../utils/api/headers';
-import { jwtDecode } from 'jwt-decode';
-//import jwtDecode from 'jwt-decode';
+import { jwt_Decode } from '../../utils/generic/jwtDecode';
 
 import {
   ROLE_ANONYMOUS,
@@ -19,11 +17,11 @@ import {
   ROLE_USER,
 } from '../../utils/generic/constants';
 
-import { useEffect,useState } from 'react';
+import { useEffect,useState, useMemo } from 'react';
 
 const DashboardContainer = () => {
   const [loading, setLoading] = useState(true);
-  
+  const [totalRaffles, setTotalRaffles] = useState(0);
   const [totalUsers, setTotalUsers] = useState(0);
   const [activeRaffles, setactiveRaffles] = useState(0);
   const {
@@ -32,46 +30,60 @@ const DashboardContainer = () => {
 
   const { t } = useTranslation();
   const { user, token } = useAuthStore();
-
-  // Obtener el token desde localStorage
-  let tokens = localStorage.getItem('token');
+ 
 
 
-  // Decodificar el token
-  let decodedToken = null;
-  if (tokens) {
-    try {
-      decodedToken = jwtDecode(tokens);
-      console.log('Decoded token:', decodedToken);
-    } catch (error) {
-      console.error('Error decoding token:', error);
+  const decodedToken = useMemo(() => {
+    if (token) {
+      try {
+        return jwt_Decode(token);
+      } catch (error) {
+        console.error('Error decoding token:', error);
+        return null;
+      }
     }
-  }
+    return null;
+  }, [token]);
 
+  useEffect(() => {
+    const loadUsers = async () => {
+      if (decodedToken?.role === 'admin') {
+        setLoading(true);
+        try {
+          const usersData = await fetchUsers();
+          setTotalUsers(usersData.length);
+        } catch (error) {
+          errorAlert({ messageKey: 'error_loading_users' });
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+
+    const loadRaffles = async () => {
+      setLoading(true);
+      try {
+        const raffleData = await fetchRaffle();
+        console.log(raffleData);
+        setactiveRaffles(raffleData.length);
+      } catch(error) {
+        console.log(error);
+        errorAlert({ messageKey: 'error_loading_users' });
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadUsers();
+    loadRaffles();
+  }, [decodedToken]);
+  
+  
   let welcomeMessage;
   let content;
 
 
-  if (!tokens) {
-        /**
-     * Fetches users from the API and updates the state.
-     */
-        useEffect(() => { 
-          const loadRaffles = async () => {
-            setLoading(true);
-            try {
-              const raffleData = await fetchRaffle();
-              setactiveRaffles(raffleData.length);
-            } catch(error) {
-              console.log(error);
-              errorAlert({ messageKey: 'error_loading_users' });
-            } finally {
-              setLoading(false);
-            }
-          }
-          loadRaffles();
-        }, []);
-
+  if (!token) {
     welcomeMessage = (
       <WelcomeMessage
         title={t('welcome_to_coney')}
@@ -95,8 +107,7 @@ const DashboardContainer = () => {
         </Box>
       </>
     );
-  } else if (decodedToken?.role == ROLE_ANONYMOUS) {  
-    <h4>Role anonymous</h4>
+  } else if (decodedToken?.role == "anonymous") {  
     welcomeMessage = (
       <WelcomeMessage
         title={t('welcome')}
@@ -106,40 +117,9 @@ const DashboardContainer = () => {
         footerMessage={t('admin_approval')}
       />
     );
-  } else if (decodedToken?.role == "admin") {
-            /**
-     * Fetches users from the API and updates the state.
-     */
-            useEffect(() => {
-              const loadUsers = async () => {
-                setLoading(true);
-                try {
-                  const usersData = await fetchUsers();
-                  setTotalUsers(usersData.length);
-                } catch(error) {
-                  errorAlert({ messageKey: 'error_loading_users' });
-                } finally {
-                  setLoading(false);
-                }
-              };
-              
-              const loadRaffles = async () => {
-                setLoading(true);
-                try {
-                  const raffleData = await fetchRaffle();
-                  setactiveRaffles(raffleData.length);
-                } catch(error) {
-                  console.log(error);
-                  errorAlert({ messageKey: 'error_loading_users' });
-                } finally {
-                  setLoading(false);
-                }
-              }
-              
-              loadUsers();
-              loadRaffles();
-            }, []);
 
+    content = <>{welcomeMessage}</>;
+  } else if (decodedToken?.role == "admin") {
     welcomeMessage = (
       <WelcomeMessage
         title={t('welcome_to_coney')}
@@ -166,49 +146,28 @@ const DashboardContainer = () => {
       </>
     );
   }else if(decodedToken?.role == "user"){
-               /**
-     * Fetches users from the API and updates the state.
-     */
-               useEffect(() => {         
-                const loadRaffles = async () => {
-                  setLoading(true);
-                  try {
-                    const raffleData = await fetchRaffle();
-                    setactiveRaffles(raffleData.length);
-                  } catch(error) {
-                    console.log(error);
-                    errorAlert({ messageKey: 'error_loading_users' });
-                  } finally {
-                    setLoading(false);
-                  }
-                }
-                
-                loadRaffles();
-              }, []);
-  
-      welcomeMessage = (
-        <WelcomeMessage
-          title={t('welcome_to_coney')}
-          message={t('welcome_to_tool')}
-        />
-      );
-  
-      content = (
-        <>
-          {welcomeMessage}
-          <Box padding={4}>
-            <Grid container spacing={12}>
+   welcomeMessage = (
+      <WelcomeMessage
+        title={t('welcome_to_coney')}
+        message={t('welcome_to_tool')}
+      />
+    );
 
-              <Grid item xs={12} sm={12}>
-                <DashboardWidget
-                  title={t('active_raffles')}
-                  value={activeRaffles}
-                />
-              </Grid>
+    content = (
+      <>
+        {welcomeMessage}
+        <Box padding={4}>
+          <Grid container spacing={12}>
+            <Grid item xs={12} sm={12}>
+              <DashboardWidget
+                title={t('active_raffles')}
+                value={activeRaffles}
+              />
             </Grid>
-          </Box>
-        </>
-      );
+          </Grid>
+        </Box>
+      </>
+    );
   }
 
   return <DashboardPage>{content}</DashboardPage>;

@@ -1,4 +1,5 @@
 import { privateAxios } from '../../utils/api/axios';
+import { jwt_Decode } from '../../utils/generic/jwtDecode';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -30,16 +31,15 @@ export const login = async (credentials) => {
       throw new Error('Invalid credentials');
     }
 
-    const { role, token } = data;
+    const { token } = data;
+    const decodedToken = jwt_Decode(token);
 
     return {
       user: {
-        //id: user.id,
-        email: credentials.email,
-        //firstName: user.firstName,
-        //lastName: user.lastName,
-        role: role,
-        //user: user.credentials.email,
+        email: decodedToken.email,
+        first_name: decodedToken.firstName,
+        last_name: decodedToken.lastName,
+        role: decodedToken.role,
       },
       token,
     };
