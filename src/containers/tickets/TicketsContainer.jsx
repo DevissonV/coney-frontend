@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import TicketsPage from '../../pages/tickets/TicketsPage';
-import TicketFormModal from '../../components/tickets-components/TicketFormModal';
 import { useTickets } from '../../hooks/tickets/useTickets';
 import { useSearch } from '../../hooks/generic/useSearch';
 

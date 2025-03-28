@@ -105,7 +105,7 @@ export const editTicket = async (id) => {
  * @param {number} [limit=100] - The maximum number of tickets to retrieve.
  * @returns {Promise<Array>} A promise resolving to an array of ticket data.
  */
-export const fetchTicketsByRiffle = async (riffleId, limit = 100) => {
+export const fetchTicketsByRiffle = async (riffleId) => {
   const response = await privateAxios.get(
     `${API_URL}/tickets/availables/?raffle_id=${riffleId}`,
   );
@@ -146,7 +146,7 @@ export const ticketsAvaliables = async (raffle_id) => {
   const { status, code, data } = response.data;
 
   if (!status || code !== 200) {
-    throw new Error(`Error fetching ticket with ID ${id}`);
+    throw new Error(`Error fetching ticket with ID ${raffle_id}`);
   }
 
   return data;

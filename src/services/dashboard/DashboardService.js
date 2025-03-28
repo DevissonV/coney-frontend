@@ -1,5 +1,4 @@
 import { privateAxios } from '../../utils/api/axios';
-import { getHeaders } from '../../utils/api/headers';
 
 const API_URL = import.meta.env.VITE_API_URL;
 /**

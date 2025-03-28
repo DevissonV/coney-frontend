@@ -31,7 +31,7 @@ export const useUsers = () => {
       const users = await fetchUsers();
       setUsers(users);
     } catch (error) {
-      errorAlert({ messageKey: 'error_fetching_users' });
+      errorAlert({ messageKey: 'error_fetching_users', error });
     }
   });
 

@@ -5,7 +5,6 @@ export const jwt_Decode = (token) => {
     const decoded = jwtDecode(token);
     return decoded;
   } catch (error) {
-    console.error('Error decoding JWT:', error);
-    return null;
+    return error;
   }
 };

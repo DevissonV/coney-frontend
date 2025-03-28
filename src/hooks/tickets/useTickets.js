@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import { useSearch } from '../../hooks/generic/useSearch';
-import { jwtDecode } from 'jwt-decode';
 
 import {
-  fetchTickets,
   editTicket,
   deleteTicket,
   fetchTicketsByRiffle,
@@ -242,6 +240,7 @@ export const useTickets = () => {
   /**
    * Loads all available tickets.
    */
+  /** 
   const loadAllTickets = async () => {
     try {
       setLoading(true);
@@ -253,6 +252,7 @@ export const useTickets = () => {
       setLoading(false);
     }
   };
+*/
 
   /**
    * Edits a ticket after confirming the reservation.
@@ -318,7 +318,6 @@ export const useTickets = () => {
         window.location.reload();
       }, 3000); // 5000 milisegundos = 5 segundos
     } catch (error) {
-      console.log(error);
       const errorMessage =
         error.response?.data?.message || 'Error reserve ticket';
       errorAlert({ messageKey: errorMessage });
@@ -349,7 +348,6 @@ export const useTickets = () => {
     loadTickets,
     handleEditTicket,
     handleDeleteTicket,
-    loadAllTickets,
     searchraffleById,
     handleClickOpen,
     handleClose,

@@ -96,7 +96,6 @@ export const useRiffle = () => {
       toast({ icon: 'success', titleKey: 'create_success' });
       loadRaffle();
     } catch (error) {
-      console.log(error);
       const errorMessage =
         error.response?.data?.message || 'Error selected winners';
       errorAlert({ messageKey: errorMessage });

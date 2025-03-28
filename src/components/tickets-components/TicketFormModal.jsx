@@ -1,31 +1,31 @@
-import { useEffect, useState } from 'react';
+//import { useEffect, useState } from 'react';
 import {
   Dialog,
   Button,
   Card,
   CardContent,
-  Box,
+  //Box,
   Typography,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import useAuthStore from '../../stores/auth/useAuthStore';
 import { jwt_Decode } from '../../utils/generic/jwtDecode';
-import { set } from 'date-fns';
-import { ConstructionOutlined } from '@mui/icons-material';
+//import { set } from 'date-fns';
+//import { ConstructionOutlined } from '@mui/icons-material';
 
 const TicketFormModal = ({
   open,
   onClose,
   onSubmit,
-  initialValues,
+  //initialValues,
   selectedTickets,
   selectedTicketNumbers,
-  tickets,
+  //tickets,
   totalPrice,
 }) => {
   const { t } = useTranslation();
 
-  const { user, token } = useAuthStore();
+  const { token } = useAuthStore();
   const decodedToken = jwt_Decode(token);
   const user_id = decodedToken.id;
 

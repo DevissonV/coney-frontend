@@ -5,43 +5,44 @@ import DashboardWidget from '../../components/dashboard-components/DashboardWidg
 import { Box } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import useAuthStore from '../../stores/auth/useAuthStore';
-import { useUsers } from '../../hooks/users/useUsers';
+//import { useUsers } from '../../hooks/users/useUsers';
 import { errorAlert } from '../../services/generic/AlertService.js';
 import { fetchUsers } from '../../services/users/UserService';
 import { fetchRaffle } from '../../services/riffle/RiffleService';
 import { jwt_Decode } from '../../utils/generic/jwtDecode';
 
-import {
+/**import {
   ROLE_ANONYMOUS,
   ROLE_ADMIN,
   ROLE_USER,
-} from '../../utils/generic/constants';
+} from '../../utils/generic/constants';*/
 
 import { useEffect, useState, useMemo } from 'react';
 
 const DashboardContainer = () => {
   const [loading, setLoading] = useState(true);
-  const [totalRaffles, setTotalRaffles] = useState(0);
+  //const [totalRaffles, setTotalRaffles] = useState(0);
   const [totalUsers, setTotalUsers] = useState(0);
   const [activeRaffles, setactiveRaffles] = useState(0);
-  const { handleTotalUsers } = useUsers();
+  //const { handleTotalUsers } = useUsers();
 
   const { t } = useTranslation();
-  const { user, token } = useAuthStore();
+  const { token } = useAuthStore();
 
   const decodedToken = useMemo(() => {
     if (token) {
       try {
         return jwt_Decode(token);
       } catch (error) {
-        console.error('Error decoding token:', error);
-        return null;
+        const errorMessage = error.response?.data?.message || 'Error Token';
+        errorAlert({ messageKey: errorMessage });
       }
     }
     return null;
   }, [token]);
 
   useEffect(() => {
+    //loading(true);
     const loadUsers = async () => {
       if (decodedToken?.role === 'admin') {
         setLoading(true);
@@ -49,7 +50,9 @@ const DashboardContainer = () => {
           const usersData = await fetchUsers();
           setTotalUsers(usersData.length);
         } catch (error) {
-          errorAlert({ messageKey: 'error_loading_users' });
+          const errorMessage =
+            error.response?.data?.message || 'error_loading_users';
+          errorAlert({ messageKey: errorMessage });
         } finally {
           setLoading(false);
         }
@@ -60,11 +63,11 @@ const DashboardContainer = () => {
       setLoading(true);
       try {
         const raffleData = await fetchRaffle();
-        console.log(raffleData);
         setactiveRaffles(raffleData.length);
       } catch (error) {
-        console.log(error);
-        errorAlert({ messageKey: 'error_loading_users' });
+        const errorMessage =
+          error.response?.data?.message || 'error_loading_raffles';
+        errorAlert({ messageKey: errorMessage });
       } finally {
         setLoading(false);
       }

@@ -6,10 +6,7 @@ import {
   Box,
   Typography,
   Button,
-  Card,
-  CardContent,
   Grid2,
-  Dialog,
   Paper,
   Select,
   MenuItem,
@@ -39,7 +36,6 @@ const TicketsPage = ({
   openModal,
   setOpenModal,
   onSubmit,
-  setTicketUpdate,
 }) => {
   const { t } = useTranslation();
   return (
