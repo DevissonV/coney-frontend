@@ -132,7 +132,7 @@ const UserCreateModal = ({ open, onClose, onCreateUser }) => {
           {t('create_user')}
         </Typography>
         <Box component="form">
-        <TextField
+          <TextField
             label={t('email')}
             name="email"
             fullWidth
@@ -165,7 +165,7 @@ const UserCreateModal = ({ open, onClose, onCreateUser }) => {
             helperText={errors.lastName}
             inputProps={{ maxLength: 50 }}
           />
-          
+
           <TextField
             label={t('password')}
             name="password"

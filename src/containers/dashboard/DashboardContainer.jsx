@@ -5,10 +5,10 @@ import DashboardWidget from '../../components/dashboard-components/DashboardWidg
 import { Box } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import useAuthStore from '../../stores/auth/useAuthStore';
-import { useUsers} from '../../hooks/users/useUsers';
+import { useUsers } from '../../hooks/users/useUsers';
 import { errorAlert } from '../../services/generic/AlertService.js';
 import { fetchUsers } from '../../services/users/UserService';
-import { fetchRaffle} from '../../services/riffle/RiffleService';
+import { fetchRaffle } from '../../services/riffle/RiffleService';
 import { jwt_Decode } from '../../utils/generic/jwtDecode';
 
 import {
@@ -17,21 +17,17 @@ import {
   ROLE_USER,
 } from '../../utils/generic/constants';
 
-import { useEffect,useState, useMemo } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 
 const DashboardContainer = () => {
   const [loading, setLoading] = useState(true);
   const [totalRaffles, setTotalRaffles] = useState(0);
   const [totalUsers, setTotalUsers] = useState(0);
   const [activeRaffles, setactiveRaffles] = useState(0);
-  const {
-    handleTotalUsers
-  } = useUsers();
+  const { handleTotalUsers } = useUsers();
 
   const { t } = useTranslation();
   const { user, token } = useAuthStore();
- 
-
 
   const decodedToken = useMemo(() => {
     if (token) {
@@ -66,22 +62,20 @@ const DashboardContainer = () => {
         const raffleData = await fetchRaffle();
         console.log(raffleData);
         setactiveRaffles(raffleData.length);
-      } catch(error) {
+      } catch (error) {
         console.log(error);
         errorAlert({ messageKey: 'error_loading_users' });
       } finally {
         setLoading(false);
       }
-    }
+    };
 
     loadUsers();
     loadRaffles();
   }, [decodedToken]);
-  
-  
+
   let welcomeMessage;
   let content;
-
 
   if (!token) {
     welcomeMessage = (
@@ -107,7 +101,7 @@ const DashboardContainer = () => {
         </Box>
       </>
     );
-  } else if (decodedToken?.role == "anonymous") {  
+  } else if (decodedToken?.role == 'anonymous') {
     welcomeMessage = (
       <WelcomeMessage
         title={t('welcome')}
@@ -119,7 +113,7 @@ const DashboardContainer = () => {
     );
 
     content = <>{welcomeMessage}</>;
-  } else if (decodedToken?.role == "admin") {
+  } else if (decodedToken?.role == 'admin') {
     welcomeMessage = (
       <WelcomeMessage
         title={t('welcome_to_coney')}
@@ -145,8 +139,8 @@ const DashboardContainer = () => {
         </Box>
       </>
     );
-  }else if(decodedToken?.role == "user"){
-   welcomeMessage = (
+  } else if (decodedToken?.role == 'user') {
+    welcomeMessage = (
       <WelcomeMessage
         title={t('welcome_to_coney')}
         message={t('welcome_to_tool')}

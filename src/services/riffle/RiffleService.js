@@ -77,3 +77,17 @@ export const editRiffle = async (id, riffleData) => {
 
   return data;
 };
+
+export const selectWinner = async (raffleId) => {
+  const response = await privateAxios.post(
+    `${API_URL}/winners/`,
+    { raffle_id: raffleId },
+    getHeaders(),
+  );
+  const { status, code, data } = response.data;
+  if (!status || code !== 201) {
+    throw new Error('Error selected winner');
+  }
+
+  return data;
+};

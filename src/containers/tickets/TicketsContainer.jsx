@@ -39,7 +39,7 @@ const TicketsContainer = () => {
     totalPages,
     totalPrice,
     selectedTicketNumbers,
-    handleReservedTickets
+    handleReservedTickets,
   } = useTickets();
   const {
     searchQuery,
@@ -66,9 +66,9 @@ const TicketsContainer = () => {
     <TicketsPage
       tickets={filteredTickets}
       raffle={raffle}
-      onSubmit={(id,ticketData) => {
+      onSubmit={(id, ticketData) => {
         setOpenModal(false);
-        handleReservedTickets(id,ticketData);
+        handleReservedTickets(id, ticketData);
       }}
       onCreate={handleReservedTickets}
       openModal={openModal}

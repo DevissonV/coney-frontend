@@ -22,6 +22,7 @@ const RifflePage = ({
   riffleToEdit,
   setRiffleToEdit,
   onSubmit,
+  handleWinner,
 }) => {
   const { t } = useTranslation();
   const [pageSize, setPageSize] = useState(5);
@@ -90,6 +91,7 @@ const RifflePage = ({
         onEdit={onEdit}
         onDelete={onDelete}
         onViewTickets={handleViewTickets}
+        handleWinner={handleWinner}
       />
 
       <RiffleFormModal

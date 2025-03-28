@@ -4,6 +4,7 @@ import {
   createRaffles,
   editRiffle,
   deleteRiffle,
+  selectWinner,
 } from '../../services/riffle/RiffleService';
 import {
   errorAlert,
@@ -87,6 +88,22 @@ export const useRiffle = () => {
     }
   };
 
+  const handleWinner = async (raffleId) => {
+    const idRaffle = raffleId.id;
+    try {
+      await selectWinner(idRaffle);
+      setLoading(true);
+      toast({ icon: 'success', titleKey: 'create_success' });
+      loadRaffle();
+    } catch (error) {
+      console.log(error);
+      const errorMessage =
+        error.response?.data?.message || 'Error selected winners';
+      errorAlert({ messageKey: errorMessage });
+    }
+    // Aquí puedes realizar una acción, como mostrar un modal o hacer una solicitud al backend
+  };
+
   return {
     riffle,
     loading,
@@ -94,5 +111,6 @@ export const useRiffle = () => {
     handleCreateRaffle,
     handleEditRiffle,
     handleDeleteRiffle,
+    handleWinner,
   };
 };

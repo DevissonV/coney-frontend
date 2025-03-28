@@ -36,6 +36,7 @@ export const login = async (credentials) => {
 
     return {
       user: {
+        id: decodedToken.id,
         email: decodedToken.email,
         first_name: decodedToken.firstName,
         last_name: decodedToken.lastName,

@@ -29,7 +29,9 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
     formatDateForInput(initialValues.endDate),
   );
   const [rafflePrice, setrafflePrice] = useState(initialValues.name || '');
-  const [raffleTicketCount, setraffleTicketCount] = useState(initialValues.name || '');
+  const [raffleTicketCount, setraffleTicketCount] = useState(
+    initialValues.name || '',
+  );
 
   useEffect(() => {
     if (initialValues && initialValues.name) {

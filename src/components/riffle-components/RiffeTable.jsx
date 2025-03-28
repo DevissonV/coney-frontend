@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
@@ -9,7 +9,14 @@ import useAuthStore from '../../stores/auth/useAuthStore';
 import { ROLE_ANONYMOUS } from '../../utils/generic/constants';
 import { format } from 'date-fns'; // Importa la función format de date-fns
 
-const RiffleTable = ({ rows, loading, onEdit, onDelete, onViewTickets }) => {
+const RiffleTable = ({
+  rows,
+  loading,
+  onEdit,
+  onDelete,
+  onViewTickets,
+  handleWinner,
+}) => {
   const { t } = useTranslation();
   const { user } = useAuthStore();
 
@@ -70,6 +77,21 @@ const RiffleTable = ({ rows, loading, onEdit, onDelete, onViewTickets }) => {
         flex: 1.5,
         minWidth: 180,
         renderCell: (params) => <CellContent value={params.value} />,
+      },
+      {
+        field: 'Ganador',
+        headerName: 'Ganador',
+        flex: 1.5,
+        minWidth: 180,
+        renderCell: (params) => (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => handleWinner(params.row)}
+          >
+            Ganador
+          </Button>
+        ),
       },
     ];
 

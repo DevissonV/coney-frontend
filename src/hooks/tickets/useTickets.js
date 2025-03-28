@@ -177,7 +177,7 @@ export const useTickets = () => {
     const ticketPrice = parseFloat(
       raffle.price.replace(/,/g, '').replace(/\./g, ''),
     );
-    console.log(ticketPrice);
+
     if (isSelected) {
       setSelectedTickets(selectedTickets.filter((t) => t.id !== ticket.id));
       setTotalPrice((prevTotal) => prevTotal - ticketPrice);

@@ -146,5 +146,6 @@
   "end_date": "end_date",
   "price": "price",
   "ticketCount" : "ticketCount",
-  "reserve":"reserve"
+  "reserve":"reserve",
+  "Error selected winner":"Error selected winner"
 }

@@ -17,7 +17,6 @@ import {
   InputLabel,
 } from '@mui/material';
 
-
 const TicketsPage = ({
   tickets,
   raffle,
@@ -36,17 +35,23 @@ const TicketsPage = ({
   currentTickets,
   totalPages,
   startIndex,
-selectedTicketNumbers,
+  selectedTicketNumbers,
   openModal,
   setOpenModal,
   onSubmit,
-  setTicketUpdate
+  setTicketUpdate,
 }) => {
   const { t } = useTranslation();
   return (
     <Box className="ContainerPadre">
       <Box className="ContainerTitle">
-        <Typography variant="h4" className='TitleTickets' gutterBottom textAlign="center" flexGrow={1}>
+        <Typography
+          variant="h4"
+          className="TitleTickets"
+          gutterBottom
+          textAlign="center"
+          flexGrow={1}
+        >
           {t('tickets')}
         </Typography>
       </Box>
@@ -248,7 +253,7 @@ selectedTicketNumbers,
                 </Typography>
 
                 <Typography variant="h6" mt={2} fontWeight="bold">
-                    Número de Ticket:
+                  Número de Ticket:
                 </Typography>
                 {selectedTickets.length > 0 ? (
                   selectedTickets.map((ticket) => (
@@ -270,7 +275,12 @@ selectedTicketNumbers,
                     </Typography>
                   ))
                 ) : (
-                  <Typography variant="body2" fontWeight="bold" color="textSecondary" mt={2}>
+                  <Typography
+                    variant="body2"
+                    fontWeight="bold"
+                    color="textSecondary"
+                    mt={2}
+                  >
                     Ningún ticket seleccionado
                   </Typography>
                 )}
@@ -278,7 +288,7 @@ selectedTicketNumbers,
                   Boleta sin cancelar no participa en el sorteo.<br></br>
                   Total: ${totalPrice}
                 </Typography>
-               
+
                 <Button
                   variant="contained"
                   color="primary"
@@ -298,11 +308,13 @@ selectedTicketNumbers,
 
       <TicketFormModal
         open={openModal}
-        onClose={() => {setOpenModal(false)}}
+        onClose={() => {
+          setOpenModal(false);
+        }}
         onSubmit={onSubmit}
         //onSubmit={(onSubmit) => {
-          //console.log('Datos enviados desde el modal:', onSubmit);
-           //Aquí puedes manejar la lógica de envío
+        //console.log('Datos enviados desde el modal:', onSubmit);
+        //Aquí puedes manejar la lógica de envío
         //}}
         initialValues={tickets || { name: '' }}
         selectedTickets={selectedTickets}
@@ -311,7 +323,6 @@ selectedTicketNumbers,
         totalPrice={totalPrice}
         tickets={tickets}
       />
-      
     </Box>
   );
 };

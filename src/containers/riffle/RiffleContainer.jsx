@@ -11,6 +11,7 @@ const RiffleContainer = () => {
     handleCreateRaffle,
     handleDeleteRiffle,
     handleEditRiffle,
+    handleWinner,
   } = useRiffle();
   const {
     searchQuery,
@@ -48,6 +49,7 @@ const RiffleContainer = () => {
         }
         setOpenModal(false);
       }}
+      handleWinner={handleWinner}
     />
   );
 };
