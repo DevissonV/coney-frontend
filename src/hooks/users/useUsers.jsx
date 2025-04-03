@@ -82,7 +82,11 @@ export const useUsers = () => {
         setUsers(updatedUsers);
 
         if (loggedInUser.id === userId) {
-          updateAuthUser(updatedUserData);
+          updateAuthUser({
+            first_name: updatedUserData.firstName, 
+            last_name: updatedUserData.lastName, 
+            role: updatedUserData.role
+          });
         }
       } catch {
         errorAlert({ messageKey: 'error_updating_user' });
