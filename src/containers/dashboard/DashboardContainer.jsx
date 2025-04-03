@@ -134,7 +134,7 @@ const DashboardContainer = () => {
             </Grid>
             <Grid item xs={12} sm={6}>
               <DashboardWidget
-                title={t('active_raffles')}
+                title={t('total_raffles')}
                 value={activeRaffles}
               />
             </Grid>
@@ -157,7 +157,7 @@ const DashboardContainer = () => {
           <Grid container spacing={12}>
             <Grid item xs={12} sm={12}>
               <DashboardWidget
-                title={t('active_raffles')}
+                title={t('total_raffles')}
                 value={activeRaffles}
               />
             </Grid>
