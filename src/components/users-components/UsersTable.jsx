@@ -37,14 +37,14 @@ const UsersTable = ({
   const columns = useMemo(() => {
     const baseColumns = [
       {
-        field: 'firstName',
+        field: 'first_name',
         headerName: t('first_name'),
         flex: 1.5,
         minWidth: 120,
         renderCell: (params) => <CellContent value={params.value} />,
       },
       {
-        field: 'lastName',
+        field: 'last_name',
         headerName: t('last_name'),
         flex: 1.5,
         minWidth: 120,
@@ -58,7 +58,7 @@ const UsersTable = ({
         renderCell: (params) => <CellContent value={params.value} />,
       },
       {
-        field: 'createdAt',
+        field: 'created_at',
         headerName: t('created_at'),
         flex: 1.2,
         minWidth: 150,
