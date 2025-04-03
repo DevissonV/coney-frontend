@@ -23,8 +23,8 @@ const UserEditModal = ({ open, onClose, currentUser, onEditUser }) => {
   useEffect(() => {
     if (currentUser) {
       setUser({
-        firstName: currentUser.firstName,
-        lastName: currentUser.lastName,
+        firstName: currentUser.first_name,
+        lastName: currentUser.last_name,
       });
     }
   }, [currentUser]);
