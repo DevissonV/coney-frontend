@@ -74,7 +74,7 @@ const UserMenu = ({ handleLogout }) => {
           <div>
             <MenuItem key="user-infos" disabled>
               <Typography variant="h5" textAlign="center">
-                {`${user?.firstName} ${user?.lastName}`}
+                {`${user?.first_name} ${user?.last_name}`}
               </Typography>
             </MenuItem>
 

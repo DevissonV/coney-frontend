@@ -38,8 +38,8 @@ export const login = async (credentials) => {
       user: {
         id: decodedToken.id,
         email: decodedToken.email,
-        first_name: decodedToken.firstName,
-        last_name: decodedToken.lastName,
+        first_name: decodedToken.first_name,
+        last_name: decodedToken.last_name,
         role: decodedToken.role,
       },
       token,
