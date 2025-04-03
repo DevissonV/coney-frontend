@@ -78,26 +78,27 @@ const RiffleTable = ({
         minWidth: 180,
         renderCell: (params) => <CellContent value={params.value} />,
       },
-      {
-        field: 'Ganador',
-        headerName: 'Ganador',
-        flex: 1.5,
-        minWidth: 180,
-        renderCell: (params) => (
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => handleWinner(params.row)}
-          >
-            Ganador
-          </Button>
-        ),
-      },
     ];
 
     // Agregamos acciones solo si el usuario no es "anonymous"
     if (user && user.role !== ROLE_ANONYMOUS) {
-      baseColumns.push({
+      baseColumns.push(
+        {
+          field: 'Ganador',
+          headerName: 'Ganador',
+          flex: 1.5,
+          minWidth: 180,
+          renderCell: (params) => (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => handleWinner(params.row)}
+            >
+              Ganador
+            </Button>
+          ),
+        },
+        {
         field: 'actions',
         headerName: t('actions'),
         renderCell: (params) => (
@@ -112,7 +113,8 @@ const RiffleTable = ({
         minWidth: 150,
         sortable: false,
         filterable: false,
-      });
+      },
+    );
     }
 
     return baseColumns;
