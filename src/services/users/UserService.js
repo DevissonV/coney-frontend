@@ -9,7 +9,10 @@ const API_URL = import.meta.env.VITE_API_URL;
  * @throws {Error} If the request fails.
  */
 export const fetchUsers = async () => {
-  const response = await privateAxios.get(`${API_URL}/users/`, getHeaders());
+  const response = await privateAxios.get(
+    `${API_URL}/users/?limit=1000&page=1`,
+    getHeaders(),
+  );
   const { status, code, data } = response.data;
 
   if (!status || code !== 200) {
