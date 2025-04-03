@@ -13,7 +13,7 @@ const App = () => {
           <AppRouter />
         </main>
         <footer className="footer">
-          © 2024 Coney. {t('all_rights_reserved')}
+          © 2025 Coney. {t('all_rights_reserved')}
         </footer>
       </div>
     </ThemeWrapper>
