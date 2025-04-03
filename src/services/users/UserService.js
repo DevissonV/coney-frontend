@@ -46,7 +46,10 @@ export const createUser = async (userData) => {
  * @throws {Error} If the request fails.
  */
 export const getUserById = async (id) => {
-  const response = await privateAxios.get(`${API_URL}/Users/getUser/${id}`);
+  const response = await privateAxios.get(
+    `${API_URL}/users/${id}`,
+    getHeaders(),
+  );
   const { status, code, data } = response.data;
 
   if (!status || code !== 200) {
@@ -64,7 +67,8 @@ export const getUserById = async (id) => {
  */
 export const deleteUser = async (id) => {
   const response = await privateAxios.delete(
-    `${API_URL}/Users/deleteUser/${id}`,
+    `${API_URL}/users/${id}`,
+    getHeaders(),
   );
   const { status, code } = response.data;
 
@@ -83,9 +87,10 @@ export const deleteUser = async (id) => {
  * @throws {Error} If the request fails.
  */
 export const editUser = async (id, userData) => {
-  const response = await privateAxios.put(
-    `${API_URL}/Users/updateUser/${id}`,
+  const response = await privateAxios.patch(
+    `${API_URL}/users//${id}`,
     userData,
+    getHeaders(),
   );
   const { status, code, data } = response.data;
 
