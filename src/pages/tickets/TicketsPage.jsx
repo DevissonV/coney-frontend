@@ -297,10 +297,7 @@ const TicketsPage = ({
                   variant="contained"
                   color="primary"
                   onClick={() => {
-                    const ticket = tickets[currentIndex];
-                    const isSelected = selectedTickets.some((t) => t.id === ticket?.id);
-
-                    if (!isSelected) {
+                    if (selectedTickets.length === 0) {
                       errorAlert({
                         messageKey: 'please_select_ticket_first',
                       });
