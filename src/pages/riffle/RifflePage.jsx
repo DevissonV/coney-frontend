@@ -5,14 +5,16 @@ import RiffleTable from '../../components/riffle-components/RiffeTable';
 import RiffleFormModal from '../../components/riffle-components/RiffleFormModal';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@mui/material/styles';
-//import useAuthStore from '../../stores/auth/useAuthStore';
+import useAuthStore from '../../stores/auth/useAuthStore';
 import { useNavigate } from 'react-router-dom';
-//import { ROLE_ANONYMOUS } from '../../utils/generic/constants';
+import {
+  ROLE_ADMIN,
+  ROLE_USER,
+} from '../../utils/generic/constants';
 
 const RifflePage = ({
   riffle,
   loading,
-  //onCreate,
   onEdit,
   onDelete,
   searchQuery,
@@ -29,12 +31,14 @@ const RifflePage = ({
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  //const { token, user } = useAuthStore(); // Obtenemos el token y el usuario
+  const { user } = useAuthStore();
   const navigate = useNavigate();
 
   const handleViewTickets = (riffleId) => {
     navigate(`/tickets/${riffleId}`);
   };
+
+  const canCreateRaffle = user?.role === ROLE_ADMIN || user?.role === ROLE_USER;
 
   return (
     <Box>
@@ -53,20 +57,23 @@ const RifflePage = ({
         >
           {t('riffle')}
         </Typography>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => {
-            setRiffleToEdit(null);
-            setOpenModal(true);
-          }}
-          sx={{
-            mt: isMobile ? 2 : 0,
-            textAlign: 'center',
-          }}
-        >
-          {t('create_riffle')}
-        </Button>
+
+        {canCreateRaffle && (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              setRiffleToEdit(null);
+              setOpenModal(true);
+            }}
+            sx={{
+              mt: isMobile ? 2 : 0,
+              textAlign: 'center',
+            }}
+          >
+            {t('create_riffle')}
+          </Button>
+        )}
       </Box>
 
       <Box
