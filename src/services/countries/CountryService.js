@@ -1,4 +1,5 @@
 import { privateAxios } from '../../utils/api/axios';
+import { getHeaders } from '../../utils/api/headers';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -9,7 +10,8 @@ const API_URL = import.meta.env.VITE_API_URL;
  */
 export const fetchCountries = async () => {
   const response = await privateAxios.get(
-    `${API_URL}/Countries/getAllCountries`,
+    `${API_URL}/countries/?limit=100&page=1`,
+    getHeaders(),
   );
   const { status, code, data } = response.data;
 
@@ -28,8 +30,9 @@ export const fetchCountries = async () => {
  */
 export const createCountry = async (countryData) => {
   const response = await privateAxios.post(
-    `${API_URL}/Countries/createCountry`,
+    `${API_URL}/countries/`,
     countryData,
+    getHeaders(),
   );
   const { status, code, data } = response.data;
 
@@ -48,7 +51,8 @@ export const createCountry = async (countryData) => {
  */
 export const getCountryById = async (id) => {
   const response = await privateAxios.get(
-    `${API_URL}/Countries/getCountry/${id}`,
+    `${API_URL}/countries/${id}`,
+    getHeaders(),
   );
   const { status, code, data } = response.data;
 
@@ -67,7 +71,8 @@ export const getCountryById = async (id) => {
  */
 export const deleteCountry = async (id) => {
   const response = await privateAxios.delete(
-    `${API_URL}/Countries/deleteCountry/${id}`,
+    `${API_URL}/countries/${id}`,
+    getHeaders(),
   );
   const { status, code } = response.data;
 
@@ -86,9 +91,10 @@ export const deleteCountry = async (id) => {
  * @throws {Error} If the request fails.
  */
 export const editCountry = async (id, countryData) => {
-  const response = await privateAxios.put(
-    `${API_URL}/Countries/updateCountry/${id}`,
+  const response = await privateAxios.patch(
+    `${API_URL}/countries/${id}`,
     countryData,
+    getHeaders(),
   );
   const { status, code, data } = response.data;
 
