@@ -158,4 +158,6 @@
   "login_required_title": "Sign in to continue",
   "login_required_message": "You need to sign in or register to view the tickets for this raffle.",,
   "reserve_success": "Reserved successfully",
+  "please_select_ticket_first": "You must select the ticket before reserving.",
+  "unpaid_ticket": "Uncancelled tickets do not participate in the draw."
 }

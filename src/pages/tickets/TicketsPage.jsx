@@ -2,6 +2,8 @@ import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import './TicketsPage.css';
 import TicketFormModal from '../../components/tickets-components/TicketFormModal';
+import { errorAlert } from '../../services/generic/AlertService';
+
 import {
   Box,
   Typography,
@@ -281,7 +283,7 @@ const TicketsPage = ({
                   </Typography>
                 )}
                 <Typography variant="body2" color="textSecondary" mt={2}>
-                  Boleta sin cancelar no participa en el sorteo.
+                {t('unpaid_ticket')}
                   <br />
                   Total:{' '}
                   {new Intl.NumberFormat('es-CO', {
@@ -295,6 +297,16 @@ const TicketsPage = ({
                   variant="contained"
                   color="primary"
                   onClick={() => {
+                    const ticket = tickets[currentIndex];
+                    const isSelected = selectedTickets.some((t) => t.id === ticket?.id);
+
+                    if (!isSelected) {
+                      errorAlert({
+                        messageKey: 'please_select_ticket_first',
+                      });
+                      return;
+                    }
+
                     handleClickOpen(currentIndex);
                     setOpenModal(true);
                   }}
@@ -302,6 +314,8 @@ const TicketsPage = ({
                 >
                   {t('reserve')}
                 </Button>
+
+
               </Paper>
             </motion.div>
           </AnimatePresence>
@@ -314,10 +328,7 @@ const TicketsPage = ({
           setOpenModal(false);
         }}
         onSubmit={onSubmit}
-        //onSubmit={(onSubmit) => {
-        //console.log('Datos enviados desde el modal:', onSubmit);
-        //Aquí puedes manejar la lógica de envío
-        //}}
+
         initialValues={tickets || { name: '' }}
         selectedTickets={selectedTickets}
         setSelectedTickets={setSelectedTickets}
