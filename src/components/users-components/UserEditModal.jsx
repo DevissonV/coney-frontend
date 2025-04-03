@@ -1,6 +1,13 @@
 import { useState, useEffect } from 'react';
-import { Box, Modal, TextField, Typography, Button, IconButton } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close'; 
+import {
+  Box,
+  Modal,
+  TextField,
+  Typography,
+  Button,
+  IconButton,
+} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { formatName } from '../../utils/generic/convertText';
@@ -49,9 +56,9 @@ const UserEditModal = ({ open, onClose, currentUser, onEditUser }) => {
         firstName: formatName(user.firstName),
         lastName: formatName(user.lastName),
       };
-  
-      onEditUser(currentUser.id, formattedUser); 
-      onClose(); 
+
+      onEditUser(currentUser.id, formattedUser);
+      onClose();
     }
   };
 

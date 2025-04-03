@@ -1,6 +1,15 @@
 import { useState } from 'react';
-import { fetchCountries, createCountry, editCountry, deleteCountry } from '../../services/countries/CountryService';
-import { errorAlert, toast, confirmDelete } from '../../services/generic/AlertService';
+import {
+  fetchCountries,
+  createCountry,
+  editCountry,
+  deleteCountry,
+} from '../../services/countries/CountryService';
+import {
+  errorAlert,
+  toast,
+  confirmDelete,
+} from '../../services/generic/AlertService';
 
 export const useCountries = () => {
   const [loading, setLoading] = useState(true);
@@ -11,7 +20,7 @@ export const useCountries = () => {
     try {
       const data = await fetchCountries();
       setCountries(data);
-    } catch (error) {
+    } catch {
       errorAlert({ messageKey: 'error_loading_countries' });
     } finally {
       setLoading(false);
@@ -23,7 +32,7 @@ export const useCountries = () => {
       await createCountry(countryData);
       toast({ icon: 'success', titleKey: 'create_success' });
       loadCountries();
-    } catch (error) {
+    } catch {
       errorAlert({ messageKey: 'error_creating_country' });
     }
   };
@@ -33,26 +42,26 @@ export const useCountries = () => {
       await editCountry(id, countryData);
       toast({ icon: 'success', titleKey: 'edit_success' });
       loadCountries();
-    } catch (error) {
+    } catch {
       errorAlert({ messageKey: 'error_updating_country' });
     }
   };
 
   const handleDeleteCountry = async (id) => {
     const result = await confirmDelete({
-      titleKey: 'confirm_delete_title', 
-      messageKey: 'confirm_delete_message'
+      titleKey: 'confirm_delete_title',
+      messageKey: 'confirm_delete_message',
     });
-  
-    if (result.isConfirmed) { 
+
+    if (result.isConfirmed) {
       try {
         await deleteCountry(id);
         toast({ icon: 'success', titleKey: 'delete_success' });
         loadCountries();
-      } catch (error) {
+      } catch {
         errorAlert({ messageKey: 'error_deleting_country' });
       }
-    } 
+    }
   };
 
   return {

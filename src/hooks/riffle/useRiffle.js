@@ -1,66 +1,115 @@
 import { useState } from 'react';
-import { fetchRiffle, createRiffle, editRiffle, deleteRiffle } from '../../services/riffle/RiffleService';
-import { errorAlert, toast, confirmDelete } from '../../services/generic/AlertService';
+import {
+  fetchRaffle,
+  createRaffles,
+  editRiffle,
+  deleteRiffle,
+  selectWinner,
+} from '../../services/riffle/RiffleService';
+import {
+  errorAlert,
+  toast,
+  confirmDelete,
+} from '../../services/generic/AlertService';
 
+/**
+ * Custom hook to manage riffle-related operations.
+ * @returns {Object} Riffle management functions.
+ */
 export const useRiffle = () => {
   const [loading, setLoading] = useState(true);
   const [riffle, setRiffle] = useState([]);
 
-  const loadRiffle = async () => {
+  /**
+   * Loads all raffles.
+   */
+  const loadRaffle = async () => {
     setLoading(true);
     try {
-      const data = await fetchRiffle();
+      const data = await fetchRaffle();
       setRiffle(data);
-    } catch (error) {
+    } catch {
       errorAlert({ messageKey: 'error_loading_riffle' });
     } finally {
       setLoading(false);
     }
   };
 
-  const handleCreateRiffle = async (riffleData) => {
+  /**
+   * Creates a new riffle.
+   * @param {Object} raffleData - The data for the new riffle.
+   */
+  const handleCreateRaffle = async (raffleData) => {
     try {
-      await createRiffle(riffleData);
+      await createRaffles(raffleData);
+      setLoading(true);
       toast({ icon: 'success', titleKey: 'create_success' });
-      loadRiffle();
+      loadRaffle();
     } catch (error) {
-      errorAlert({ messageKey: 'error_creating_riffle' });
+      const errorMessage =
+        error.response?.data?.message || 'Error creating raffle';
+      errorAlert({ messageKey: errorMessage });
     }
   };
 
+  /**
+   * Edits an existing riffle.
+   * @param {number} id - The ID of the riffle to edit.
+   * @param {Object} riffleData - The updated riffle data.
+   */
   const handleEditRiffle = async (id, riffleData) => {
     try {
       await editRiffle(id, riffleData);
       toast({ icon: 'success', titleKey: 'edit_success' });
-      loadRiffle();
-    } catch (error) {
+      loadRaffle();
+    } catch {
       errorAlert({ messageKey: 'error_updating_riffle' });
     }
   };
 
+  /**
+   * Deletes a riffle after confirmation.
+   * @param {number} id - The ID of the riffle to delete.
+   */
   const handleDeleteRiffle = async (id) => {
     const result = await confirmDelete({
-      titleKey: 'confirm_delete_title', 
-      messageKey: 'confirm_delete_message'
+      titleKey: 'confirm_delete_title',
+      messageKey: 'confirm_delete_message',
     });
-  
-    if (result.isConfirmed) { 
+
+    if (result.isConfirmed) {
       try {
         await deleteRiffle(id);
         toast({ icon: 'success', titleKey: 'delete_success' });
-        loadRiffle();
-      } catch (error) {
+        loadRaffle();
+      } catch {
         errorAlert({ messageKey: 'error_deleting_riffle' });
       }
-    } 
+    }
+  };
+
+  const handleWinner = async (raffleId) => {
+    const idRaffle = raffleId.id;
+    try {
+      await selectWinner(idRaffle);
+      setLoading(true);
+      toast({ icon: 'success', titleKey: 'create_success' });
+      loadRaffle();
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || 'Error selected winners';
+      errorAlert({ messageKey: errorMessage });
+    }
+    // Aquí puedes realizar una acción, como mostrar un modal o hacer una solicitud al backend
   };
 
   return {
     riffle,
     loading,
-    loadRiffle,
-    handleCreateRiffle,
+    loadRaffle,
+    handleCreateRaffle,
     handleEditRiffle,
     handleDeleteRiffle,
+    handleWinner,
   };
 };

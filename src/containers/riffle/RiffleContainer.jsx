@@ -4,35 +4,35 @@ import { useRiffle } from '../../hooks/riffle/useRiffle';
 import { useSearch } from '../../hooks/generic/useSearch';
 
 const RiffleContainer = () => {
-  const { 
-    riffle, 
-    loading, 
-    loadRiffle, 
-    handleCreateRiffle, 
+  const {
+    riffle,
+    loading,
+    loadRaffle,
+    handleCreateRaffle,
     handleDeleteRiffle,
-    handleEditRiffle 
+    handleEditRiffle,
+    handleWinner,
   } = useRiffle();
-  const { 
-    searchQuery, 
-    setSearchQuery, 
-    filteredData: filteredRiffle 
+  const {
+    searchQuery,
+    setSearchQuery,
+    filteredData: filteredRiffle,
   } = useSearch(riffle, ['name']);
-  
+
   const [openModal, setOpenModal] = useState(false);
   const [riffleToEdit, setRiffleToEdit] = useState(null);
 
   useEffect(() => {
-    loadRiffle();
+    loadRaffle();
   }, []);
-
   return (
     <RifflePage
-      riffle={filteredRiffle} 
+      riffle={filteredRiffle}
       loading={loading}
-      onCreate={handleCreateRiffle}
+      onCreate={handleCreateRaffle}
       onEdit={(riffle) => {
-        setRiffleToEdit(riffle); 
-        setOpenModal(true); 
+        setRiffleToEdit(riffle);
+        setOpenModal(true);
       }}
       onDelete={handleDeleteRiffle}
       searchQuery={searchQuery}
@@ -41,14 +41,15 @@ const RiffleContainer = () => {
       setOpenModal={setOpenModal}
       riffleToEdit={riffleToEdit}
       setRiffleToEdit={setRiffleToEdit}
-      onSubmit={(riffleData) => {
+      onSubmit={(raffleData) => {
         if (riffleToEdit) {
-          handleEditRiffle(riffleToEdit.id, riffleData); 
+          handleEditRiffle(riffleToEdit.id, raffleData);
         } else {
-          handleCreateRiffle(riffleData);
+          handleCreateRaffle(raffleData);
         }
-        setOpenModal(false); 
+        setOpenModal(false);
       }}
+      handleWinner={handleWinner}
     />
   );
 };

@@ -6,9 +6,16 @@ import CountryActions from './CountryActions';
 import useAuthStore from '../../stores/auth/useAuthStore';
 import { ROLE_ADMIN } from '../../utils/generic/constants';
 
-const CountriesTable = ({ rows, pageSize, setPageSize, loading, onEdit, onDelete }) => {
+const CountriesTable = ({
+  rows,
+  pageSize,
+  setPageSize,
+  loading,
+  onEdit,
+  onDelete,
+}) => {
   const { t } = useTranslation();
-  const { user } = useAuthStore(); 
+  const { user } = useAuthStore();
 
   const localeText = {
     columnMenuSortAsc: t('sort_asc'),
@@ -21,7 +28,7 @@ const CountriesTable = ({ rows, pageSize, setPageSize, loading, onEdit, onDelete
       labelRowsPerPage: t('rows_per_page'),
     },
   };
-  
+
   const columns = [
     { field: 'id', headerName: t('id'), flex: 1 },
     { field: 'name', headerName: t('name'), flex: 1 },

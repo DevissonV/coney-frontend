@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 const Layout = ({ children }) => {
   return (
     <Box>
-      <ResponsiveAppBar /> 
+      <ResponsiveAppBar />
       <Box component="main" sx={{ p: 2 }}>
-        {children} 
+        {children}
       </Box>
     </Box>
   );

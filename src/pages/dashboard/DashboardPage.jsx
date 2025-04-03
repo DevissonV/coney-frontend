@@ -1,12 +1,7 @@
-import React from 'react'
-import { Box } from '@mui/material'
+import { Box } from '@mui/material';
 
 const DashboardPage = ({ children }) => {
-  return (
-    <Box padding={2}>
-      {children}
-    </Box>
-  )
-}
+  return <Box padding={2}>{children}</Box>;
+};
 
-export default DashboardPage
+export default DashboardPage;

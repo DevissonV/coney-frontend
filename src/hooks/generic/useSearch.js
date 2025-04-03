@@ -10,8 +10,11 @@ export const useSearch = (data, searchFields) => {
     } else {
       const filtered = data.filter((item) =>
         searchFields.some((field) =>
-          item[field]?.toLowerCase().includes(searchQuery.toLowerCase())
-        )
+          item[field]
+            ?.toString()
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase()),
+        ),
       );
       setFilteredData(filtered);
     }

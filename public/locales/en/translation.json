@@ -141,5 +141,11 @@
   "error_creating_ticket": "Error creating ticket",
   "error_updating_ticket": "Error updating ticket",
   "error_loading_tickets": "Error loading tickets",
-  "error_deleting_ticket": "Error deleting ticket"
+  "error_deleting_ticket": "Error deleting ticket",
+  "Available_Tickets": "Available Tickets",
+  "end_date": "end_date",
+  "price": "price",
+  "ticketCount": "ticketCount",
+  "reserve": "reserve",
+  "Error selected winner": "Error selected winner"
 }

@@ -20,7 +20,7 @@ const TicketsTable = ({ rows, pageSize, loading, onEdit, onDelete }) => {
   };
 
   const columns = [
-    { field: 'ticketNumber', headerName: t('ticket_number'), flex: 1 },
+    { field: 'ticket_number', headerName: t('ticket_number'), flex: 1 },
     {
       field: 'actions',
       headerName: t('actions'),
@@ -28,7 +28,7 @@ const TicketsTable = ({ rows, pageSize, loading, onEdit, onDelete }) => {
         <TicketActions
           ticketId={params.row.id}
           onEdit={() => onEdit(params.row)}
-          onDelete={() => onDelete(params.row.id)} 
+          onDelete={() => onDelete(params.row.id)}
         />
       ),
       flex: 1,
@@ -47,7 +47,7 @@ const TicketsTable = ({ rows, pageSize, loading, onEdit, onDelete }) => {
             paginationModel: { pageSize },
           },
         }}
-        pageSizeOptions={[20, 40 , 60, 100]}
+        pageSizeOptions={[20, 40, 60, 100]}
         loading={loading}
         components={{ Toolbar: GridToolbar }}
         localeText={localeText}
@@ -56,7 +56,7 @@ const TicketsTable = ({ rows, pageSize, loading, onEdit, onDelete }) => {
   );
 };
 
-TicketsTable.propTypes = {
+TicketsTable.prototype = {
   rows: PropTypes.array.isRequired,
   pageSize: PropTypes.number.isRequired,
   loading: PropTypes.bool.isRequired,

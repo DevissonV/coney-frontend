@@ -1,4 +1,4 @@
-import { Paper, Typography, Box } from '@mui/material'
+import { Paper, Typography, Box } from '@mui/material';
 
 const DashboardWidget = ({ title, value }) => {
   return (
@@ -7,12 +7,16 @@ const DashboardWidget = ({ title, value }) => {
         <Typography variant="h6" color="textSecondary">
           {title}
         </Typography>
-        <Typography variant="h3" color="primary" style={{ fontWeight: 'bold', marginTop: '10px' }}>
+        <Typography
+          variant="h3"
+          color="primary"
+          style={{ fontWeight: 'bold', marginTop: '10px' }}
+        >
           {value}
         </Typography>
       </Box>
     </Paper>
-  )
-}
+  );
+};
 
-export default DashboardWidget
+export default DashboardWidget;

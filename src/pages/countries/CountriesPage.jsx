@@ -11,7 +11,7 @@ import { ROLE_ADMIN } from '../../utils/generic/constants';
 const CountriesPage = ({
   countries,
   loading,
-  onCreate,
+  //onCreate,
   onEdit,
   onDelete,
   searchQuery,
@@ -20,47 +20,52 @@ const CountriesPage = ({
   setOpenModal,
   countryToEdit,
   setCountryToEdit,
-  onSubmit
+  onSubmit,
 }) => {
   const { t } = useTranslation();
   const [pageSize, setPageSize] = useState(5);
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  
-  const { user } = useAuthStore(); 
+
+  const { user } = useAuthStore();
 
   return (
     <Box>
-      <Box 
-        display="flex" 
-        justifyContent={isMobile ? "center" : "space-between"} 
-        alignItems="center" 
-        mb={2} 
-        flexDirection={isMobile ? "column" : "row"}
+      <Box
+        display="flex"
+        justifyContent={isMobile ? 'center' : 'space-between'}
+        alignItems="center"
+        mb={2}
+        flexDirection={isMobile ? 'column' : 'row'}
       >
-        <Typography variant="h4" gutterBottom textAlign="center" style={{ flexGrow: 1 }}>
+        <Typography
+          variant="h4"
+          gutterBottom
+          textAlign="center"
+          style={{ flexGrow: 1 }}
+        >
           {t('countries')}
         </Typography>
 
         {user?.role === ROLE_ADMIN && (
-          <Button 
-            variant="contained" 
-            color="primary" 
+          <Button
+            variant="contained"
+            color="primary"
             onClick={() => {
               setCountryToEdit(null);
               setOpenModal(true);
             }}
-            style={{ marginTop: isMobile ? "16px" : "0" }} 
+            style={{ marginTop: isMobile ? '16px' : '0' }}
           >
             {t('create_country')}
           </Button>
         )}
       </Box>
 
-      <Box 
-        display="flex" 
-        justifyContent={isMobile ? "center" : "flex-start"} 
+      <Box
+        display="flex"
+        justifyContent={isMobile ? 'center' : 'flex-start'}
         mb={2}
       >
         <SearchToolbar
@@ -73,7 +78,7 @@ const CountriesPage = ({
       <CountriesTable
         rows={countries}
         pageSize={pageSize}
-        setPageSize={setPageSize} 
+        setPageSize={setPageSize}
         loading={loading}
         onEdit={onEdit}
         onDelete={onDelete}
@@ -85,7 +90,7 @@ const CountriesPage = ({
           setOpenModal(false);
           setCountryToEdit(null);
         }}
-        onSubmit={onSubmit} 
+        onSubmit={onSubmit}
         initialValues={countryToEdit || { name: '' }}
       />
     </Box>

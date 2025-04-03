@@ -78,6 +78,7 @@
   "edit_ticket": "Editar boleta",
   "tickets": "Boletas",
   "ticket_number": "Número de boleta",
+
   "confirm_buys_title": "¿Seguro desea comprar esta boleta?",
   "confirm_buys_message": "¡Mucha suerte!",
   "continue": "Continuar para reservar",
@@ -99,7 +100,7 @@
   "attention": "¡Atención!",
   "verification_required": "Para poder crear e inscribirse en rifas y reservar boletas, debe estar verificado.",
   "check_email": "Por favor, revise su correo electrónico para completar el proceso de activación.",
-  "admin_approval": "Después de activar su cuenta, espere a que el administrador la apruebe." ,
+  "admin_approval": "Después de activar su cuenta, espere a que el administrador la apruebe.",
   "intro_coney_message": "¡Bienvenido a Coney! La plataforma de rifas que busca automatizar el proceso y ayudar a todos.",
   "anonymous_welcome_message": "¡Atención! Para poder crear e inscribirse en rifas y reservar boletos, debe estar verificado.",
   "logged_in_welcome_message": "¡Bienvenido a Coney! ¡Disfruta de todas las funcionalidades y buena suerte en tus rifas!",
@@ -141,5 +142,13 @@
   "error_creating_ticket": "Error creando boleta",
   "error_updating_ticket": "Error actualizando boleta",
   "error_loading_tickets": "Error cargando boletas",
-  "error_deleting_ticket": "Error eliminando boleta"
+  "error_search_raffle": "Error buscando la rifa",
+  "error_deleting_ticket": "Error eliminando boleta",
+  "available_tickets": "Boletas disponibles",
+  "end_date": "Fecha de finalización",
+  "price": "Precio",
+  "ticketCount": "Cantidad de boletas",
+  "initDate must be today or in the future": "La fecha de inicio debe ser hoy o en el futuro",
+  "reserve": "Reservar",
+  "Error selected winner": "Error seleccionando ganador"
 }

@@ -1,5 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Dialog, DialogTitle, DialogContent, Button, TextField, IconButton } from '@mui/material';
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Button,
+  TextField,
+  IconButton,
+} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -11,7 +18,7 @@ const CountryFormModal = ({ open, onClose, onSubmit, initialValues }) => {
     if (initialValues && initialValues.name) {
       setCountryName(initialValues.name);
     } else {
-      setCountryName(''); 
+      setCountryName('');
     }
   }, [initialValues]);
 
@@ -47,7 +54,12 @@ const CountryFormModal = ({ open, onClose, onSubmit, initialValues }) => {
         />
       </DialogContent>
       <div style={{ textAlign: 'right', padding: '16px' }}>
-        <Button onClick={handleSubmit} type="submit" variant="contained" color="primary">
+        <Button
+          onClick={handleSubmit}
+          type="submit"
+          variant="contained"
+          color="primary"
+        >
           {t('save')}
         </Button>
       </div>
