@@ -79,7 +79,6 @@
   "edit_ticket": "Editar boleta",
   "tickets": "Boletas",
   "ticket_number": "Número de boleta",
-
   "confirm_buys_title": "¿Seguro desea comprar esta boleta?",
   "confirm_buys_message": "¡Mucha suerte!",
   "continue": "Continuar para reservar",
@@ -155,5 +154,8 @@
   "No eligible tickets found": "no hay ningun ticket reservado",
   "role": "Rol",
   "admin": "Administrador",
-  "user": "Usuario"
+  "user": "Usuario",
+  "winner": "Ganador",
+  "not_your_riffle": "Solo el creador puede elegir al ganador",
+  "select_winner": "Elegir ganador"
 }

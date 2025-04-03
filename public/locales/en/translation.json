@@ -151,5 +151,8 @@
   "Error selected winner": "Error selected winner",
   "role": "Role",
   "admin": "Admin",
-  "user": "User"
+  "user": "User",
+  "winner": "Winner",
+  "not_your_riffle": "Only the creator can choose the winner",
+  "select_winner": "Select winner"
 }

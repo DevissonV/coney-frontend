@@ -7,7 +7,11 @@ import RiffleActions from './RiffleActions';
 import CellContent from '../generic/table/CellContent';
 import useAuthStore from '../../stores/auth/useAuthStore';
 import { ROLE_ANONYMOUS } from '../../utils/generic/constants';
-import { format } from 'date-fns'; // Importa la función format de date-fns
+import { format } from 'date-fns';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import Tooltip from '@mui/material/Tooltip';
+import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
+
 
 const RiffleTable = ({
   rows,
@@ -80,23 +84,37 @@ const RiffleTable = ({
       },
     ];
 
-    // Agregamos acciones solo si el usuario no es "anonymous"
     if (user && user.role !== ROLE_ANONYMOUS) {
       baseColumns.push(
         {
           field: 'Ganador',
-          headerName: 'Ganador',
+          headerName: t('winner'),
           flex: 1.5,
           minWidth: 180,
-          renderCell: (params) => (
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => handleWinner(params.row)}
-            >
-              Ganador
-            </Button>
-          ),
+          renderCell: (params) => {
+            const isCreatedByUser = params.row.created_by === user?.id;
+        
+            return isCreatedByUser ? (
+              <Tooltip title={t('select_winner')} arrow>
+                <EmojiEventsOutlinedIcon
+                  onClick={() => handleWinner(params.row)}
+                  sx={{
+                    cursor: 'pointer',
+                    color: 'goldenrod',
+                    fontSize: 30,
+                    transition: 'transform 0.2s',
+                    '&:hover': {
+                      transform: 'scale(1.2)',
+                    },
+                  }}
+                />
+              </Tooltip>
+            ) : (
+              <Tooltip title={t('not_your_riffle')} arrow>
+                <InfoOutlinedIcon color="disabled" />
+              </Tooltip>
+            );
+          },
         },
         {
         field: 'actions',
