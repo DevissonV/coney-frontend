@@ -148,5 +148,8 @@
   "price": "price",
   "ticketCount": "ticketCount",
   "reserve": "reserve",
-  "Error selected winner": "Error selected winner"
+  "Error selected winner": "Error selected winner",
+  "role": "Role",
+  "admin": "Admin",
+  "user": "User"
 }

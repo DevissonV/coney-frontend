@@ -9,27 +9,33 @@ import {
   Select,
   MenuItem,
   FormControl,
-  InputLabel
+  InputLabel,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { formatName } from '../../utils/generic/convertText';
+import useAuthStore from '../../stores/auth/useAuthStore';
+import { ROLE_ADMIN } from '../../utils/generic/constants';
 
 const UserEditModal = ({ open, onClose, currentUser, onEditUser }) => {
   const { t } = useTranslation();
+  const { user: loggedUser } = useAuthStore();
   const [user, setUser] = useState({
     firstName: '',
     lastName: '',
-    role: ''
+    role: '',
   });
   const [errors, setErrors] = useState({});
+
+  const canEditRole = loggedUser?.role === ROLE_ADMIN;
+
   useEffect(() => {
     if (currentUser) {
       setUser({
         firstName: currentUser.first_name,
         lastName: currentUser.last_name,
-        role: currentUser.role
+        role: currentUser.role,
       });
     }
   }, [currentUser]);
@@ -49,9 +55,10 @@ const UserEditModal = ({ open, onClose, currentUser, onEditUser }) => {
       tempErrors.firstName = t('first_name_error');
     if (!user.lastName || user.lastName.length < 2)
       tempErrors.lastName = t('last_name_error');
-    if (!user.role || user.role.length < 2) {
+    if (canEditRole && (!user.role || user.role.length < 2)) {
       tempErrors.role = t('role_error');
     }
+
     setErrors(tempErrors);
     return Object.keys(tempErrors).length === 0;
   };
@@ -62,15 +69,14 @@ const UserEditModal = ({ open, onClose, currentUser, onEditUser }) => {
         ...user,
         firstName: formatName(user.firstName),
         lastName: formatName(user.lastName),
-        role: user.role
+        role: user.role,
       };
-
-      console.log(formattedUser);
 
       onEditUser(currentUser.id, formattedUser);
       onClose();
     }
   };
+
   return (
     <Modal
       open={open}
@@ -105,6 +111,7 @@ const UserEditModal = ({ open, onClose, currentUser, onEditUser }) => {
         <Typography variant="h6" gutterBottom>
           {t('edit_user')}
         </Typography>
+
         <Box component="form">
           <TextField
             label={t('first_name')}
@@ -117,6 +124,7 @@ const UserEditModal = ({ open, onClose, currentUser, onEditUser }) => {
             helperText={errors.firstName}
             inputProps={{ maxLength: 50 }}
           />
+
           <TextField
             label={t('last_name')}
             name="lastName"
@@ -128,19 +136,25 @@ const UserEditModal = ({ open, onClose, currentUser, onEditUser }) => {
             helperText={errors.lastName}
             inputProps={{ maxLength: 50 }}
           />
-          <FormControl fullWidth margin="normal" error={!!errors.role}>
-            <InputLabel>{t('role')}</InputLabel>
-            <Select
-              label={t('role')}
-              name="role"
-              value={user.role}
-              onChange={handleInputChange}
-            >
-              <MenuItem value="admin">admin</MenuItem>
-              <MenuItem value="user">user</MenuItem>
-            </Select>
-            {errors.role && <Typography color="error">{errors.role}</Typography>}
-          </FormControl>
+
+          {canEditRole && (
+            <FormControl fullWidth margin="normal" error={!!errors.role}>
+              <InputLabel>{t('role')}</InputLabel>
+              <Select
+                label={t('role')}
+                name="role"
+                value={user.role}
+                onChange={handleInputChange}
+              >
+                <MenuItem value="admin">{t('admin')}</MenuItem>
+                <MenuItem value="user">{t('user')}</MenuItem>
+              </Select>
+              {errors.role && (
+                <Typography color="error">{errors.role}</Typography>
+              )}
+            </FormControl>
+          )}
+
           <Box mt={2} display="flex" justifyContent="flex-end">
             <Button variant="contained" color="primary" onClick={handleSubmit}>
               {t('save')}

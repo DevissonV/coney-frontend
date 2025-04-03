@@ -152,5 +152,8 @@
   "initDate must be today or in the future": "La fecha de inicio debe ser hoy o en el futuro",
   "reserve": "Reservar",
   "Error selected winner": "Error seleccionando ganador",
-  "No eligible tickets found": "no hay ningun ticket reservado"
+  "No eligible tickets found": "no hay ningun ticket reservado",
+  "role": "Rol",
+  "admin": "Administrador",
+  "user": "Usuario"
 }
