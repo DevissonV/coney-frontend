@@ -297,7 +297,11 @@ const TicketsPage = ({
                   variant="contained"
                   color="primary"
                   onClick={() => {
-                    if (selectedTickets.length === 0) {
+                    const selectedInCurrentPage = currentTickets.some((ticket) =>
+                      selectedTickets.some((t) => t.id === ticket.id)
+                    );
+
+                    if (!selectedInCurrentPage) {
                       errorAlert({
                         messageKey: 'please_select_ticket_first',
                       });
@@ -311,7 +315,6 @@ const TicketsPage = ({
                 >
                   {t('reserve')}
                 </Button>
-
 
               </Paper>
             </motion.div>
