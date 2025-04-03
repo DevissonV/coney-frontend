@@ -281,8 +281,14 @@ const TicketsPage = ({
                   </Typography>
                 )}
                 <Typography variant="body2" color="textSecondary" mt={2}>
-                  Boleta sin cancelar no participa en el sorteo.<br></br>
-                  Total: ${totalPrice}
+                  Boleta sin cancelar no participa en el sorteo.
+                  <br />
+                  Total:{' '}
+                  {new Intl.NumberFormat('es-CO', {
+                    style: 'currency',
+                    currency: 'COP',
+                    minimumFractionDigits: 0,
+                  }).format(totalPrice)}
                 </Typography>
 
                 <Button

@@ -172,9 +172,11 @@ export const useTickets = () => {
   const handleSelectTicket = (index) => {
     const ticket = tickets[index];
     const isSelected = selectedTickets.some((t) => t.id === ticket.id);
-    const ticketPrice = parseFloat(
-      raffle.price.replace(/,/g, '').replace(/\./g, ''),
-    );
+
+    const ticketPrice =
+      typeof raffle.price === 'number'
+        ? raffle.price
+        : parseFloat(raffle.price);
 
     if (isSelected) {
       setSelectedTickets(selectedTickets.filter((t) => t.id !== ticket.id));
