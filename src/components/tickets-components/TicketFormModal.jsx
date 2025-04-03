@@ -50,8 +50,14 @@ const TicketFormModal = ({
                 Número de Ticket: {selectedTicketNumbers}
               </Typography>
               <Typography variant="h6" mt={2} fontWeight="bold">
-                Total: ${totalPrice}
+                Total:{' '}
+                {new Intl.NumberFormat('es-CO', {
+                  style: 'currency',
+                  currency: 'COP',
+                  minimumFractionDigits: 0,
+                }).format(totalPrice)}
               </Typography>
+
               <Button variant="contained" color="primary" onClick={onClose}>
                 Iniciar sesión
               </Button>
