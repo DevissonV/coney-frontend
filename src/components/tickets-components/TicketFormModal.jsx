@@ -31,7 +31,6 @@ const TicketFormModal = ({
 
   const handleSubmit = () => {
     selectedTickets.forEach((ticket) => {
-      console.log('Ticket ID:', ticket.id);
       onSubmit({
         ticketId: ticket.id,
         userid: user_id,
