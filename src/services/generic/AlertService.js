@@ -99,3 +99,32 @@ export const confirmReservation = async ({
 
   return result;
 };
+
+/**
+ * Displays a confirmation dialog for login when access is restricted.
+ * @param {Object} options - Dialog options.
+ * @param {string} [options.titleKey='login_required_title'] - Translation key for the title.
+ * @param {string} [options.messageKey='login_required_message'] - Translation key for the message.
+ * @returns {Promise<Object>} The result of the confirmation.
+ */
+export const confirmLogin = async ({
+  titleKey = 'login_required_title',
+  messageKey = 'login_required_message',
+}) => {
+  const result = await Swal.fire({
+    title: i18n.t(titleKey),
+    text: i18n.t(messageKey),
+    icon: 'info',
+    showCancelButton: true,
+    confirmButtonColor: '#0072CE',
+    cancelButtonColor: '#aaa',
+    confirmButtonText: i18n.t('go_to_login'),
+    cancelButtonText: i18n.t('cancel'),
+  });
+
+  if (result.isConfirmed) {
+    Swal.close();
+  }
+
+  return result;
+};

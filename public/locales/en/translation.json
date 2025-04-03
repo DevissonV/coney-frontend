@@ -154,5 +154,8 @@
   "user": "User",
   "winner": "Winner",
   "not_your_riffle": "Only the creator can choose the winner",
-  "select_winner": "Select winner"
+  "select_winner": "Select winner",
+  "login_required_title": "Sign in to continue",
+  "login_required_message": "You need to sign in or register to view the tickets for this raffle.",,
+  "reserve_success": "Reserved successfully",
 }

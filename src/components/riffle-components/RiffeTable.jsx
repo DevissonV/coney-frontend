@@ -1,4 +1,4 @@
-import { Box, Button } from '@mui/material';
+import { Box, Tooltip } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
@@ -9,9 +9,7 @@ import useAuthStore from '../../stores/auth/useAuthStore';
 import { ROLE_ANONYMOUS } from '../../utils/generic/constants';
 import { format } from 'date-fns';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import Tooltip from '@mui/material/Tooltip';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
-
 
 const RiffleTable = ({
   rows,
@@ -64,7 +62,7 @@ const RiffleTable = ({
           const formattedDate = format(
             new Date(params.value),
             'yyyy-MM-dd hh:mm',
-          ); // Formatea la fecha
+          );
           return <CellContent value={formattedDate} />;
         },
       },
@@ -84,67 +82,66 @@ const RiffleTable = ({
           const formattedPrice = new Intl.NumberFormat('es-CO', {
             style: 'currency',
             currency: 'COP',
-            minimumFractionDigits: 0
+            minimumFractionDigits: 0,
           }).format(params.value);
-      
+
           return <CellContent value={formattedPrice} />;
         },
       },
     ];
 
     if (user && user.role !== ROLE_ANONYMOUS) {
-      baseColumns.push(
-        {
-          field: 'Ganador',
-          headerName: t('winner'),
-          flex: 1.5,
-          minWidth: 100,
-          renderCell: (params) => {
-            const isCreatedByUser = params.row.created_by === user?.id;
-        
-            return isCreatedByUser ? (
-              <Tooltip title={t('select_winner')} arrow>
-                <EmojiEventsOutlinedIcon
-                  onClick={() => handleWinner(params.row)}
-                  sx={{
-                    cursor: 'pointer',
-                    color: 'goldenrod',
-                    fontSize: 30,
-                    transition: 'transform 0.2s',
-                    '&:hover': {
-                      transform: 'scale(1.2)',
-                    },
-                  }}
-                />
-              </Tooltip>
-            ) : (
-              <Tooltip title={t('not_your_riffle')} arrow>
-                <InfoOutlinedIcon color="disabled" />
-              </Tooltip>
-            );
-          },
+      baseColumns.push({
+        field: 'Ganador',
+        headerName: t('winner'),
+        flex: 1.5,
+        minWidth: 100,
+        renderCell: (params) => {
+          const isCreatedByUser = params.row.created_by === user?.id;
+
+          return isCreatedByUser ? (
+            <Tooltip title={t('select_winner')} arrow>
+              <EmojiEventsOutlinedIcon
+                onClick={() => handleWinner(params.row)}
+                sx={{
+                  cursor: 'pointer',
+                  color: 'goldenrod',
+                  fontSize: 30,
+                  transition: 'transform 0.2s',
+                  '&:hover': {
+                    transform: 'scale(1.2)',
+                  },
+                }}
+              />
+            </Tooltip>
+          ) : (
+            <Tooltip title={t('not_your_riffle')} arrow>
+              <InfoOutlinedIcon color="disabled" />
+            </Tooltip>
+          );
         },
-        {
-        field: 'actions',
-        headerName: t('actions'),
-        renderCell: (params) => (
-          <RiffleActions
-            riffleId={params.row.id}
-            onEdit={() => onEdit(params.row)}
-            onDelete={onDelete}
-            onViewTickets={onViewTickets}
-          />
-        ),
-        flex: 0.5,
-        minWidth: 150,
-        sortable: false,
-        filterable: false,
-      },
-    );
+      });
     }
 
+    baseColumns.push({
+      field: 'actions',
+      headerName: t('actions'),
+      renderCell: (params) => (
+        <RiffleActions
+          riffleId={params.row.id}
+          onEdit={() => onEdit(params.row)}
+          onDelete={onDelete}
+          onViewTickets={onViewTickets}
+        />
+      ),
+      flex: 0.5,
+      minWidth: 150,
+      sortable: false,
+      filterable: false,
+    });
+
     return baseColumns;
-  }, [t, onEdit, onDelete, onViewTickets, user]);
+  }, [t, onEdit, onDelete, onViewTickets, handleWinner, user]);
 
   return (
     <Box sx={{ width: '100%', padding: 2 }}>
@@ -192,6 +189,7 @@ RiffleTable.propTypes = {
   onEdit: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   onViewTickets: PropTypes.func.isRequired,
+  handleWinner: PropTypes.func.isRequired,
 };
 
 export default RiffleTable;

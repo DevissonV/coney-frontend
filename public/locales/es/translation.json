@@ -157,5 +157,8 @@
   "user": "Usuario",
   "winner": "Ganador",
   "not_your_riffle": "Solo el creador puede elegir al ganador",
-  "select_winner": "Elegir ganador"
+  "select_winner": "Elegir ganador",
+  "login_required_title": "Inicia sesión para continuar",
+  "login_required_message": "Debes iniciar sesión o registrarte para ver los boletos de esta rifa.",
+  "reserve_success": "Reserva exitosa"
 }

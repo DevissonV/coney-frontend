@@ -300,7 +300,7 @@ const TicketsPage = ({
                   }}
                   sx={{ mt: 2 }}
                 >
-                  Reservar
+                  {t('reserve')}
                 </Button>
               </Paper>
             </motion.div>

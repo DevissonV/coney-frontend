@@ -59,18 +59,6 @@ const TicketFormModal = ({
               }).format(totalPrice)}
             </Typography>
 
-              <Button variant="contained" color="primary" onClick={onClose}>
-                Iniciar sesión
-              </Button>
-              <Button
-                variant="contained"
-                color="secondary"
-                onClick={onClose}
-                style={{ marginLeft: 10 }}
-              >
-                Ingresa con Google
-              </Button>
-
               <div style={{ textAlign: 'center' }}>
                 <Button
                   onClick={handleSubmit}

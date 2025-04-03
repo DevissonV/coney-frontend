@@ -240,23 +240,6 @@ export const useTickets = () => {
   };
 
   /**
-   * Loads all available tickets.
-   */
-  /** 
-  const loadAllTickets = async () => {
-    try {
-      setLoading(true);
-      const response = await fetchTickets();
-      setTotalTickets(response.total);
-    } catch {
-      errorAlert({ messageKey: 'error_loading_tickets' });
-    } finally {
-      setLoading(false);
-    }
-  };
-*/
-
-  /**
    * Edits a ticket after confirming the reservation.
    * @param {Object} ticketData - The ticket data to edit.
    * @param {number} ticketData.id - The ID of the ticket.
@@ -312,13 +295,12 @@ export const useTickets = () => {
     try {
       await editTicket(id);
       setLoading(true);
-      toast({ icon: 'success', titleKey: 'create_success' });
+      toast({ icon: 'success', titleKey: 'reserve_success' });
 
-      // Recargar la página después de 5 segundos
       setTimeout(() => {
         setLoading(true);
         window.location.reload();
-      }, 3000); // 5000 milisegundos = 5 segundos
+      }, 3000);
     } catch (error) {
       const errorMessage =
         error.response?.data?.message || 'Error reserve ticket';

@@ -42,17 +42,6 @@ export const createRaffles = async (raffleData) => {
   return data;
 };
 
-export const getRiffleById = async (id) => {
-  const response = await privateAxios.get(`${API_URL}/Riffles/getRiffle/${id}`);
-  const { status, code, data } = response.data;
-
-  if (!status || code !== 200) {
-    throw new Error(`Error fetching riffle with ID ${id}`);
-  }
-
-  return data;
-};
-
 export const deleteRiffle = async (id) => {
   const response = await privateAxios.delete(
     `${API_URL}/Riffles/deleteRiffle/${id}`,
