@@ -134,12 +134,6 @@ const LoginPage = ({ onLogin, error, loading }) => {
           </Button>
         </Typography>
 
-        <Typography align="center" sx={{ mt: 2 }}>
-          <Button onClick={() => setOpenResendModal(true)}>
-            {t('resend_activation_email')}
-          </Button>
-        </Typography>
-
         <UserCreateModal
           open={openCreateModal}
           onClose={() => setOpenCreateModal(false)}
@@ -151,10 +145,6 @@ const LoginPage = ({ onLogin, error, loading }) => {
           onClose={() => setOpenRecoveryModal(false)}
         />
 
-        <UserResendActivationModal
-          open={openResendModal}
-          onClose={() => setOpenResendModal(false)}
-        />
       </Paper>
     </Box>
   );
