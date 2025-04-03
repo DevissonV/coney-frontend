@@ -80,7 +80,15 @@ const RiffleTable = ({
         headerName: t('price'),
         flex: 1.5,
         minWidth: 180,
-        renderCell: (params) => <CellContent value={params.value} />,
+        renderCell: (params) => {
+          const formattedPrice = new Intl.NumberFormat('es-CO', {
+            style: 'currency',
+            currency: 'COP',
+            minimumFractionDigits: 0
+          }).format(params.value);
+      
+          return <CellContent value={formattedPrice} />;
+        },
       },
     ];
 
@@ -90,7 +98,7 @@ const RiffleTable = ({
           field: 'Ganador',
           headerName: t('winner'),
           flex: 1.5,
-          minWidth: 180,
+          minWidth: 100,
           renderCell: (params) => {
             const isCreatedByUser = params.row.created_by === user?.id;
         
