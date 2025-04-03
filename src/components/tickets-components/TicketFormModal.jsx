@@ -30,12 +30,14 @@ const TicketFormModal = ({
   const user_id = decodedToken.id;
 
   const handleSubmit = () => {
-    const ticketId = selectedTickets.length > 0 ? selectedTickets[0].id : null;
-    onSubmit({
-      ticketId: ticketId,
-      userid: user_id,
+    selectedTickets.forEach((ticket) => {
+      console.log('Ticket ID:', ticket.id);
+      onSubmit({
+        ticketId: ticket.id,
+        userid: user_id,
+      });
     });
-
+  
     onClose();
   };
 
@@ -50,13 +52,13 @@ const TicketFormModal = ({
                 Número de Ticket: {selectedTicketNumbers}
               </Typography>
               <Typography variant="h6" mt={2} fontWeight="bold">
-                Total:{' '}
-                {new Intl.NumberFormat('es-CO', {
-                  style: 'currency',
-                  currency: 'COP',
-                  minimumFractionDigits: 0,
-                }).format(totalPrice)}
-              </Typography>
+              Total:{' '}
+              {new Intl.NumberFormat('es-CO', {
+                style: 'currency',
+                currency: 'COP',
+                minimumFractionDigits: 0,
+              }).format(totalPrice)}
+            </Typography>
 
               <Button variant="contained" color="primary" onClick={onClose}>
                 Iniciar sesión
