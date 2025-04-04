@@ -129,6 +129,7 @@ const RiffleTable = ({
       renderCell: (params) => (
         <RiffleActions
           riffleId={params.row.id}
+          availableTickets={params.row.available_tickets}
           onEdit={() => onEdit(params.row)}
           onDelete={onDelete}
           onViewTickets={onViewTickets}

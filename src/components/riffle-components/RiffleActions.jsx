@@ -9,7 +9,12 @@ import { ROLE_ADMIN, ROLE_ANONYMOUS } from '../../utils/generic/constants';
 import { useNavigate } from 'react-router-dom';
 import { confirmLogin } from '../../services/generic/AlertService'; // Usa tu ruta real
 
-const RiffleActions = ({ riffleId, onEdit, onDelete }) => {
+const RiffleActions = ({ 
+  riffleId, 
+  availableTickets, 
+  onEdit, 
+  onDelete 
+}) => {
   const { user } = useAuthStore();
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -44,11 +49,13 @@ const RiffleActions = ({ riffleId, onEdit, onDelete }) => {
         </>
       )}
 
-      <Tooltip title={t('view_tickets')}>
-        <IconButton color="info" onClick={() => handleViewTickets(riffleId)}>
-          <ArrowForwardIcon />
-        </IconButton>
-      </Tooltip>
+      {availableTickets > 0 && (
+        <Tooltip title={t('view_tickets')}>
+          <IconButton color="info" onClick={() => handleViewTickets(riffleId)}>
+            <ArrowForwardIcon />
+          </IconButton>
+        </Tooltip>
+      )}
     </>
   );
 };
