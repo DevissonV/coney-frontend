@@ -97,9 +97,9 @@ const RiffleTable = ({
         flex: 1.5,
         minWidth: 100,
         renderCell: (params) => {
-          const isCreatedByUser = params.row.created_by === user?.id;
+          const canSelectWinner = user?.role === 'admin' || params.row.created_by === user?.id;
 
-          return isCreatedByUser ? (
+          return canSelectWinner ? (
             <Tooltip title={t('select_winner')} arrow>
               <EmojiEventsOutlinedIcon
                 onClick={() => handleWinner(params.row)}
