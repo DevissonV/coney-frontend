@@ -130,6 +130,7 @@ const RiffleTable = ({
         <RiffleActions
           riffleId={params.row.id}
           availableTickets={params.row.available_tickets}
+          createdBy={params.row.created_by}
           onEdit={() => onEdit(params.row)}
           onDelete={onDelete}
           onViewTickets={onViewTickets}

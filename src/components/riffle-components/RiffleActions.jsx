@@ -9,11 +9,12 @@ import { ROLE_ADMIN, ROLE_ANONYMOUS } from '../../utils/generic/constants';
 import { useNavigate } from 'react-router-dom';
 import { confirmLogin } from '../../services/generic/AlertService'; // Usa tu ruta real
 
-const RiffleActions = ({ 
-  riffleId, 
-  availableTickets, 
-  onEdit, 
-  onDelete 
+const RiffleActions = ({
+  riffleId,
+  availableTickets,
+  createdBy,
+  onEdit,
+  onDelete,
 }) => {
   const { user } = useAuthStore();
   const { t } = useTranslation();
@@ -31,9 +32,11 @@ const RiffleActions = ({
     navigate(`/tickets/${riffleId}`);
   };
 
+  const canEditOrDelete = user?.role === ROLE_ADMIN || user?.id === createdBy;
+
   return (
     <>
-      {user?.role === ROLE_ADMIN && (
+      {canEditOrDelete && (
         <>
           <Tooltip title={t('edit_riffle')}>
             <IconButton color="primary" onClick={() => onEdit(riffleId)}>
@@ -59,5 +62,6 @@ const RiffleActions = ({
     </>
   );
 };
+
 
 export default RiffleActions;
