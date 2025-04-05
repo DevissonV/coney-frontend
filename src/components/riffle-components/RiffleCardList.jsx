@@ -4,24 +4,17 @@ import {
 	CardContent,
 	CardActions,
 	Typography,
-	IconButton,
-	Tooltip,
 	Grid,
 } from '@mui/material';
-import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
 import useAuthStore from '../../stores/auth/useAuthStore';
-import { ROLE_ANONYMOUS } from '../../utils/generic/constants';
+import { ROLE_ADMIN } from '../../utils/generic/constants';
 import { motion } from 'framer-motion';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import EventIcon from '@mui/icons-material/Event';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-
+import RiffleActions from './RiffleActions';
 
 const RiffleCardList = ({
 	rows,
@@ -37,7 +30,7 @@ const RiffleCardList = ({
 		<Grid container spacing={3}>
 			{rows.map((raffle) => {
 				const canSelectWinner =
-					user?.role === 'admin' || raffle.created_by === user?.id;
+					user?.role === ROLE_ADMIN || raffle.created_by === user?.id;
 
 				return (
 					<Grid item xs={12} sm={6} md={4} lg={3} key={raffle.id}>
@@ -98,43 +91,16 @@ const RiffleCardList = ({
 									</Box>
 							</CardContent>
 
-							<CardActions sx={{ justifyContent: 'space-between', px: 2, pb: 2 }}>
-								<Box>
-									<Tooltip title={t('view_tickets')}>
-										<IconButton onClick={() => onViewTickets(raffle.id)}>
-											<VisibilityIcon />
-										</IconButton>
-									</Tooltip>
-
-									{user && user.role !== ROLE_ANONYMOUS && (
-										<>
-											<Tooltip title={t('edit')}>
-												<IconButton onClick={() => onEdit(raffle)}>
-													<EditIcon />
-												</IconButton>
-											</Tooltip>
-											<Tooltip title={t('delete')}>
-												<IconButton onClick={() => onDelete(raffle.id)}>
-													<DeleteIcon color="error" />
-												</IconButton>
-											</Tooltip>
-										</>
-									)}
-								</Box>
-
-								{user && user.role !== ROLE_ANONYMOUS && (
-									canSelectWinner ? (
-										<Tooltip title={t('select_winner')}>
-											<IconButton onClick={() => handleWinner(raffle)}>
-												<EmojiEventsOutlinedIcon sx={{ color: 'goldenrod' }} />
-											</IconButton>
-										</Tooltip>
-									) : (
-										<Tooltip title={t('not_your_riffle')}>
-											<InfoOutlinedIcon color="disabled" />
-										</Tooltip>
-									)
-								)}
+							<CardActions sx={{ justifyContent: 'flex-end', px: 2, pb: 2 }}>
+								<RiffleActions
+									riffleId={raffle.id}
+									availableTickets={raffle.available_tickets}
+									createdBy={raffle.created_by}
+									onEdit={() => onEdit(raffle)}
+									onDelete={onDelete}
+									onViewTickets={onViewTickets}  
+									handleWinner={handleWinner}
+								/>
 							</CardActions>
 						</Card>
 						</motion.div>
