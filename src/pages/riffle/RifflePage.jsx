@@ -41,21 +41,23 @@ const RifflePage = ({
 
   return (
     <Box>
+      <Typography variant="h4" align="center" gutterBottom>
+        {t('riffle')}
+      </Typography>
+
       <Box
         display="flex"
-        justifyContent={isMobile ? 'center' : 'space-between'}
-        alignItems={isMobile ? 'center' : 'flex-start'}
-        mb={2}
-        flexDirection={isMobile ? 'column' : 'row'}
+        flexDirection={{ xs: 'column', md: 'row' }}
+        justifyContent="center"
+        alignItems={{ xs: 'stretch', md: 'center' }}
+        gap={2}
+        mb={4}
       >
-        <Typography
-          variant="h4"
-          gutterBottom
-          textAlign="center"
-          style={{ flexGrow: 1 }}
-        >
-          {t('riffle')}
-        </Typography>
+        <SearchToolbar
+          searchQuery={searchQuery}
+          onSearchChange={onSearchChange}
+          placeholder={t('search_placeholder_riffle')}
+        />
 
         {canCreateRaffle && (
           <Button
@@ -66,8 +68,9 @@ const RifflePage = ({
               setOpenModal(true);
             }}
             sx={{
-              mt: isMobile ? 2 : 0,
-              textAlign: 'center',
+              whiteSpace: 'nowrap',
+              height: '40px',
+              alignSelf: { xs: 'stretch', md: 'auto' },
             }}
           >
             {t('create_riffle')}
@@ -75,27 +78,13 @@ const RifflePage = ({
         )}
       </Box>
 
-      <Box
-        display="flex"
-        justifyContent={isMobile ? 'center' : 'flex-start'}
-        alignItems={isMobile ? 'center' : 'flex-start'}
-        mb={2}
-        flexDirection={isMobile ? 'column' : 'row'}
-      >
-        <SearchToolbar
-          searchQuery={searchQuery}
-          onSearchChange={onSearchChange}
-          placeholder={t('search_placeholder_riffle')}
-        />
-      </Box>
-
-    <RiffleCardList
-      rows={riffle}
-      onEdit={onEdit}
-      onDelete={onDelete}
-      onViewTickets={handleViewTickets}
-      handleWinner={handleWinner}
-    />
+      <RiffleCardList
+        rows={riffle}
+        onEdit={onEdit}
+        onDelete={onDelete}
+        onViewTickets={handleViewTickets}
+        handleWinner={handleWinner}
+      />
 
       <RiffleFormModal
         open={openModal}
