@@ -14,7 +14,6 @@ import RiffleCardList from '../../components/riffle-components/RiffleCardList';
 
 const RifflePage = ({
   riffle,
-  loading,
   onEdit,
   onDelete,
   searchQuery,
@@ -89,17 +88,6 @@ const RifflePage = ({
           placeholder={t('search_placeholder_riffle')}
         />
       </Box>
-
-      {/* <RiffleTable
-        rows={riffle}
-        pageSize={pageSize}
-        setPageSize={setPageSize}
-        loading={loading}
-        onEdit={onEdit}
-        onDelete={onDelete}
-        onViewTickets={handleViewTickets}
-        handleWinner={handleWinner}
-      /> */}
 
     <RiffleCardList
       rows={riffle}
