@@ -163,5 +163,6 @@
   "reserve_success": "Reservation successful",
   "please_select_ticket_first": "You must select a ticket before reserving.",
   "unpaid_ticket": "Unpaid ticket is not eligible for the draw.",
-  "no_tickets_available": "There are no tickets available"
+  "no_tickets_available": "There are no tickets available",
+  "change_language": "Change language"
 }

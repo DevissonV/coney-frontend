@@ -163,5 +163,6 @@
   "reserve_success": "Reserva exitosa",
   "please_select_ticket_first": "Debes seleccionar el ticket antes de reservar.",
   "unpaid_ticket": "Boleta sin cancelar no participa en el sorteo.",
-  "no_tickets_available": "No hay boletas disponibles"
+  "no_tickets_available": "No hay boletas disponibles",
+  "change_language": "Cambiar idioma"
 }
