@@ -11,6 +11,7 @@ import {
   ROLE_ADMIN,
   ROLE_USER,
 } from '../../utils/generic/constants';
+import RiffleCardList from '../../components/riffle-components/RiffleCardList';
 
 const RifflePage = ({
   riffle,
@@ -90,7 +91,7 @@ const RifflePage = ({
         />
       </Box>
 
-      <RiffleTable
+      {/* <RiffleTable
         rows={riffle}
         pageSize={pageSize}
         setPageSize={setPageSize}
@@ -99,7 +100,15 @@ const RifflePage = ({
         onDelete={onDelete}
         onViewTickets={handleViewTickets}
         handleWinner={handleWinner}
-      />
+      /> */}
+
+    <RiffleCardList
+      rows={riffle}
+      onEdit={onEdit}
+      onDelete={onDelete}
+      onViewTickets={handleViewTickets}
+      handleWinner={handleWinner}
+    />
 
       <RiffleFormModal
         open={openModal}
