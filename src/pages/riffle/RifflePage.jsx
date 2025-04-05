@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Box, Button, Typography, useMediaQuery } from '@mui/material';
 import SearchToolbar from '../../components/generic/search-toolbar/SearchToolbar';
-import RiffleTable from '../../components/riffle-components/RiffeTable';
 import RiffleFormModal from '../../components/riffle-components/RiffleFormModal';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@mui/material/styles';
