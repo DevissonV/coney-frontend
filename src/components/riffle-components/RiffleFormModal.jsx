@@ -23,31 +23,32 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
     initialValues.description || '',
   );
   const [initDate, setInitDate] = useState(
-    formatDateForInput(initialValues.initDate),
+    formatDateForInput(initialValues.init_date),
   );
-  const [endDate, setendDate] = useState(
-    formatDateForInput(initialValues.endDate),
+  const [endDate, setEndDate] = useState(
+    formatDateForInput(initialValues.end_date),
   );
-  const [rafflePrice, setrafflePrice] = useState(initialValues.name || '');
-  const [raffleTicketCount, setraffleTicketCount] = useState(
-    initialValues.name || '',
+  const [rafflePrice, setRafflePrice] = useState(
+    initialValues.price ? parseFloat(initialValues.price).toString() : ''
   );
+  const [raffleTicketCount, setRaffleTicketCount] = useState(initialValues.tickets_created || '');
+
 
   useEffect(() => {
     if (initialValues && initialValues.name) {
       setRaffleName(initialValues.name);
       setRaffleDescription(initialValues.description || '');
-      setInitDate(formatDateForInput(initialValues.initDate));
-      setendDate(formatDateForInput(initialValues.endDate));
-      setrafflePrice(initialValues.price);
-      setraffleTicketCount(initialValues.ticketCount);
+      setInitDate(formatDateForInput(initialValues.init_date));
+      setEndDate(formatDateForInput(initialValues.end_date));
+      setRafflePrice(initialValues.price ? parseFloat(initialValues.price).toString() : '');
+      setRaffleTicketCount(initialValues.tickets_created);
     } else {
       setRaffleName('');
       setRaffleDescription('');
       setInitDate(getLocalDateTime());
-      setendDate(getLocalDateTime());
-      setrafflePrice('');
-      setraffleTicketCount('');
+      setEndDate(getLocalDateTime());
+      setRafflePrice('');
+      setRaffleTicketCount('');
     }
   }, [initialValues]);
 
@@ -65,12 +66,12 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
 
   const handleisFormValid = () => {
     return (
-      raffleName.trim() !== '' &&
-      raffleDescription.trim() !== '' &&
-      initDate.trim() !== '' &&
-      endDate.trim() !== '' &&
-      rafflePrice.trim() !== '' &&
-      raffleTicketCount.trim() !== ''
+      (raffleName || '').trim() !== '' &&
+      (raffleDescription || '').trim() !== '' &&
+      (initDate || '').trim() !== '' &&
+      (endDate || '').trim() !== '' &&
+      (rafflePrice || '').toString().trim() !== '' &&
+      (raffleTicketCount || '').toString().trim() !== ''
     );
   };
   return (
@@ -121,7 +122,7 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
           label={t('endDate')}
           type="datetime-local"
           value={endDate}
-          onChange={(e) => setendDate(e.target.value)}
+          onChange={(e) => setEndDate(e.target.value)}
           fullWidth
           margin="normal"
           slotProps={{
@@ -132,7 +133,7 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
         <TextField
           label={t('price')}
           value={rafflePrice}
-          onChange={(e) => setrafflePrice(e.target.value)}
+          onChange={(e) => setRafflePrice(e.target.value)}
           fullWidth
           margin="normal"
         />
@@ -140,9 +141,10 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
         <TextField
           label={t('ticketCount')}
           value={raffleTicketCount}
-          onChange={(e) => setraffleTicketCount(e.target.value)}
+          onChange={(e) => setRaffleTicketCount(e.target.value)}
           fullWidth
           margin="normal"
+          disabled={!!initialValues.name}
         />
       </DialogContent>
       <div style={{ textAlign: 'right', padding: '16px' }}>
