@@ -17,6 +17,8 @@ import { useThemeContext } from '../../../wrappers/ThemeWrapper';
 import useAuthStore from '../../../stores/auth/useAuthStore';
 import { useNavigate } from 'react-router-dom';
 import { toast } from '../../../services/generic/AlertService';
+import LanguageToggleButton from './LanguageToggleButton';
+
 
 const ResponsiveAppBar = () => {
   const { darkMode, toggleDarkMode } = useThemeContext();
@@ -62,6 +64,8 @@ const ResponsiveAppBar = () => {
             darkMode={darkMode}
             toggleDarkMode={toggleDarkMode}
           />
+
+          <LanguageToggleButton /> 
 
           <UserMenu handleLogout={handleLogout} />
         </Toolbar>

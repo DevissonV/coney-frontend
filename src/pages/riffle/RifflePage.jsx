@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Box, Button, Typography, useMediaQuery } from '@mui/material';
 import SearchToolbar from '../../components/generic/search-toolbar/SearchToolbar';
-import RiffleTable from '../../components/riffle-components/RiffeTable';
 import RiffleFormModal from '../../components/riffle-components/RiffleFormModal';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@mui/material/styles';
@@ -11,10 +10,10 @@ import {
   ROLE_ADMIN,
   ROLE_USER,
 } from '../../utils/generic/constants';
+import RiffleCardList from '../../components/riffle-components/RiffleCardList';
 
 const RifflePage = ({
   riffle,
-  loading,
   onEdit,
   onDelete,
   searchQuery,
@@ -42,21 +41,23 @@ const RifflePage = ({
 
   return (
     <Box>
+      <Typography variant="h4" align="center" gutterBottom>
+        {t('riffle')}
+      </Typography>
+
       <Box
         display="flex"
-        justifyContent={isMobile ? 'center' : 'space-between'}
-        alignItems={isMobile ? 'center' : 'flex-start'}
-        mb={2}
-        flexDirection={isMobile ? 'column' : 'row'}
+        flexDirection={{ xs: 'column', md: 'row' }}
+        justifyContent="center"
+        alignItems={{ xs: 'stretch', md: 'center' }}
+        gap={2}
+        mb={4}
       >
-        <Typography
-          variant="h4"
-          gutterBottom
-          textAlign="center"
-          style={{ flexGrow: 1 }}
-        >
-          {t('riffle')}
-        </Typography>
+        <SearchToolbar
+          searchQuery={searchQuery}
+          onSearchChange={onSearchChange}
+          placeholder={t('search_placeholder_riffle')}
+        />
 
         {canCreateRaffle && (
           <Button
@@ -67,8 +68,9 @@ const RifflePage = ({
               setOpenModal(true);
             }}
             sx={{
-              mt: isMobile ? 2 : 0,
-              textAlign: 'center',
+              whiteSpace: 'nowrap',
+              height: '40px',
+              alignSelf: { xs: 'stretch', md: 'auto' },
             }}
           >
             {t('create_riffle')}
@@ -76,25 +78,8 @@ const RifflePage = ({
         )}
       </Box>
 
-      <Box
-        display="flex"
-        justifyContent={isMobile ? 'center' : 'flex-start'}
-        alignItems={isMobile ? 'center' : 'flex-start'}
-        mb={2}
-        flexDirection={isMobile ? 'column' : 'row'}
-      >
-        <SearchToolbar
-          searchQuery={searchQuery}
-          onSearchChange={onSearchChange}
-          placeholder={t('search_placeholder_riffle')}
-        />
-      </Box>
-
-      <RiffleTable
+      <RiffleCardList
         rows={riffle}
-        pageSize={pageSize}
-        setPageSize={setPageSize}
-        loading={loading}
         onEdit={onEdit}
         onDelete={onDelete}
         onViewTickets={handleViewTickets}

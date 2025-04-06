@@ -162,5 +162,14 @@
   "login_required_message": "You must log in or sign up to view this raffle's tickets.",
   "reserve_success": "Reservation successful",
   "please_select_ticket_first": "You must select a ticket before reserving.",
-  "unpaid_ticket": "Unpaid ticket is not eligible for the draw."
+  "unpaid_ticket": "Unpaid ticket is not eligible for the draw.",
+  "no_tickets_available": "There are no tickets available",
+  "change_language": "Change language",
+  "selected_ticket_numbers": "Selected tickets",
+  "no_ticket_selected": "No ticket selected",
+  "page": "Page",
+  "of": "of",
+  "raffle_draw_date": "Plays on June 15, 2025",
+  "raffle_description": "The winning number will be selected randomly through an automated and transparent process, ensuring equal chances for all participants.",
+  "total": "Total"
 }

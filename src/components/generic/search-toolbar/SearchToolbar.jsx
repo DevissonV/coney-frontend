@@ -4,18 +4,14 @@ import SearchIcon from '@mui/icons-material/Search';
 
 const SearchToolbar = ({ searchQuery, onSearchChange, placeholder }) => {
   return (
-    <Box mb={2} display="flex" justifyContent="flex-end">
+    <Box width={{ xs: '100%', sm: '250px' }}>
       <TextField
+        fullWidth
         label={placeholder}
         variant="outlined"
         value={searchQuery}
         onChange={(e) => onSearchChange(e.target.value)}
         size="small"
-        sx={{
-          width: '300px',
-          bgcolor: 'background.paper',
-          borderRadius: '4px',
-        }}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">

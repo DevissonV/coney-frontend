@@ -18,44 +18,6 @@ export const fetchTickets = async () => {
 };
 
 /**
- * Creates a new ticket.
- * @param {Object} ticketData - The data of the ticket to be created.
- * @throws {Error} If the request fails or the response status is not 201.
- * @returns {Promise<Object>} A promise resolving to the created ticket data.
- */
-export const createTicket = async (ticketData) => {
-  const response = await privateAxios.post(
-    `${API_URL}/Tickets/createTicket`,
-    ticketData,
-    getHeaders(),
-  );
-  const { status, code, data } = response.data;
-
-  if (!status || code !== 201) {
-    throw new Error('Error creating ticket');
-  }
-
-  return data;
-};
-
-/**
- * Retrieves a ticket by its ID.
- * @param {number|string} id - The ID of the ticket to fetch.
- * @throws {Error} If the request fails or the response status is not 200.
- * @returns {Promise<Object>} A promise resolving to the ticket data.
- */
-export const getTicketById = async (id) => {
-  const response = await privateAxios.get(`${API_URL}/Tickets/getTicket/${id}`);
-  const { status, code, data } = response.data;
-
-  if (!status || code !== 200) {
-    throw new Error(`Error fetching ticket with ID ${id}`);
-  }
-
-  return data;
-};
-
-/**
  * Deletes a ticket by its ID.
  * @param {number|string} id - The ID of the ticket to delete.
  * @throws {Error} If the request fails or the response status is not 200.
@@ -107,7 +69,7 @@ export const editTicket = async (id) => {
  */
 export const fetchTicketsByRiffle = async (riffleId) => {
   const response = await privateAxios.get(
-    `${API_URL}/tickets/availables/?raffle_id=${riffleId}`,
+    `${API_URL}/tickets/availables/?raffle_id=${riffleId}&limit=100`,
   );
   const { status, code, data } = response.data;
 
@@ -127,26 +89,6 @@ export const raffleById = async (id) => {
 
   if (!status || code !== 200) {
     throw new Error(`Error fetching ticket with ID ${id}`);
-  }
-
-  return data;
-};
-
-/**
- * Fetches available tickets for a given raffle.
- *
- * @param {number} raffleId - The ID of the raffle to fetch available tickets for.
- * @returns {Promise<Object>} A promise that resolves to the data containing available tickets.
- * @throws {Error} If the request fails or the response status code is not 200.
- */
-export const ticketsAvaliables = async (raffle_id) => {
-  const response = await privateAxios.get(
-    `${API_URL}/tickets/availables/&raffle_id=${raffle_id}`,
-  );
-  const { status, code, data } = response.data;
-
-  if (!status || code !== 200) {
-    throw new Error(`Error fetching ticket with ID ${raffle_id}`);
   }
 
   return data;
