@@ -181,8 +181,7 @@
   "back_to_riffle": "Volver a Rifas",
   "error_updating_payment": "Error al actualizar el estado del pago.",
   "thank_you_for_your_purchase": "¡Gracias por tu compra!",
-  "your_purchase_is_successful": "Tus boletas han sido reservadas correctamente. ¡Te deseamos mucha suerte en el sorteo!."
-  "no_tickets_available": "No hay boletas disponibles",
+  "your_purchase_is_successful": "Tus boletas han sido reservadas correctamente. ¡Te deseamos mucha suerte en el sorteo!.",
   "winners": "Ganadores",
   "error_loading_winners": "Error cargando ganadores",
   "No_winners_available": "No hay ganadores disponibles",
