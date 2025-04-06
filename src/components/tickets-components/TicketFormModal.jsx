@@ -1,26 +1,21 @@
-//import { useEffect, useState } from 'react';
 import {
   Dialog,
   Button,
   Card,
   CardContent,
-  //Box,
   Typography,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import useAuthStore from '../../stores/auth/useAuthStore';
 import { jwt_Decode } from '../../utils/generic/jwtDecode';
-//import { set } from 'date-fns';
-//import { ConstructionOutlined } from '@mui/icons-material';
+
 
 const TicketFormModal = ({
   open,
   onClose,
   onSubmit,
-  //initialValues,
   selectedTickets,
   selectedTicketNumbers,
-  //tickets,
   totalPrice,
 }) => {
   const { t } = useTranslation();
@@ -44,7 +39,7 @@ const TicketFormModal = ({
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <Card>
         <CardContent style={{ textAlign: 'center' }}>
-          {selectedTickets.length > 0 && ( // MUESTRA LOS TICKETS SELECCIONADOS EN EL DIALOG
+          {selectedTickets.length > 0 && ( 
             <>
               <h3>Tickets Seleccionados:</h3>
               <Typography variant="h6" mt={2} fontWeight="bold">

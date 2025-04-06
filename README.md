@@ -6,12 +6,26 @@ Este es el repositorio frontend de **Coney**, una aplicación diseñada para fac
 
 La estructura de carpetas del proyecto es la siguiente:
 ```
+┣ 📂dist
+┃ ┣ 📂assets
+┃ ┃ ┣ 📜index-BjRHR_I8.js
+┃ ┃ ┣ 📜index-DQ-syAiR.css
+┃ ┃ ┗ 📜trofeo-Cxbks36X.ico
+┃ ┣ 📂locales
+┃ ┃ ┣ 📂en
+┃ ┃ ┃ ┗ 📜translation.json
+┃ ┃ ┗ 📂es
+┃ ┃   ┗ 📜translation.json
+┃ ┣ 📜_redirects
+┃ ┣ 📜index.html
+┃ ┗ 📜vite.svg
 ┣ 📂public
 ┃ ┣ 📂locales
 ┃ ┃ ┣ 📂en
 ┃ ┃ ┃ ┗ 📜translation.json
 ┃ ┃ ┗ 📂es
 ┃ ┃   ┗ 📜translation.json
+┃ ┣ 📜_redirects
 ┃ ┗ 📜vite.svg
 ┣ 📂src
 ┃ ┣ 📂assets
@@ -33,6 +47,7 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┃ ┣ 📂input
 ┃ ┃ ┃ ┃ ┗ 📜Input.jsx
 ┃ ┃ ┃ ┣ 📂navbar
+┃ ┃ ┃ ┃ ┣ 📜LanguageToggleButton.jsx
 ┃ ┃ ┃ ┃ ┣ 📜NavLinks.jsx
 ┃ ┃ ┃ ┃ ┣ 📜ResponsiveAppBar.jsx
 ┃ ┃ ┃ ┃ ┣ 📜ResponsiveDrawer.jsx
@@ -43,13 +58,11 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┃ ┗ 📂table
 ┃ ┃ ┃   ┗ 📜CellContent.jsx
 ┃ ┃ ┣ 📂riffle-components
-┃ ┃ ┃ ┣ 📜RiffeTable.jsx
 ┃ ┃ ┃ ┣ 📜RiffleActions.jsx
+┃ ┃ ┃ ┣ 📜RiffleCardList.jsx
 ┃ ┃ ┃ ┗ 📜RiffleFormModal.jsx
 ┃ ┃ ┣ 📂tickets-components
-┃ ┃ ┃ ┣ 📜TicketActions.jsx
-┃ ┃ ┃ ┣ 📜TicketFormModal.jsx
-┃ ┃ ┃ ┗ 📜TicketsTable.jsx
+┃ ┃ ┃ ┗ 📜TicketFormModal.jsx
 ┃ ┃ ┗ 📂users-components
 ┃ ┃   ┣ 📜UserActions.jsx
 ┃ ┃   ┣ 📜UserChangePasswordModal.jsx
@@ -125,13 +138,16 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃   ┗ 📜useUserStore.js
 ┃ ┣ 📂utils
 ┃ ┃ ┣ 📂api
-┃ ┃ ┃ ┗ 📜axios.js
-┃ ┃ ┗ 📂generic
-┃ ┃   ┣ 📜constants.js
-┃ ┃   ┣ 📜convertText.js
-┃ ┃   ┣ 📜i18n.js
-┃ ┃   ┣ 📜securityValidations.js
-┃ ┃   ┗ 📜transformDates.js
+┃ ┃ ┃ ┣ 📜axios.js
+┃ ┃ ┃ ┗ 📜headers.js
+┃ ┃ ┣ 📂generic
+┃ ┃ ┃ ┣ 📜constants.js
+┃ ┃ ┃ ┣ 📜convertText.js
+┃ ┃ ┃ ┣ 📜i18n.js
+┃ ┃ ┃ ┣ 📜jwtDecode.js
+┃ ┃ ┃ ┣ 📜securityValidations.js
+┃ ┃ ┃ ┗ 📜transformDates.js
+┃ ┃ ┗ 📜authHelpers.js
 ┃ ┣ 📂wrappers
 ┃ ┃ ┣ 📜AuthWrapper.jsx
 ┃ ┃ ┗ 📜ThemeWrapper.jsx
@@ -140,10 +156,10 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┣ 📜index.css
 ┃ ┗ 📜main.jsx
 ┣ 📜.env
-┣ 📜.env.local
 ┣ 📜.env.local.example
-┣ 📜.eslintrc.js
+┣ 📜.eslintrc.json
 ┣ 📜.gitignore
+┣ 📜.prettierignore
 ┣ 📜.prettierrc
 ┣ 📜eslint.config.js
 ┣ 📜index.html

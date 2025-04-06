@@ -57,14 +57,8 @@ const TicketsPage = ({
         {t('tickets')}
       </Typography>
 
-      <Box 
-        display="flex" 
-        flexDirection={{ xs: 'column', md: 'row' }} 
-        gap={4} 
-        justifyContent="center" 
-        alignItems={{ xs: 'center', md: 'flex-start' }}
-      >
-        
+      <Box display="flex" flexDirection={{ xs: 'column', md: 'row' }} gap={4} justifyContent="center" alignItems={{ xs: 'center', md: 'flex-start' }}>
+        {/* Tickets list */}
         <Box flex={1}>
           <Grid container spacing={1} justifyContent="center">
             {currentTickets && currentTickets.length > 0 ? (
@@ -106,7 +100,7 @@ const TicketsPage = ({
               {t('previous')}
             </Button>
             <Typography variant="body2" color={colors.text}>
-              Página {currentPage} de {totalPages}
+              {t('page')} {currentPage} {t('of')} {totalPages}
             </Typography>
             <Button variant="outlined" onClick={handleNextPage} disabled={currentPage === totalPages} color="primary">
               {t('next')}
@@ -152,7 +146,8 @@ const TicketsPage = ({
                   {raffle.name}
                 </Typography>
                 <Typography variant="body2">
-                  Juega el 15 de junio de 2025<br />
+                  {t('raffle_draw_date')}<br />
+                  {t('raffle_description')}
                 </Typography>
                 <Typography variant="subtitle2" fontWeight="bold" mt={2}>
                   {selectedTickets.length > 0 ? t('selected_ticket_numbers') : t('no_ticket_selected')}
@@ -164,7 +159,7 @@ const TicketsPage = ({
                 </Typography>
                 <Typography variant="body2" mt={2}>{t('unpaid_ticket')}</Typography>
                 <Typography variant="h6" fontWeight="bold">
-                  Total: {new Intl.NumberFormat('es-CO', {
+                  {t('total')}: {new Intl.NumberFormat('es-CO', {
                     style: 'currency',
                     currency: 'COP',
                     minimumFractionDigits: 0,

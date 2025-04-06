@@ -167,6 +167,9 @@
   "change_language": "Change language",
   "selected_ticket_numbers": "Selected tickets",
   "no_ticket_selected": "No ticket selected",
-  "next": "Next",
-  "previous": "Previous"
+  "page": "Page",
+  "of": "of",
+  "raffle_draw_date": "Plays on June 15, 2025",
+  "raffle_description": "The winning number will be selected randomly through an automated and transparent process, ensuring equal chances for all participants.",
+  "total": "Total"
 }
