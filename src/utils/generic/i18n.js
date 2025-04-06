@@ -3,10 +3,18 @@ import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import HttpApi from 'i18next-http-backend';
 
-/**
- * Initializes i18next for internationalization in a React application.
- * Uses HTTP backend for loading translations, browser language detection, and React integration.
- */
+import dayjs from 'dayjs';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
+import 'dayjs/locale/es';
+import 'dayjs/locale/en';
+
+dayjs.extend(localizedFormat);
+dayjs.locale('es');
+
+i18n.on('languageChanged', (lng) => {
+  dayjs.locale(lng);
+});
+
 i18n
   .use(HttpApi)
   .use(LanguageDetector)

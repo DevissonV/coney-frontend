@@ -42,7 +42,6 @@ const TicketsPage = ({
   const { t } = useTranslation();
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
-  console.log(`raffle`,raffle);
 
   const colors = {
     background: isDarkMode ? '#121212' : '#f9f9f9',
@@ -207,7 +206,7 @@ const TicketsPage = ({
                 </Typography>
                 <Typography variant="body2">
                   {t('raffle_draw_date', {
-                    date: dayjs(raffle.end_date).format('DD/MM/YYYY'),
+                    date: dayjs(raffle.end_date).format('D [de] MMMM [de] YYYY'),
                   })}
                   <br />
                   {t('raffle_description')}
