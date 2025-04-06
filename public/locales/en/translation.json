@@ -164,5 +164,9 @@
   "please_select_ticket_first": "You must select a ticket before reserving.",
   "unpaid_ticket": "Unpaid ticket is not eligible for the draw.",
   "no_tickets_available": "There are no tickets available",
-  "change_language": "Change language"
+  "change_language": "Change language",
+  "selected_ticket_numbers": "Selected tickets",
+  "no_ticket_selected": "No ticket selected",
+  "next": "Next",
+  "previous": "Previous"
 }

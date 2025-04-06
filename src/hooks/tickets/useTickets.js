@@ -67,7 +67,7 @@ export const useTickets = () => {
    * State variable to keep track of the current page number.
    * @type {number}
    */
-  const [ticketsPerPage, setTicketsPerPage] = useState(5);
+  const [ticketsPerPage, setTicketsPerPage] = useState(30);
 
   /**
    * Filters the tickets based on the search query.

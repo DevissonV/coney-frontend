@@ -161,8 +161,12 @@
   "login_required_title": "Inicia sesión para continuar",
   "login_required_message": "Debes iniciar sesión o registrarte para ver los boletos de esta rifa.",
   "reserve_success": "Reserva exitosa",
-  "please_select_ticket_first": "Debes seleccionar el ticket antes de reservar.",
+  "change_language": "Cambiar idioma",
+  "next": "Siguiente",
+  "previous": "Anterior",
+  "selected_ticket_numbers": "Boletas seleccionadas",
+  "no_ticket_selected": "Ninguna boleta seleccionada",
   "unpaid_ticket": "Boleta sin cancelar no participa en el sorteo.",
-  "no_tickets_available": "No hay boletas disponibles",
-  "change_language": "Cambiar idioma"
+  "please_select_ticket_first": "Por favor selecciona una boleta primero",
+  "no_tickets_available": "No hay boletas disponibles"
 }
