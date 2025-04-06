@@ -27,6 +27,7 @@ export const useRiffle = () => {
     setLoading(true);
     try {
       const data = await fetchRaffle();
+
       setRiffle(data);
     } catch {
       errorAlert({ messageKey: 'error_loading_riffle' });

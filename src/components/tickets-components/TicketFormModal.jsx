@@ -1,14 +1,7 @@
-import {
-  Dialog,
-  Button,
-  Card,
-  CardContent,
-  Typography,
-} from '@mui/material';
+import { Dialog, Button, Card, CardContent, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import useAuthStore from '../../stores/auth/useAuthStore';
 import { jwt_Decode } from '../../utils/generic/jwtDecode';
-
 
 const TicketFormModal = ({
   open,
@@ -31,7 +24,7 @@ const TicketFormModal = ({
         userid: user_id,
       });
     });
-  
+
     onClose();
   };
 
@@ -39,20 +32,20 @@ const TicketFormModal = ({
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <Card>
         <CardContent style={{ textAlign: 'center' }}>
-          {selectedTickets.length > 0 && ( 
+          {selectedTickets.length > 0 && (
             <>
               <h3>Tickets Seleccionados:</h3>
               <Typography variant="h6" mt={2} fontWeight="bold">
                 Número de Ticket: {selectedTicketNumbers}
               </Typography>
               <Typography variant="h6" mt={2} fontWeight="bold">
-              Total:{' '}
-              {new Intl.NumberFormat('es-CO', {
-                style: 'currency',
-                currency: 'COP',
-                minimumFractionDigits: 0,
-              }).format(totalPrice)}
-            </Typography>
+                Total:{' '}
+                {new Intl.NumberFormat('es-CO', {
+                  style: 'currency',
+                  currency: 'COP',
+                  minimumFractionDigits: 0,
+                }).format(totalPrice)}
+              </Typography>
 
               <div style={{ textAlign: 'center' }}>
                 <Button

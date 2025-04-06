@@ -13,7 +13,20 @@ const API_URL = import.meta.env.VITE_API_URL;
  */
 export const fetchRaffle = async () => {
   const response = await privateAxios.get(
-    `${API_URL}/raffles/?limit=1000&page=1`,
+    `${API_URL}/raffles/?limit=1000&page=1&is_active=true`,
+  );
+  const { status, code, data } = response.data;
+  if (!status || code !== 200) {
+    throw new Error('Error fetching riffle');
+  }
+
+  return data;
+};
+
+export const raffleById = async (idRaffle) => {
+  const response = await privateAxios.get(
+    `${API_URL}/raffles/${idRaffle}`,
+    getHeaders(),
   );
   const { status, code, data } = response.data;
   if (!status || code !== 200) {
@@ -104,7 +117,7 @@ export const deleteRiffle = async (id) => {
  * @throws {Error} If the update fails or the response status code is not 200.
  */
 export const editRiffle = async (id, raffleData) => {
-  const { ticketCount, ...sanitizedData } = raffleData;
+  const { ...sanitizedData } = raffleData;
   const response = await privateAxios.patch(
     `${API_URL}/raffles/${id}`,
     sanitizedData,

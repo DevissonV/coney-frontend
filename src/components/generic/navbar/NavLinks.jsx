@@ -14,6 +14,7 @@ import {
   Group,
   Public,
 } from '@mui/icons-material';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import useAuthStore from '../../../stores/auth/useAuthStore';
 import { ROLE_ADMIN } from '../../../utils/generic/constants';
 
@@ -63,6 +64,20 @@ const NavLinks = ({ darkMode }) => {
       {/* Only show these links if the user is authenticated (has a token) */}
       {token && (
         <>
+          <ListItem component={Link} to="/winners" sx={{ width: 'auto' }}>
+            <ListItemIcon>
+              <EmojiEventsIcon
+                sx={{ color: isMobile ? (darkMode ? '#fff' : '#000') : '#fff' }}
+              />
+            </ListItemIcon>
+            <ListItemText
+              primary={t('winners')}
+              sx={{
+                color: isMobile ? (darkMode ? '#fff' : '#000') : '#fff',
+                fontSize: isMobile ? '16px' : '18px',
+              }}
+            />
+          </ListItem>
           {/* Only admins can see the 'users' link */}
           {user?.role === ROLE_ADMIN && (
             <ListItem component={Link} to="/users" sx={{ width: 'auto' }}>

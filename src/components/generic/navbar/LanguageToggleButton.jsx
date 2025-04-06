@@ -52,7 +52,9 @@ const LanguageToggleButton = () => {
             onClick={() => handleSelectLanguage(lang.code)}
           >
             <ListItemIcon>
-              {lang.code === currentLang ? <CheckIcon fontSize="small" /> : null}
+              {lang.code === currentLang ? (
+                <CheckIcon fontSize="small" />
+              ) : null}
             </ListItemIcon>
             <Typography>{lang.label}</Typography>
           </MenuItem>

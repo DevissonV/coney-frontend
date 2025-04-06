@@ -44,6 +44,7 @@ const DashboardContainer = () => {
   useEffect(() => {
     //loading(true);
     const loadUsers = async () => {
+      loading(true);
       if (decodedToken?.role === 'admin') {
         setLoading(true);
         try {

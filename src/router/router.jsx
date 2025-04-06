@@ -12,6 +12,7 @@ import AuthContainer from '../containers/auth/AuthContainer';
 import UsersContainer from '../containers/users/UsersContainer';
 import CountriesContainer from '../containers/countries/CountriesContainer';
 import RiffleContainer from '../containers/riffle/RiffleContainer';
+import WinnersContainer from '../containers/winners/WinnersContainer';
 import TicketsContainer from '../containers/tickets/TicketsContainer';
 import ThankYouPage from '../pages/generic/ThankYouPage';
 import PasswordChangePage from '../pages/users/PasswordChangePage';
@@ -78,6 +79,17 @@ const AppRouter = () => {
             <AnonymousRoute>
               <Layout>
                 <RiffleContainer />
+              </Layout>
+            </AnonymousRoute>
+          }
+        />
+
+        <Route
+          path="/winners"
+          element={
+            <AnonymousRoute>
+              <Layout>
+                <WinnersContainer />
               </Layout>
             </AnonymousRoute>
           }

@@ -171,5 +171,10 @@
   "of": "of",
   "raffle_draw_date": "Plays on June 15, 2025",
   "raffle_description": "The winning number will be selected randomly through an automated and transparent process, ensuring equal chances for all participants.",
-  "total": "Total"
+  "total": "Total",
+  "winners": "winners",
+  "error_loading_winners": "Error loading winners",
+  "No_winners_available": "No winners available",
+  "creator": "Creator",
+  "winning_number": "Winning number"
 }

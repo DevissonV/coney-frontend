@@ -30,7 +30,6 @@ const TicketsPage = ({
   totalPrice,
   handleSelectTicket,
   handleClickOpen,
-  filteredTickets,
   currentTickets,
   totalPages,
   startIndex,
@@ -52,18 +51,39 @@ const TicketsPage = ({
   };
 
   return (
-    <Box sx={{ px: 2, py: 4, backgroundColor: colors.background, minHeight: '100vh' }}>
-      <Typography variant="h3" textAlign="center" fontWeight="bold" gutterBottom color={colors.text}>
+    <Box
+      sx={{
+        px: 2,
+        py: 4,
+        backgroundColor: colors.background,
+        minHeight: '100vh',
+      }}
+    >
+      <Typography
+        variant="h3"
+        textAlign="center"
+        fontWeight="bold"
+        gutterBottom
+        color={colors.text}
+      >
         {t('tickets')}
       </Typography>
 
-      <Box display="flex" flexDirection={{ xs: 'column', md: 'row' }} gap={4} justifyContent="center" alignItems={{ xs: 'center', md: 'flex-start' }}>
+      <Box
+        display="flex"
+        flexDirection={{ xs: 'column', md: 'row' }}
+        gap={4}
+        justifyContent="center"
+        alignItems={{ xs: 'center', md: 'flex-start' }}
+      >
         {/* Tickets list */}
         <Box flex={1}>
           <Grid container spacing={1} justifyContent="center">
             {currentTickets && currentTickets.length > 0 ? (
               currentTickets.map((ticket, index) => {
-                const isSelected = selectedTickets.some(t => t.id === ticket.id);
+                const isSelected = selectedTickets.some(
+                  (t) => t.id === ticket.id,
+                );
                 return (
                   <Grid item key={ticket.id} xs={3} sm={2} md={1}>
                     <Button
@@ -75,11 +95,17 @@ const TicketsPage = ({
                         borderRadius: 2,
                         fontWeight: 'bold',
                         fontSize: '1.1rem',
-                        backgroundColor: isSelected ? colors.primary : colors.accent,
+                        backgroundColor: isSelected
+                          ? colors.primary
+                          : colors.accent,
                         color: isSelected ? '#fff' : colors.text,
-                        border: isSelected ? `2px solid ${colors.primary}` : `2px dashed ${colors.primary}`,
+                        border: isSelected
+                          ? `2px solid ${colors.primary}`
+                          : `2px dashed ${colors.primary}`,
                         '&:hover': {
-                          backgroundColor: isSelected ? colors.primary : '#dbeafe',
+                          backgroundColor: isSelected
+                            ? colors.primary
+                            : '#dbeafe',
                         },
                       }}
                     >
@@ -89,24 +115,47 @@ const TicketsPage = ({
                 );
               })
             ) : (
-              <Typography variant="body1" textAlign="center" color={colors.text}>
+              <Typography
+                variant="body1"
+                textAlign="center"
+                color={colors.text}
+              >
                 {t('no_tickets_available')}
               </Typography>
             )}
           </Grid>
 
-          <Box mt={4} display="flex" justifyContent="center" alignItems="center" flexWrap="wrap" gap={2}>
-            <Button variant="outlined" onClick={handlePreviousPage} disabled={currentPage === 1} color="primary">
+          <Box
+            mt={4}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            flexWrap="wrap"
+            gap={2}
+          >
+            <Button
+              variant="outlined"
+              onClick={handlePreviousPage}
+              disabled={currentPage === 1}
+              color="primary"
+            >
               {t('previous')}
             </Button>
             <Typography variant="body2" color={colors.text}>
               {t('page')} {currentPage} {t('of')} {totalPages}
             </Typography>
-            <Button variant="outlined" onClick={handleNextPage} disabled={currentPage === totalPages} color="primary">
+            <Button
+              variant="outlined"
+              onClick={handleNextPage}
+              disabled={currentPage === totalPages}
+              color="primary"
+            >
               {t('next')}
             </Button>
             <FormControl sx={{ minWidth: 100 }} size="small">
-              <InputLabel id="tickets-per-page-label">{t('tickets')}</InputLabel>
+              <InputLabel id="tickets-per-page-label">
+                {t('tickets')}
+              </InputLabel>
               <Select
                 labelId="tickets-per-page-label"
                 value={ticketsPerPage}
@@ -114,7 +163,9 @@ const TicketsPage = ({
                 label={t('tickets')}
               >
                 {[100, 50, 10, 30].map((value) => (
-                  <MenuItem key={value} value={value}>{value}</MenuItem>
+                  <MenuItem key={value} value={value}>
+                    {value}
+                  </MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -142,24 +193,35 @@ const TicketsPage = ({
                   color: colors.text,
                 }}
               >
-                <Typography variant="h5" fontWeight="bold" gutterBottom color="primary">
+                <Typography
+                  variant="h5"
+                  fontWeight="bold"
+                  gutterBottom
+                  color="primary"
+                >
                   {raffle.name}
                 </Typography>
                 <Typography variant="body2">
-                  {t('raffle_draw_date')}<br />
+                  {t('raffle_draw_date')}
+                  <br />
                   {t('raffle_description')}
                 </Typography>
                 <Typography variant="subtitle2" fontWeight="bold" mt={2}>
-                  {selectedTickets.length > 0 ? t('selected_ticket_numbers') : t('no_ticket_selected')}
+                  {selectedTickets.length > 0
+                    ? t('selected_ticket_numbers')
+                    : t('no_ticket_selected')}
                 </Typography>
                 <Typography variant="body1">
                   {selectedTickets.length > 0
-                    ? selectedTickets.map(t => t.ticket_number).join(', ')
+                    ? selectedTickets.map((t) => t.ticket_number).join(', ')
                     : t('no_ticket_selected')}
                 </Typography>
-                <Typography variant="body2" mt={2}>{t('unpaid_ticket')}</Typography>
+                <Typography variant="body2" mt={2}>
+                  {t('unpaid_ticket')}
+                </Typography>
                 <Typography variant="h6" fontWeight="bold">
-                  {t('total')}: {new Intl.NumberFormat('es-CO', {
+                  {t('total')}:{' '}
+                  {new Intl.NumberFormat('es-CO', {
                     style: 'currency',
                     currency: 'COP',
                     minimumFractionDigits: 0,
@@ -172,8 +234,9 @@ const TicketsPage = ({
                   sx={{ mt: 2 }}
                   disabled={selectedTickets.length === 0}
                   onClick={() => {
-                    const selectedInCurrentPage = currentTickets.some((ticket) =>
-                      selectedTickets.some((t) => t.id === ticket.id)
+                    const selectedInCurrentPage = currentTickets.some(
+                      (ticket) =>
+                        selectedTickets.some((t) => t.id === ticket.id),
                     );
                     if (!selectedInCurrentPage) {
                       errorAlert({ messageKey: 'please_select_ticket_first' });

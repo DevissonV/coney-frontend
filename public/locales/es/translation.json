@@ -15,7 +15,7 @@
   "dark_mode": "Modo Oscuro",
   "total_users": "Total de Usuarios",
   "active_raffles": "Rifas Activas",
-  "total_raffles" : "Total de Rifas",
+  "total_raffles": "Total de Rifas",
   "page_not_found": "Página no encontrada",
   "not_found_message": "Lo sentimos, la página que estás buscando no existe.",
   "back_to_home": "Volver al inicio",
@@ -173,5 +173,10 @@
   "raffle_draw_date": "Juega el 15 de junio de 2025",
   "raffle_description": "El número ganador será seleccionado de forma aleatoria mediante un proceso automatizado y transparente, garantizando igualdad de oportunidades para todos los participantes.",
   "total": "Total",
-  "no_tickets_available": "No hay boletas disponibles"
+  "no_tickets_available": "No hay boletas disponibles",
+  "winners": "Ganadores",
+  "error_loading_winners": "Error cargando ganadores",
+  "No_winners_available": "No hay ganadores disponibles",
+  "creator": "Creador",
+  "winning_number": "Número ganador"
 }

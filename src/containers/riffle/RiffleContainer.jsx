@@ -4,7 +4,6 @@ import { useRiffle } from '../../hooks/riffle/useRiffle';
 import { useSearch } from '../../hooks/generic/useSearch';
 
 const RiffleContainer = () => {
-  
   const {
     riffle,
     loadRaffle,
