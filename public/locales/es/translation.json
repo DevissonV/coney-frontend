@@ -172,5 +172,6 @@
   "of": "de",
   "raffle_draw_date": "Juega el 15 de junio de 2025",
   "raffle_description": "El número ganador será seleccionado de forma aleatoria mediante un proceso automatizado y transparente, garantizando igualdad de oportunidades para todos los participantes.",
-  "total": "Total"
+  "total": "Total",
+  "no_tickets_available": "No hay boletas disponibles"
 }
