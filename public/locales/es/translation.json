@@ -173,5 +173,13 @@
   "raffle_draw_date": "Juega el 15 de junio de 2025",
   "raffle_description": "El número ganador será seleccionado de forma aleatoria mediante un proceso automatizado y transparente, garantizando igualdad de oportunidades para todos los participantes.",
   "total": "Total",
-  "no_tickets_available": "No hay boletas disponibles"
+  "no_tickets_available": "No hay boletas disponibles",
+  "selected_tickets": "Tickets Seleccionados: ",
+  "payment_pending_notice": "Si en 1 hora no se ve reflejado el pago, las boletas que seleccionaste seguirán disponibles",
+  "payment_failed_title": "Pago no realizado",
+  "payment_failed_message": "Lamentablemente no pudimos procesar tu compra. Puedes intentarlo de nuevo más tarde.",
+  "back_to_riffle": "Volver a Rifas",
+  "error_updating_payment": "Error al actualizar el estado del pago.",
+  "thank_you_for_your_purchase": "¡Gracias por tu compra!",
+  "your_purchase_is_successful": "Tus boletas han sido reservadas correctamente. ¡Te deseamos mucha suerte en el sorteo!."
 }

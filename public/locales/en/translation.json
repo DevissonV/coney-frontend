@@ -171,5 +171,13 @@
   "of": "of",
   "raffle_draw_date": "Plays on June 15, 2025",
   "raffle_description": "The winning number will be selected randomly through an automated and transparent process, ensuring equal chances for all participants.",
-  "total": "Total"
+  "total": "Total",
+  "selected_tickets": "Selected Tickets: ",
+  "payment_pending_notice": "If the payment is not reflected within 1 hour, the tickets you selected will still be available.",
+  "payment_failed_title": "Payment Not Completed",
+  "payment_failed_message": "Unfortunately, we could not process your purchase. Please try again later.",
+  "back_to_riffle": "Back to Raffles",
+  "error_updating_payment": "Error updating the payment status.",
+  "thank_you_for_your_purchase": "Thank you for your purchase!",
+  "your_purchase_is_successful": "Your tickets have been successfully reserved. We wish you the best of luck in the drawing!"
 }

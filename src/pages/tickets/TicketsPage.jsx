@@ -30,7 +30,6 @@ const TicketsPage = ({
   totalPrice,
   handleSelectTicket,
   handleClickOpen,
-  filteredTickets,
   currentTickets,
   totalPages,
   startIndex,
@@ -201,7 +200,9 @@ const TicketsPage = ({
         selectedTicketNumbers={selectedTicketNumbers}
         totalPrice={totalPrice}
         tickets={tickets}
+        raffle={raffle}
       />
+
     </Box>
   );
 };
