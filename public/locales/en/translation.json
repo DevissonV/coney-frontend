@@ -147,7 +147,7 @@
   "available_tickets": "Available Tickets",
   "end_date": "End Date",
   "price": "Price",
-  "ticketCount": "Number of tickets created",
+  "ticketCount": "Number of tickets",
   "initDate must be today or in the future": "Start date must be today or in the future",
   "reserve": "Reserve",
   "Error selected winner": "Error selecting winner",

@@ -147,7 +147,7 @@
   "available_tickets": "Boletas disponibles",
   "end_date": "Fecha de finalización",
   "price": "Precio",
-  "ticketCount": "Cantidad de boletas creadas",
+  "ticketCount": "Cantidad de boletas",
   "initDate must be today or in the future": "La fecha de inicio debe ser hoy o en el futuro",
   "reserve": "Reservar",
   "Error selected winner": "Error seleccionando ganador",
