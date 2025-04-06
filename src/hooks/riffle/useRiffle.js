@@ -10,7 +10,10 @@ import {
   errorAlert,
   toast,
   confirmDelete,
+  showWinnerModal,
 } from '../../services/generic/AlertService';
+import { getUserById } from '../../services/users/UserService';
+import { ticketById } from '../../services/tickets/TicketService';
 
 /**
  * Custom hook to manage riffle-related operations.
@@ -92,16 +95,23 @@ export const useRiffle = () => {
   const handleWinner = async (raffleId) => {
     const idRaffle = raffleId.id;
     try {
-      await selectWinner(idRaffle);
+      const winner = await selectWinner(idRaffle);
       setLoading(true);
-      toast({ icon: 'success', titleKey: 'create_success' });
       loadRaffle();
+
+      const user = await getUserById(winner.user_id);
+      const ticket = await ticketById(winner.ticket_id);
+
+      await showWinnerModal({
+        firstName: user.first_name,
+        lastName: user.last_name,
+        ticketNumber: ticket.ticket_number,
+      });
     } catch (error) {
       const errorMessage =
-        error.response?.data?.message || 'Error selected winners';
+        error.response?.data?.message || 'error_selected_winner';
       errorAlert({ messageKey: errorMessage });
     }
-    // Aquí puedes realizar una acción, como mostrar un modal o hacer una solicitud al backend
   };
 
   return {

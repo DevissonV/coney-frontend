@@ -128,3 +128,27 @@ export const confirmLogin = async ({
 
   return result;
 };
+
+/**
+ * Displays the winner information in a success modal.
+ * @param {Object} options - Modal options.
+ * @param {string} options.firstName - Winner's first name.
+ * @param {string} options.lastName - Winner's last name.
+ * @param {string|number} options.ticketNumber - Winning ticket number.
+ */
+export const showWinnerModal = async ({
+  firstName,
+  lastName,
+  ticketNumber,
+}) => {
+  await Swal.fire({
+    icon: 'success',
+    title: i18n.t('winner_selected'),
+    html: `
+      <strong>${i18n.t('winner_name')}:</strong> ${firstName} ${lastName}<br/>
+      <strong>${i18n.t('ticket_number')}:</strong> ${ticketNumber}
+    `,
+    confirmButtonText: i18n.t('ok'),
+    confirmButtonColor: '#0072CE',
+  });
+};

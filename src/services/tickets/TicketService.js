@@ -88,6 +88,20 @@ export const raffleById = async (id) => {
   const { status, code, data } = response.data;
 
   if (!status || code !== 200) {
+    throw new Error(`Error fetching raffles with ID ${id}`);
+  }
+
+  return data;
+};
+
+export const ticketById = async (id) => {
+  const response = await privateAxios.get(
+    `${API_URL}/tickets/${id}`,
+    getHeaders(),
+  );
+  const { status, code, data } = response.data;
+
+  if (!status || code !== 200) {
     throw new Error(`Error fetching ticket with ID ${id}`);
   }
 

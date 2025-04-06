@@ -184,5 +184,8 @@
   "error_loading_winners": "Error loading winners",
   "No_winners_available": "No winners available",
   "creator": "Creator",
-  "winning_number": "Winning number"
+  "winning_number": "Winning number",
+  "winner_selected": "Winner selected",
+  "winner_name": "Winner's name",
+  "error_selected_winner": "Unable to select the winner"
 }
