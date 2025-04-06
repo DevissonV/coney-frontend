@@ -93,7 +93,6 @@ const TicketsContainer = () => {
       handleNextTicket={handleNextTicket}
       handleSelectTicket={handleSelectTicket}
       handleClickOpen={handleClickOpen}
-      filteredTickets={filteredTickets}
       currentTickets={currentTickets}
       startIndex={startIndex}
       endIndex={endIndex}

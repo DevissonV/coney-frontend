@@ -15,6 +15,8 @@ import RiffleContainer from '../containers/riffle/RiffleContainer';
 import TicketsContainer from '../containers/tickets/TicketsContainer';
 import ThankYouPage from '../pages/generic/ThankYouPage';
 import PasswordChangePage from '../pages/users/PasswordChangePage';
+import PaymentSuccessPage from '../pages/payments/PaymentSuccessPage';
+import PaymentCancelPage from '../pages/payments/PaymentCancelPage';
 
 /**
  * Component that protects routes by checking user authentication.
@@ -59,6 +61,8 @@ const AppRouter = () => {
         <Route path="/login" element={<AuthContainer />} />
         <Route path="/thank-you" element={<ThankYouPage />} />
         <Route path="/password-change" element={<PasswordChangePage />} />
+        <Route path="/payment-success" element={<PaymentSuccessPage />} />
+        <Route path="/payment-cancel" element={<PaymentCancelPage />} />
         <Route path="*" element={<NotFoundPage />} />
 
         <Route
