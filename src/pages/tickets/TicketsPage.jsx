@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import TicketFormModal from '../../components/tickets-components/TicketFormModal';
 import { errorAlert } from '../../services/generic/AlertService';
+import dayjs from 'dayjs';
 
 import {
   Box,
@@ -41,6 +42,7 @@ const TicketsPage = ({
   const { t } = useTranslation();
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
+  console.log(`raffle`,raffle);
 
   const colors = {
     background: isDarkMode ? '#121212' : '#f9f9f9',
@@ -49,6 +51,8 @@ const TicketsPage = ({
     text: isDarkMode ? '#ffffff' : '#000000',
     accent: isDarkMode ? '#303f9f' : '#e3f2fd',
   };
+
+  
 
   return (
     <Box
@@ -202,10 +206,13 @@ const TicketsPage = ({
                   {raffle.name}
                 </Typography>
                 <Typography variant="body2">
-                  {t('raffle_draw_date')}
+                  {t('raffle_draw_date', {
+                    date: dayjs(raffle.end_date).format('DD/MM/YYYY'),
+                  })}
                   <br />
                   {t('raffle_description')}
                 </Typography>
+
                 <Typography variant="subtitle2" fontWeight="bold" mt={2}>
                   {selectedTickets.length > 0
                     ? t('selected_ticket_numbers')
