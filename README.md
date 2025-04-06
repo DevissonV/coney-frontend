@@ -8,8 +8,8 @@ La estructura de carpetas del proyecto es la siguiente:
 ```
 ┣ 📂dist
 ┃ ┣ 📂assets
-┃ ┃ ┣ 📜index-BjRHR_I8.js
-┃ ┃ ┣ 📜index-DQ-syAiR.css
+┃ ┃ ┣ 📜index-Im40ftOU.css
+┃ ┃ ┣ 📜index-XHl46WJ8.js
 ┃ ┃ ┗ 📜trofeo-Cxbks36X.ico
 ┃ ┣ 📂locales
 ┃ ┃ ┣ 📂en
@@ -105,6 +105,9 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┣ 📂generic
 ┃ ┃ ┃ ┣ 📜NotFoundPage.jsx
 ┃ ┃ ┃ ┗ 📜ThankYouPage.jsx
+┃ ┃ ┣ 📂payments
+┃ ┃ ┃ ┣ 📜PaymentCancelPage.jsx
+┃ ┃ ┃ ┗ 📜PaymentSuccessPage.jsx
 ┃ ┃ ┣ 📂riffle
 ┃ ┃ ┃ ┗ 📜RifflePage.jsx
 ┃ ┃ ┣ 📂tickets
@@ -123,6 +126,8 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┃ ┗ 📜DashboardService.js
 ┃ ┃ ┣ 📂generic
 ┃ ┃ ┃ ┗ 📜AlertService.js
+┃ ┃ ┣ 📂payments
+┃ ┃ ┃ ┗ 📜paymentService.js
 ┃ ┃ ┣ 📂riffle
 ┃ ┃ ┃ ┗ 📜RiffleService.js
 ┃ ┃ ┣ 📂tickets
