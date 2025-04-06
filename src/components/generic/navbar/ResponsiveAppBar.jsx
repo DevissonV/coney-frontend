@@ -19,7 +19,6 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from '../../../services/generic/AlertService';
 import LanguageToggleButton from './LanguageToggleButton';
 
-
 const ResponsiveAppBar = () => {
   const { darkMode, toggleDarkMode } = useThemeContext();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -65,7 +64,7 @@ const ResponsiveAppBar = () => {
             toggleDarkMode={toggleDarkMode}
           />
 
-          <LanguageToggleButton /> 
+          <LanguageToggleButton />
 
           <UserMenu handleLogout={handleLogout} />
         </Toolbar>

@@ -92,8 +92,9 @@ const RiffleActions = ({
         </Tooltip>
       )}
 
-      {user && user.role !== ROLE_ANONYMOUS && (
-        canSelectWinner ? (
+      {user &&
+        user.role !== ROLE_ANONYMOUS &&
+        (canSelectWinner ? (
           <Tooltip title={t('select_winner')}>
             <IconButton onClick={handleProtectedWinner}>
               <EmojiEventsOutlinedIcon sx={{ color: 'goldenrod' }} />
@@ -107,8 +108,7 @@ const RiffleActions = ({
               </IconButton>
             </span>
           </Tooltip>
-        )
-      )}
+        ))}
     </>
   );
 };

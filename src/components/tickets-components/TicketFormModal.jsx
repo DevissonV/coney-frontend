@@ -8,6 +8,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import useAuthStore from '../../stores/auth/useAuthStore';
 import { jwt_Decode } from '../../utils/generic/jwtDecode';
+
 import { create } from '../../services/payments/paymentService';
 import { errorAlert } from '../../services/generic/AlertService';
 
@@ -21,6 +22,7 @@ const TicketFormModal = ({
   raffle,
 }) => {
   const { t } = useTranslation();
+
   const { token } = useAuthStore();
   const decodedToken = jwt_Decode(token);
   const user_id = decodedToken.id;

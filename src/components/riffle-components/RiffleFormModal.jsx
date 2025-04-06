@@ -29,10 +29,11 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
     formatDateForInput(initialValues.end_date),
   );
   const [rafflePrice, setRafflePrice] = useState(
-    initialValues.price ? parseFloat(initialValues.price).toString() : ''
+    initialValues.price ? parseFloat(initialValues.price).toString() : '',
   );
-  const [raffleTicketCount, setRaffleTicketCount] = useState(initialValues.tickets_created || '');
-
+  const [raffleTicketCount, setRaffleTicketCount] = useState(
+    initialValues.tickets_created || '',
+  );
 
   useEffect(() => {
     if (initialValues && initialValues.name) {
@@ -40,7 +41,9 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
       setRaffleDescription(initialValues.description || '');
       setInitDate(formatDateForInput(initialValues.init_date));
       setEndDate(formatDateForInput(initialValues.end_date));
-      setRafflePrice(initialValues.price ? parseFloat(initialValues.price).toString() : '');
+      setRafflePrice(
+        initialValues.price ? parseFloat(initialValues.price).toString() : '',
+      );
       setRaffleTicketCount(initialValues.tickets_created);
     } else {
       setRaffleName('');

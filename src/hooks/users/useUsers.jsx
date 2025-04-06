@@ -83,9 +83,9 @@ export const useUsers = () => {
 
         if (loggedInUser.id === userId) {
           updateAuthUser({
-            first_name: updatedUserData.firstName, 
-            last_name: updatedUserData.lastName, 
-            role: updatedUserData.role
+            first_name: updatedUserData.firstName,
+            last_name: updatedUserData.lastName,
+            role: updatedUserData.role,
           });
         }
       } catch {

@@ -1,15 +1,11 @@
-import { useState } from 'react';
-import { Box, Button, Typography, useMediaQuery } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import SearchToolbar from '../../components/generic/search-toolbar/SearchToolbar';
 import RiffleFormModal from '../../components/riffle-components/RiffleFormModal';
 import { useTranslation } from 'react-i18next';
-import { useTheme } from '@mui/material/styles';
+//import { useTheme } from '@mui/material/styles';
 import useAuthStore from '../../stores/auth/useAuthStore';
 import { useNavigate } from 'react-router-dom';
-import {
-  ROLE_ADMIN,
-  ROLE_USER,
-} from '../../utils/generic/constants';
+import { ROLE_ADMIN, ROLE_USER } from '../../utils/generic/constants';
 import RiffleCardList from '../../components/riffle-components/RiffleCardList';
 
 const RifflePage = ({
@@ -26,10 +22,10 @@ const RifflePage = ({
   handleWinner,
 }) => {
   const { t } = useTranslation();
-  const [pageSize, setPageSize] = useState(5);
+  //const [pageSize, setPageSize] = useState(5);
 
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  //const theme = useTheme();
+  //const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { user } = useAuthStore();
   const navigate = useNavigate();
 
