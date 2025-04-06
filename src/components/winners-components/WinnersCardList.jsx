@@ -73,7 +73,7 @@ const WinnersCardList = ({ rows }) => {
                       fontWeight="bold"
                       color="primary.main"
                     >
-                      {t('winning_number')}: {winners.ticket_id}
+                      {t('winning_number')}: {winners.winningNumber}
                     </Typography>
                   </Box>
 

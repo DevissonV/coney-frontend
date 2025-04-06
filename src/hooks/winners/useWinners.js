@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { fetchWinners } from '../../services/winners/WinnersService';
-import { getUserById } from '../../services/users/UserService'; // Servicio para obtener el creador
-import { raffleById } from '../../services/tickets/TicketService'; // Servicio para obtener el ticket ganador
+import { getUserById } from '../../services/users/UserService';
+import { raffleById } from '../../services/tickets/TicketService';
+import { ticketById } from '../../services/tickets/TicketService';
 import { errorAlert } from '../../services/generic/AlertService.js';
 
 export const useWinners = () => {
@@ -26,16 +27,16 @@ export const useWinners = () => {
       const data = await fetchWinners();
       const detailedWinners = await Promise.all(
         data.map(async (winner) => {
-          // Consulta los detalles adicionales
           const raffle = await raffleById(winner.raffle_id);
           const creator = await getUserById(raffle.created_by);
           const winnerRaffle = await getUserById(winner.user_id);
-          const ticket = winner.ticket_id;
+          const ticket = await ticketById(winner.ticket_id);
+
           return {
             ...winner,
             raffleName: raffle.name,
             winnerName: `${winnerRaffle.first_name} ${winnerRaffle.last_name}`,
-            winningNumber: ticket.number,
+            winningNumber: ticket.ticket_number,
             createdBy: `${creator.first_name} ${creator.last_name}`,
           };
         }),
