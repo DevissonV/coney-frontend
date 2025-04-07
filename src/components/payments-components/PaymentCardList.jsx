@@ -17,20 +17,29 @@ import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import useAuthStore from '../../stores/auth/useAuthStore';
 
 const PaymentCardList = ({ rows }) => {
   const { t } = useTranslation();
+  const { user } = useAuthStore();
+
+  const visibleRows = rows.filter((payment) => {
+    if (user?.role === 'admin') return true;
+
+    const buyerId = payment.tickets?.[0]?.user?.id;
+    return buyerId === user?.id;
+  });
 
   return (
     <Grid container spacing={3}>
-      {rows.length === 0 ? (
+      {visibleRows.length === 0 ? (
         <Grid item xs={12}>
           <Typography variant="h6" align="center" color="text.secondary">
             {t('no_payments_available')}
           </Typography>
         </Grid>
       ) : (
-        rows.map((payment) => {
+        visibleRows.map((payment) => {
           const { 
               raffle, 
               tickets, 
