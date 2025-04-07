@@ -211,5 +211,15 @@
   "failed": "Failed",
   "canceled": "Canceled",
   "no_payments_available": "No payments available",
-  "search_placeholder_payment": "Search by raffle name or buyer"
+  "search_placeholder_payment": "Search by raffle name or buyer",
+  "name_required": "Name is required.",
+  "name_max": "Name cannot exceed 100 characters.",
+  "description_max": "Description cannot exceed 255 characters.",
+  "init_date_required": "Start date is required.",
+  "end_date_required": "End date is required.",
+  "endDate must be greater than initDate": "End date must be greater than start date.",
+  "price_positive": "Price must be a positive number.",
+  "ticketCount_min": "You must create at least 10 tickets.",
+  "name_min": "Name must be at least 6 characters long.",
+  "price_min": "Price must be at least 1000 pesos."
 }
