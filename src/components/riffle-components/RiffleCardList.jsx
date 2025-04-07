@@ -8,7 +8,6 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
-//import useAuthStore from '../../stores/auth/useAuthStore';
 import { motion } from 'framer-motion';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import EventIcon from '@mui/icons-material/Event';
@@ -23,12 +22,10 @@ const RiffleCardList = ({
   handleWinner,
 }) => {
   const { t } = useTranslation();
-  //const { user } = useAuthStore();
 
   return (
     <Grid container spacing={3}>
       {rows.map((raffle) => {
-        //const canSelectWinner = user?.role === ROLE_ADMIN || raffle.created_by === user?.id;
 
         return (
           <Grid item xs={12} sm={6} md={4} lg={3} key={raffle.id}>

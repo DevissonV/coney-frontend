@@ -18,6 +18,7 @@ import ThankYouPage from '../pages/generic/ThankYouPage';
 import PasswordChangePage from '../pages/users/PasswordChangePage';
 import PaymentSuccessPage from '../pages/payments/PaymentSuccessPage';
 import PaymentCancelPage from '../pages/payments/PaymentCancelPage';
+import PaymentsContainer from '../containers/payments/PaymentsContainer';
 
 /**
  * Component that protects routes by checking user authentication.
@@ -99,9 +100,19 @@ const AppRouter = () => {
           }
         />
 
+        <Route
+          path="/payments"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <PaymentsContainer />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
         <Route path="/" element={<Navigate to="/dashboard" />} />
 
-        {/* Protected routes that require authentication */}
         <Route
           path="/users"
           element={

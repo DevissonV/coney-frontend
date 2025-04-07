@@ -13,6 +13,7 @@ import {
   ConfirmationNumber,
   Group,
   Public,
+  AttachMoney,
 } from '@mui/icons-material';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import useAuthStore from '../../../stores/auth/useAuthStore';
@@ -26,7 +27,6 @@ const NavLinks = ({ darkMode }) => {
 
   return (
     <Box sx={{ display: isMobile ? 'block' : 'flex', gap: 2 }}>
-      {/* Link accessible to everyone */}
       <ListItem component={Link} to="/dashboard" sx={{ width: 'auto' }}>
         <ListItemIcon>
           <Dashboard
@@ -64,14 +64,32 @@ const NavLinks = ({ darkMode }) => {
       {/* Only show these links if the user is authenticated (has a token) */}
       {token && (
         <>
-          <ListItem component={Link} to="/winners" sx={{ width: 'auto' }}>
+          {/* Only admins can see the 'winners' link */}
+          {user?.role === ROLE_ADMIN && (
+            <ListItem component={Link} to="/winners" sx={{ width: 'auto' }}>
+              <ListItemIcon>
+                <EmojiEventsIcon
+                  sx={{ color: isMobile ? (darkMode ? '#fff' : '#000') : '#fff' }}
+                />
+              </ListItemIcon>
+              <ListItemText
+                primary={t('winners')}
+                sx={{
+                  color: isMobile ? (darkMode ? '#fff' : '#000') : '#fff',
+                  fontSize: isMobile ? '16px' : '18px',
+                }}
+              />
+            </ListItem>
+          )}
+      
+          <ListItem component={Link} to="/payments" sx={{ width: 'auto' }}>
             <ListItemIcon>
-              <EmojiEventsIcon
+              <AttachMoney
                 sx={{ color: isMobile ? (darkMode ? '#fff' : '#000') : '#fff' }}
               />
             </ListItemIcon>
             <ListItemText
-              primary={t('winners')}
+              primary={t('payments')}
               sx={{
                 color: isMobile ? (darkMode ? '#fff' : '#000') : '#fff',
                 fontSize: isMobile ? '16px' : '18px',
