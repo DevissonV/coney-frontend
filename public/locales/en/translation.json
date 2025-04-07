@@ -187,5 +187,22 @@
   "winning_number": "Winning number",
   "winner_selected": "Winner selected",
   "winner_name": "Winner's name",
-  "error_selected_winner": "Unable to select the winner"
+  "error_selected_winner": "Unable to select the winner",
+  "payments": "Payments",
+  "no_payments": "No payments available",
+  "raffle_draw": "Draw",
+  "buyer": "Buyer",
+  "seller": "Seller",
+  "payment_tickets": "Tickets",
+  "payment_amount": "Amount paid",
+  "payment_status": "Status",
+  "payment_date": "Payment date",
+  "payment_completed": "Completed",
+  "payment_pending": "Pending",
+  "payment_failed": "Failed",
+  "amount_paid": "Amount paid",
+  "status": "Status",
+  "paid_date": "Paid date",
+  "draw_scheduled": "Draw on",
+  "draw_finished": "Draw completed on"
 }

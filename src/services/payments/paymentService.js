@@ -49,3 +49,22 @@ export const create = async (payload) => {
 
   return data.stripe_session_url;
 };
+
+/**
+ * Fetches the list of payments from the API.
+ *
+ * @async
+ * @function fetchPayments
+ * @returns {Promise<Object>} A promise that resolves to the payment data.
+ * @throws {Error} Throws an error if the API response status is false or the code is not 200.
+ */
+export const fetch = async () => {
+  const response = await privateAxios.get(`${API_URL}/payments/`, getHeaders());
+  const { status, code, data } = response.data;
+
+  if (!status || code !== 200) {
+    throw new Error('Error fetching payments');
+  }
+
+  return data;
+};
