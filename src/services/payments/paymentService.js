@@ -59,7 +59,10 @@ export const create = async (payload) => {
  * @throws {Error} Throws an error if the API response status is false or the code is not 200.
  */
 export const fetch = async () => {
-  const response = await privateAxios.get(`${API_URL}/payments/`, getHeaders());
+  const response = await privateAxios.get(
+    `${API_URL}/payments/?limit=100`,
+    getHeaders(),
+  );
   const { status, code, data } = response.data;
 
   if (!status || code !== 200) {
