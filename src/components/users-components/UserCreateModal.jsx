@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import {
   Box,
   Modal,
@@ -10,6 +9,9 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { userSchema } from '../../utils/validations/users/userSchema';
 import { formatName } from '../../utils/generic/convertText';
 import {
   containsDangerousCharacters,
@@ -19,88 +21,52 @@ import { errorAlert } from '../../services/generic/AlertService.js';
 
 const UserCreateModal = ({ open, onClose, onCreateUser }) => {
   const { t } = useTranslation();
-  const [newUser, setNewUser] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(userSchema),
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+    },
   });
-  const [errors, setErrors] = useState({});
 
-  useEffect(() => {
-    if (!open) {
-      setNewUser({
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-      });
-      setErrors({});
-    }
-  }, [open]);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewUser((prevUser) => ({
-      ...prevUser,
-      [name]: value,
-    }));
+  const handleClose = () => {
+    reset();
+    onClose();
   };
 
-  const validate = () => {
-    let tempErrors = {};
-
+  const onSubmit = (data) => {
     if (
-      containsDangerousCharacters(newUser.firstName) ||
-      hasSQLInjectionPatterns(newUser.firstName)
+      containsDangerousCharacters(data.firstName) ||
+      hasSQLInjectionPatterns(data.firstName) ||
+      containsDangerousCharacters(data.lastName) ||
+      hasSQLInjectionPatterns(data.lastName)
     ) {
       errorAlert({ messageKey: 'error_invalid_input' });
-      onClose();
-      return false;
+      return handleClose();
     }
 
-    if (
-      containsDangerousCharacters(newUser.lastName) ||
-      hasSQLInjectionPatterns(newUser.lastName)
-    ) {
-      errorAlert({ messageKey: 'error_invalid_input' });
-      onClose();
-      return false;
-    }
+    const formattedUser = {
+      ...data,
+      firstName: formatName(data.firstName),
+      lastName: formatName(data.lastName),
+    };
 
-    if (!newUser.firstName || newUser.firstName.length < 2)
-      tempErrors.firstName = t('first_name_error');
-    if (!newUser.lastName || newUser.lastName.length < 2)
-      tempErrors.lastName = t('last_name_error');
-    if (
-      !newUser.email ||
-      !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(newUser.email)
-    )
-      tempErrors.email = t('email_error');
-    if (!newUser.password || newUser.password.length < 6)
-      tempErrors.password = t('password_error');
-
-    setErrors(tempErrors);
-    return Object.keys(tempErrors).length === 0;
-  };
-
-  const handleSubmit = () => {
-    if (validate()) {
-      const formattedUser = {
-        ...newUser,
-        firstName: formatName(newUser.firstName),
-        lastName: formatName(newUser.lastName),
-      };
-
-      onCreateUser(formattedUser);
-      onClose();
-    }
+    onCreateUser(formattedUser);
+    handleClose();
   };
 
   return (
     <Modal
       open={open}
-      onClose={onClose}
+      onClose={handleClose}
       aria-labelledby="create-user-modal"
       aria-describedby="create-user-modal-description"
     >
@@ -118,7 +84,7 @@ const UserCreateModal = ({ open, onClose, onCreateUser }) => {
         }}
       >
         <IconButton
-          onClick={onClose}
+          onClick={handleClose}
           sx={{
             position: 'absolute',
             top: 8,
@@ -131,55 +97,48 @@ const UserCreateModal = ({ open, onClose, onCreateUser }) => {
         <Typography variant="h6" gutterBottom>
           {t('create_user')}
         </Typography>
-        <Box component="form">
+
+        <Box component="form" onSubmit={handleSubmit(onSubmit)}>
           <TextField
             label={t('email')}
-            name="email"
             fullWidth
             margin="normal"
-            value={newUser.email}
-            onChange={handleInputChange}
+            {...register('email')}
             error={!!errors.email}
-            helperText={errors.email}
+            helperText={errors.email && t(errors.email.message)}
             inputProps={{ maxLength: 100 }}
           />
           <TextField
             label={t('first_name')}
-            name="firstName"
             fullWidth
             margin="normal"
-            value={newUser.firstName}
-            onChange={handleInputChange}
+            {...register('firstName')}
             error={!!errors.firstName}
-            helperText={errors.firstName}
+            helperText={errors.firstName && t(errors.firstName.message)}
             inputProps={{ maxLength: 50 }}
           />
           <TextField
             label={t('last_name')}
-            name="lastName"
             fullWidth
             margin="normal"
-            value={newUser.lastName}
-            onChange={handleInputChange}
+            {...register('lastName')}
             error={!!errors.lastName}
-            helperText={errors.lastName}
+            helperText={errors.lastName && t(errors.lastName.message)}
             inputProps={{ maxLength: 50 }}
           />
-
           <TextField
             label={t('password')}
-            name="password"
             type="password"
             fullWidth
             margin="normal"
-            value={newUser.password}
-            onChange={handleInputChange}
+            {...register('password')}
             error={!!errors.password}
-            helperText={errors.password}
+            helperText={errors.password && t(errors.password.message)}
             inputProps={{ maxLength: 20 }}
           />
+
           <Box mt={2} display="flex" justifyContent="flex-end">
-            <Button variant="contained" color="primary" onClick={handleSubmit}>
+            <Button type="submit" variant="contained" color="primary">
               {t('save')}
             </Button>
           </Box>
