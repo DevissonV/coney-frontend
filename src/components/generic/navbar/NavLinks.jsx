@@ -69,7 +69,9 @@ const NavLinks = ({ darkMode }) => {
             <ListItem component={Link} to="/winners" sx={{ width: 'auto' }}>
               <ListItemIcon>
                 <EmojiEventsIcon
-                  sx={{ color: isMobile ? (darkMode ? '#fff' : '#000') : '#fff' }}
+                  sx={{
+                    color: isMobile ? (darkMode ? '#fff' : '#000') : '#fff',
+                  }}
                 />
               </ListItemIcon>
               <ListItemText
@@ -81,7 +83,7 @@ const NavLinks = ({ darkMode }) => {
               />
             </ListItem>
           )}
-      
+
           <ListItem component={Link} to="/payments" sx={{ width: 'auto' }}>
             <ListItemIcon>
               <AttachMoney

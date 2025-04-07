@@ -26,7 +26,6 @@ const RiffleCardList = ({
   return (
     <Grid container spacing={3}>
       {rows.map((raffle) => {
-
         return (
           <Grid item xs={12} sm={6} md={4} lg={3} key={raffle.id}>
             <motion.div

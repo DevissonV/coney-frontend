@@ -14,7 +14,7 @@ const PaymentSuccessPage = () => {
   useEffect(() => {
     if (paymentId) {
       update(paymentId, { status: 'completed' }).catch((err) => {
-        console.error('Error updating payment to completed:', err);
+        return err;
       });
     }
   }, [paymentId]);
@@ -34,7 +34,11 @@ const PaymentSuccessPage = () => {
         </Typography>
       </Alert>
 
-      <Button variant="contained" color="primary" onClick={() => navigate('/riffle')}>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => navigate('/riffle')}
+      >
         Volver a Rifas
       </Button>
     </Container>

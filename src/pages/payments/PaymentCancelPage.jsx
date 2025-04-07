@@ -30,12 +30,14 @@ const PaymentCancelPage = () => {
         <Typography variant="h6" fontWeight="bold">
           {t('payment_failed_title')}
         </Typography>
-        <Typography variant="body1">
-          {t('payment_failed_message')}
-        </Typography>
+        <Typography variant="body1">{t('payment_failed_message')}</Typography>
       </Alert>
 
-      <Button variant="contained" color="primary" onClick={() => navigate('/riffle')}>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => navigate('/riffle')}
+      >
         {t('back_to_riffle')}
       </Button>
     </Container>

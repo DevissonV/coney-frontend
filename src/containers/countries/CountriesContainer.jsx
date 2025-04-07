@@ -13,11 +13,24 @@ const CountriesContainer = () => {
     handleEditCountry,
   } = useCountries();
 
+  /**
+   * Filters a list of countries based on a query string.
+   *
+   * @param {Object} countries - The country object to filter.
+   * @param {string} countries.name - The name of the country.
+   * @param {string} query - The query string to match against the country name.
+   * @returns {boolean} - Returns `true` if the country's name includes the query string, otherwise `false`.
+   */
+  const filterFn = (countries, query) => {
+    const countrieName = countries.name?.toLowerCase() || '';
+    return countrieName.includes(query);
+  };
+
   const {
     searchQuery,
     setSearchQuery,
     filteredData: filteredCountries,
-  } = useSearch(countries, ['name']);
+  } = useSearch(countries, filterFn);
 
   const [openModal, setOpenModal] = useState(false);
   const [countryToEdit, setCountryToEdit] = useState(null);

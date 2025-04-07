@@ -1,13 +1,7 @@
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
 import 'dayjs/locale/en';
-import {
-  Box,
-  Card,
-  CardContent,
-  Typography,
-  Grid,
-} from '@mui/material';
+import { Box, Card, CardContent, Typography, Grid } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
@@ -31,22 +25,26 @@ const PaymentCardList = ({ rows }) => {
         </Grid>
       ) : (
         rows.map((payment) => {
-          const { 
-              raffle, 
-              tickets, 
-              created_at, 
-              amount, 
-              currency, 
-              status: paymentStatus 
+          const {
+            raffle,
+            tickets,
+            created_at,
+            amount,
+            currency,
+            status: paymentStatus,
           } = payment;
-          const ticketNumbers = tickets.map((t) => `#${t.ticket_number}`).join(', ');
+          const ticketNumbers = tickets
+            .map((t) => `#${t.ticket_number}`)
+            .join(', ');
           const buyer = tickets[0]?.user;
           const seller = raffle.created_by;
           const raffleEndDate = dayjs(raffle.end_date);
           const drawDateIsPast = dayjs().isAfter(raffleEndDate);
 
           const drawDate = raffleEndDate.format('D [de] MMMM [de] YYYY');
-          const paidDate = dayjs(created_at).format('D [de] MMMM [de] YYYY  ·  HH:mm');
+          const paidDate = dayjs(created_at).format(
+            'D [de] MMMM [de] YYYY  ·  HH:mm',
+          );
 
           return (
             <Grid item xs={12} sm={6} md={4} lg={3} key={payment.id}>
@@ -69,7 +67,10 @@ const PaymentCardList = ({ rows }) => {
                     <Box display="flex" alignItems="center" gap={1} mb={1}>
                       <CalendarTodayIcon fontSize="small" />
                       <Typography variant="body2">
-                        {drawDateIsPast ? t('draw_finished') : t('draw_scheduled')}: {drawDate}
+                        {drawDateIsPast
+                          ? t('draw_finished')
+                          : t('draw_scheduled')}
+                        : {drawDate}
                       </Typography>
                     </Box>
 
@@ -97,42 +98,42 @@ const PaymentCardList = ({ rows }) => {
                     <Box display="flex" alignItems="center" gap={1} mb={1}>
                       <AttachMoneyIcon fontSize="small" />
                       <Typography variant="body2">
-                        {t('amount_paid')}:{" "}
+                        {t('amount_paid')}:{' '}
                         {new Intl.NumberFormat('es-CO', {
                           style: 'currency',
-                          currency: currency, 
+                          currency: currency,
                           minimumFractionDigits: 0,
-                        }).format(amount)} 
+                        }).format(amount)}
                       </Typography>
                     </Box>
 
                     <Box display="flex" alignItems="center" gap={1} mb={1}>
                       {paymentStatus === 'completed' && (
-                          <CheckCircleIcon color="success" fontSize="small" />
+                        <CheckCircleIcon color="success" fontSize="small" />
                       )}
                       {paymentStatus === 'pending' && (
-                          <AccessTimeIcon color="warning" fontSize="small" />
+                        <AccessTimeIcon color="warning" fontSize="small" />
                       )}
                       {paymentStatus === 'failed' && (
-                          <AttachMoneyIcon color="error" fontSize="small" />
+                        <AttachMoneyIcon color="error" fontSize="small" />
                       )}
                       {paymentStatus === 'canceled' && (
-                          <AttachMoneyIcon color="disabled" fontSize="small" />
+                        <AttachMoneyIcon color="disabled" fontSize="small" />
                       )}
 
                       <Typography
-                          variant="body2"
-                          color={
+                        variant="body2"
+                        color={
                           paymentStatus === 'completed'
-                              ? 'green'
-                              : paymentStatus === 'pending'
+                            ? 'green'
+                            : paymentStatus === 'pending'
                               ? 'orange'
                               : paymentStatus === 'failed'
-                              ? 'red'
-                              : 'gray'
-                          }
+                                ? 'red'
+                                : 'gray'
+                        }
                       >
-                          {t('status')}: {t(paymentStatus)}
+                        {t('status')}: {t(paymentStatus)}
                       </Typography>
                     </Box>
 

@@ -51,8 +51,6 @@ const TicketsPage = ({
     accent: isDarkMode ? '#303f9f' : '#e3f2fd',
   };
 
-  
-
   return (
     <Box
       sx={{
@@ -206,7 +204,9 @@ const TicketsPage = ({
                 </Typography>
                 <Typography variant="body2">
                   {t('raffle_draw_date', {
-                    date: dayjs(raffle.end_date).format('D [de] MMMM [de] YYYY'),
+                    date: dayjs(raffle.end_date).format(
+                      'D [de] MMMM [de] YYYY',
+                    ),
                   })}
                   <br />
                   {t('raffle_description')}
@@ -272,7 +272,6 @@ const TicketsPage = ({
         tickets={tickets}
         raffle={raffle}
       />
-
     </Box>
   );
 };

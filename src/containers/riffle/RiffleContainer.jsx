@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import RifflePage from '../../pages/riffle/RifflePage';
 import { useRiffle } from '../../hooks/riffle/useRiffle';
 import { useSearch } from '../../hooks/generic/useSearch';
@@ -14,22 +14,25 @@ const RiffleContainer = () => {
   } = useRiffle();
 
   /**
-   * Memoized value that filters the `riffle` array to include only active items.
+   * Filters a riffle object based on a query string.
    *
-   * @constant
-   * @type {Array<Object>}
-   * @returns {Array<Object>} An array of objects where each object has `is_active` set to true.
-   * @dependency {Array<Object>} riffle - The array of items to filter.
+   * @param {Object} riffle - The riffle object to be filtered.
+   * @param {string} riffle.name - The name of the raffle.
+   * @param {string} riffle.price - The name of the winner.
+   * @param {string} query - The query string to filter by.
+   * @returns {boolean} - Returns true if the raffle name or winner name includes the query string (case-insensitive), otherwise false.
    */
-  const activeRiffle = useMemo(() => {
-    return riffle.filter((item) => item.is_active);
-  }, [riffle]);
+  const filterFn = (riffle, query) => {
+    const raffleName = riffle.name?.toLowerCase() || '';
+    const rafflePrice = riffle.price?.toLowerCase() || '';
+    return raffleName.includes(query) || rafflePrice.includes(query);
+  };
 
   const {
     searchQuery,
     setSearchQuery,
     filteredData: filteredRiffle,
-  } = useSearch(activeRiffle, ['name']);
+  } = useSearch(riffle, filterFn);
 
   const [openModal, setOpenModal] = useState(false);
   const [riffleToEdit, setRiffleToEdit] = useState(null);

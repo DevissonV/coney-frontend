@@ -11,7 +11,7 @@ export const usePayments = () => {
     try {
       const data = await fetch();
       setPayments(data);
-    } catch (error) {
+    } catch {
       errorAlert({ messageKey: 'error_loading_payments' });
     } finally {
       setLoading(false);

@@ -1,10 +1,4 @@
-import {
-  Dialog,
-  Button,
-  Card,
-  CardContent,
-  Typography,
-} from '@mui/material';
+import { Dialog, Button, Card, CardContent, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import useAuthStore from '../../stores/auth/useAuthStore';
 import { jwt_Decode } from '../../utils/generic/jwtDecode';
@@ -47,7 +41,7 @@ const TicketFormModal = ({
       onClose();
 
       window.location.href = sessionUrl;
-    } catch (error) {
+    } catch {
       errorAlert({ messageKey: 'error_unexpected' });
     }
   };
