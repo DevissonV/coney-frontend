@@ -201,8 +201,12 @@
   "payment_pending": "Pending",
   "payment_failed": "Failed",
   "amount_paid": "Amount paid",
-  "status": "Status",
   "paid_date": "Paid date",
   "draw_scheduled": "Draw on",
-  "draw_finished": "Draw completed on"
+  "draw_finished": "Draw completed on",
+  "status": "Status",
+  "completed": "Completed",
+  "pending": "Pending",
+  "failed": "Failed",
+  "canceled": "Canceled"
 }

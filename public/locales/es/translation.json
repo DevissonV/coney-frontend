@@ -203,8 +203,12 @@
   "payment_pending": "Pendiente",
   "payment_failed": "Fallido",
   "amount_paid": "Monto pagado",
-  "status": "Estado",
   "paid_date": "Fecha de pago",
   "draw_scheduled": "Juega el",
-  "draw_finished": "Sorteo finalizado el"
+  "draw_finished": "Sorteo finalizado el",
+  "status": "Estado",
+  "completed": "Completado",
+  "pending": "Pendiente",
+  "failed": "Fallido",
+  "canceled": "Cancelado"
 }

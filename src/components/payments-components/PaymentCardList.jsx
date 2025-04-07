@@ -24,7 +24,14 @@ const PaymentCardList = ({ rows }) => {
   return (
     <Grid container spacing={3}>
       {rows.map((payment) => {
-        const { raffle, tickets, created_at, amount, currency } = payment;
+        const { 
+            raffle, 
+            tickets, 
+            created_at, 
+            amount, 
+            currency, 
+            status: paymentStatus 
+        } = payment;
         const ticketNumbers = tickets.map((t) => `#${t.ticket_number}`).join(', ');
         const buyer = tickets[0]?.user;
         const seller = raffle.created_by;
@@ -86,11 +93,34 @@ const PaymentCardList = ({ rows }) => {
                       {t('amount_paid')}: ${amount} {currency}
                     </Typography>
                   </Box>
-
                   <Box display="flex" alignItems="center" gap={1} mb={1}>
-                    <CheckCircleIcon color="success" fontSize="small" />
-                    <Typography variant="body2" color="green">
-                      {t('status')}: {t('completed')}
+                    
+                    {paymentStatus === 'completed' && (
+                        <CheckCircleIcon color="success" fontSize="small" />
+                    )}
+                    {paymentStatus === 'pending' && (
+                        <AccessTimeIcon color="warning" fontSize="small" />
+                    )}
+                    {paymentStatus === 'failed' && (
+                        <AttachMoneyIcon color="error" fontSize="small" />
+                    )}
+                    {paymentStatus === 'canceled' && (
+                        <AttachMoneyIcon color="disabled" fontSize="small" />
+                    )}
+
+                    <Typography
+                        variant="body2"
+                        color={
+                        paymentStatus === 'completed'
+                            ? 'green'
+                            : paymentStatus === 'pending'
+                            ? 'orange'
+                            : paymentStatus === 'failed'
+                            ? 'red'
+                            : 'gray'
+                        }
+                    >
+                        {t('status')}: {t(paymentStatus)}
                     </Typography>
                   </Box>
 
