@@ -213,5 +213,19 @@
   "failed": "Fallido",
   "canceled": "Cancelado",
   "no_payments_available": "No hay pagos disponibles",
-  "search_placeholder_payment": "Buscar por nombre de rifa o comprador"
+  "search_placeholder_payment": "Buscar por nombre de rifa o comprador",
+  "name_required": "El nombre es obligatorio.",
+  "name_max": "El nombre no puede exceder los 100 caracteres.",
+  "description_max": "La descripción no puede exceder los 255 caracteres.",
+  "init_date_required": "La fecha de inicio es obligatoria.",
+  "end_date_required": "La fecha de finalización es obligatoria.",
+  "endDate must be greater than initDate": "La fecha de finalización debe ser posterior a la fecha de inicio.",
+  "price_positive": "El precio debe ser un número positivo.",
+  "ticketCount_min": "Debe crear al menos 10 boletas.",
+  "name_min": "El nombre debe tener al menos 6 caracteres.",
+  "price_min": "El precio debe ser de al menos 1000 pesos.",
+  "end_date_must_be_after_init_date": "End date must be after start date",
+  "init_date_invalid": "La fecha de inicio no es válida",
+  "end_date_invalid": "La fecha de finalización no es válida",
+  "endDate_must_be_greater_than_initDate": "La fecha de finalización debe ser posterior a la de inicio"
 }

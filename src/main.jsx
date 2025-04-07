@@ -4,13 +4,15 @@ import App from './App';
 import './index.css';
 import './utils/generic/i18n';
 
-// Crea la raíz de React en el elemento con ID 'root'
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-// Renderiza la aplicación usando el nuevo método de React 18
 root.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  // <App/>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <App />
+    </LocalizationProvider>
+  </React.StrictMode>
 );
