@@ -211,5 +211,6 @@
   "pending": "Pendiente",
   "failed": "Fallido",
   "canceled": "Cancelado",
-  "no_payments_available": "No hay pagos disponibles"
+  "no_payments_available": "No hay pagos disponibles",
+  "search_placeholder_payment": "Buscar por nombre de rifa o comprador"
 }

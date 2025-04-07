@@ -209,5 +209,6 @@
   "pending": "Pending",
   "failed": "Failed",
   "canceled": "Canceled",
-  "no_payments_available": "No payments available"
+  "no_payments_available": "No payments available",
+  "search_placeholder_payment": "Search by raffle name or buyer"
 }
