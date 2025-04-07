@@ -210,5 +210,6 @@
   "completed": "Completado",
   "pending": "Pendiente",
   "failed": "Fallido",
-  "canceled": "Cancelado"
+  "canceled": "Cancelado",
+  "no_payments_available": "No hay pagos disponibles"
 }
