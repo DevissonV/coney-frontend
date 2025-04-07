@@ -90,11 +90,16 @@ const PaymentCardList = ({ rows }) => {
                   <Box display="flex" alignItems="center" gap={1} mb={1}>
                     <AttachMoneyIcon fontSize="small" />
                     <Typography variant="body2">
-                      {t('amount_paid')}: ${amount} {currency}
+                      {t('amount_paid')}:{" "}
+                      {new Intl.NumberFormat('es-CO', {
+                        style: 'currency',
+                        currency: currency, 
+                        minimumFractionDigits: 0,
+                      }).format(amount)} 
                     </Typography>
                   </Box>
+
                   <Box display="flex" alignItems="center" gap={1} mb={1}>
-                    
                     {paymentStatus === 'completed' && (
                         <CheckCircleIcon color="success" fontSize="small" />
                     )}
