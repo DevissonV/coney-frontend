@@ -221,5 +221,9 @@
   "price_positive": "Price must be a positive number.",
   "ticketCount_min": "You must create at least 10 tickets.",
   "name_min": "Name must be at least 6 characters long.",
-  "price_min": "Price must be at least 1000 pesos."
+  "price_min": "Price must be at least 1000 pesos.",
+  "end_date_must_be_after_init_date": "La fecha final debe ser posterior a la inicial",
+  "init_date_invalid": "Start date is invalid",
+  "end_date_invalid": "End date is invalid",
+  "endDate_must_be_greater_than_initDate": "End date must be greater than start date"
 }

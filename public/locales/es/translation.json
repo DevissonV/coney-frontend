@@ -223,5 +223,9 @@
   "price_positive": "El precio debe ser un número positivo.",
   "ticketCount_min": "Debe crear al menos 10 boletas.",
   "name_min": "El nombre debe tener al menos 6 caracteres.",
-  "price_min": "El precio debe ser de al menos 1000 pesos."
+  "price_min": "El precio debe ser de al menos 1000 pesos.",
+  "end_date_must_be_after_init_date": "End date must be after start date",
+  "init_date_invalid": "La fecha de inicio no es válida",
+  "end_date_invalid": "La fecha de finalización no es válida",
+  "endDate_must_be_greater_than_initDate": "La fecha de finalización debe ser posterior a la de inicio"
 }

@@ -117,7 +117,7 @@ export const deleteRiffle = async (id) => {
  * @throws {Error} If the update fails or the response status code is not 200.
  */
 export const editRiffle = async (id, raffleData) => {
-  const { ...sanitizedData } = raffleData;
+  const { ticketCount, ...sanitizedData } = raffleData;
   const response = await privateAxios.patch(
     `${API_URL}/raffles/${id}`,
     sanitizedData,

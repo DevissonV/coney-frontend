@@ -8,10 +8,11 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useTranslation } from 'react-i18next';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { DateTimePicker } from '@mui/x-date-pickers';
+import dayjs from 'dayjs';
 import { raffleSchema } from '../../utils/validations/raffles/raffleSchema';
-import { formatDateForInput, getLocalDateTime } from '../../utils/generic/transformDates';
 import { useEffect } from 'react';
 
 const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
@@ -21,28 +22,28 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
   const {
     register,
     handleSubmit,
+    control,
     reset,
-    setValue,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(raffleSchema),
     defaultValues: {
       name: '',
       description: '',
-      initDate: getLocalDateTime(),
-      endDate: getLocalDateTime(),
+      initDate: dayjs(),
+      endDate: dayjs(),
       price: '',
       ticketCount: '',
     },
   });
 
   useEffect(() => {
-    if (initialValues?.name) {
+    if (isEdit) {
       reset({
         name: initialValues.name || '',
         description: initialValues.description || '',
-        initDate: formatDateForInput(initialValues.init_date),
-        endDate: formatDateForInput(initialValues.end_date),
+        initDate: dayjs(initialValues.init_date),
+        endDate: dayjs(initialValues.end_date),
         price: initialValues.price?.toString() || '',
         ticketCount: initialValues.tickets_created || '',
       });
@@ -50,16 +51,20 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
       reset({
         name: '',
         description: '',
-        initDate: getLocalDateTime(),
-        endDate: getLocalDateTime(),
+        initDate: dayjs(),
+        endDate: dayjs(),
         price: '',
         ticketCount: '',
       });
     }
-  }, [initialValues, reset]);
+  }, [initialValues, reset, isEdit]);
 
   const onSubmitForm = (data) => {
-    onSubmit(data);
+    onSubmit({
+      ...data,
+      initDate: dayjs(data.initDate).toISOString(),
+      endDate: dayjs(data.endDate).toISOString(),
+    });
     onClose();
     reset();
   };
@@ -95,26 +100,53 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
             error={!!errors.description}
             helperText={errors.description && t(errors.description.message)}
           />
-          <TextField
-            label={t('initDate')}
-            type="datetime-local"
-            fullWidth
-            margin="normal"
-            {...register('initDate')}
-            error={!!errors.initDate}
-            helperText={errors.initDate && t(errors.initDate.message)}
-            InputLabelProps={{ shrink: true }}
+
+          <Controller
+            control={control}
+            name="initDate"
+            render={({ field }) => (
+              <DateTimePicker
+                label={t('initDate')}
+                {...field}
+                ampm={false}
+                format="DD/MM/YYYY HH:mm"
+                value={field.value}
+                onChange={(val) => field.onChange(val)}
+                slotProps={{
+                  textField: {
+                    fullWidth: true,
+                    margin: 'normal',
+                    error: !!errors.initDate,
+                    helperText: errors.initDate && t(errors.initDate.message),
+                  },
+                }}
+              />
+            )}
           />
-          <TextField
-            label={t('endDate')}
-            type="datetime-local"
-            fullWidth
-            margin="normal"
-            {...register('endDate')}
-            error={!!errors.endDate}
-            helperText={errors.endDate && t(errors.endDate.message)}
-            InputLabelProps={{ shrink: true }}
+
+          <Controller
+            control={control}
+            name="endDate"
+            render={({ field }) => (
+              <DateTimePicker
+                label={t('endDate')}
+                {...field}
+                ampm={false}
+                format="DD/MM/YYYY HH:mm"
+                value={field.value}
+                onChange={(val) => field.onChange(val)}
+                slotProps={{
+                  textField: {
+                    fullWidth: true,
+                    margin: 'normal',
+                    error: !!errors.endDate,
+                    helperText: errors.endDate && t(errors.endDate.message),
+                  },
+                }}
+              />
+            )}
           />
+
           <TextField
             label={t('price')}
             fullWidth
