@@ -94,3 +94,28 @@ export const markCompleted = async (id) => {
 
   return data;
 };
+
+/**
+ * Validates and updates expired pending payments.
+ * If a payment has been pending for too long, it will be marked as failed and its tickets released.
+ *
+ * @async
+ * @function validateExpiredPayments
+ * @returns {Promise<Object>} The result of the validation process.
+ * @throws {Error} If the API call fails.
+ */
+export const validateExpiredPayments = async () => {
+  const response = await privateAxios.post(
+    `${API_URL}/payments/validate-expired`,
+    {},
+    getHeaders(),
+  );
+
+  const { status, code, data } = response.data;
+
+  if (!status || code !== 200) {
+    throw new Error('Error validating expired payments');
+  }
+
+  return data;
+};

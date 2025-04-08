@@ -1,5 +1,8 @@
 import { useState } from 'react';
-import { fetch } from '../../services/payments/paymentService';
+import {
+  fetch,
+  validateExpiredPayments,
+} from '../../services/payments/paymentService';
 import { errorAlert } from '../../services/generic/AlertService';
 
 export const usePayments = () => {
@@ -9,6 +12,8 @@ export const usePayments = () => {
   const loadPayments = async () => {
     setLoading(true);
     try {
+      await validateExpiredPayments();
+
       const data = await fetch();
       setPayments(data);
     } catch {

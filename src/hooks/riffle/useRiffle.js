@@ -14,6 +14,7 @@ import {
 } from '../../services/generic/AlertService';
 import { getUserById } from '../../services/users/UserService';
 import { ticketById } from '../../services/tickets/TicketService';
+import { validateExpiredPayments } from '../../services/payments/paymentService';
 
 /**
  * Custom hook to manage riffle-related operations.
@@ -29,6 +30,8 @@ export const useRiffle = () => {
   const loadRaffle = async () => {
     setLoading(true);
     try {
+      await validateExpiredPayments();
+
       const data = await fetchRaffle();
 
       setRiffle(data);
