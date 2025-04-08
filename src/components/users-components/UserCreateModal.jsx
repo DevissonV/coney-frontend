@@ -117,7 +117,7 @@ const UserCreateModal = ({ open, onClose, onCreateUser }) => {
         </Avatar>
 
         <Typography variant="h6" fontWeight="bold" gutterBottom>
-          {user ? t('join_coney') : t('create_user')}
+          {!user ? t('join_coney') : t('create_user')}
         </Typography>
 
         {!user && (
@@ -198,7 +198,7 @@ const UserCreateModal = ({ open, onClose, onCreateUser }) => {
 
           <Box mt={3}>
             <Button type="submit" variant="contained" fullWidth size="large">
-              {t(user ? 'register' : 'save')}
+              {t(!user ? 'register' : 'save')}
             </Button>
           </Box>
         </Box>
