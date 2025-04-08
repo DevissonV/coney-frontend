@@ -251,5 +251,6 @@
   "thank_you_playing": "¡Gracias por jugar con nosotros!",
   "account_created_redirecting": "Cuenta creada. Redirigiendo...",
   "email_verification_sent": "Te hemos enviado un correo para verificar tu cuenta.",
-  "create_riffle_description": "Completa los detalles de la rifa para crear una nueva e invitar a los participantes."
+  "create_riffle_description": "Completa los detalles de la rifa para crear una nueva e invitar a los participantes.",
+  "edit_riffle_description": "Edita los detalles de la rifa para actualizar la información y mantener a los participantes informados."
 }
