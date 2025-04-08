@@ -71,3 +71,26 @@ export const fetch = async () => {
 
   return data;
 };
+
+/**
+ * Marks a payment as completed by sending a PATCH request to the server.
+ *
+ * @async
+ * @function markCompleted
+ * @param {string} id - The unique identifier of the payment to be marked as completed.
+ * @returns {Object} The data returned from the server after successfully marking the payment as completed.
+ * @throws {Error} If the server response indicates a failure (e.g., status is false or code is not 200).
+ */
+export const markCompleted = async (id) => {
+  const response = await privateAxios.patch(
+    `${API_URL}/payments/${id}/mark-completed`,
+    {},
+    getHeaders(),
+  );
+  const { status, code, data } = response.data;
+  if (!status || code !== 200) {
+    throw new Error('error completing payment');
+  }
+
+  return data;
+};
