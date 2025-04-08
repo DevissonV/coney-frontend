@@ -12,6 +12,8 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import useAuthStore from '../../stores/auth/useAuthStore';
+import { Button } from '@mui/material';
+import PaymentIcon from '@mui/icons-material/Payment';
 
 const PaymentCardList = ({ rows }) => {
   const { t } = useTranslation();
@@ -152,6 +154,20 @@ const PaymentCardList = ({ rows }) => {
                         {t('paid_date')}: {paidDate}
                       </Typography>
                     </Box>
+  
+                    {paymentStatus === 'pending' && payment.stripe_session_url && (
+                      <Box mt={2} display="flex" justifyContent="center">
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          startIcon={<PaymentIcon />}
+                          onClick={() => window.location.href = payment.stripe_session_url}
+                        >
+                          {t('pay_now')}
+                        </Button>
+                      </Box>
+                    )}
+
                   </CardContent>
                 </Card>
               </motion.div>

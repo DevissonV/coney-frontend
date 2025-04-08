@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Alert, Container, Typography, Button } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { update } from '../../services/payments/paymentService';
+import { markCompleted } from '../../services/payments/paymentService';
 import { useTranslation } from 'react-i18next';
 
 const PaymentSuccessPage = () => {
@@ -13,7 +13,7 @@ const PaymentSuccessPage = () => {
 
   useEffect(() => {
     if (paymentId) {
-      update(paymentId, { status: 'completed' }).catch((err) => {
+      markCompleted(paymentId).catch((err) => {
         return err;
       });
     }

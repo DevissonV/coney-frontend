@@ -263,5 +263,6 @@
   "manage_platform_summary": "Gestiona usuarios, rifas y pagos desde el panel de administración.",
   "explore_features": "Explora las funcionalidades y empieza a gestionar tus rifas.",
   "error_token": "Token inválido o expirado.",
-  "error_loading_data": "Ocurrió un error cargando la información."
+  "error_loading_data": "Ocurrió un error cargando la información.",
+  "pay_now": "Pagar ahora"
 }
