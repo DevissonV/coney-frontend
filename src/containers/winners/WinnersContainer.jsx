@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import WinnersPage from '../../pages/winners/WinnersPage';
 import { useWinners } from '../../hooks/winners/useWinners';
 import { useSearch } from '../../hooks/generic/useSearch';
+import { errorAlert } from '../../services/generic/AlertService.js';
 
 const WinnersContainer = () => {
   const { winners, loadWinners } = useWinners();

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import RifflePage from '../../pages/riffle/RifflePage';
 import { useRiffle } from '../../hooks/riffle/useRiffle';
 import { useSearch } from '../../hooks/generic/useSearch';
+import { errorAlert } from '../../services/generic/AlertService.js';
 
 const RiffleContainer = () => {
   const {

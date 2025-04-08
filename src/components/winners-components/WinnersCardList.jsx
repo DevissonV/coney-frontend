@@ -1,10 +1,8 @@
-import { Box, Card, CardContent, Typography, Grid } from '@mui/material';
+import { Box, Typography, Grid } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import Avatar from '@mui/material/Avatar';
-import { ConfirmationNumber } from '@mui/icons-material';
 import GenericCard from '../../components/generic/cards/GenericCard';
 
 const WinnersCardList = ({ rows }) => {

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import PaymentsPage from '../../pages/payments/PaymentsPage';
 import { usePayments } from '../../hooks/payments/usePayments';
 import { useSearch } from '../../hooks/generic/useSearch';
+import { errorAlert } from '../../services/generic/AlertService.js';
 
 const PaymentsContainer = () => {
   const { payments, loadPayments } = usePayments();
