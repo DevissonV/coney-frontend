@@ -175,9 +175,9 @@ export const useUsers = () => {
    * @param {string} email - The email of the user.
    * @param {string} newPassword - The new password.
    */
-  const handleChangePassword = useCallback(async (email, newPassword) => {
+  const handleChangePassword = useCallback(async (token, newPassword) => {
     try {
-      await changeUserPassword(email, newPassword);
+      await changeUserPassword(token, newPassword);
       toast({
         icon: 'success',
         titleKey: 'success',

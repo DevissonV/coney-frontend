@@ -146,9 +146,10 @@ export const resendEmail = async (email) => {
  * @throws {Error} If the request fails.
  */
 export const recoverPassword = async (email) => {
-  const response = await privateAxios.post(
-    `${API_URL}/Users/recoveryUserPassword/${email}`,
-  );
+  const response = await privateAxios.post(`${API_URL}/password-recovery`, {
+    email,
+  });
+
   const { status, code, data } = response.data;
 
   if (!status || code !== 200) {
@@ -165,12 +166,12 @@ export const recoverPassword = async (email) => {
  * @returns {Promise<Object>} The response data.
  * @throws {Error} If the request fails.
  */
-export const changeUserPassword = async (email, newPassword) => {
+export const changeUserPassword = async (token, newPassword) => {
   const response = await privateAxios.post(
-    `${API_URL}/Users/changeUserPassword`,
+    `${API_URL}/password-recovery/reset`,
     {
-      NewPassword: newPassword,
-      Email: email,
+      token,
+      newPassword,
     },
   );
   const { status, code, data } = response.data;

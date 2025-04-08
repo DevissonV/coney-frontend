@@ -97,7 +97,7 @@
   "user_approved": "Usuario aprobado",
   "resend_email": "Re enviar correo",
   "email_resent": "Correo reenviado",
-  "email_sent": "Correo enviado",
+  "email_sent": "Correo enviado, por favor revise su bandeja de entrada y/o spam.",
   "attention": "¡Atención!",
   "verification_required": "Para poder crear e inscribirse en rifas y reservar boletas, debe estar verificado.",
   "check_email": "Por favor, revise su correo electrónico para completar el proceso de activación.",
@@ -227,5 +227,8 @@
   "end_date_must_be_after_init_date": "End date must be after start date",
   "init_date_invalid": "La fecha de inicio no es válida",
   "end_date_invalid": "La fecha de finalización no es válida",
-  "endDate_must_be_greater_than_initDate": "La fecha de finalización debe ser posterior a la de inicio"
+  "endDate_must_be_greater_than_initDate": "La fecha de finalización debe ser posterior a la de inicio",
+  "invalid_token": "Token inválido o expirado",
+  "recover_password_instruction": "Ingresa tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.",
+  "error_recovering_password": "No se pudo enviar el correo de recuperación"
 }

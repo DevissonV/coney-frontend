@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Dialog,
   DialogTitle,
@@ -8,82 +10,88 @@ import {
   Button,
   IconButton,
   Box,
+  Typography,
+  Avatar,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import EmailIcon from '@mui/icons-material/Email';
 import { useTranslation } from 'react-i18next';
 import { useUsers } from '../../hooks/users/useUsers';
 import { errorAlert } from '../../services/generic/AlertService';
 
-/**
- * Modal component for user password recovery.
- * @component
- * @param {Object} props - Component props.
- * @param {boolean} props.open - Controls whether the modal is open.
- * @param {Function} props.onClose - Function to handle closing the modal.
- */
+const schema = z.object({
+  email: z.string().email('Correo inválido'),
+});
+
 const UserPasswordRecoveryModal = ({ open, onClose }) => {
   const { t } = useTranslation();
-  const [email, setEmail] = useState('');
   const { handleRecoverPassword } = useUsers();
 
-  /**
-   * Handles password recovery process.
-   * If an email is provided, it triggers the password recovery function.
-   * Otherwise, it displays an error alert.
-   */
-  const handleRecover = async () => {
-    if (email) {
-      try {
-        await handleRecoverPassword(email);
-        onClose();
-      } catch {
-        errorAlert({ messageKey: 'error_recovering_password' });
-        onClose();
-      }
-    } else {
-      errorAlert({ messageKey: 'missing_fields' });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm({
+    resolver: zodResolver(schema),
+    defaultValues: { email: '' },
+  });
+
+  const onSubmit = async ({ email }) => {
+    try {
+      await handleRecoverPassword(email);
+      reset();
       onClose();
+    } catch {
+      errorAlert({ messageKey: 'error_recovering_password' });
     }
   };
 
   return (
-    <Dialog open={open} onClose={onClose}>
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          pr: 1,
-        }}
-      >
-        <DialogTitle>{t('recover_password')}</DialogTitle>
-        <IconButton
-          aria-label="close"
-          onClick={onClose}
-          sx={{
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
+    <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', pr: 1, pt: 1 }}>
+        <IconButton onClick={onClose}>
           <CloseIcon />
         </IconButton>
       </Box>
-      <DialogContent>
-        <TextField
-          required
-          autoFocus
-          margin="dense"
-          label={t('email')}
-          type="email"
-          fullWidth
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleRecover} color="primary" variant="contained">
-          {t('send')}
-        </Button>
-      </DialogActions>
+
+      <Box textAlign="center" mt={-3}>
+        <Avatar sx={{ bgcolor: 'primary.main', mx: 'auto', width: 56, height: 56 }}>
+          <EmailIcon />
+        </Avatar>
+        <DialogTitle sx={{ fontWeight: 700, mt: 1 }}>
+          {t('recover_password')}
+        </DialogTitle>
+        <Typography variant="body2" sx={{ px: 3, mb: 2 }}>
+          {t('recover_password_instruction')}
+        </Typography>
+      </Box>
+
+      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+        <DialogContent>
+          <TextField
+            label={t('email')}
+            type="email"
+            fullWidth
+            autoFocus
+            error={!!errors.email}
+            helperText={errors.email?.message}
+            {...register('email')}
+          />
+        </DialogContent>
+
+        <DialogActions sx={{ px: 3, pb: 2 }}>
+          <Button
+            type="submit"
+            variant="contained"
+            fullWidth
+            size="large"
+            disabled={isSubmitting}
+          >
+            {t('send')}
+          </Button>
+        </DialogActions>
+      </form>
     </Dialog>
   );
 };

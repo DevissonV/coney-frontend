@@ -97,7 +97,7 @@
   "user_approved": "User approved",
   "resend_email": "Resend email",
   "email_resent": "Email resent",
-  "email_sent": "Email sent",
+  "email_sent": "Email sent, please check your inbox and/or spam",
   "attention": "Attention!",
   "verification_required": "To create or join raffles and reserve tickets, you must be verified.",
   "check_email": "Please check your email to complete the activation process.",
@@ -225,5 +225,8 @@
   "end_date_must_be_after_init_date": "La fecha final debe ser posterior a la inicial",
   "init_date_invalid": "Start date is invalid",
   "end_date_invalid": "End date is invalid",
-  "endDate_must_be_greater_than_initDate": "End date must be greater than start date"
+  "endDate_must_be_greater_than_initDate": "End date must be greater than start date",
+  "invalid_token": "Token invalid or expired",
+  "recover_password_instruction": "Enter your email address and we'll send you a link to reset your password.",
+  "error_recovering_password": "The recovery email could not be sent."
 }

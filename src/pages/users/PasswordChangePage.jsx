@@ -1,45 +1,42 @@
-import { Typography, Box, Button, TextField } from '@mui/material';
-import { useState, useEffect } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  Paper,
+  Divider,
+} from '@mui/material';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
 import { useUsers } from '../../hooks/users/useUsers';
 import { errorAlert, toast } from '../../services/generic/AlertService';
+import LockResetIcon from '@mui/icons-material/LockReset';
 
-/**
- * Page component for handling password change requests.
- *
- * @component
- */
 const PasswordChangePage = () => {
   const { t } = useTranslation();
   const { handleChangePassword } = useUsers();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const location = useLocation();
+
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [email, setEmail] = useState('');
 
-  useEffect(() => {
-    const hasReloaded = sessionStorage.getItem('password-change-reloaded');
+  const token = searchParams.get('token');
 
-    if (!hasReloaded) {
-      sessionStorage.setItem('password-change-reloaded', 'true');
-      window.location.reload();
-    }
-  }, [location]);
-
-  /**
-   * Handles the password change submission.
-   * Validates password fields and calls the password change function.
-   */
   const handleSubmit = async () => {
+    if (!token) {
+      errorAlert({ messageKey: 'invalid_token' });
+      return;
+    }
+
     if (newPassword !== confirmPassword) {
       errorAlert({ messageKey: 'passwords_do_not_match' });
       return;
     }
 
     try {
-      await handleChangePassword(email, newPassword);
+      await handleChangePassword(token, newPassword);
       toast({ messageKey: 'password_change_success' });
       navigate('/login');
     } catch {
@@ -48,69 +45,44 @@ const PasswordChangePage = () => {
   };
 
   return (
-    <Box
-      padding={4}
-      textAlign="center"
-      borderRadius={3}
-      maxWidth="400px"
-      margin="40px auto"
-      sx={{
-        border: '1px solid',
-        boxShadow: 5,
-      }}
-    >
-      <Typography variant="h4" color="primary" fontWeight={700} gutterBottom>
-        {t('change_password')}
-      </Typography>
-      <Typography variant="body1" sx={{ marginBottom: '16px' }}>
-        {t('enter_new_password')}
-      </Typography>
+    <Box minHeight="100vh" display="flex" alignItems="center" justifyContent="center" bgcolor="#f5f5f5" px={2}>
+      <Paper elevation={6} sx={{ p: 4, maxWidth: 400, width: '100%', textAlign: 'center' }}>
+        <LockResetIcon sx={{ fontSize: 48, color: 'primary.main', mb: 2 }} />
+        <Typography variant="h5" fontWeight={700} color="primary" gutterBottom>
+          {t('change_password')}
+        </Typography>
+        <Typography variant="body2" mb={2}>
+          {t('enter_new_password')}
+        </Typography>
 
-      <TextField
-        fullWidth
-        margin="normal"
-        label={t('email')}
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
+        <TextField
+          label={t('new_password')}
+          type="password"
+          fullWidth
+          margin="normal"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+        />
+        <TextField
+          label={t('confirm_password')}
+          type="password"
+          fullWidth
+          margin="normal"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
 
-      <TextField
-        fullWidth
-        margin="normal"
-        label={t('new_password')}
-        type="password"
-        value={newPassword}
-        onChange={(e) => setNewPassword(e.target.value)}
-      />
+        <Divider sx={{ my: 3 }} />
 
-      <TextField
-        fullWidth
-        margin="normal"
-        label={t('confirm_password')}
-        type="password"
-        value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}
-      />
-
-      <Button
-        onClick={handleSubmit}
-        variant="contained"
-        color="primary"
-        sx={{ marginTop: '20px' }}
-        fullWidth
-      >
-        {t('change_password')}
-      </Button>
-
-      <Button
-        component={Link}
-        to="/login"
-        variant="text"
-        sx={{ marginTop: '10px' }}
-      >
-        {t('go_to_login')}
-      </Button>
+        <Button
+          variant="contained"
+          fullWidth
+          size="large"
+          onClick={handleSubmit}
+        >
+          {t('change_password')}
+        </Button>
+      </Paper>
     </Box>
   );
 };
