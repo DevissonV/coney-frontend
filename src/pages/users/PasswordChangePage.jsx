@@ -29,12 +29,17 @@ const PasswordChangePage = () => {
       errorAlert({ messageKey: 'invalid_token' });
       return;
     }
-
+  
+    if (newPassword.length < 6) {
+      errorAlert({ messageKey: 'password_length_error' });
+      return;
+    }
+  
     if (newPassword !== confirmPassword) {
       errorAlert({ messageKey: 'passwords_do_not_match' });
       return;
     }
-
+  
     try {
       await handleChangePassword(token, newPassword);
       toast({ messageKey: 'password_change_success' });
