@@ -252,5 +252,16 @@
   "account_created_redirecting": "Cuenta creada. Redirigiendo...",
   "email_verification_sent": "Te hemos enviado un correo para verificar tu cuenta.",
   "create_riffle_description": "Completa los detalles de la rifa para crear una nueva e invitar a los participantes.",
-  "edit_riffle_description": "Edita los detalles de la rifa para actualizar la información y mantener a los participantes informados."
+  "edit_riffle_description": "Edita los detalles de la rifa para actualizar la información y mantener a los participantes informados.",
+  "welcome_to_coney_guest": "Bienvenido a Coney",
+  "please_login_or_signup": "Crea tu cuenta o inicia sesión para comenzar.",
+  "account_pending_verification": "Tu cuenta está pendiente de verificación",
+  "check_email_for_verification": "Revisa tu correo electrónico para validar tu cuenta.",
+  "hello": "Hola",
+  "you_can_now_participate": "Ya puedes participar en rifas activas o revisar tus boletas.",
+  "welcome_back": "Bienvenido de nuevo",
+  "manage_platform_summary": "Gestiona usuarios, rifas y pagos desde el panel de administración.",
+  "explore_features": "Explora las funcionalidades y empieza a gestionar tus rifas.",
+  "error_token": "Token inválido o expirado.",
+  "error_loading_data": "Ocurrió un error cargando la información."
 }
