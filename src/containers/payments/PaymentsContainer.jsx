@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import PaymentsPage from '../../pages/payments/PaymentsPage';
 import { usePayments } from '../../hooks/payments/usePayments';
 import { useSearch } from '../../hooks/generic/useSearch';
 
 const PaymentsContainer = () => {
   const { payments, loadPayments } = usePayments();
-
+  const [loading, setLoading] = useState(true);
   /**
    * Filters a list of payments based on a search query.
    *
@@ -32,7 +32,18 @@ const PaymentsContainer = () => {
   } = useSearch(payments, filterFn);
 
   useEffect(() => {
-    loadPayments();
+    const fetchPayment = async () => {
+      try {
+        setLoading(true);
+        await loadPayments();
+      } catch {
+        errorAlert({ messageKey: 'error_unexpected' });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPayment();
   }, []);
 
   return (
@@ -40,6 +51,7 @@ const PaymentsContainer = () => {
       payments={filteredPayments}
       searchQuery={searchQuery}
       onSearchChange={setSearchQuery}
+      loading={loading}
     />
   );
 };
