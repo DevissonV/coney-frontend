@@ -1,10 +1,12 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import WinnersPage from '../../pages/winners/WinnersPage';
 import { useWinners } from '../../hooks/winners/useWinners';
 import { useSearch } from '../../hooks/generic/useSearch';
+import { errorAlert } from '../../services/generic/AlertService.js';
 
 const WinnersContainer = () => {
   const { winners, loadWinners } = useWinners();
+  const [loading, setLoading] = useState(true);
 
   /**
    * Filters a winner object based on a query string.
@@ -33,7 +35,18 @@ const WinnersContainer = () => {
   } = useSearch(winners, filterFn);
 
   useEffect(() => {
-    loadWinners();
+    const fetchWinners = async () => {
+      try {
+        setLoading(true);
+        await loadWinners();
+      } catch {
+        errorAlert({ messageKey: 'error_unexpected' });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchWinners();
   }, []);
 
   return (
@@ -41,6 +54,7 @@ const WinnersContainer = () => {
       winners={filteredWinners}
       searchQuery={searchQuery}
       onSearchChange={setSearchQuery}
+      loading={loading}
     />
   );
 };

@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Typography, CircularProgress } from '@mui/material';
 import SearchToolbar from '../../components/generic/search-toolbar/SearchToolbar';
 import RiffleFormModal from '../../components/riffle-components/RiffleFormModal';
 import { useTranslation } from 'react-i18next';
@@ -20,6 +20,7 @@ const RifflePage = ({
   setRiffleToEdit,
   onSubmit,
   handleWinner,
+  loading,
 }) => {
   const { t } = useTranslation();
   //const [pageSize, setPageSize] = useState(5);
@@ -37,60 +38,73 @@ const RifflePage = ({
 
   return (
     <Box>
-      <Typography variant="h4" align="center" gutterBottom>
-        {t('riffle')}
-      </Typography>
+      {loading ? (
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          height="50vh"
+        >
+          <CircularProgress />
+        </Box>
+      ) : (
+        <>
+          <Typography variant="h4" align="center" gutterBottom>
+            {t('riffle')}
+          </Typography>
 
-      <Box
-        display="flex"
-        flexDirection={{ xs: 'column', md: 'row' }}
-        justifyContent="center"
-        alignItems={{ xs: 'stretch', md: 'center' }}
-        gap={2}
-        mb={4}
-      >
-        <SearchToolbar
-          searchQuery={searchQuery}
-          onSearchChange={onSearchChange}
-          placeholder={t('search_placeholder_riffle')}
-        />
-
-        {canCreateRaffle && (
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              setRiffleToEdit(null);
-              setOpenModal(true);
-            }}
-            sx={{
-              whiteSpace: 'nowrap',
-              height: '40px',
-              alignSelf: { xs: 'stretch', md: 'auto' },
-            }}
+          <Box
+            display="flex"
+            flexDirection={{ xs: 'column', md: 'row' }}
+            justifyContent="center"
+            alignItems={{ xs: 'stretch', md: 'center' }}
+            gap={2}
+            mb={4}
           >
-            {t('create_riffle')}
-          </Button>
-        )}
-      </Box>
+            <SearchToolbar
+              searchQuery={searchQuery}
+              onSearchChange={onSearchChange}
+              placeholder={t('search_placeholder_riffle')}
+            />
 
-      <RiffleCardList
-        rows={riffle}
-        onEdit={onEdit}
-        onDelete={onDelete}
-        onViewTickets={handleViewTickets}
-        handleWinner={handleWinner}
-      />
+            {canCreateRaffle && (
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                  setRiffleToEdit(null);
+                  setOpenModal(true);
+                }}
+                sx={{
+                  whiteSpace: 'nowrap',
+                  height: '40px',
+                  alignSelf: { xs: 'stretch', md: 'auto' },
+                }}
+              >
+                {t('create_riffle')}
+              </Button>
+            )}
+          </Box>
 
-      <RiffleFormModal
-        open={openModal}
-        onClose={() => {
-          setOpenModal(false);
-          setRiffleToEdit(null);
-        }}
-        onSubmit={onSubmit}
-        initialValues={riffleToEdit || { name: '' }}
-      />
+          <RiffleCardList
+            rows={riffle}
+            onEdit={onEdit}
+            onDelete={onDelete}
+            onViewTickets={handleViewTickets}
+            handleWinner={handleWinner}
+          />
+
+          <RiffleFormModal
+            open={openModal}
+            onClose={() => {
+              setOpenModal(false);
+              setRiffleToEdit(null);
+            }}
+            onSubmit={onSubmit}
+            initialValues={riffleToEdit || { name: '' }}
+          />
+        </>
+      )}
     </Box>
   );
 };

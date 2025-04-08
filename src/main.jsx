@@ -14,5 +14,5 @@ root.render(
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <App />
     </LocalizationProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

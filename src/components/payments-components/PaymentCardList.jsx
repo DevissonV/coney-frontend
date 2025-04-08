@@ -34,13 +34,13 @@ const PaymentCardList = ({ rows }) => {
         </Grid>
       ) : (
         visibleRows.map((payment) => {
-          const { 
-              raffle, 
-              tickets, 
-              created_at, 
-              amount, 
-              currency, 
-              status: paymentStatus 
+          const {
+            raffle,
+            tickets,
+            created_at,
+            amount,
+            currency,
+            status: paymentStatus,
           } = payment;
           const ticketNumbers = tickets
             .map((t) => `#${t.ticket_number}`)

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import RifflePage from '../../pages/riffle/RifflePage';
 import { useRiffle } from '../../hooks/riffle/useRiffle';
 import { useSearch } from '../../hooks/generic/useSearch';
+import { errorAlert } from '../../services/generic/AlertService.js';
 
 const RiffleContainer = () => {
   const {
@@ -12,7 +13,7 @@ const RiffleContainer = () => {
     handleEditRiffle,
     handleWinner,
   } = useRiffle();
-
+  const [loading, setLoading] = useState(true);
   /**
    * Filters a riffle object based on a query string.
    *
@@ -38,12 +39,24 @@ const RiffleContainer = () => {
   const [riffleToEdit, setRiffleToEdit] = useState(null);
 
   useEffect(() => {
-    loadRaffle();
+    const fetchRaffle = async () => {
+      try {
+        setLoading(true);
+        await loadRaffle();
+      } catch {
+        errorAlert({ messageKey: 'error_unexpected' });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRaffle();
   }, []);
   return (
     <RifflePage
       riffle={filteredRiffle}
       onCreate={handleCreateRaffle}
+      loading={loading}
       onEdit={(riffle) => {
         setRiffleToEdit(riffle);
         setOpenModal(true);
