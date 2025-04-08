@@ -5,8 +5,15 @@ import {
   Typography,
   Button,
   IconButton,
+  InputAdornment,
+  Avatar,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import EmailIcon from '@mui/icons-material/Email';
+import PersonIcon from '@mui/icons-material/Person';
+import LockIcon from '@mui/icons-material/Lock';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
+
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
@@ -18,9 +25,11 @@ import {
   hasSQLInjectionPatterns,
 } from '../../utils/generic/securityValidations';
 import { errorAlert } from '../../services/generic/AlertService.js';
+import useAuthStore from '../../stores/auth/useAuthStore';
 
 const UserCreateModal = ({ open, onClose, onCreateUser }) => {
   const { t } = useTranslation();
+  const user = useAuthStore((state) => state.user);
 
   const {
     register,
@@ -79,8 +88,9 @@ const UserCreateModal = ({ open, onClose, onCreateUser }) => {
           bgcolor: 'background.paper',
           boxShadow: 24,
           p: 4,
-          borderRadius: 2,
-          position: 'relative',
+          borderRadius: 3,
+          position: 'absolute',
+          textAlign: 'center',
         }}
       >
         <IconButton
@@ -94,9 +104,27 @@ const UserCreateModal = ({ open, onClose, onCreateUser }) => {
           <CloseIcon />
         </IconButton>
 
-        <Typography variant="h6" gutterBottom>
-          {t('create_user')}
+        <Avatar
+          sx={{
+            bgcolor: 'primary.main',
+            width: 56,
+            height: 56,
+            mx: 'auto',
+            mb: 2,
+          }}
+        >
+          <GroupAddIcon fontSize="large" />
+        </Avatar>
+
+        <Typography variant="h6" fontWeight="bold" gutterBottom>
+          {user ? t('join_coney') : t('create_user')}
         </Typography>
+
+        {!user && (
+          <Typography variant="body2" sx={{ mb: 2 }}>
+            {t('create_account_to_play')}
+          </Typography>
+        )}
 
         <Box component="form" onSubmit={handleSubmit(onSubmit)}>
           <TextField
@@ -107,7 +135,15 @@ const UserCreateModal = ({ open, onClose, onCreateUser }) => {
             error={!!errors.email}
             helperText={errors.email && t(errors.email.message)}
             inputProps={{ maxLength: 100 }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <EmailIcon />
+                </InputAdornment>
+              ),
+            }}
           />
+
           <TextField
             label={t('first_name')}
             fullWidth
@@ -116,7 +152,15 @@ const UserCreateModal = ({ open, onClose, onCreateUser }) => {
             error={!!errors.firstName}
             helperText={errors.firstName && t(errors.firstName.message)}
             inputProps={{ maxLength: 50 }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <PersonIcon />
+                </InputAdornment>
+              ),
+            }}
           />
+
           <TextField
             label={t('last_name')}
             fullWidth
@@ -125,7 +169,15 @@ const UserCreateModal = ({ open, onClose, onCreateUser }) => {
             error={!!errors.lastName}
             helperText={errors.lastName && t(errors.lastName.message)}
             inputProps={{ maxLength: 50 }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <PersonIcon />
+                </InputAdornment>
+              ),
+            }}
           />
+
           <TextField
             label={t('password')}
             type="password"
@@ -135,11 +187,18 @@ const UserCreateModal = ({ open, onClose, onCreateUser }) => {
             error={!!errors.password}
             helperText={errors.password && t(errors.password.message)}
             inputProps={{ maxLength: 20 }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <LockIcon />
+                </InputAdornment>
+              ),
+            }}
           />
 
-          <Box mt={2} display="flex" justifyContent="flex-end">
-            <Button type="submit" variant="contained" color="primary">
-              {t('save')}
+          <Box mt={3}>
+            <Button type="submit" variant="contained" fullWidth size="large">
+              {t(user ? 'register' : 'save')}
             </Button>
           </Box>
         </Box>

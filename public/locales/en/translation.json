@@ -228,5 +228,8 @@
   "endDate_must_be_greater_than_initDate": "End date must be greater than start date",
   "invalid_token": "Token invalid or expired",
   "recover_password_instruction": "Enter your email address and we'll send you a link to reset your password.",
-  "error_recovering_password": "The recovery email could not be sent."
+  "error_recovering_password": "The recovery email could not be sent.",
+  "join_coney": "Join Coney!",
+  "create_account_to_play": "Create your account to play",
+  "register": "Register"
 }

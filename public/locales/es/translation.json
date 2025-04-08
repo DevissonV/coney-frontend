@@ -230,5 +230,8 @@
   "endDate_must_be_greater_than_initDate": "La fecha de finalización debe ser posterior a la de inicio",
   "invalid_token": "Token inválido o expirado",
   "recover_password_instruction": "Ingresa tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.",
-  "error_recovering_password": "No se pudo enviar el correo de recuperación"
+  "error_recovering_password": "No se pudo enviar el correo de recuperación",
+  "join_coney": "¡Únete a Coney!",
+  "create_account_to_play": "Crea tu cuenta para jugar",
+  "register": "Registrarse"
 }
