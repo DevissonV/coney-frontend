@@ -6,6 +6,7 @@ import EventIcon from '@mui/icons-material/Event';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import RiffleActions from './RiffleActions';
 import GenericCard from '../generic/cards/GenericCard';
+import { DEFAULT_IMAGE_NOT_RAFFLES } from '../../utils/generic/constants';
 
 const RiffleCardList = ({
   rows,
@@ -25,6 +26,30 @@ const RiffleCardList = ({
             subtitle={raffle.description}
             content={
               <>
+                <Box
+                  sx={{
+                    position: 'relative',
+                    width: '100%',
+                    aspectRatio: '4 / 3', 
+                    borderRadius: 2,
+                    overflow: 'hidden',
+                    mb: 2,
+                    backgroundColor: 'background.default',
+                  }}
+                >
+                  <Box
+                    component="img"
+                    src={raffle.photo_url || DEFAULT_IMAGE_NOT_RAFFLES}
+                    alt={raffle.name}
+                    sx={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      display: 'block',
+                    }}
+                  />
+                </Box>
+
                 <Box display="flex" alignItems="center" gap={1} mb={1}>
                   <EventIcon fontSize="small" />
                   <Typography variant="body2">
@@ -55,11 +80,11 @@ const RiffleCardList = ({
             }
             footer={
               <Box
-                position={'relative'}
-                width={'100%'}
+                width="100%"
                 display="flex"
                 justifyContent="flex-end"
-                sx={{ px: 2, pb: 2 }}
+                px={2}
+                pb={2}
               >
                 <RiffleActions
                   riffleId={raffle.id}

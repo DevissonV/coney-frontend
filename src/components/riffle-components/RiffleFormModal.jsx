@@ -30,7 +30,6 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
   const isEdit = !!initialValues.name;
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
-  console.log(initialValues.photo_url);
   const {
     register,
     handleSubmit,

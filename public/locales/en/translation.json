@@ -264,5 +264,6 @@
   "explore_features": "Explore the features and start managing your raffles.",
   "error_token": "Invalid or expired token.",
   "error_loading_data": "An error occurred while loading the data.",
-  "pay_now": "Pay Now"
+  "pay_now": "Pay Now",
+  "upload_photo": "Upload photo"
 }
