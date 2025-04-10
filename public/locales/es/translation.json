@@ -264,5 +264,6 @@
   "explore_features": "Explora las funcionalidades y empieza a gestionar tus rifas.",
   "error_token": "Token inválido o expirado.",
   "error_loading_data": "Ocurrió un error cargando la información.",
-  "pay_now": "Pagar ahora"
+  "pay_now": "Pagar ahora",
+  "upload_photo": "Cargar imagen"
 }

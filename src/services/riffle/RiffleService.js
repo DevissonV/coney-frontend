@@ -59,23 +59,38 @@ export const fetchTicketsByRiffle = async (riffleId) => {
 };
 
 /**
- * Creates a new raffle by sending a POST request to the API.
+ * Crea una rifa y opcionalmente sube una foto si se proporciona.
  *
  * @async
  * @function createRaffles
  * @param {Object} raffleData - The data for the raffle to be created.
+ * @param {file} photo - The photo for raffle
  * @returns {Object} The data of the created raffle.
  * @throws {Error} If the response status is not successful or the code is not 201.
  */
-export const createRaffles = async (raffleData) => {
+export const createRaffles = async (raffleData, photo = null) => {
   const response = await privateAxios.post(
     `${API_URL}/raffles/`,
     raffleData,
     getHeaders(),
   );
+
   const { status, code, data } = response.data;
+
   if (!status || code !== 201) {
-    throw new Error('Error creating riffle');
+    throw new Error('Error creating raffle');
+  }
+
+  if (photo && data?.id) {
+    const formData = new FormData();
+    formData.append('photo', photo);
+
+    await privateAxios.post(`${API_URL}/raffles/${data.id}/photo`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
   }
 
   return data;
@@ -111,22 +126,35 @@ export const deleteRiffle = async (id) => {
  * @function editRiffle
  * @param {string} id - The unique identifier of the raffle to update.
  * @param {Object} raffleData - The data to update the raffle with.
- * @param {number} raffleData.ticketCount - The number of tickets (excluded from the update payload).
- * @param {Object} raffleData.sanitizedData - The remaining sanitized data for the update.
+ * @param {Object} photo - Image raffle
  * @returns {Promise<Object>} The updated raffle data.
  * @throws {Error} If the update fails or the response status code is not 200.
  */
-export const editRiffle = async (id, raffleData) => {
-  const { ticketCount, ...sanitizedData } = raffleData; // eslint-disable-line no-unused-vars
+export const editRiffle = async (id, raffleData, photo = null) => {
+  const { ticketCount, ...sanitizedData } = raffleData;
+
   const response = await privateAxios.patch(
     `${API_URL}/raffles/${id}`,
     sanitizedData,
     getHeaders(),
   );
+
   const { status, code, data } = response.data;
 
   if (!status || code !== 200) {
     throw new Error('Error updating riffle');
+  }
+
+  if (photo) {
+    const formData = new FormData();
+    formData.append('photo', photo);
+
+    await privateAxios.post(`${API_URL}/raffles/${id}/photo`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
   }
 
   return data;
