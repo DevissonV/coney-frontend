@@ -16,18 +16,21 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import EventIcon from '@mui/icons-material/Event';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import { useTranslation } from 'react-i18next';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { DateTimePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 import { raffleSchema } from '../../utils/validations/raffles/raffleSchema';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
   const { t } = useTranslation();
   const isEdit = !!initialValues.name;
-
+  const [file, setFile] = useState(null);
+  const [preview, setPreview] = useState(null);
+  console.log(initialValues.photo_url);
   const {
     register,
     handleSubmit,
@@ -57,6 +60,9 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
         price: initialValues.price?.toString() || '',
         ticketCount: initialValues.tickets_created || '',
       });
+  
+      setFile(null);
+      setPreview(initialValues.photo_url || null);
     } else {
       reset({
         name: '',
@@ -66,22 +72,36 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
         price: '',
         ticketCount: '',
       });
+  
+      setPreview(null);
+      setFile(null);
     }
   }, [initialValues, reset, isEdit]);
 
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+    if (selectedFile) {
+      setPreview(URL.createObjectURL(selectedFile));
+    }
+  };
+
   const onSubmitForm = async (data) => {
     const isValid = await trigger();
-  
     if (!isValid) return;
-  
-    onSubmit({
+
+    const payload = {
       ...data,
       initDate: dayjs(data.initDate).toISOString(),
       endDate: dayjs(data.endDate).toISOString(),
-    });
-  
+    };
+
+    await onSubmit(payload, file);
+
     onClose();
     reset();
+    setFile(null);
+    setPreview(null);
   };
 
   return (
@@ -234,6 +254,29 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
               ),
             }}
           />
+
+          <TextField
+            type="file"
+            label={t('upload_photo')}
+            fullWidth
+            margin="normal"
+            inputProps={{ accept: 'image/*' }}
+            onChange={handleFileChange}
+            InputLabelProps={{ shrink: true }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <PhotoCamera />
+                </InputAdornment>
+              ),
+            }}
+          />
+
+          {preview && (
+            <Box mt={2} textAlign="center">
+              <img src={preview} alt="Preview" style={{ maxWidth: '100%', borderRadius: 8 }} />
+            </Box>
+          )}
 
           <Box mt={3} textAlign="right">
             <Button type="submit" variant="contained" color="primary">

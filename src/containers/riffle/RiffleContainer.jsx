@@ -68,11 +68,11 @@ const RiffleContainer = () => {
       setOpenModal={setOpenModal}
       riffleToEdit={riffleToEdit}
       setRiffleToEdit={setRiffleToEdit}
-      onSubmit={(raffleData) => {
+      onSubmit={(raffleData,photo) => {
         if (riffleToEdit) {
-          handleEditRiffle(riffleToEdit.id, raffleData);
+          handleEditRiffle(riffleToEdit.id, raffleData, photo);
         } else {
-          handleCreateRaffle(raffleData);
+          handleCreateRaffle(raffleData, photo);
         }
         setOpenModal(false);
       }}
