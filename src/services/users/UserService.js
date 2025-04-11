@@ -115,7 +115,7 @@ export const editUser = async (id, userData, photo = null) => {
       },
     );
 
-    uploadedPhotoUrl = uploadResponse.data?.data?.imageUrl || null;
+    uploadedPhotoUrl = uploadResponse.data?.data?.photoUrl || null;
   }
 
   return {

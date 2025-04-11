@@ -74,7 +74,6 @@ export const useUsers = () => {
     async (userId, updatedUserData, photo = null) => {
       try {
         const updatedUser = await editUser(userId, updatedUserData, photo);
-      
         toast({
           icon: 'success',
           titleKey: 'success',

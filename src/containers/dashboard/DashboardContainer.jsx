@@ -177,13 +177,7 @@ const DashboardContainer = () => {
           open={openEditModal}
           onClose={() => setOpenEditModal(false)}
           currentUser={loggedUser}
-          onEditUser={(formData, photo) => {
-            handleUpdateUser(loggedUser.id, formData, photo);
-            if (photo) {
-              updateUser({ photo_url: URL.createObjectURL(photo) });
-            }
-            setOpenEditModal(false);
-          }}
+          onEditUser={handleUpdateUser}
         />
       )}
     </DashboardPage>

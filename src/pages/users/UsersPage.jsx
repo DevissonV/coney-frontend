@@ -81,10 +81,7 @@ const UsersPage = ({
         open={openEditModal}
         onClose={() => setOpenEditModal(false)}
         currentUser={currentUser}
-        onEditUser={(formData, photo) => {
-          onUpdate(currentUser.id, formData, photo);
-          setOpenEditModal(false);
-        }}
+        onEditUser={onUpdate}
       />
     </Box>
   );
