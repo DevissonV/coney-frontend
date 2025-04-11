@@ -23,17 +23,30 @@ export const fetchUsers = async () => {
 };
 
 /**
- * Creates a new user.
+ * Creates a new user and optionally uploads a profile photo.
  * @param {Object} userData - The user data to create.
+ * @param {File|null} photo - Optional profile photo.
  * @returns {Promise<Object>} The created user.
  * @throws {Error} If the request fails.
  */
-export const createUser = async (userData) => {
+export const createUser = async (userData, photo = null) => {
   const response = await privateAxios.post(`${API_URL}/users/`, userData);
   const { status, code, data } = response.data;
 
   if (!status || code !== 201) {
     throw new Error('Error creating user');
+  }
+
+  if (photo && data?.id) {
+    const formData = new FormData();
+    formData.append('photo', photo);
+
+    await privateAxios.post(`${API_URL}/users/${data.id}/photo`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
   }
 
   return data;
@@ -80,22 +93,40 @@ export const deleteUser = async (id) => {
 };
 
 /**
- * Updates a user by their ID.
+ * Updates a user by their ID and optionally uploads a new photo.
  * @param {number} id - The user ID.
  * @param {Object} userData - The updated user data.
+ * @param {File|null} photo - Optional new photo.
  * @returns {Promise<Object>} The updated user.
  * @throws {Error} If the request fails.
  */
-export const editUser = async (id, userData) => {
+export const editUser = async (id, userData, photo = null) => {
+  console.log(` id:`, id);
+  console.log(` userData:`, userData);
+  console.log(` photo:`, photo);
+
   const response = await privateAxios.patch(
-    `${API_URL}/users//${id}`,
+    `${API_URL}/users/${id}`,
     userData,
     getHeaders(),
   );
+
   const { status, code, data } = response.data;
 
   if (!status || code !== 200) {
     throw new Error('Error updating user');
+  }
+
+  if (photo) {
+    const formData = new FormData();
+    formData.append('photo', photo);
+
+    await privateAxios.post(`${API_URL}/users/${id}/photo`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
   }
 
   return data;

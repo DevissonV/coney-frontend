@@ -68,11 +68,12 @@ export const useUsers = () => {
    * Updates a user's information.
    * @param {number} userId - The ID of the user to update.
    * @param {Object} updatedUserData - The updated user data.
+   * @param {File|null} photo - Optional photo file to upload.
    */
   const handleUpdateUser = useCallback(
-    async (userId, updatedUserData) => {
+    async (userId, updatedUserData, photo = null) => {
       try {
-        await editUser(userId, updatedUserData);
+        await editUser(userId, updatedUserData, photo);
         toast({
           icon: 'success',
           titleKey: 'success',
@@ -98,16 +99,19 @@ export const useUsers = () => {
   /**
    * Creates a new user.
    * @param {Object} newUserData - The data for the new user.
+   * @param {File|null} photo - Optional photo file to upload.
    */
   const handleCreateUser = useCallback(
-    async (newUserData) => {
+    async (newUserData, photo = null) => {
       try {
-        await createUser(newUserData);
+        await createUser(newUserData, photo);
         toast({
           icon: 'success',
           titleKey: 'success',
           messageKey: 'create_success',
         });
+        const updatedUsers = await fetchUsers();
+        setUsers(updatedUsers);
       } catch {
         errorAlert({ messageKey: 'error_creating_user' });
       }

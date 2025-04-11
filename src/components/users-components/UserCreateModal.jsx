@@ -26,10 +26,13 @@ import {
 } from '../../utils/generic/securityValidations';
 import { errorAlert } from '../../services/generic/AlertService.js';
 import useAuthStore from '../../stores/auth/useAuthStore';
+import { useState } from 'react';
 
 const UserCreateModal = ({ open, onClose, onCreateUser }) => {
   const { t } = useTranslation();
   const user = useAuthStore((state) => state.user);
+  const [photo, setPhoto] = useState(null);
+  const [preview, setPreview] = useState(null);
 
   const {
     register,
@@ -48,7 +51,17 @@ const UserCreateModal = ({ open, onClose, onCreateUser }) => {
 
   const handleClose = () => {
     reset();
+    setPhoto(null);
+    setPreview(null);
     onClose();
+  };
+
+  const handlePhotoChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setPhoto(file);
+      setPreview(URL.createObjectURL(file));
+    }
   };
 
   const onSubmit = (data) => {
@@ -68,7 +81,7 @@ const UserCreateModal = ({ open, onClose, onCreateUser }) => {
       lastName: formatName(data.lastName),
     };
 
-    onCreateUser(formattedUser);
+    onCreateUser(formattedUser, photo);
     handleClose();
   };
 
@@ -95,25 +108,22 @@ const UserCreateModal = ({ open, onClose, onCreateUser }) => {
       >
         <IconButton
           onClick={handleClose}
-          sx={{
-            position: 'absolute',
-            top: 8,
-            right: 8,
-          }}
+          sx={{ position: 'absolute', top: 8, right: 8 }}
         >
           <CloseIcon />
         </IconButton>
 
         <Avatar
+          src={preview || ''}
           sx={{
-            bgcolor: 'primary.main',
-            width: 56,
-            height: 56,
+            bgcolor: preview ? 'transparent' : 'primary.main',
+            width: 80,
+            height: 80,
             mx: 'auto',
             mb: 2,
           }}
         >
-          <GroupAddIcon fontSize="large" />
+          {!preview && <GroupAddIcon fontSize="large" />}
         </Avatar>
 
         <Typography variant="h6" fontWeight="bold" gutterBottom>
@@ -195,6 +205,21 @@ const UserCreateModal = ({ open, onClose, onCreateUser }) => {
               ),
             }}
           />
+
+          <Button
+            variant="outlined"
+            component="label"
+            fullWidth
+            sx={{ mt: 2, textTransform: 'none' }}
+          >
+            {t('upload_photo')}
+            <input
+              type="file"
+              accept="image/*"
+              hidden
+              onChange={handlePhotoChange}
+            />
+          </Button>
 
           <Box mt={3}>
             <Button type="submit" variant="contained" fullWidth size="large">

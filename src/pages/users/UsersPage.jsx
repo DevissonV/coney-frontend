@@ -6,11 +6,9 @@ import UserEditModal from '../../components/users-components/UserEditModal';
 import SearchToolbar from '../../components/generic/search-toolbar/SearchToolbar';
 import UserCard from '../../components/users-components/UserCard';
 import { useTheme } from '@mui/material/styles';
-import useAuthStore from '../../stores/auth/useAuthStore';
 
 const UsersPage = ({
   users,
-  loading,
   onDelete,
   onUpdate,
   onCreate,
@@ -73,14 +71,20 @@ const UsersPage = ({
       <UserCreateModal
         open={openCreateModal}
         onClose={() => setOpenCreateModal(false)}
-        onCreateUser={onCreate}
+        onCreateUser={(formData, photo) => {
+          onCreate(formData, photo);
+          setOpenCreateModal(false);
+        }}
       />
 
       <UserEditModal
         open={openEditModal}
         onClose={() => setOpenEditModal(false)}
         currentUser={currentUser}
-        onEditUser={onUpdate}
+        onEditUser={(formData, photo) => {
+          onUpdate(currentUser.id, formData, photo);
+          setOpenEditModal(false);
+        }}
       />
     </Box>
   );

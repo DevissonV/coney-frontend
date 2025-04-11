@@ -9,6 +9,7 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
+  Avatar,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
@@ -19,12 +20,15 @@ import { userEditSchema } from '../../utils/validations/users/userSchema';
 import { formatName } from '../../utils/generic/convertText';
 import useAuthStore from '../../stores/auth/useAuthStore';
 import { ROLE_ADMIN } from '../../utils/generic/constants';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const UserEditModal = ({ open, onClose, currentUser, onEditUser }) => {
   const { t } = useTranslation();
   const { user: loggedUser } = useAuthStore();
   const canEditRole = loggedUser?.role === ROLE_ADMIN;
+
+  const [photo, setPhoto] = useState(null);
+  const [preview, setPreview] = useState(null);
 
   const {
     register,
@@ -48,8 +52,18 @@ const UserEditModal = ({ open, onClose, currentUser, onEditUser }) => {
         lastName: currentUser.last_name,
         role: currentUser.role,
       });
+      setPreview(currentUser.photo_url || null);
+      setPhoto(null);
     }
   }, [currentUser, reset]);
+
+  const handlePhotoChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setPhoto(file);
+      setPreview(URL.createObjectURL(file));
+    }
+  };
 
   const onSubmit = (data) => {
     if (canEditRole && (!data.role || data.role.length < 2)) {
@@ -58,20 +72,21 @@ const UserEditModal = ({ open, onClose, currentUser, onEditUser }) => {
         shouldDirty: true,
       });
     }
-
+  
     const formattedUser = {
       ...data,
       firstName: formatName(data.firstName),
       lastName: formatName(data.lastName),
     };
-
-    onEditUser(currentUser.id, formattedUser);
-    onClose();
-    reset();
+  
+    onEditUser(formattedUser, photo);
+    handleClose();
   };
 
   const handleClose = () => {
     reset();
+    setPhoto(null);
+    setPreview(null);
     onClose();
   };
 
@@ -105,6 +120,14 @@ const UserEditModal = ({ open, onClose, currentUser, onEditUser }) => {
         <Typography variant="h6" gutterBottom>
           {t('edit_user')}
         </Typography>
+
+        <Box display="flex" justifyContent="center" my={2}>
+          <Avatar
+            src={preview || ''}
+            alt="User preview"
+            sx={{ width: 80, height: 80 }}
+          />
+        </Box>
 
         <Box component="form" onSubmit={handleSubmit(onSubmit)}>
           <TextField
@@ -143,6 +166,21 @@ const UserEditModal = ({ open, onClose, currentUser, onEditUser }) => {
               )}
             </FormControl>
           )}
+
+          <Button
+            variant="outlined"
+            component="label"
+            fullWidth
+            sx={{ mt: 2, textTransform: 'none' }}
+          >
+            {t('upload_photo')}
+            <input
+              type="file"
+              accept="image/*"
+              hidden
+              onChange={handlePhotoChange}
+            />
+          </Button>
 
           <Box mt={2} display="flex" justifyContent="flex-end">
             <Button type="submit" variant="contained" color="primary">

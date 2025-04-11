@@ -40,12 +40,14 @@ export const useRiffle = () => {
   };
 
   /**
-   * Creates a new riffle.
-   * @param {Object} raffleData - The data for the new riffle.
+   * Handles the creation of a raffle by sending the provided data to the server.
+   * @param {Object} raffleData - The data for the raffle to be created.
+   * @param {File|null} [photo=null] - An optional photo file to be uploaded with the raffle.
+   * @throws Will display an error alert if the raffle creation fails.
    */
   const handleCreateRaffle = async (raffleData, photo = null) => {
     try {
-      const createdRaffle = await createRaffles(raffleData, photo);
+      await createRaffles(raffleData, photo);
       toast({ icon: 'success', titleKey: 'create_success' });
       loadRaffle();
     } catch (error) {
