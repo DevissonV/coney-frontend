@@ -4,6 +4,7 @@ import { fetchUsers } from '../../services/users/UserService';
 import UsersPage from '../../pages/users/UsersPage';
 import { errorAlert } from '../../services/generic/AlertService.js';
 import { useUsers } from '../../hooks/users/useUsers';
+import { useSearch } from '../../hooks/generic/useSearch';
 
 /**
  * Container component for managing user-related state and actions.
@@ -22,9 +23,25 @@ const UsersContainer = () => {
     handleResendEmail,
   } = useUsers();
 
-  /**
-   * Fetches users from the API and updates the state.
-   */
+
+  const filterFn = (user, query) => {
+    const normalizedQuery = query?.toLowerCase() || '';
+    const first = user?.first_name?.toLowerCase?.() || '';
+    const last = user?.last_name?.toLowerCase?.() || '';
+    const email = user?.email?.toLowerCase?.() || '';
+    return (
+      first.includes(normalizedQuery) ||
+      last.includes(normalizedQuery) ||
+      email.includes(normalizedQuery)
+    );
+  };
+
+  const {
+    searchQuery,
+    setSearchQuery,
+    filteredData: filteredUsers,
+  } = useSearch(users, filterFn);
+
   useEffect(() => {
     const loadUsers = async () => {
       try {
@@ -42,13 +59,15 @@ const UsersContainer = () => {
 
   return (
     <UsersPage
-      users={users}
+      users={filteredUsers}
       loading={loading}
       onDelete={handleDeleteUser}
       onUpdate={handleUpdateUser}
       onCreate={handleCreateUser}
       onApprove={handleApproveUser}
       onResendEmail={handleResendEmail}
+      searchQuery={searchQuery}
+      onSearchChange={setSearchQuery}
     />
   );
 };

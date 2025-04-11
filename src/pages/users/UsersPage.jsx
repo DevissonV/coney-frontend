@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Box, Typography, Button, useMediaQuery } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import UserCreateModal from '../../components/users-components/UserCreateModal';
@@ -7,7 +7,6 @@ import SearchToolbar from '../../components/generic/search-toolbar/SearchToolbar
 import UserCard from '../../components/users-components/UserCard';
 import { useTheme } from '@mui/material/styles';
 import useAuthStore from '../../stores/auth/useAuthStore';
-import { ROLE_ADMIN } from '../../utils/generic/constants';
 
 const UsersPage = ({
   users,
@@ -15,40 +14,16 @@ const UsersPage = ({
   onDelete,
   onUpdate,
   onCreate,
-  onApprove,
-  onResendEmail,
+  searchQuery,
+  onSearchChange,
 }) => {
   const { t } = useTranslation();
-  const [filteredRows, setFilteredRows] = useState(users);
-  const [pageSize, setPageSize] = useState(5);
   const [openCreateModal, setOpenCreateModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const { user } = useAuthStore();
-  console.log('users:', users);
-
-  useEffect(() => {
-    if (searchQuery === '') {
-      setFilteredRows(users);
-    } else {
-      const filtered = users.filter((user) => {
-        const first = user.first_name?.toLowerCase() || '';
-        const last = user.last_name?.toLowerCase() || '';
-        const email = user.email?.toLowerCase() || '';
-        return (
-          first.includes(searchQuery.toLowerCase()) ||
-          last.includes(searchQuery.toLowerCase()) ||
-          email.includes(searchQuery.toLowerCase())
-        );
-      });
-      
-      setFilteredRows(filtered);
-    }
-  }, [searchQuery, users]);
 
   const handleEditUser = (userId) => {
     const userToEdit = users.find((user) => user.id === userId);
@@ -65,7 +40,7 @@ const UsersPage = ({
       <Box display="flex" justifyContent="center" alignItems="center" mb={3}>
         <SearchToolbar
           searchQuery={searchQuery}
-          onSearchChange={setSearchQuery}
+          onSearchChange={onSearchChange}
           placeholder={t('search_placeholder_user')}
         />
       </Box>
@@ -85,7 +60,7 @@ const UsersPage = ({
         flexWrap="wrap"
         justifyContent={isMobile ? 'center' : 'flex-start'}
       >
-        {filteredRows.map((u) => (
+        {users.map((u) => (
           <UserCard
             key={u.id}
             user={u}
