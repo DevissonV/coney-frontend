@@ -13,7 +13,6 @@ import EmailIcon from '@mui/icons-material/Email';
 import PersonIcon from '@mui/icons-material/Person';
 import LockIcon from '@mui/icons-material/Lock';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
-
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
@@ -81,7 +80,7 @@ const UserCreateModal = ({ open, onClose, onCreateUser }) => {
       lastName: formatName(data.lastName),
     };
 
-    onCreateUser(formattedUser, photo);
+    onCreateUser(formattedUser);
     handleClose();
   };
 
@@ -205,21 +204,6 @@ const UserCreateModal = ({ open, onClose, onCreateUser }) => {
               ),
             }}
           />
-
-          <Button
-            variant="outlined"
-            component="label"
-            fullWidth
-            sx={{ mt: 2, textTransform: 'none' }}
-          >
-            {t('upload_photo')}
-            <input
-              type="file"
-              accept="image/*"
-              hidden
-              onChange={handlePhotoChange}
-            />
-          </Button>
 
           <Box mt={3}>
             <Button type="submit" variant="contained" fullWidth size="large">

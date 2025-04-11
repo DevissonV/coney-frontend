@@ -12,6 +12,7 @@ import {
   Edit as EditIcon,
   Logout as LogoutIcon,
   Lock as LockIcon,
+  Person as PersonIcon,
 } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import useAuthStore from '../../../stores/auth/useAuthStore';
@@ -57,7 +58,13 @@ const UserMenu = ({ handleLogout }) => {
     <>
       <Tooltip title={t('open_settings')}>
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-          <Avatar alt="Usuario" />
+          <Avatar
+            src={user?.photo_url || undefined}
+            alt={`${user?.first_name || ''} ${user?.last_name || ''}`}
+            sx={{ width: 40, height: 40 }}
+          >
+            {!user?.photo_url && <PersonIcon />}
+          </Avatar>
         </IconButton>
       </Tooltip>
       <Menu

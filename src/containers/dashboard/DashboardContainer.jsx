@@ -19,6 +19,8 @@ import { fetchUsers } from '../../services/users/UserService';
 import { fetchRaffle } from '../../services/riffle/RiffleService';
 import { errorAlert } from '../../services/generic/AlertService';
 import { useEffect, useState } from 'react';
+import { useUsers } from '../../hooks/users/useUsers';
+import UserEditModal from '../../components/users-components/UserEditModal';
 
 const WidgetCard = ({ icon, label, value, color }) => {
   const theme = useTheme();
@@ -62,7 +64,13 @@ const WelcomeSection = ({ name, isAuthenticated }) => {
         variant="h4"
         fontWeight={800}
         gutterBottom
-        sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', gap: 1 }}
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: 1,
+        }}
       >
         {isAuthenticated
           ? `${t('welcome_back')}, ${name}`
@@ -92,10 +100,13 @@ const WelcomeSection = ({ name, isAuthenticated }) => {
 
 const DashboardContainer = () => {
   const { t } = useTranslation();
-  const { user: loggedUser } = useAuthStore();
+  const { user: loggedUser, updateUser } = useAuthStore();
+  const { handleUpdateUser } = useUsers();
+
   const [loading, setLoading] = useState(true);
   const [totalUsers, setTotalUsers] = useState(0);
   const [activeRaffles, setActiveRaffles] = useState(0);
+  const [openEditModal, setOpenEditModal] = useState(false);
 
   const isAuthenticated = !!loggedUser;
   const fullName = `${loggedUser?.first_name || ''} ${loggedUser?.last_name || ''}`.trim();
@@ -117,8 +128,15 @@ const DashboardContainer = () => {
         setLoading(false);
       }
     };
+
     fetchData();
   }, [isAuthenticated]);
+
+  useEffect(() => {
+    if (loggedUser && !loggedUser.photo_url) {
+      setOpenEditModal(true);
+    }
+  }, [loggedUser]);
 
   return (
     <DashboardPage>
@@ -152,6 +170,15 @@ const DashboardContainer = () => {
             </Grid>
           </Grid>
         </Box>
+      )}
+
+      {loggedUser && (
+        <UserEditModal
+          open={openEditModal}
+          onClose={() => setOpenEditModal(false)}
+          currentUser={loggedUser}
+          onEditUser={handleUpdateUser}
+        />
       )}
     </DashboardPage>
   );

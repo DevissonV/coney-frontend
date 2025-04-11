@@ -25,30 +25,15 @@ export const fetchUsers = async () => {
 /**
  * Creates a new user and optionally uploads a profile photo.
  * @param {Object} userData - The user data to create.
- * @param {File|null} photo - Optional profile photo.
  * @returns {Promise<Object>} The created user.
  * @throws {Error} If the request fails.
  */
-export const createUser = async (userData, photo = null) => {
+export const createUser = async (userData) => {
   const response = await privateAxios.post(`${API_URL}/users/`, userData);
   const { status, code, data } = response.data;
-
   if (!status || code !== 201) {
     throw new Error('Error creating user');
   }
-
-  if (photo && data?.id) {
-    const formData = new FormData();
-    formData.append('photo', photo);
-
-    await privateAxios.post(`${API_URL}/users/${data.id}/photo`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    });
-  }
-
   return data;
 };
 
@@ -101,10 +86,6 @@ export const deleteUser = async (id) => {
  * @throws {Error} If the request fails.
  */
 export const editUser = async (id, userData, photo = null) => {
-  console.log(` id:`, id);
-  console.log(` userData:`, userData);
-  console.log(` photo:`, photo);
-
   const response = await privateAxios.patch(
     `${API_URL}/users/${id}`,
     userData,
@@ -117,19 +98,30 @@ export const editUser = async (id, userData, photo = null) => {
     throw new Error('Error updating user');
   }
 
+  let uploadedPhotoUrl = null;
+
   if (photo) {
     const formData = new FormData();
     formData.append('photo', photo);
 
-    await privateAxios.post(`${API_URL}/users/${id}/photo`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+    const uploadResponse = await privateAxios.post(
+      `${API_URL}/users/${id}/photo`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
       },
-    });
+    );
+
+    uploadedPhotoUrl = uploadResponse.data?.data?.photoUrl || null;
   }
 
-  return data;
+  return {
+    ...data,
+    photo_url: uploadedPhotoUrl ?? data.photo_url,
+  };
 };
 
 /**

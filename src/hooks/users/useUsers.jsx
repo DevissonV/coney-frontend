@@ -73,20 +73,22 @@ export const useUsers = () => {
   const handleUpdateUser = useCallback(
     async (userId, updatedUserData, photo = null) => {
       try {
-        await editUser(userId, updatedUserData, photo);
+        const updatedUser = await editUser(userId, updatedUserData, photo);
         toast({
           icon: 'success',
           titleKey: 'success',
           messageKey: 'edit_success',
         });
+  
         const updatedUsers = await fetchUsers();
         setUsers(updatedUsers);
-
+  
         if (loggedInUser.id === userId) {
           updateAuthUser({
-            first_name: updatedUserData.firstName,
-            last_name: updatedUserData.lastName,
-            role: updatedUserData.role,
+            first_name: updatedUser.first_name,
+            last_name: updatedUser.last_name,
+            role: updatedUser.role,
+            photo_url: updatedUser.photo_url,
           });
         }
       } catch {
@@ -95,28 +97,21 @@ export const useUsers = () => {
     },
     [setUsers, loggedInUser, updateAuthUser],
   );
-
   /**
    * Creates a new user.
    * @param {Object} newUserData - The data for the new user.
    * @param {File|null} photo - Optional photo file to upload.
    */
   const handleCreateUser = useCallback(
-    async (newUserData, photo = null) => {
+    async (newUserData) => {
       try {
-        await createUser(newUserData, photo);
-        toast({
-          icon: 'success',
-          titleKey: 'success',
-          messageKey: 'create_success',
-        });
-        const updatedUsers = await fetchUsers();
-        setUsers(updatedUsers);
+        await createUser(newUserData);
+        toast({ icon: 'success', titleKey: 'success', messageKey: 'create_success' });
       } catch {
         errorAlert({ messageKey: 'error_creating_user' });
       }
     },
-    [setUsers],
+    [setUsers]
   );
 
   /**
