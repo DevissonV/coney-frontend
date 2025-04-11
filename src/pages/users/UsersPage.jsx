@@ -29,30 +29,31 @@ const UsersPage = ({
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { user } = useAuthStore();
+  console.log('users:', users);
 
   useEffect(() => {
-    setFilteredRows(users);
-  }, [users]);
+    if (searchQuery === '') {
+      setFilteredRows(users);
+    } else {
+      const filtered = users.filter((user) => {
+        const first = user.first_name?.toLowerCase() || '';
+        const last = user.last_name?.toLowerCase() || '';
+        const email = user.email?.toLowerCase() || '';
+        return (
+          first.includes(searchQuery.toLowerCase()) ||
+          last.includes(searchQuery.toLowerCase()) ||
+          email.includes(searchQuery.toLowerCase())
+        );
+      });
+      
+      setFilteredRows(filtered);
+    }
+  }, [searchQuery, users]);
 
   const handleEditUser = (userId) => {
     const userToEdit = users.find((user) => user.id === userId);
     setCurrentUser(userToEdit);
     setOpenEditModal(true);
-  };
-
-  const handleSearchChange = (query) => {
-    setSearchQuery(query);
-    if (query === '') {
-      setFilteredRows(users);
-    } else {
-      const filtered = users.filter(
-        (user) =>
-          user.firstName.toLowerCase().includes(query.toLowerCase()) ||
-          user.lastName.toLowerCase().includes(query.toLowerCase()) ||
-          user.email.toLowerCase().includes(query.toLowerCase())
-      );
-      setFilteredRows(filtered);
-    }
   };
 
   return (
@@ -64,7 +65,7 @@ const UsersPage = ({
       <Box display="flex" justifyContent="center" alignItems="center" mb={3}>
         <SearchToolbar
           searchQuery={searchQuery}
-          onSearchChange={handleSearchChange}
+          onSearchChange={setSearchQuery}
           placeholder={t('search_placeholder_user')}
         />
       </Box>
