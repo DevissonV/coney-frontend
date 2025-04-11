@@ -233,5 +233,7 @@
   "error_recovering_password": "No se pudo enviar el correo de recuperación",
   "join_coney": "¡Únete a Coney!",
   "create_account_to_play": "Crea tu cuenta para jugar",
-  "register": "Registrarse"
+  "register": "Registrarse",
+  "all_raffles": "Todas las rifas",
+  "my_raffles": "Mis rifas"
 }

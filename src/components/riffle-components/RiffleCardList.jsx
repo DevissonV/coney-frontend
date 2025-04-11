@@ -1,4 +1,4 @@
-import { Grid, Box, Typography } from '@mui/material';
+import { Grid, Box, Typography, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
@@ -15,6 +15,7 @@ const RiffleCardList = ({
   handleWinner,
 }) => {
   const { t } = useTranslation();
+  const theme = useTheme();
 
   return (
     <Grid container spacing={3}>
@@ -22,6 +23,7 @@ const RiffleCardList = ({
         <Grid item xs={12} sm={6} md={4} lg={3} key={raffle.id}>
           <GenericCard
             title={raffle.name}
+            titleColor={theme.palette.mode === 'dark' ? 'white' : 'black'}
             subtitle={raffle.description}
             content={
               <>

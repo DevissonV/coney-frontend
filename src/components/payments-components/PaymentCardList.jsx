@@ -1,9 +1,8 @@
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
 import 'dayjs/locale/en';
-import { Box, Card, CardContent, Typography, Grid } from '@mui/material';
+import { Box, Typography, Grid } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import PersonIcon from '@mui/icons-material/Person';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
@@ -12,6 +11,7 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import useAuthStore from '../../stores/auth/useAuthStore';
+import GenericCard from '../generic/cards/GenericCard';
 
 const PaymentCardList = ({ rows }) => {
   const { t } = useTranslation();
@@ -57,22 +57,18 @@ const PaymentCardList = ({ rows }) => {
 
           return (
             <Grid item xs={12} sm={6} md={4} lg={3} key={payment.id}>
-              <motion.div
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.98 }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, ease: 'easeOut' }}
-              >
-                <Card sx={{ p: 2, borderRadius: 3, boxShadow: 4 }}>
-                  <Box display="flex" alignItems="center" gap={1} mb={1}>
-                    <EmojiEventsIcon color="warning" />
-                    <Typography fontWeight="bold">
-                      {raffle.name} (#{raffle.id})
-                    </Typography>
-                  </Box>
+              <GenericCard
+                headerStyle={{ display: 'none' }}
+                backgroundColor="transparent"
+                content={
+                  <Box sx={{ p: 2, pt: 1 }}>
+                    <Box display="flex" alignItems="center" gap={1} mb={1}>
+                      <EmojiEventsIcon color="warning" />
+                      <Typography fontWeight="bold">
+                        {raffle.name} (#{raffle.id})
+                      </Typography>
+                    </Box>
 
-                  <CardContent sx={{ px: 0, pt: 0 }}>
                     <Box display="flex" alignItems="center" gap={1} mb={1}>
                       <CalendarTodayIcon fontSize="small" />
                       <Typography variant="body2">
@@ -152,9 +148,9 @@ const PaymentCardList = ({ rows }) => {
                         {t('paid_date')}: {paidDate}
                       </Typography>
                     </Box>
-                  </CardContent>
-                </Card>
-              </motion.div>
+                  </Box>
+                }
+              />
             </Grid>
           );
         })

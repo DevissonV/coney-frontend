@@ -231,5 +231,7 @@
   "error_recovering_password": "The recovery email could not be sent.",
   "join_coney": "Join Coney!",
   "create_account_to_play": "Create your account to play",
-  "register": "Register"
+  "register": "Register",
+  "all_raffles": "All raffles",
+  "my_raffles": "My raffles"
 }
