@@ -71,3 +71,51 @@ export const fetch = async () => {
 
   return data;
 };
+
+/**
+ * Marks a payment as completed by sending a PATCH request to the server.
+ *
+ * @async
+ * @function markCompleted
+ * @param {string} id - The unique identifier of the payment to be marked as completed.
+ * @returns {Object} The data returned from the server after successfully marking the payment as completed.
+ * @throws {Error} If the server response indicates a failure (e.g., status is false or code is not 200).
+ */
+export const markCompleted = async (id) => {
+  const response = await privateAxios.patch(
+    `${API_URL}/payments/${id}/mark-completed`,
+    {},
+    getHeaders(),
+  );
+  const { status, code, data } = response.data;
+  if (!status || code !== 200) {
+    throw new Error('error completing payment');
+  }
+
+  return data;
+};
+
+/**
+ * Validates and updates expired pending payments.
+ * If a payment has been pending for too long, it will be marked as failed and its tickets released.
+ *
+ * @async
+ * @function validateExpiredPayments
+ * @returns {Promise<Object>} The result of the validation process.
+ * @throws {Error} If the API call fails.
+ */
+export const validateExpiredPayments = async () => {
+  const response = await privateAxios.post(
+    `${API_URL}/payments/validate-expired`,
+    {},
+    getHeaders(),
+  );
+
+  const { status, code, data } = response.data;
+
+  if (!status || code !== 200) {
+    throw new Error('Error validating expired payments');
+  }
+
+  return data;
+};

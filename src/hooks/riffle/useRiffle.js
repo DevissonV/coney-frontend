@@ -43,10 +43,9 @@ export const useRiffle = () => {
    * Creates a new riffle.
    * @param {Object} raffleData - The data for the new riffle.
    */
-  const handleCreateRaffle = async (raffleData) => {
+  const handleCreateRaffle = async (raffleData, photo = null) => {
     try {
-      await createRaffles(raffleData);
-      setLoading(true);
+      const createdRaffle = await createRaffles(raffleData, photo);
       toast({ icon: 'success', titleKey: 'create_success' });
       loadRaffle();
     } catch (error) {
@@ -61,9 +60,9 @@ export const useRiffle = () => {
    * @param {number} id - The ID of the riffle to edit.
    * @param {Object} riffleData - The updated riffle data.
    */
-  const handleEditRiffle = async (id, riffleData) => {
+  const handleEditRiffle = async (id, riffleData, photo = null) => {
     try {
-      await editRiffle(id, riffleData);
+      await editRiffle(id, riffleData, photo);
       toast({ icon: 'success', titleKey: 'edit_success' });
       loadRaffle();
     } catch {
