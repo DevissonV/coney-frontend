@@ -1,4 +1,5 @@
-import { Card, CardContent, Typography, Box } from '@mui/material';
+import { Card, CardContent, Typography, Box, useTheme } from '@mui/material';
+import { red } from '@mui/material/colors';
 import { motion } from 'framer-motion';
 
 const GenericCard = ({
@@ -8,8 +9,11 @@ const GenericCard = ({
   footer,
   icon,
   backgroundColor = 'primary.main',
-  headerStyle = {}, // Nueva prop para personalizar el estilo del encabezado
+  headerStyle = {},
+  titleColor = 'white',
 }) => {
+  const theme = useTheme();
+
   return (
     <motion.div
       whileHover={{ scale: 1.03 }}
@@ -26,44 +30,70 @@ const GenericCard = ({
           justifyContent: 'space-between',
           borderRadius: 3,
           boxShadow: 4,
-          bgcolor: 'background.paper',
+          bgcolor:
+            theme.palette.mode === 'dark' ? '#121212' : 'background.paper',
+          color: theme.palette.mode === 'dark' ? '#e0e0e0' : 'text.primary',
           overflow: 'hidden',
         }}
       >
-        {/* Encabezado */}
         <Box
           sx={{
             bgcolor: backgroundColor,
-            color: 'white',
             p: 1,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            ...headerStyle, // Aplica estilos personalizados
+            ...headerStyle,
           }}
         >
-          {icon && <Box mr={1}>{icon}</Box>}
-          <Typography variant="h6" fontWeight="bold">
+          {icon && (
+            <Box
+              mr={1}
+              sx={{
+                color: titleColor,
+              }}
+            >
+              {icon}
+            </Box>
+          )}
+          <Typography
+            variant="h6"
+            fontWeight="bold"
+            sx={{
+              color: titleColor,
+            }}
+          >
             {title}
           </Typography>
         </Box>
 
-        {/* Contenido */}
-        <CardContent>
+        <CardContent
+          sx={{
+            bgcolor:
+              theme.palette.mode === 'dark' ? '#121212' : 'background.default',
+            flexGrow: 1,
+          }}
+        >
           {subtitle && (
-            <Typography variant="body2" color="text.secondary" mb={2}>
+            <Typography
+              variant="body2"
+              color={
+                theme.palette.mode === 'dark' ? '#e0e0e0' : 'text.secondary'
+              }
+              mb={2}
+            >
               {subtitle}
             </Typography>
           )}
           {content}
         </CardContent>
 
-        {/* Pie de página */}
         {footer && (
           <Box
             sx={{
               p: 1,
-              bgcolor: 'background.default',
+              bgcolor:
+                theme.palette.mode === 'dark' ? '#121212' : 'background.paper', // Fondo dinámico para footer
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',

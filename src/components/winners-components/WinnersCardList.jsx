@@ -1,12 +1,15 @@
-import { Box, Typography, Grid } from '@mui/material';
+import { Box, Typography, Grid, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import Avatar from '@mui/material/Avatar';
 import GenericCard from '../../components/generic/cards/GenericCard';
+import { color } from 'framer-motion';
 
 const WinnersCardList = ({ rows }) => {
   const { t } = useTranslation();
+  const theme = useTheme();
+
   return (
     <Grid container spacing={3}>
       {rows.length === 0 ? (
@@ -20,6 +23,7 @@ const WinnersCardList = ({ rows }) => {
           <Grid item xs={12} sm={6} md={4} lg={3} key={winners.id}>
             <GenericCard
               title={winners.raffleName}
+              titleColor={theme.palette.mode === 'dark' ? 'white' : 'black'}
               subtitle={`${t('creator')}: ${winners.createdBy}`}
               content={
                 <>
@@ -47,7 +51,11 @@ const WinnersCardList = ({ rows }) => {
                 </>
               }
               icon={<EmojiEventsIcon />}
-              backgroundColor="primary.main"
+              headerStyle={{
+                bgcolor: 'transparent',
+                color: theme.palette.mode === 'dark' ? 'white' : 'black',
+              }}
+              backgroundColor="transparent"
             />
           </Grid>
         ))
