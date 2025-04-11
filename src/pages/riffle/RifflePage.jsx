@@ -1,4 +1,10 @@
-import { Box, Button, Typography, CircularProgress } from '@mui/material';
+import {
+  Box,
+  Button,
+  Typography,
+  CircularProgress,
+  ButtonGroup,
+} from '@mui/material';
 import SearchToolbar from '../../components/generic/search-toolbar/SearchToolbar';
 import RiffleFormModal from '../../components/riffle-components/RiffleFormModal';
 import { useTranslation } from 'react-i18next';
@@ -7,6 +13,7 @@ import useAuthStore from '../../stores/auth/useAuthStore';
 import { useNavigate } from 'react-router-dom';
 import { ROLE_ADMIN, ROLE_USER } from '../../utils/generic/constants';
 import RiffleCardList from '../../components/riffle-components/RiffleCardList';
+import { useState } from 'react';
 
 const RifflePage = ({
   riffle,
@@ -29,12 +36,19 @@ const RifflePage = ({
   //const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { user } = useAuthStore();
   const navigate = useNavigate();
+  const [showMyRaffles, setShowMyRaffles] = useState(false);
 
   const handleViewTickets = (riffleId) => {
     navigate(`/tickets/${riffleId}`);
   };
 
   const canCreateRaffle = user?.role === ROLE_ADMIN || user?.role === ROLE_USER;
+
+  const filteredRaffles = showMyRaffles
+    ? riffle.filter((raffle) => {
+        return String(raffle.created_by) === String(user?.id);
+      })
+    : riffle;
 
   return (
     <Box>
@@ -55,39 +69,86 @@ const RifflePage = ({
 
           <Box
             display="flex"
-            flexDirection={{ xs: 'column', md: 'row' }}
-            justifyContent="center"
-            alignItems={{ xs: 'stretch', md: 'center' }}
-            gap={2}
+            flexDirection="column"
+            alignItems="center"
+            gap={3}
             mb={4}
           >
-            <SearchToolbar
-              searchQuery={searchQuery}
-              onSearchChange={onSearchChange}
-              placeholder={t('search_placeholder_riffle')}
-            />
+            <Box
+              display="flex"
+              flexDirection={{ xs: 'column', sm: 'row' }}
+              gap={2}
+              width="100%"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <SearchToolbar
+                searchQuery={searchQuery}
+                onSearchChange={onSearchChange}
+                placeholder={t('search_placeholder_riffle')}
+                sx={{
+                  width: { xs: '100%', sm: '400px' },
+                }}
+              />
+
+              {canCreateRaffle && (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => {
+                    setRiffleToEdit(null);
+                    setOpenModal(true);
+                  }}
+                  sx={{
+                    width: { xs: '100%', sm: 'auto' },
+                    minWidth: '200px',
+                  }}
+                >
+                  {t('create_riffle')}
+                </Button>
+              )}
+            </Box>
 
             {canCreateRaffle && (
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => {
-                  setRiffleToEdit(null);
-                  setOpenModal(true);
-                }}
-                sx={{
-                  whiteSpace: 'nowrap',
-                  height: '40px',
-                  alignSelf: { xs: 'stretch', md: 'auto' },
-                }}
+              <Box
+                display="flex"
+                justifyContent="center"
+                width="100%"
+                sx={{ mt: 2 }}
               >
-                {t('create_riffle')}
-              </Button>
+                <ButtonGroup
+                  variant="contained"
+                  sx={{
+                    width: { xs: '100%', sm: 'auto' },
+                  }}
+                >
+                  <Button
+                    color={!showMyRaffles ? 'primary' : 'inherit'}
+                    onClick={() => setShowMyRaffles(false)}
+                    sx={{
+                      flex: { xs: 1, sm: 'none' },
+                      px: 4,
+                    }}
+                  >
+                    {t('all_raffles')}
+                  </Button>
+                  <Button
+                    color={showMyRaffles ? 'primary' : 'inherit'}
+                    onClick={() => setShowMyRaffles(true)}
+                    sx={{
+                      flex: { xs: 1, sm: 'none' },
+                      px: 4,
+                    }}
+                  >
+                    {t('my_raffles')}
+                  </Button>
+                </ButtonGroup>
+              </Box>
             )}
           </Box>
 
           <RiffleCardList
-            rows={riffle}
+            rows={filteredRaffles}
             onEdit={onEdit}
             onDelete={onDelete}
             onViewTickets={handleViewTickets}

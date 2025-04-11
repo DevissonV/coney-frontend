@@ -227,5 +227,7 @@
   "end_date_must_be_after_init_date": "End date must be after start date",
   "init_date_invalid": "La fecha de inicio no es válida",
   "end_date_invalid": "La fecha de finalización no es válida",
-  "endDate_must_be_greater_than_initDate": "La fecha de finalización debe ser posterior a la de inicio"
+  "endDate_must_be_greater_than_initDate": "La fecha de finalización debe ser posterior a la de inicio",
+  "all_raffles": "Todas las rifas",
+  "my_raffles": "Mis rifas"
 }
