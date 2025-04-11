@@ -4,6 +4,8 @@ import useAuthStore from '../../stores/auth/useAuthStore';
 import { login } from '../../services/auth/AuthService';
 import LoginPage from '../../pages/auth/LoginPage';
 import { toast, errorAlert } from '../../services/generic/AlertService';
+import { getUserById } from '../../services/users/UserService';
+
 
 /**
  * Container component for handling user authentication.
@@ -23,16 +25,26 @@ const AuthContainer = () => {
    */
   const handleLogin = async (credentials) => {
     const { email, password } = credentials;
-
+  
     if (!email || !password) {
       return errorAlert({ messageKey: 'missing_fields' });
     }
-
+  
     setLoading(true);
-
+  
     try {
       const { user, token } = await login(credentials);
-      setUserAndToken(user, token);
+
+      localStorage.setItem('token', token);
+
+      const fullUserData = await getUserById(user.id);
+
+      const enrichedUser = {
+        ...user,
+        photo_url: fullUserData.photo_url || null,
+      };
+      setUserAndToken(enrichedUser, token);
+  
       toast({ icon: 'success', titleKey: 'login_success' });
       navigate('/dashboard');
     } catch {

@@ -24,7 +24,7 @@ import { useEffect, useState } from 'react';
 
 const UserEditModal = ({ open, onClose, currentUser, onEditUser }) => {
   const { t } = useTranslation();
-  const { user: loggedUser } = useAuthStore();
+  const { user: loggedUser,updateUser } = useAuthStore();
   const canEditRole = loggedUser?.role === ROLE_ADMIN;
 
   const [photo, setPhoto] = useState(null);
@@ -79,16 +79,22 @@ const UserEditModal = ({ open, onClose, currentUser, onEditUser }) => {
       lastName: formatName(data.lastName),
     };
   
-    onEditUser(formattedUser, photo);
+    onEditUser(currentUser.id, formattedUser, photo);
+  
+    if (photo) {
+      updateUser({ photo_url: preview });
+    }
+  
     handleClose();
   };
-
+  
   const handleClose = () => {
     reset();
     setPhoto(null);
     setPreview(null);
     onClose();
   };
+  
 
   return (
     <Modal
@@ -128,6 +134,17 @@ const UserEditModal = ({ open, onClose, currentUser, onEditUser }) => {
             sx={{ width: 80, height: 80 }}
           />
         </Box>
+
+        {!currentUser?.photo_url && !preview && (
+          <Typography
+            variant="body2"
+            color="error"
+            align="center"
+            sx={{ mb: 2 }}
+          >
+            {t('please_upload_photo')}
+          </Typography>
+        )}
 
         <Box component="form" onSubmit={handleSubmit(onSubmit)}>
           <TextField
@@ -183,7 +200,12 @@ const UserEditModal = ({ open, onClose, currentUser, onEditUser }) => {
           </Button>
 
           <Box mt={2} display="flex" justifyContent="flex-end">
-            <Button type="submit" variant="contained" color="primary">
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              disabled={!currentUser?.photo_url && !preview}
+            >
               {t('save')}
             </Button>
           </Box>
