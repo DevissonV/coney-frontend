@@ -14,7 +14,6 @@ import {
   confirmReservation,
 } from '../../services/generic/AlertService';
 import useAuthStore from '../../stores/auth/useAuthStore';
-import { validateExpiredPayments } from '../../services/payments/paymentService';
 
 /**
  * Custom hook to manage ticket-related operations.
@@ -219,8 +218,6 @@ export const useTickets = () => {
   const loadTickets = async (riffleId) => {
     setLoading(true);
     try {
-      await validateExpiredPayments();
-
       const data = await fetchTicketsByRiffle(riffleId);
       setTickets(data);
     } catch {
@@ -233,8 +230,6 @@ export const useTickets = () => {
   const searchraffleById = async (riffleId) => {
     setLoading(true);
     try {
-      await validateExpiredPayments();
-
       const data = await raffleById(riffleId);
       setRaffles(data);
     } catch {
