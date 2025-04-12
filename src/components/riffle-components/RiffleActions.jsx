@@ -9,7 +9,7 @@ import useAuthStore from '../../stores/auth/useAuthStore';
 import { useTranslation } from 'react-i18next';
 import { ROLE_ADMIN, ROLE_ANONYMOUS } from '../../utils/generic/constants';
 import { useNavigate } from 'react-router-dom';
-import { confirmLogin } from '../../services/generic/AlertService';
+import { confirmLogin,confirmWinnerSelection } from '../../services/generic/AlertService';
 
 const RiffleActions = ({
   riffleId,
@@ -52,7 +52,10 @@ const RiffleActions = ({
       }
       return;
     }
-
+  
+    const confirm = await confirmWinnerSelection({});
+    if (!confirm.isConfirmed) return;
+  
     if (typeof handleWinner === 'function') {
       handleWinner({ id: riffleId, created_by: createdBy });
     }

@@ -152,3 +152,32 @@ export const showWinnerModal = async ({
     confirmButtonColor: '#0072CE',
   });
 };
+
+/**
+ * Displays a confirmation dialog before selecting a winner.
+ * @param {Object} options - Confirmation options.
+ * @param {string} [options.titleKey='confirm_winner_title'] - Translation key for the title.
+ * @param {string} [options.messageKey='confirm_winner_message'] - Translation key for the message.
+ * @returns {Promise<Object>} The result of the confirmation.
+ */
+export const confirmWinnerSelection = async ({
+  titleKey = 'confirm_winner_title',
+  messageKey = 'confirm_winner_message',
+}) => {
+  const result = await Swal.fire({
+    title: i18n.t(titleKey),
+    text: i18n.t(messageKey),
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonColor: '#0072CE',
+    cancelButtonColor: '#aaa',
+    confirmButtonText: i18n.t('yes_select_winner'),
+    cancelButtonText: i18n.t('cancel'),
+  });
+
+  if (result.isConfirmed) {
+    Swal.close();
+  }
+
+  return result;
+};

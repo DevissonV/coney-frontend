@@ -152,7 +152,7 @@
   "initDate must be today or in the future": "Start date must be today or in the future",
   "reserve": "Reserve",
   "Error selected winner": "Error selecting winner",
-  "No eligible tickets found": "No reserved tickets found",
+  "No eligible tickets found": "To select a winner, at least one ticket must be reserved and paid for. Currently, there are no tickets that have been successfully paid for.",
   "role": "Role",
   "admin": "Administrator",
   "user": "User",
@@ -268,5 +268,8 @@
   "upload_photo": "Upload photo",
   "all_raffles": "All raffles",
   "my_raffles": "My raffles",
-  "please_upload_photo": "Please upload a profile picture to continue"
+  "please_upload_photo": "Please upload a profile picture to continue",
+  "confirm_winner_title": "Are you sure?",
+  "confirm_winner_message": "Once you select the winner, the raffle will be closed and cannot be modified.",
+  "yes_select_winner": "Yes, select winner"
 }

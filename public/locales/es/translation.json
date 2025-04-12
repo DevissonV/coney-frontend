@@ -152,7 +152,7 @@
   "initDate must be today or in the future": "La fecha de inicio debe ser hoy o en el futuro",
   "reserve": "Reservar",
   "Error selected winner": "Error seleccionando ganador",
-  "No eligible tickets found": "no hay ningun ticket reservado",
+  "No eligible tickets found": "Para seleccionar un ganador, al menos una boleta debe estar reservada y pagada. Actualmente no hay boletas con pago exitoso.",
   "role": "Rol",
   "admin": "Administrador",
   "user": "Usuario",
@@ -268,5 +268,8 @@
   "upload_photo": "Cargar imagen",
   "all_raffles": "Todas las rifas",
   "my_raffles": "Mis rifas",
-  "please_upload_photo": "Debes subir una foto de perfil para continuar"
+  "please_upload_photo": "Debes subir una foto de perfil para continuar",
+  "confirm_winner_title": "¿Estás seguro?",
+  "confirm_winner_message": "Una vez selecciones el ganador, la rifa se cerrará y no podrá modificarse.",
+  "yes_select_winner": "Sí, seleccionar ganador"
 }
