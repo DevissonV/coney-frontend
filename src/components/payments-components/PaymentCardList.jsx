@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
 import 'dayjs/locale/en';
-import { Box, Typography, Grid } from '@mui/material';
+import { Box, Typography, Grid, Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import PersonIcon from '@mui/icons-material/Person';
@@ -12,7 +12,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import useAuthStore from '../../stores/auth/useAuthStore';
 import GenericCard from '../generic/cards/GenericCard';
-
+import { motion } from 'framer-motion';
 
 const PaymentCardList = ({ rows }) => {
   const { t } = useTranslation();
@@ -42,6 +42,7 @@ const PaymentCardList = ({ rows }) => {
             amount,
             currency,
             status: paymentStatus,
+            stripe_session_url,
           } = payment;
           const ticketNumbers = tickets
             .map((t) => `#${t.ticket_number}`)
@@ -143,12 +144,26 @@ const PaymentCardList = ({ rows }) => {
                       </Typography>
                     </Box>
 
-                    <Box display="flex" alignItems="center" gap={1}>
+                    <Box display="flex" alignItems="center" gap={1} mb={2}>
                       <AccessTimeIcon fontSize="small" />
                       <Typography variant="body2">
                         {t('paid_date')}: {paidDate}
                       </Typography>
                     </Box>
+
+                    {paymentStatus === 'pending' && stripe_session_url && (
+                      <motion.div whileHover={{ scale: 1.03 }}>
+                        <Button
+                          fullWidth
+                          variant="contained"
+                          color="primary"
+                          startIcon={<AttachMoneyIcon />}
+                          onClick={() => window.location.href = stripe_session_url}
+                        >
+                          {t('pay_now')}
+                        </Button>
+                      </motion.div>
+                    )}
                   </Box>
                 }
               />
