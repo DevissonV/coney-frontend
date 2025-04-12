@@ -176,7 +176,7 @@
   "total": "Total",
   "no_tickets_available": "No hay boletas disponibles",
   "selected_tickets": "Tickets Seleccionados: ",
-  "payment_pending_notice": "Si en 1 hora no se ve reflejado el pago, las boletas que seleccionaste seguirán disponibles",
+  "payment_pending_notice": "Si en 10 minutos no se ve reflejado el pago, las boletas que seleccionaste seguirán disponibles",
   "payment_failed_title": "Pago no realizado",
   "payment_failed_message": "Lamentablemente no pudimos procesar tu compra. Puedes intentarlo de nuevo más tarde.",
   "back_to_riffle": "Volver a Rifas",

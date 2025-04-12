@@ -176,7 +176,7 @@
   "total": "Total",
   "no_tickets_available": "No tickets available",
   "selected_tickets": "Selected Tickets: ",
-  "payment_pending_notice": "If the payment is not confirmed within 1 hour, the selected tickets will remain available",
+  "payment_pending_notice": "If the payment is not confirmed within 10 minutes, the selected tickets will remain available",
   "payment_failed_title": "Payment Failed",
   "payment_failed_message": "Unfortunately, we couldn't process your purchase. Please try again later.",
   "back_to_riffle": "Back to Raffles",
