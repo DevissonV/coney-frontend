@@ -180,6 +180,7 @@
   "payment_failed_title": "Pago no realizado",
   "payment_failed_message": "Lamentablemente no pudimos procesar tu compra. Puedes intentarlo de nuevo más tarde.",
   "back_to_riffle": "Volver a Rifas",
+  "back_to_payment": "Volver a pagos",
   "error_updating_payment": "Error al actualizar el estado del pago.",
   "thank_you_for_your_purchase": "¡Gracias por tu compra!",
   "your_purchase_is_successful": "Tus boletas han sido reservadas correctamente. ¡Te deseamos mucha suerte en el sorteo!.",

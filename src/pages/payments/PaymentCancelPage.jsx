@@ -14,7 +14,7 @@ const PaymentCancelPage = () => {
 
   useEffect(() => {
     if (paymentId) {
-      update(paymentId, { status: 'failed' }).catch(() => {
+      update(paymentId, { status: 'pending' }).catch(() => {
         errorAlert({ messageKey: 'error_updating_payment' });
       });
     }
@@ -36,9 +36,9 @@ const PaymentCancelPage = () => {
       <Button
         variant="contained"
         color="primary"
-        onClick={() => navigate('/riffle')}
+        onClick={() => navigate('/payments')}
       >
-        {t('back_to_riffle')}
+        {t('back_to_payment')}
       </Button>
     </Container>
   );

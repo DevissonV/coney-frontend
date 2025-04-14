@@ -39,7 +39,7 @@ const PaymentSuccessPage = () => {
         color="primary"
         onClick={() => navigate('/riffle')}
       >
-        Volver a Rifas
+        {t('back_to_riffle')}
       </Button>
     </Container>
   );
