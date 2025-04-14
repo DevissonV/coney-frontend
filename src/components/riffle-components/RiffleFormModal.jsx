@@ -59,7 +59,7 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
         price: initialValues.price?.toString() || '',
         ticketCount: initialValues.tickets_created || '',
       });
-  
+
       setFile(null);
       setPreview(initialValues.photo_url || null);
     } else {
@@ -71,7 +71,7 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
         price: '',
         ticketCount: '',
       });
-  
+
       setPreview(null);
       setFile(null);
     }
@@ -107,7 +107,13 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <Box textAlign="center" pt={3} px={3}>
         <Avatar
-          sx={{ bgcolor: 'primary.main', width: 56, height: 56, mx: 'auto', mb: 2 }}
+          sx={{
+            bgcolor: 'primary.main',
+            width: 56,
+            height: 56,
+            mx: 'auto',
+            mb: 2,
+          }}
         >
           <CasinoIcon fontSize="large" />
         </Avatar>
@@ -115,14 +121,21 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
           {isEdit ? t('edit_riffle') : t('create_riffle')}
         </DialogTitle>
         <Typography variant="body2" sx={{ mb: 2 }}>
-          {isEdit ? t('edit_riffle_description') : t('create_riffle_description')}
+          {isEdit
+            ? t('edit_riffle_description')
+            : t('create_riffle_description')}
         </Typography>
       </Box>
 
       <IconButton
         aria-label="close"
         onClick={onClose}
-        sx={{ position: 'absolute', right: 8, top: 8, color: (theme) => theme.palette.grey[500] }}
+        sx={{
+          position: 'absolute',
+          right: 8,
+          top: 8,
+          color: (theme) => theme.palette.grey[500],
+        }}
       >
         <CloseIcon />
       </IconButton>
@@ -273,7 +286,11 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
 
           {preview && (
             <Box mt={2} textAlign="center">
-              <img src={preview} alt="Preview" style={{ maxWidth: '100%', borderRadius: 8 }} />
+              <img
+                src={preview}
+                alt="Preview"
+                style={{ maxWidth: '100%', borderRadius: 8 }}
+              />
             </Box>
           )}
 

@@ -56,7 +56,9 @@ const UserPasswordRecoveryModal = ({ open, onClose }) => {
       </Box>
 
       <Box textAlign="center" mt={-3}>
-        <Avatar sx={{ bgcolor: 'primary.main', mx: 'auto', width: 56, height: 56 }}>
+        <Avatar
+          sx={{ bgcolor: 'primary.main', mx: 'auto', width: 56, height: 56 }}
+        >
           <EmailIcon />
         </Avatar>
         <DialogTitle sx={{ fontWeight: 700, mt: 1 }}>

@@ -6,21 +6,12 @@ import UserEditModal from '../../components/users-components/UserEditModal';
 import SearchToolbar from '../../components/generic/search-toolbar/SearchToolbar';
 import UserCard from '../../components/users-components/UserCard';
 import { useTheme } from '@mui/material/styles';
-import useAuthStore from '../../stores/auth/useAuthStore';
-import { ROLE_ADMIN } from '../../utils/generic/constants';
+//import useAuthStore from '../../stores/auth/useAuthStore';
 
-const UsersPage = ({
-  users,
-  loading,
-  onDelete,
-  onUpdate,
-  onCreate,
-  onApprove,
-  onResendEmail,
-}) => {
+const UsersPage = ({ users, onDelete, onUpdate, onCreate }) => {
   const { t } = useTranslation();
   const [filteredRows, setFilteredRows] = useState(users);
-  const [pageSize, setPageSize] = useState(5);
+  //const [pageSize, setPageSize] = useState(5);
   const [openCreateModal, setOpenCreateModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
@@ -28,7 +19,7 @@ const UsersPage = ({
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const { user } = useAuthStore();
+  //const { user } = useAuthStore();
 
   useEffect(() => {
     setFilteredRows(users);
@@ -49,7 +40,7 @@ const UsersPage = ({
         (user) =>
           user.firstName.toLowerCase().includes(query.toLowerCase()) ||
           user.lastName.toLowerCase().includes(query.toLowerCase()) ||
-          user.email.toLowerCase().includes(query.toLowerCase())
+          user.email.toLowerCase().includes(query.toLowerCase()),
       );
       setFilteredRows(filtered);
     }

@@ -21,7 +21,7 @@ import { errorAlert } from '../../services/generic/AlertService';
 import { useEffect, useState } from 'react';
 
 const WidgetCard = ({ icon, label, value, color }) => {
-  const theme = useTheme();
+  //const theme = useTheme();
   return (
     <Card elevation={6} sx={{ borderRadius: 3 }}>
       <CardContent>
@@ -57,12 +57,20 @@ const WelcomeSection = ({ name, isAuthenticated }) => {
       bgcolor="background.paper"
       sx={{ border: `1px solid ${theme.palette.divider}` }}
     >
-      <EmojiEventsIcon sx={{ fontSize: 50, color: theme.palette.primary.main, mb: 1 }} />
+      <EmojiEventsIcon
+        sx={{ fontSize: 50, color: theme.palette.primary.main, mb: 1 }}
+      />
       <Typography
         variant="h4"
         fontWeight={800}
         gutterBottom
-        sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', gap: 1 }}
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: 1,
+        }}
       >
         {isAuthenticated
           ? `${t('welcome_back')}, ${name}`
@@ -80,7 +88,13 @@ const WelcomeSection = ({ name, isAuthenticated }) => {
             variant="contained"
             color="primary"
             href="/login"
-            sx={{ px: 4, py: 1.5, fontWeight: 'bold', borderRadius: 2, boxShadow: 2 }}
+            sx={{
+              px: 4,
+              py: 1.5,
+              fontWeight: 'bold',
+              borderRadius: 2,
+              boxShadow: 2,
+            }}
           >
             {t('login')}
           </Button>
@@ -98,7 +112,8 @@ const DashboardContainer = () => {
   const [activeRaffles, setActiveRaffles] = useState(0);
 
   const isAuthenticated = !!loggedUser;
-  const fullName = `${loggedUser?.first_name || ''} ${loggedUser?.last_name || ''}`.trim();
+  const fullName =
+    `${loggedUser?.first_name || ''} ${loggedUser?.last_name || ''}`.trim();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -112,7 +127,9 @@ const DashboardContainer = () => {
           setTotalUsers(users.length);
         }
       } catch (error) {
-        errorAlert({ messageKey: error.response?.data?.message || 'error_loading_data' });
+        errorAlert({
+          messageKey: error.response?.data?.message || 'error_loading_data',
+        });
       } finally {
         setLoading(false);
       }

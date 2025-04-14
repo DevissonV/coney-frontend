@@ -29,17 +29,17 @@ const PasswordChangePage = () => {
       errorAlert({ messageKey: 'invalid_token' });
       return;
     }
-  
+
     if (newPassword.length < 6) {
       errorAlert({ messageKey: 'password_length_error' });
       return;
     }
-  
+
     if (newPassword !== confirmPassword) {
       errorAlert({ messageKey: 'passwords_do_not_match' });
       return;
     }
-  
+
     try {
       await handleChangePassword(token, newPassword);
       toast({ messageKey: 'password_change_success' });
@@ -50,8 +50,18 @@ const PasswordChangePage = () => {
   };
 
   return (
-    <Box minHeight="100vh" display="flex" alignItems="center" justifyContent="center" bgcolor="#f5f5f5" px={2}>
-      <Paper elevation={6} sx={{ p: 4, maxWidth: 400, width: '100%', textAlign: 'center' }}>
+    <Box
+      minHeight="100vh"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      bgcolor="#f5f5f5"
+      px={2}
+    >
+      <Paper
+        elevation={6}
+        sx={{ p: 4, maxWidth: 400, width: '100%', textAlign: 'center' }}
+      >
         <LockResetIcon sx={{ fontSize: 48, color: 'primary.main', mb: 2 }} />
         <Typography variant="h5" fontWeight={700} color="primary" gutterBottom>
           {t('change_password')}

@@ -19,6 +19,7 @@ const TicketsContainer = () => {
     ticketsPerPage,
     selectedButtonIndex,
     loadTickets,
+    //setTickets,
     searchraffleById,
     handleEditTicket,
     handleDeleteTicket,
