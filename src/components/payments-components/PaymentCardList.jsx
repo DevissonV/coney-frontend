@@ -158,7 +158,9 @@ const PaymentCardList = ({ rows }) => {
                           variant="contained"
                           color="primary"
                           startIcon={<AttachMoneyIcon />}
-                          onClick={() => window.location.href = stripe_session_url}
+                          onClick={() =>
+                            (window.location.href = stripe_session_url)
+                          }
                         >
                           {t('pay_now')}
                         </Button>

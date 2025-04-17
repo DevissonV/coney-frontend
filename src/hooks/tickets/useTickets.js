@@ -6,6 +6,7 @@ import {
   deleteTicket,
   fetchTicketsByRiffle,
   raffleById,
+  fetchUserTicketsByRaffle,
 } from '../../services/tickets/TicketService';
 import {
   errorAlert,
@@ -222,7 +223,33 @@ export const useTickets = () => {
       await validateExpiredPayments();
 
       const data = await fetchTicketsByRiffle(riffleId);
-      setTickets(data);
+      if (user) {
+        const rafflesWithReservedTickets = await Promise.all(
+          data.map(async (tickets) => {
+            try {
+              const userTickets = await fetchUserTicketsByRaffle(
+                user.id,
+                riffleId,
+              );
+              return {
+                ...tickets,
+                reserved_tickets: userTickets
+                  .map((ticket) => ticket.ticket_number)
+                  .join(', '),
+              };
+            } catch {
+              errorAlert({ messageKey: 'error_unexpected' });
+              return {
+                ...tickets,
+                reserved_tickets: 0,
+              };
+            }
+          }),
+        );
+        setTickets(rafflesWithReservedTickets);
+      } else {
+        setTickets(data);
+      }
     } catch {
       errorAlert({ messageKey: 'error_loading_tickets' });
     } finally {
@@ -331,6 +358,7 @@ export const useTickets = () => {
     totalPages,
     selectedTicketNumbers,
     openModal,
+    setTickets,
     setOpenModal,
     loadTickets,
     handleEditTicket,

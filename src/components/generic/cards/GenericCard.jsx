@@ -1,5 +1,4 @@
 import { Card, CardContent, Typography, Box, useTheme } from '@mui/material';
-import { red } from '@mui/material/colors';
 import { motion } from 'framer-motion';
 
 const GenericCard = ({

@@ -14,6 +14,8 @@ import {
 } from '../../services/generic/AlertService';
 import { getUserById } from '../../services/users/UserService';
 import { ticketById } from '../../services/tickets/TicketService';
+import { fetchUserTicketsByRaffle } from '../../services/tickets/TicketService';
+import useAuthStore from '../../stores/auth/useAuthStore';
 
 /**
  * Custom hook to manage riffle-related operations.
@@ -22,16 +24,37 @@ import { ticketById } from '../../services/tickets/TicketService';
 export const useRiffle = () => {
   const [loading, setLoading] = useState(true);
   const [riffle, setRiffle] = useState([]);
+  const { user } = useAuthStore();
 
-  /**
-   * Loads all raffles.
-   */
   const loadRaffle = async () => {
     setLoading(true);
     try {
       const data = await fetchRaffle();
-
-      setRiffle(data);
+      if (user) {
+        const rafflesWithReservedTickets = await Promise.all(
+          data.map(async (raffle) => {
+            try {
+              const userTickets = await fetchUserTicketsByRaffle(
+                user.id,
+                raffle.id,
+              );
+              return {
+                ...raffle,
+                reserved_tickets: userTickets.length,
+              };
+            } catch {
+              errorAlert({ messageKey: 'error_unexpected' });
+              return {
+                ...raffle,
+                reserved_tickets: 0,
+              };
+            }
+          }),
+        );
+        setRiffle(rafflesWithReservedTickets);
+      } else {
+        setRiffle(data);
+      }
     } catch {
       errorAlert({ messageKey: 'error_loading_riffle' });
     } finally {

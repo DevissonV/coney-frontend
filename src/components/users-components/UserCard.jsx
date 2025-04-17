@@ -22,8 +22,8 @@ const UserCard = ({ user, onEdit, onDelete }) => {
     user.role === ROLE_ADMIN
       ? theme.palette.error.main
       : user.role === ROLE_USER
-      ? theme.palette.warning.main
-      : theme.palette.primary.main;
+        ? theme.palette.warning.main
+        : theme.palette.primary.main;
 
   return (
     <motion.div
@@ -82,7 +82,10 @@ const UserCard = ({ user, onEdit, onDelete }) => {
           <Typography
             variant="body2"
             color="textSecondary"
-            sx={{ wordBreak: 'break-word', fontSize: { xs: '0.8rem', md: '0.9rem' } }}
+            sx={{
+              wordBreak: 'break-word',
+              fontSize: { xs: '0.8rem', md: '0.9rem' },
+            }}
           >
             {user.email}
           </Typography>

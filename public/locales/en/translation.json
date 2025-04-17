@@ -271,5 +271,7 @@
   "please_upload_photo": "Please upload a profile picture to continue",
   "confirm_winner_title": "Are you sure?",
   "confirm_winner_message": "Once you select the winner, the raffle will be closed and cannot be modified.",
-  "yes_select_winner": "Yes, select winner"
+  "yes_select_winner": "Yes, select winner",
+  "reserved_tickets": "Reserved tickets",
+  "no_reserved_tickets": "No reserved tickets"
 }

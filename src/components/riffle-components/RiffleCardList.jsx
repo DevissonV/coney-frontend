@@ -4,9 +4,12 @@ import dayjs from 'dayjs';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import EventIcon from '@mui/icons-material/Event';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import InfoIcon from '@mui/icons-material/Info';
 import RiffleActions from './RiffleActions';
 import GenericCard from '../generic/cards/GenericCard';
 import { DEFAULT_IMAGE_NOT_RAFFLES } from '../../utils/generic/constants';
+import { useNavigate } from 'react-router-dom';
+import { IconButton, Tooltip } from '@mui/material';
 
 const RiffleCardList = ({
   rows,
@@ -17,6 +20,7 @@ const RiffleCardList = ({
 }) => {
   const { t } = useTranslation();
   const theme = useTheme();
+  const navigate = useNavigate();
 
   return (
     <Grid container spacing={3}>
@@ -32,7 +36,7 @@ const RiffleCardList = ({
                   sx={{
                     position: 'relative',
                     width: '100%',
-                    aspectRatio: '4 / 3', 
+                    aspectRatio: '4 / 3',
                     borderRadius: 2,
                     overflow: 'hidden',
                     mb: 2,
@@ -66,6 +70,31 @@ const RiffleCardList = ({
                     {t('available_tickets')}: {raffle.available_tickets}
                   </Typography>
                 </Box>
+
+                {raffle.reserved_tickets !== undefined &&
+                  raffle.reserved_tickets > 0 && (
+                    <Box display="flex" alignItems="center" gap={1} mb={1}>
+                      <ConfirmationNumberIcon
+                        fontSize="small"
+                        color="primary"
+                      />
+                      <Typography variant="body2" color="primary">
+                        {t('reserved_tickets')}: {raffle.reserved_tickets}
+                      </Typography>
+                      <Tooltip title={t('reserved_tickets')}>
+                        <IconButton
+                          size="small"
+                          onClick={() => navigate(`/tickets/${raffle.id}`)}
+                          sx={{
+                            color: theme.palette.primary.main,
+                            padding: '2px',
+                          }}
+                        >
+                          <InfoIcon fontSize="small" />
+                        </IconButton>
+                      </Tooltip>
+                    </Box>
+                  )}
 
                 <Box display="flex" alignItems="center" gap={1}>
                   <AttachMoneyIcon fontSize="small" />

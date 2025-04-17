@@ -94,15 +94,40 @@ export const raffleById = async (id) => {
   return data;
 };
 
+/**
+ * Fetches a ticket by its ID.
+ * @param {number|string} id - The ID of the ticket to fetch.
+ * @throws {Error} If the request fails or the response status is not 200.
+ * @returns {Promise<Object>} A promise resolving to the ticket data.
+ */
 export const ticketById = async (id) => {
   const response = await privateAxios.get(
-    `${API_URL}/tickets/${id}`,
+    `${API_URL}/tickets/?user_id=${id}`,
     getHeaders(),
   );
   const { status, code, data } = response.data;
 
   if (!status || code !== 200) {
     throw new Error(`Error fetching ticket with ID ${id}`);
+  }
+
+  return data;
+};
+
+/**
+ * Fetches tickets reserved by a specific user for a specific raffle.
+ * @param {number|string} userId - The ID of the user.
+ * @param {number|string} raffleId - The ID of the raffle.
+ * @returns {Promise<Array>} A promise resolving to an array of ticket data.
+ */
+export const fetchUserTicketsByRaffle = async (userId, raffleId) => {
+  const response = await privateAxios.get(
+    `${API_URL}/tickets/?user_id=${userId}&raffle_id=${raffleId}`,
+    getHeaders(),
+  );
+  const { status, code, data } = response.data;
+  if (!status || code !== 200) {
+    throw new Error('Error fetching user tickets');
   }
 
   return data;

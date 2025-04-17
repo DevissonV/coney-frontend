@@ -68,7 +68,7 @@ const RiffleContainer = () => {
       setOpenModal={setOpenModal}
       riffleToEdit={riffleToEdit}
       setRiffleToEdit={setRiffleToEdit}
-      onSubmit={(raffleData,photo) => {
+      onSubmit={(raffleData, photo) => {
         if (riffleToEdit) {
           handleEditRiffle(riffleToEdit.id, raffleData, photo);
         } else {

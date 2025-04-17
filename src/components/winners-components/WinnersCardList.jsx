@@ -4,7 +4,6 @@ import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import Avatar from '@mui/material/Avatar';
 import GenericCard from '../../components/generic/cards/GenericCard';
-import { color } from 'framer-motion';
 
 const WinnersCardList = ({ rows }) => {
   const { t } = useTranslation();

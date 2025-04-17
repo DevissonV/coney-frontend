@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Typography, Button, useMediaQuery } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '@mui/material/styles';
 import UserCreateModal from '../../components/users-components/UserCreateModal';
 import UserEditModal from '../../components/users-components/UserEditModal';
 import SearchToolbar from '../../components/generic/search-toolbar/SearchToolbar';
 import UserCard from '../../components/users-components/UserCard';
-import { useTheme } from '@mui/material/styles';
 
 const UsersPage = ({
   users,
@@ -16,6 +16,7 @@ const UsersPage = ({
   onSearchChange,
 }) => {
   const { t } = useTranslation();
+  const [filteredRows, setFilteredRows] = useState(users);
   const [openCreateModal, setOpenCreateModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
@@ -23,10 +24,29 @@ const UsersPage = ({
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
+  useEffect(() => {
+    setFilteredRows(users);
+  }, [users]);
+
   const handleEditUser = (userId) => {
     const userToEdit = users.find((user) => user.id === userId);
     setCurrentUser(userToEdit);
     setOpenEditModal(true);
+  };
+
+  const handleSearchChange = (query) => {
+    setSearchQuery(query);
+    if (query === '') {
+      setFilteredRows(users);
+    } else {
+      const filtered = users.filter(
+        (user) =>
+          user.firstName.toLowerCase().includes(query.toLowerCase()) ||
+          user.lastName.toLowerCase().includes(query.toLowerCase()) ||
+          user.email.toLowerCase().includes(query.toLowerCase()),
+      );
+      setFilteredRows(filtered);
+    }
   };
 
   return (

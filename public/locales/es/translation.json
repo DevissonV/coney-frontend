@@ -272,5 +272,7 @@
   "please_upload_photo": "Debes subir una foto de perfil para continuar",
   "confirm_winner_title": "¿Estás seguro?",
   "confirm_winner_message": "Una vez selecciones el ganador, la rifa se cerrará y no podrá modificarse.",
-  "yes_select_winner": "Sí, seleccionar ganador"
+  "yes_select_winner": "Sí, seleccionar ganador",
+  "reserved_tickets": "Boletas reservadas",
+  "no_reserved_tickets": "No hay boletas reservadas"
 }
