@@ -19,6 +19,7 @@ import PasswordChangePage from '../pages/users/PasswordChangePage';
 import PaymentSuccessPage from '../pages/payments/PaymentSuccessPage';
 import PaymentCancelPage from '../pages/payments/PaymentCancelPage';
 import PaymentsContainer from '../containers/payments/PaymentsContainer';
+import AuthorizationContainer from '../containers/authorization/AuthorizationContainer';
 
 /**
  * Component that protects routes by checking user authentication.
@@ -143,6 +144,16 @@ const AppRouter = () => {
             </Layout>
           }
         />
+
+        <Route
+          path="/authorization/:raffleId"
+          element={
+            <Layout>
+              <AuthorizationContainer />
+            </Layout>
+          }
+        />
+
       </Routes>
     </Router>
   );
