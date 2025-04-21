@@ -278,7 +278,7 @@
   "ticket_text_min": "El texto debe tener al menos 10 caracteres.",
   "ticket_text_max": "El texto no debe superar los 300 caracteres.",
   "authorization_title": "Autorización de Rifa",
-  "authorization_status": "Estado",
+  "authorization_status": "Estado de la autorización",
   "no_documents_uploaded": "No se han subido documentos aún.",
   "approved": "Aprobada",
   "rejected": "Rechazada",
@@ -294,7 +294,7 @@
   "organizer_certificate": "Certificado del organizador",
   "schedule": "Cronograma",
   "ticket_text": "Texto del boleto",
-  "authorization_created_at": "Creado el",
+  "authorization_created_at": "Autorización creada el",
   "authorization_documents": "Documentos cargados",
   "delete_authorization": "Eliminar autorización",
   "drag_and_drop_here": "Arrastra tu archivo aquí",
@@ -305,5 +305,12 @@
   "uploaded_at": "Subido el",
   "view": "Ver documento",
   "confirm_delete_document": "¿Estás seguro que deseas eliminar este documento?",
-  "not_uploaded": "No subido"
+  "not_uploaded": "Pendiente por subir",
+  "identification_document_id": "Copia de la cédula",
+  "tax_certificate_pdf": "Copia del RUT (PDF)",
+  "prize_invoice_pdf": "Copia facturas de los premios",
+  "prize_appraisal_pdf": "Copia avalúo comercial de los premios",
+  "guarantee_insurance_pdf": "Copia seguro garantía de cumplimiento",
+  "upload_success": "Carga exitosa",
+  "error_uploading_document": "Error al cargar el documento"
 }

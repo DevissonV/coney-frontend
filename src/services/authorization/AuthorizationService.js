@@ -46,8 +46,8 @@ export const createAuthorization = async (payload) => {
 
 /**
  * Uploads a document related to a raffle authorization.
- * @param {Object} formData - Must include file, type, raffleId.
- * @param {number|string} raffleId - ID of the raffle.
+ * @param {FormData} formData - Includes file, type, and authorizationId.
+ * @param {number|string} raffleId - ID of the raffle to include in the URL.
  * @returns {Promise<Object>} The uploaded document record.
  */
 export const uploadAuthorizationDocument = async (formData, raffleId) => {

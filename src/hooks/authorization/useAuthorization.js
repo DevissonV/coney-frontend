@@ -65,7 +65,7 @@ export const useAuthorization = (raffleId) => {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('type', type);
-    formData.append('raffleId', raffleId);
+    formData.append('authorizationId', authorization.id);
 
     try {
       const document = await uploadAuthorizationDocument(formData, raffleId);
