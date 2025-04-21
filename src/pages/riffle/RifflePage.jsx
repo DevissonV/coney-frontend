@@ -9,7 +9,11 @@ import RiffleFormModal from '../../components/riffle-components/RiffleFormModal'
 import { useTranslation } from 'react-i18next';
 import useAuthStore from '../../stores/auth/useAuthStore';
 import { useNavigate } from 'react-router-dom';
-import { ROLE_ADMIN, ROLE_USER } from '../../utils/generic/constants';
+import {
+  ROLE_ADMIN,
+  ROLE_USER,
+  AUTHORIZATION_STATUS_APPROVED,
+} from '../../utils/generic/constants';
 import RiffleCardList from '../../components/riffle-components/RiffleCardList';
 import { useState } from 'react';
 
@@ -41,18 +45,21 @@ const RifflePage = ({
   const hasMyRaffles = riffle.some(r => String(r.created_by) === String(user?.id));
   const hasPendingRaffles =
     user?.role === ROLE_ADMIN
-      ? riffle.some(r => r.authorization_status !== 'approved')
-      : riffle.some(r => r.authorization_status !== 'approved' && String(r.created_by) === String(user?.id));
+      ? riffle.some(r => r.authorization_status !== AUTHORIZATION_STATUS_APPROVED)
+      : riffle.some(r =>
+          r.authorization_status !== AUTHORIZATION_STATUS_APPROVED &&
+          String(r.created_by) === String(user?.id)
+        );
 
   const filteredRaffles = riffle.filter((raffle) => {
     const isOwner = String(raffle.created_by) === String(user?.id);
     const isAdmin = user?.role === ROLE_ADMIN;
-    const isAuthorized = raffle.authorization_status === 'approved';
+    const isAuthorized = raffle.authorization_status === AUTHORIZATION_STATUS_APPROVED;
 
     if (filterView === 'mine') return isOwner;
     if (filterView === 'pending') {
       return user?.role === ROLE_ADMIN
-        ? raffle.authorization_status !== 'approved'
+        ? raffle.authorization_status !== AUTHORIZATION_STATUS_APPROVED
         : isOwner && !isAuthorized;
     }
 

@@ -1,16 +1,28 @@
-import { Grid, Box, Typography, useTheme, Button } from '@mui/material';
+import {
+  Grid,
+  Box,
+  Typography,
+  useTheme,
+  Button,
+} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
+import { useNavigate } from 'react-router-dom';
+
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import EventIcon from '@mui/icons-material/Event';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+
 import RiffleActions from './RiffleActions';
 import GenericCard from '../generic/cards/GenericCard';
 import useAuthStore from '../../stores/auth/useAuthStore';
-import { ROLE_ADMIN } from '../../utils/generic/constants';
-import { useNavigate } from 'react-router-dom';
-import { DEFAULT_IMAGE_NOT_RAFFLES } from '../../utils/generic/constants';
+
+import {
+  ROLE_ADMIN,
+  DEFAULT_IMAGE_NOT_RAFFLES,
+  AUTHORIZATION_STATUS_APPROVED,
+} from '../../utils/generic/constants';
 
 const RiffleCardList = ({
   rows,
@@ -29,8 +41,9 @@ const RiffleCardList = ({
       {rows.map((raffle) => {
         const isCreator = user?.id === raffle.created_by;
         const isAdmin = user?.role === ROLE_ADMIN;
-        const shouldRequestAuth =
-          !raffle.authorization_status || raffle.authorization_status !== 'approved';
+        const isAuthorized = raffle.authorization_status === AUTHORIZATION_STATUS_APPROVED;
+
+        const shouldRequestAuth = !isAuthorized;
 
         return (
           <Grid item xs={12} sm={6} md={4} lg={3} key={raffle.id}>
@@ -38,8 +51,11 @@ const RiffleCardList = ({
               title={raffle.name}
               titleColor={theme.palette.mode === 'dark' ? 'white' : 'black'}
               subtitle={raffle.description}
+              icon={<ConfirmationNumberIcon />}
+              headerStyle={{ bgcolor: 'transparent', color: 'black' }}
               content={
                 <>
+                  {/* Imagen */}
                   <Box
                     sx={{
                       position: 'relative',
@@ -64,11 +80,11 @@ const RiffleCardList = ({
                     />
                   </Box>
 
+                  {/* Información básica */}
                   <Box display="flex" alignItems="center" gap={1} mb={1}>
                     <EventIcon fontSize="small" />
                     <Typography variant="body2">
-                      {t('end_date')}:{' '}
-                      {dayjs(raffle.end_date).format('DD-MM-YYYY HH:mm')}
+                      {t('end_date')}: {dayjs(raffle.end_date).format('DD-MM-YYYY HH:mm')}
                     </Typography>
                   </Box>
 
@@ -82,8 +98,7 @@ const RiffleCardList = ({
                   <Box display="flex" alignItems="center" gap={1} mb={2}>
                     <AttachMoneyIcon fontSize="small" />
                     <Typography variant="body2">
-                      {t('price')}:{' '}
-                      {new Intl.NumberFormat('es-CO', {
+                      {t('price')}: {new Intl.NumberFormat('es-CO', {
                         style: 'currency',
                         currency: 'COP',
                         minimumFractionDigits: 0,
@@ -91,6 +106,7 @@ const RiffleCardList = ({
                     </Typography>
                   </Box>
 
+                  {/* Solicitud de autorización */}
                   {(isCreator || isAdmin) && shouldRequestAuth && (
                     <Box
                       display="flex"
@@ -119,13 +135,7 @@ const RiffleCardList = ({
                 </>
               }
               footer={
-                <Box
-                  width="100%"
-                  display="flex"
-                  justifyContent="flex-end"
-                  px={2}
-                  pb={2}
-                >
+                <Box width="100%" display="flex" justifyContent="flex-end" px={2} pb={2}>
                   <RiffleActions
                     riffleId={raffle.id}
                     availableTickets={raffle.available_tickets}
@@ -137,11 +147,6 @@ const RiffleCardList = ({
                   />
                 </Box>
               }
-              icon={<ConfirmationNumberIcon />}
-              headerStyle={{
-                bgcolor: 'transparent',
-                color: 'black',
-              }}
             />
           </Grid>
         );

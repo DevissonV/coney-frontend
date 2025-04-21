@@ -8,8 +8,9 @@ import {
   useTheme,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import dayjs from 'dayjs';
 import { useState } from 'react';
+import dayjs from 'dayjs';
+
 import DeleteIcon from '@mui/icons-material/Delete';
 import GiftIcon from '@mui/icons-material/CardGiftcard';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
@@ -21,9 +22,15 @@ import AuthorizationCreateForm from '../../components/authorization-components/A
 import AuthorizationDocumentUploader from '../../components/authorization-components/AuthorizationDocumentUploader';
 import AuthorizationDocumentsList from '../../components/authorization-components/AuthorizationDocumentsList';
 import AuthorizationReviewModal from '../../components/authorization-components/AuthorizationReviewModal';
+
 import useAuthStore from '../../stores/auth/useAuthStore';
 import { DOCUMENT_TYPE_OPTIONS } from '../../utils/generic/documentTypes';
-import { ROLE_ADMIN } from '../../utils/generic/constants';
+import {
+  ROLE_ADMIN,
+  AUTHORIZATION_STATUS_APPROVED,
+  AUTHORIZATION_STATUS_PENDING,
+  AUTHORIZATION_STATUS_REVIEWING,
+} from '../../utils/generic/constants';
 
 const AuthorizationPage = ({
   authorization,
@@ -48,8 +55,10 @@ const AuthorizationPage = ({
   }
 
   const uploadedTypes = authorization?.documents?.map((d) => d.type) || [];
+
   const showReviewButton =
-    (authorization.status === 'pending' || authorization.status === 'reviewing') &&
+    (authorization.status === AUTHORIZATION_STATUS_PENDING ||
+      authorization.status === AUTHORIZATION_STATUS_REVIEWING) &&
     user?.role === ROLE_ADMIN;
 
   return (
@@ -85,11 +94,11 @@ const AuthorizationPage = ({
             <Box
               sx={{
                 backgroundColor:
-                  authorization.status === 'pending'
+                  authorization.status === AUTHORIZATION_STATUS_PENDING
                     ? theme.palette.mode === 'dark'
                       ? '#554d00'
                       : '#fff3cd'
-                    : authorization.status === 'approved'
+                    : authorization.status === AUTHORIZATION_STATUS_APPROVED
                     ? theme.palette.mode === 'dark'
                       ? '#1e4d2b'
                       : '#d4edda'
@@ -98,11 +107,11 @@ const AuthorizationPage = ({
                     : '#f8d7da',
                 border: '1px solid',
                 borderColor:
-                  authorization.status === 'pending'
+                  authorization.status === AUTHORIZATION_STATUS_PENDING
                     ? theme.palette.mode === 'dark'
                       ? '#e0c300'
                       : '#ffeeba'
-                    : authorization.status === 'approved'
+                    : authorization.status === AUTHORIZATION_STATUS_APPROVED
                     ? theme.palette.mode === 'dark'
                       ? '#2ecc71'
                       : '#c3e6cb'
@@ -140,7 +149,7 @@ const AuthorizationPage = ({
               />
             </Box>
 
-            {/* Subida de nuevo documento */}
+            {/* Subida de documentos o mensaje final */}
             {uploadedTypes.length === DOCUMENT_TYPE_OPTIONS.length ? (
               <Paper
                 elevation={0}
@@ -204,7 +213,7 @@ const AuthorizationPage = ({
         </Paper>
       )}
 
-      {/* Modal de revisión solo para admins */}
+      {/* Modal de revisión */}
       <AuthorizationReviewModal
         open={openReviewModal}
         onClose={() => setOpenReviewModal(false)}
