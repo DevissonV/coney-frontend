@@ -4,6 +4,7 @@ import {
   createAuthorization,
   uploadAuthorizationDocument,
   deleteAuthorization,
+  deleteAuthorizationDocument,
 } from '../../services/authorization/AuthorizationService';
 import {
   errorAlert,
@@ -98,6 +99,29 @@ export const useAuthorization = (raffleId) => {
     }
   };
 
+  /**
+   * Deletes the documents.
+   */
+  const handleDeleteDocument = async (docId) => {
+    const result = await confirmDelete({
+      titleKey: 'confirm_delete_title',
+      messageKey: 'confirm_delete_document',
+    });
+
+    if (!result.isConfirmed) return;
+
+    try {
+      await deleteAuthorizationDocument(docId);
+      toast({ icon: 'success', titleKey: 'delete_success' });
+      setAuthorization((prev) => ({
+        ...prev,
+        documents: prev.documents.filter((d) => d.id !== docId),
+      }));
+    } catch {
+      errorAlert({ messageKey: 'error_deleting_document' });
+    }
+  };
+
   useEffect(() => {
     if (raffleId) loadAuthorization();
   }, [raffleId]);
@@ -108,5 +132,6 @@ export const useAuthorization = (raffleId) => {
     handleCreateAuthorization,
     handleUploadDocument,
     handleDeleteAuthorization,
+    handleDeleteDocument,
   };
 };

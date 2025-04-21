@@ -72,6 +72,27 @@ export const uploadAuthorizationDocument = async (formData, raffleId) => {
 };
 
 /**
+ * Deletes an authorization document by its ID.
+ * @param {string} docId - The ID of the document to be deleted.
+ * @returns {Promise<boolean>} Returns `true` if the document is successfully deleted.
+ * @throws {Error} Throws an error if the deletion fails or the response status is invalid.
+ */
+export const deleteAuthorizationDocument = async (docId) => {
+  const response = await privateAxios.delete(
+    `${API_URL}/authorizations/documents/${docId}`,
+    getHeaders(),
+  );
+
+  const { status, code } = response.data;
+
+  if (!status || code !== 200) {
+    throw new Error('Error deleting document');
+  }
+
+  return true;
+};
+
+/**
  * Deletes an authorization by its ID.
  * @param {number|string} id - Authorization ID.
  * @returns {Promise<boolean>}

@@ -301,5 +301,9 @@
   "or_click_to_select": "o haz clic para seleccionarlo",
   "selected_file": "Archivo seleccionado",
   "raffle_information": "Información de la Rifa",
-  "authorization_information": "Autorización Legal"
+  "authorization_information": "Autorización Legal",
+  "uploaded_at": "Subido el",
+  "view": "Ver documento",
+  "confirm_delete_document": "¿Estás seguro que deseas eliminar este documento?",
+  "not_uploaded": "No subido"
 }
