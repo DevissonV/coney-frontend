@@ -318,5 +318,6 @@
   "error_fetch_authorization": "Error al cargar la autorización",
   "authorize": "Solicitar autorización",
   "authorization_required_message": "Esta rifa requiere autorización para estar activa.",
-  "request_authorization": "Solicitar autorización"
+  "request_authorization": "Solicitar autorización",
+  "pending_authorization": "Pendientes por autorización"
 }

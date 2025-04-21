@@ -3,7 +3,6 @@ import {
   Button,
   Typography,
   CircularProgress,
-  ButtonGroup,
 } from '@mui/material';
 import SearchToolbar from '../../components/generic/search-toolbar/SearchToolbar';
 import RiffleFormModal from '../../components/riffle-components/RiffleFormModal';
@@ -31,7 +30,7 @@ const RifflePage = ({
   const { t } = useTranslation();
   const { user } = useAuthStore();
   const navigate = useNavigate();
-  const [showMyRaffles, setShowMyRaffles] = useState(false);
+  const [filterView, setFilterView] = useState('all'); // 'all' | 'mine' | 'pending'
 
   const handleViewTickets = (riffleId) => {
     navigate(`/tickets/${riffleId}`);
@@ -39,24 +38,20 @@ const RifflePage = ({
 
   const canCreateRaffle = user?.role === ROLE_ADMIN || user?.role === ROLE_USER;
 
-  const filteredRaffles = showMyRaffles
-    ? riffle.filter((raffle) => String(raffle.created_by) === String(user?.id))
-    : riffle.filter((raffle) => {
-        const isOwner = String(raffle.created_by) === String(user?.id);
-        const isAdmin = user?.role === ROLE_ADMIN;
-        const isAuthorized = raffle.authorization_status === 'approved';
-        return isOwner || isAdmin || isAuthorized;
-      });
+  const filteredRaffles = riffle.filter((raffle) => {
+    const isOwner = String(raffle.created_by) === String(user?.id);
+    const isAdmin = user?.role === ROLE_ADMIN;
+    const isAuthorized = raffle.authorization_status === 'approved';
+
+    if (filterView === 'mine') return isOwner;
+    if (filterView === 'pending') return isOwner && !isAuthorized;
+    return isOwner || isAdmin || isAuthorized;
+  });
 
   return (
     <Box>
       {loading ? (
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          height="50vh"
-        >
+        <Box display="flex" justifyContent="center" alignItems="center" height="50vh">
           <CircularProgress />
         </Box>
       ) : (
@@ -65,13 +60,7 @@ const RifflePage = ({
             {t('riffle')}
           </Typography>
 
-          <Box
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            gap={3}
-            mb={4}
-          >
+          <Box display="flex" flexDirection="column" alignItems="center" gap={3} mb={4}>
             <Box
               display="flex"
               flexDirection={{ xs: 'column', sm: 'row' }}
@@ -84,9 +73,7 @@ const RifflePage = ({
                 searchQuery={searchQuery}
                 onSearchChange={onSearchChange}
                 placeholder={t('search_placeholder_riffle')}
-                sx={{
-                  width: { xs: '100%', sm: '400px' },
-                }}
+                sx={{ width: { xs: '100%', sm: '400px' } }}
               />
 
               {canCreateRaffle && (
@@ -97,10 +84,7 @@ const RifflePage = ({
                     setRiffleToEdit(null);
                     setOpenModal(true);
                   }}
-                  sx={{
-                    width: { xs: '100%', sm: 'auto' },
-                    minWidth: '200px',
-                  }}
+                  sx={{ width: { xs: '100%', sm: 'auto' }, minWidth: '200px' }}
                 >
                   {t('create_riffle')}
                 </Button>
@@ -110,37 +94,34 @@ const RifflePage = ({
             {canCreateRaffle && (
               <Box
                 display="flex"
-                justifyContent="center"
-                width="100%"
-                sx={{ mt: 2 }}
+                flexDirection={{ xs: 'column', sm: 'row' }}
+                gap={1}
+                width={{ xs: '100%', sm: 'auto' }}
               >
-                <ButtonGroup
+                <Button
+                  fullWidth
                   variant="contained"
-                  sx={{
-                    width: { xs: '100%', sm: 'auto' },
-                  }}
+                  color={filterView === 'all' ? 'primary' : 'inherit'}
+                  onClick={() => setFilterView('all')}
                 >
-                  <Button
-                    color={!showMyRaffles ? 'primary' : 'inherit'}
-                    onClick={() => setShowMyRaffles(false)}
-                    sx={{
-                      flex: { xs: 1, sm: 'none' },
-                      px: 4,
-                    }}
-                  >
-                    {t('all_raffles')}
-                  </Button>
-                  <Button
-                    color={showMyRaffles ? 'primary' : 'inherit'}
-                    onClick={() => setShowMyRaffles(true)}
-                    sx={{
-                      flex: { xs: 1, sm: 'none' },
-                      px: 4,
-                    }}
-                  >
-                    {t('my_raffles')}
-                  </Button>
-                </ButtonGroup>
+                  {t('all_raffles')}
+                </Button>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color={filterView === 'mine' ? 'primary' : 'inherit'}
+                  onClick={() => setFilterView('mine')}
+                >
+                  {t('my_raffles')}
+                </Button>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color={filterView === 'pending' ? 'primary' : 'inherit'}
+                  onClick={() => setFilterView('pending')}
+                >
+                  {t('pending_authorization')}
+                </Button>
               </Box>
             )}
           </Box>
