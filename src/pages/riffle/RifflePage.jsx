@@ -4,14 +4,16 @@ import {
   Typography,
   CircularProgress,
 } from '@mui/material';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+
 import SearchToolbar from '../../components/generic/search-toolbar/SearchToolbar';
 import RiffleFormModal from '../../components/riffle-components/RiffleFormModal';
-import { useTranslation } from 'react-i18next';
-import useAuthStore from '../../stores/auth/useAuthStore';
-import { useNavigate } from 'react-router-dom';
-import { ROLE_ADMIN, ROLE_USER } from '../../utils/generic/constants';
 import RiffleCardList from '../../components/riffle-components/RiffleCardList';
-import { useState } from 'react';
+
+import useAuthStore from '../../stores/auth/useAuthStore';
+import { ROLE_ADMIN, ROLE_USER } from '../../utils/generic/constants';
 
 const RifflePage = ({
   riffle,
@@ -32,19 +34,24 @@ const RifflePage = ({
   const navigate = useNavigate();
   const [filterView, setFilterView] = useState('all'); // 'all' | 'mine' | 'pending'
 
-  const handleViewTickets = (riffleId) => {
-    navigate(`/tickets/${riffleId}`);
-  };
-
   const canCreateRaffle = user?.role === ROLE_ADMIN || user?.role === ROLE_USER;
+  const isAdmin = user?.role === ROLE_ADMIN;
+
+  const handleViewTickets = (raffleId) => {
+    navigate(`/tickets/${raffleId}`);
+  };
 
   const filteredRaffles = riffle.filter((raffle) => {
     const isOwner = String(raffle.created_by) === String(user?.id);
-    const isAdmin = user?.role === ROLE_ADMIN;
     const isAuthorized = raffle.authorization_status === 'approved';
 
     if (filterView === 'mine') return isOwner;
-    if (filterView === 'pending') return isOwner && !isAuthorized;
+
+    if (filterView === 'pending') {
+      const isPending = raffle.authorization_status !== 'approved';
+      return (isOwner && isPending) || (isAdmin && isPending);
+    }
+
     return isOwner || isAdmin || isAuthorized;
   });
 
@@ -61,6 +68,7 @@ const RifflePage = ({
           </Typography>
 
           <Box display="flex" flexDirection="column" alignItems="center" gap={3} mb={4}>
+            {/* Search and Create */}
             <Box
               display="flex"
               flexDirection={{ xs: 'column', sm: 'row' }}
@@ -91,6 +99,7 @@ const RifflePage = ({
               )}
             </Box>
 
+            {/* Filter buttons */}
             {canCreateRaffle && (
               <Box
                 display="flex"
@@ -126,6 +135,7 @@ const RifflePage = ({
             )}
           </Box>
 
+          {/* Cards */}
           <RiffleCardList
             rows={filteredRaffles}
             onEdit={onEdit}
@@ -134,6 +144,7 @@ const RifflePage = ({
             handleWinner={handleWinner}
           />
 
+          {/* Modal */}
           <RiffleFormModal
             open={openModal}
             onClose={() => {

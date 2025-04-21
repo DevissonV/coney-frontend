@@ -323,5 +323,7 @@
   "review_authorization": "Revisión de Autorización",
   "reject": "Rechazar",
   "rejection_reason": "Motivo de rechazo",
-  "submit_decision": "Enviar decisión"
+  "submit_decision": "Enviar decisión",
+  "update_success_authorization": "Actualización exitosa",
+  "error_updating_authorization": "Error al actualizar la autorización"
 }

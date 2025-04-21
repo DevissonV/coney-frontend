@@ -10,8 +10,9 @@ import {
     Radio,
     TextField,
     Stack,
-    Box,
-    Avatar,
+    Card,
+    CardMedia,
+    CardContent
   } from '@mui/material';
   import { useState } from 'react';
   import { useTranslation } from 'react-i18next';
@@ -46,22 +47,23 @@ import {
       <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
         <DialogTitle>{t('review_authorization')}</DialogTitle>
         <DialogContent>
-          <Box display="flex" gap={2} alignItems="center" mb={2}>
-            <Avatar
-              variant="rounded"
-              src={raffle?.image_url}
+          <Card elevation={3} sx={{ mb: 3, boxShadow: 3, borderRadius: 2 }}>
+            <CardMedia
+              component="img"
+              height="180"
+              image={raffle?.image_url}
               alt={raffle?.name}
-              sx={{ width: 80, height: 80 }}
+              sx={{ objectFit: 'cover', borderRadius: '8px 8px 0 0' }}
             />
-            <Box>
+            <CardContent sx={{ textAlign: 'center' }}>
               <Typography variant="h6" gutterBottom>
                 {raffle?.name}
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 {raffle?.description}
               </Typography>
-            </Box>
-          </Box>
+            </CardContent>
+          </Card>
   
           <Stack spacing={2}>
             <RadioGroup value={decision} onChange={handleDecisionChange} row>
@@ -100,3 +102,4 @@ import {
   };
   
   export default AuthorizationReviewModal;
+  
