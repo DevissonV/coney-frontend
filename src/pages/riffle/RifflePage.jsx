@@ -3,6 +3,7 @@ import {
   Button,
   Typography,
   CircularProgress,
+  Paper,
 } from '@mui/material';
 import SearchToolbar from '../../components/generic/search-toolbar/SearchToolbar';
 import RiffleFormModal from '../../components/riffle-components/RiffleFormModal';
@@ -16,6 +17,7 @@ import {
 } from '../../utils/generic/constants';
 import RiffleCardList from '../../components/riffle-components/RiffleCardList';
 import { useState } from 'react';
+import ReportProblemIcon from '@mui/icons-material/ReportProblem';
 
 const RifflePage = ({
   riffle,
@@ -46,10 +48,7 @@ const RifflePage = ({
   const hasPendingRaffles =
     user?.role === ROLE_ADMIN
       ? riffle.some(r => r.authorization_status !== AUTHORIZATION_STATUS_APPROVED)
-      : riffle.some(r =>
-          r.authorization_status !== AUTHORIZATION_STATUS_APPROVED &&
-          String(r.created_by) === String(user?.id)
-        );
+      : riffle.some(r => r.authorization_status !== AUTHORIZATION_STATUS_APPROVED && String(r.created_by) === String(user?.id));
 
   const filteredRaffles = riffle.filter((raffle) => {
     const isOwner = String(raffle.created_by) === String(user?.id);
@@ -147,6 +146,46 @@ const RifflePage = ({
                   </Button>
                 )}
               </Box>
+            )}
+
+            {filterView === 'pending' && (
+              <Paper
+                elevation={3}
+                sx={{
+                  backgroundColor: (theme) =>
+                    theme.palette.mode === 'dark' ? '#2f2f2f' : '#fff8e1',
+                  border: '1px solid',
+                  borderColor: (theme) =>
+                    theme.palette.mode === 'dark' ? '#fbc02d' : '#ffecb3',
+                  color: (theme) =>
+                    theme.palette.mode === 'dark' ? '#fffde7' : '#795548',
+                  p: 3,
+                  borderRadius: 3,
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: 2,
+                  mb: 4,
+                  maxWidth: '900px',
+                  mx: 'auto',
+                }}
+              >
+                <ReportProblemIcon
+                  fontSize="large"
+                  sx={{
+                    color: (theme) =>
+                      theme.palette.mode === 'dark' ? '#ffb300' : '#f57c00',
+                    mt: '2px',
+                  }}
+                />
+                <Box>
+                  <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
+                    {t('authorization_info_title')}
+                  </Typography>
+                  <Typography variant="body2">
+                    {t('authorization_info_message')}
+                  </Typography>
+                </Box>
+              </Paper>
             )}
           </Box>
 
