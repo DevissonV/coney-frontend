@@ -153,12 +153,12 @@ const RifflePage = ({
                 elevation={3}
                 sx={{
                   backgroundColor: (theme) =>
-                    theme.palette.mode === 'dark' ? '#2f2f2f' : '#fff8e1',
+                    theme.palette.mode === 'dark' ? '#2f2f2f' : '#fff3e0', // más suave y neutro
                   border: '1px solid',
                   borderColor: (theme) =>
-                    theme.palette.mode === 'dark' ? '#fbc02d' : '#ffecb3',
+                    theme.palette.mode === 'dark' ? '#fbc02d' : '#ffcc80',
                   color: (theme) =>
-                    theme.palette.mode === 'dark' ? '#fffde7' : '#795548',
+                    theme.palette.mode === 'dark' ? '#fffde7' : '#6d4c41',
                   p: 3,
                   borderRadius: 3,
                   display: 'flex',
@@ -173,7 +173,7 @@ const RifflePage = ({
                   fontSize="large"
                   sx={{
                     color: (theme) =>
-                      theme.palette.mode === 'dark' ? '#ffb300' : '#f57c00',
+                      theme.palette.mode === 'dark' ? '#ffb300' : '#fb8c00',
                     mt: '2px',
                   }}
                 />
