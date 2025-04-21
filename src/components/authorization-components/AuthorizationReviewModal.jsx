@@ -8,53 +8,77 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
-  TextField,
   Stack,
   Box,
   Card,
   CardMedia,
   CardContent,
+  Avatar,
+  TextField,
+  InputAdornment,
 } from '@mui/material';
-import { useState } from 'react';
+import FeedbackIcon from '@mui/icons-material/Feedback';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
+import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { authorizationSchema } from '../../utils/validations/authorizations/authorizationSchema';
 import {
   AUTHORIZATION_STATUS_APPROVED,
   AUTHORIZATION_STATUS_REJECTED,
 } from '../../utils/generic/constants';
+import { useEffect, useState } from 'react';
 
 const AuthorizationReviewModal = ({ open, onClose, onSubmit, raffle }) => {
   const { t } = useTranslation();
   const [decision, setDecision] = useState(AUTHORIZATION_STATUS_APPROVED);
-  const [rejectionReason, setRejectionReason] = useState('');
-  const [loading, setLoading] = useState(false);
 
-  const handleDecisionChange = (event) => {
-    setDecision(event.target.value);
-    if (event.target.value === AUTHORIZATION_STATUS_APPROVED) {
-      setRejectionReason('');
-    }
-  };
+  const {
+    register,
+    handleSubmit,
+    trigger,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(authorizationSchema),
+    defaultValues: {
+      rejectionReason: '',
+    },
+  });
 
-  const handleSubmit = async () => {
-    setLoading(true);
-    try {
-      await onSubmit({
-        status: decision,
-        rejectionReason: decision === AUTHORIZATION_STATUS_REJECTED ? rejectionReason : '',
-      });
-      onClose();
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
+  useEffect(() => {
+    if (!open) {
+      reset();
+      setDecision(AUTHORIZATION_STATUS_APPROVED);
     }
+  }, [open, reset]);
+
+  const onSubmitForm = async (data) => {
+    if (decision === AUTHORIZATION_STATUS_REJECTED) {
+      const isValid = await trigger('rejectionReason');
+      if (!isValid) return;
+    }
+
+    await onSubmit({
+      status: decision,
+      rejectionReason: decision === AUTHORIZATION_STATUS_REJECTED ? data.rejectionReason : '',
+    });
+
+    onClose();
   };
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle>{t('review_authorization')}</DialogTitle>
+      <DialogTitle sx={{ textAlign: 'center' }}>
+        <Avatar sx={{ bgcolor: 'primary.main', mx: 'auto', mb: 1 }}>
+          <FeedbackIcon />
+        </Avatar>
+        {t('review_authorization')}
+      </DialogTitle>
+
       <DialogContent>
-        <Card elevation={3} sx={{ mb: 3, boxShadow: 3, borderRadius: 2 }}>
+        <Card elevation={3} sx={{ mb: 3, borderRadius: 2 }}>
           <CardMedia
             component="img"
             height="180"
@@ -72,46 +96,72 @@ const AuthorizationReviewModal = ({ open, onClose, onSubmit, raffle }) => {
           </CardContent>
         </Card>
 
-        <Stack spacing={2}>
-          <RadioGroup value={decision} onChange={handleDecisionChange} row>
-            <FormControlLabel
-              value={AUTHORIZATION_STATUS_APPROVED}
-              control={<Radio />}
-              label={t('approve')}
-            />
-            <FormControlLabel
-              value={AUTHORIZATION_STATUS_REJECTED}
-              control={<Radio />}
-              label={t('reject')}
-            />
-          </RadioGroup>
+        <form onSubmit={handleSubmit(onSubmitForm)}>
+          <Stack spacing={3}>
+            <RadioGroup
+              value={decision}
+              onChange={(e) => {
+                setDecision(e.target.value);
+                if (e.target.value === AUTHORIZATION_STATUS_APPROVED) {
+                  reset({ rejectionReason: '' });
+                }
+              }}
+              row
+            >
+              <FormControlLabel
+                value={AUTHORIZATION_STATUS_APPROVED}
+                control={<Radio color="success" />}
+                label={
+                  <Box display="flex" alignItems="center" gap={1}>
+                    <CheckCircleIcon color="success" />
+                    {t('approve')}
+                  </Box>
+                }
+              />
+              <FormControlLabel
+                value={AUTHORIZATION_STATUS_REJECTED}
+                control={<Radio color="error" />}
+                label={
+                  <Box display="flex" alignItems="center" gap={1}>
+                    <CancelIcon color="error" />
+                    {t('reject')}
+                  </Box>
+                }
+              />
+            </RadioGroup>
 
-          {decision === AUTHORIZATION_STATUS_REJECTED && (
-            <TextField
-              label={t('rejection_reason')}
-              value={rejectionReason}
-              onChange={(e) => setRejectionReason(e.target.value)}
-              fullWidth
-              multiline
-              minRows={3}
-              required
-            />
-          )}
-        </Stack>
+            {decision === AUTHORIZATION_STATUS_REJECTED && (
+              <TextField
+                label={t('rejection_reason')}
+                fullWidth
+                multiline
+                minRows={3}
+                {...register('rejectionReason')}
+                error={!!errors.rejectionReason}
+                helperText={errors.rejectionReason && t(errors.rejectionReason.message)}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <CancelIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            )}
+
+            <DialogActions sx={{ justifyContent: 'space-between', mt: 2 }}>
+              <Button onClick={onClose}>{t('cancel')}</Button>
+              <Button
+                type="submit"
+                variant="contained"
+                color={decision === AUTHORIZATION_STATUS_APPROVED ? 'success' : 'error'}
+              >
+                {t('submit_decision')}
+              </Button>
+            </DialogActions>
+          </Stack>
+        </form>
       </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose} disabled={loading}>
-          {t('cancel')}
-        </Button>
-        <Button
-          onClick={handleSubmit}
-          variant="contained"
-          color={decision === AUTHORIZATION_STATUS_APPROVED ? 'success' : 'error'}
-          disabled={loading || (decision === AUTHORIZATION_STATUS_REJECTED && rejectionReason.trim() === '')}
-        >
-          {t('submit_decision')}
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 };
