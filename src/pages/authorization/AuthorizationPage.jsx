@@ -10,15 +10,17 @@ import {
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
 import DeleteIcon from '@mui/icons-material/Delete';
-import UploadFileIcon from '@mui/icons-material/UploadFile';
 import GiftIcon from '@mui/icons-material/CardGiftcard';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import PersonIcon from '@mui/icons-material/Person';
 import PaperclipIcon from '@mui/icons-material/AttachFile';
+import TaskAltIcon from '@mui/icons-material/TaskAlt';
+
 
 import AuthorizationCreateForm from '../../components/authorization-components/AuthorizationCreateForm';
 import AuthorizationDocumentUploader from '../../components/authorization-components/AuthorizationDocumentUploader';
 import AuthorizationDocumentsList from '../../components/authorization-components/AuthorizationDocumentsList';
+import { DOCUMENT_TYPE_OPTIONS } from '../../utils/generic/documentTypes';
 
 const AuthorizationPage = ({
   authorization,
@@ -130,10 +132,42 @@ const AuthorizationPage = ({
             </Box>
 
             {/* Subida de nuevo documento */}
-            <AuthorizationDocumentUploader
-              onUpload={onUpload}
-              uploadedTypes={uploadedTypes}
-            />
+            {uploadedTypes.length === DOCUMENT_TYPE_OPTIONS.length ? (
+              <Paper
+                elevation={0}
+                sx={{
+                  p: 3,
+                  border: '1px solid',
+                  borderColor: theme.palette.success.main,
+                  bgcolor: theme.palette.mode === 'dark' ? '#1e1e1e' : '#ffffff',
+                  borderRadius: 2,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  textAlign: 'center',
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  fontWeight="bold"
+                  display="flex"
+                  alignItems="center"
+                  gap={1}
+                  color="text.primary"
+                >
+                  <TaskAltIcon fontSize="medium" sx={{ color: theme.palette.success.main }} />
+                  {t('all_documents_uploaded')}
+                </Typography>
+                <Typography variant="body2" mt={1} color="text.secondary">
+                  {t('awaiting_admin_review')}
+                </Typography>
+              </Paper>
+            ) : (
+              <AuthorizationDocumentUploader
+                onUpload={onUpload}
+                uploadedTypes={uploadedTypes}
+              />
+            )}
 
             {/* Botón eliminar autorización */}
             <Box textAlign="right">
