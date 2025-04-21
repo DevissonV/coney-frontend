@@ -1,16 +1,15 @@
 import {
   Box,
+  Button,
   Typography,
   CircularProgress,
   Paper,
   Stack,
-  Button,
   useTheme,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
 import dayjs from 'dayjs';
-
+import { useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import GiftIcon from '@mui/icons-material/CardGiftcard';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
@@ -29,7 +28,7 @@ import {
   ROLE_ADMIN,
   AUTHORIZATION_STATUS_APPROVED,
   AUTHORIZATION_STATUS_PENDING,
-  AUTHORIZATION_STATUS_REVIEWING,
+  AUTHORIZATION_STATUS_REJECTED,
 } from '../../utils/generic/constants';
 
 const AuthorizationPage = ({
@@ -55,11 +54,13 @@ const AuthorizationPage = ({
   }
 
   const uploadedTypes = authorization?.documents?.map((d) => d.type) || [];
-
+  const isRejected = authorization.status === AUTHORIZATION_STATUS_REJECTED;
+  const isCreator = String(authorization.created_by?.id || authorization.created_by) === String(user?.id);
   const showReviewButton =
-    (authorization.status === AUTHORIZATION_STATUS_PENDING ||
-      authorization.status === AUTHORIZATION_STATUS_REVIEWING) &&
+    (authorization.status === AUTHORIZATION_STATUS_PENDING || authorization.status === 'reviewing') &&
     user?.role === ROLE_ADMIN;
+
+  const canResubmit = isRejected && (isCreator || user?.role === ROLE_ADMIN);
 
   return (
     <Box px={2} py={4} maxWidth="md" mx="auto">
@@ -135,6 +136,23 @@ const AuthorizationPage = ({
               <Typography variant="body2" fontStyle="italic">
                 "{authorization.ticket_text}"
               </Typography>
+
+              {isRejected && authorization.rejection_reason && (
+                <Typography variant="body2" color="error" mt={1}>
+                  {t('rejection_reason')}: "{authorization.rejection_reason}"
+                </Typography>
+              )}
+
+              {canResubmit && (
+                <Button
+                  variant="contained"
+                  color="warning"
+                  onClick={() => onReview({ status: AUTHORIZATION_STATUS_PENDING })}
+                  sx={{ mt: 2 }}
+                >
+                  {t('resubmit_for_review')}
+                </Button>
+              )}
             </Box>
 
             {/* Documentos cargados */}
@@ -149,7 +167,7 @@ const AuthorizationPage = ({
               />
             </Box>
 
-            {/* Subida de documentos o mensaje final */}
+            {/* Subida de nuevo documento */}
             {uploadedTypes.length === DOCUMENT_TYPE_OPTIONS.length ? (
               <Paper
                 elevation={0}
