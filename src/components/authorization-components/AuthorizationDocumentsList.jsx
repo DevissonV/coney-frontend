@@ -29,12 +29,6 @@ import {
     const { t } = useTranslation();
     const theme = useTheme();
   
-    const getTypeInfo = (type) =>
-      DOCUMENT_TYPE_OPTIONS.find((d) => d.value === type) ?? {
-        labelKey: type,
-        icon: null,
-      };
-  
     return (
       <Box mt={2}>
         <Grid container spacing={2}>
@@ -50,13 +44,13 @@ import {
                     height: '100%',
                     backgroundColor: uploaded
                       ? theme.palette.mode === 'dark'
-                        ? '#1e4620'
-                        : '#e6f4ea'
+                        ? '#2e2e2e'
+                        : '#f0f0f0'
                       : theme.palette.mode === 'dark'
                       ? '#2a2a2a'
-                      : '#f5f5f5',
+                      : '#fafafa',
                     borderColor: uploaded
-                      ? theme.palette.success.main
+                      ? theme.palette.success.light
                       : theme.palette.divider,
                   }}
                 >
@@ -70,14 +64,14 @@ import {
                     <Box display="flex" alignItems="center" gap={1}>
                       {uploaded ? (
                         <>
-                          <CheckCircleIcon color="success" fontSize="small" />
+                          <CheckCircleIcon sx={{ color: theme.palette.success.main }} fontSize="small" />
                           <Typography variant="body2" color="text.secondary">
                             {t('uploaded_at')}: {dayjs(doc.uploaded_at).format('DD MMM YYYY HH:mm')}
                           </Typography>
                         </>
                       ) : (
                         <>
-                          <CancelIcon color="error" fontSize="small" />
+                          <CancelIcon sx={{ color: theme.palette.error.main }} fontSize="small" />
                           <Typography variant="body2" color="error">
                             {t('not_uploaded')}
                           </Typography>
