@@ -135,7 +135,7 @@ export const useAuthorization = (raffleId) => {
         rejectionReason,
       );
       toast({ icon: 'success', titleKey: 'update_success_authorization' });
-      setAuthorization(updated);
+      await loadAuthorization();
     } catch {
       errorAlert({ messageKey: 'error_updating_authorization' });
     }
