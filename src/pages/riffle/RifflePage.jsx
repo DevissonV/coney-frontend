@@ -4,16 +4,14 @@ import {
   Typography,
   CircularProgress,
 } from '@mui/material';
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-
 import SearchToolbar from '../../components/generic/search-toolbar/SearchToolbar';
 import RiffleFormModal from '../../components/riffle-components/RiffleFormModal';
-import RiffleCardList from '../../components/riffle-components/RiffleCardList';
-
+import { useTranslation } from 'react-i18next';
 import useAuthStore from '../../stores/auth/useAuthStore';
+import { useNavigate } from 'react-router-dom';
 import { ROLE_ADMIN, ROLE_USER } from '../../utils/generic/constants';
+import RiffleCardList from '../../components/riffle-components/RiffleCardList';
+import { useState } from 'react';
 
 const RifflePage = ({
   riffle,
@@ -34,22 +32,28 @@ const RifflePage = ({
   const navigate = useNavigate();
   const [filterView, setFilterView] = useState('all'); // 'all' | 'mine' | 'pending'
 
-  const canCreateRaffle = user?.role === ROLE_ADMIN || user?.role === ROLE_USER;
-  const isAdmin = user?.role === ROLE_ADMIN;
-
-  const handleViewTickets = (raffleId) => {
-    navigate(`/tickets/${raffleId}`);
+  const handleViewTickets = (riffleId) => {
+    navigate(`/tickets/${riffleId}`);
   };
+
+  const canCreateRaffle = user?.role === ROLE_ADMIN || user?.role === ROLE_USER;
+
+  const hasMyRaffles = riffle.some(r => String(r.created_by) === String(user?.id));
+  const hasPendingRaffles =
+    user?.role === ROLE_ADMIN
+      ? riffle.some(r => r.authorization_status !== 'approved')
+      : riffle.some(r => r.authorization_status !== 'approved' && String(r.created_by) === String(user?.id));
 
   const filteredRaffles = riffle.filter((raffle) => {
     const isOwner = String(raffle.created_by) === String(user?.id);
+    const isAdmin = user?.role === ROLE_ADMIN;
     const isAuthorized = raffle.authorization_status === 'approved';
 
     if (filterView === 'mine') return isOwner;
-
     if (filterView === 'pending') {
-      const isPending = raffle.authorization_status !== 'approved';
-      return (isOwner && isPending) || (isAdmin && isPending);
+      return user?.role === ROLE_ADMIN
+        ? raffle.authorization_status !== 'approved'
+        : isOwner && !isAuthorized;
     }
 
     return isOwner || isAdmin || isAuthorized;
@@ -68,7 +72,6 @@ const RifflePage = ({
           </Typography>
 
           <Box display="flex" flexDirection="column" alignItems="center" gap={3} mb={4}>
-            {/* Search and Create */}
             <Box
               display="flex"
               flexDirection={{ xs: 'column', sm: 'row' }}
@@ -99,7 +102,6 @@ const RifflePage = ({
               )}
             </Box>
 
-            {/* Filter buttons */}
             {canCreateRaffle && (
               <Box
                 display="flex"
@@ -115,27 +117,32 @@ const RifflePage = ({
                 >
                   {t('all_raffles')}
                 </Button>
-                <Button
-                  fullWidth
-                  variant="contained"
-                  color={filterView === 'mine' ? 'primary' : 'inherit'}
-                  onClick={() => setFilterView('mine')}
-                >
-                  {t('my_raffles')}
-                </Button>
-                <Button
-                  fullWidth
-                  variant="contained"
-                  color={filterView === 'pending' ? 'primary' : 'inherit'}
-                  onClick={() => setFilterView('pending')}
-                >
-                  {t('pending_authorization')}
-                </Button>
+
+                {hasMyRaffles && (
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    color={filterView === 'mine' ? 'primary' : 'inherit'}
+                    onClick={() => setFilterView('mine')}
+                  >
+                    {t('my_raffles')}
+                  </Button>
+                )}
+
+                {hasPendingRaffles && (
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    color={filterView === 'pending' ? 'primary' : 'inherit'}
+                    onClick={() => setFilterView('pending')}
+                  >
+                    {t('pending_authorization')}
+                  </Button>
+                )}
               </Box>
             )}
           </Box>
 
-          {/* Cards */}
           <RiffleCardList
             rows={filteredRaffles}
             onEdit={onEdit}
@@ -144,7 +151,6 @@ const RifflePage = ({
             handleWinner={handleWinner}
           />
 
-          {/* Modal */}
           <RiffleFormModal
             open={openModal}
             onClose={() => {
