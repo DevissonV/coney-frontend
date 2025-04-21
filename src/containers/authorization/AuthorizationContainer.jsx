@@ -11,7 +11,6 @@ const AuthorizationContainer = () => {
   const {
     authorization,
     loading,
-    handleCreateAuthorization,
     handleUploadDocument,
     handleDeleteDocument, 
     handleReviewAuthorization,
@@ -21,7 +20,6 @@ const AuthorizationContainer = () => {
     <AuthorizationPage
       authorization={authorization}
       loading={loading}
-      onCreate={handleCreateAuthorization}
       onUpload={handleUploadDocument}
       onDeleteDocument={handleDeleteDocument}
       onReview={handleReviewAuthorization}
