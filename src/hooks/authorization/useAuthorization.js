@@ -5,6 +5,7 @@ import {
   uploadAuthorizationDocument,
   deleteAuthorization,
   deleteAuthorizationDocument,
+  patchAuthorizationStatus,
 } from '../../services/authorization/AuthorizationService';
 import {
   errorAlert,
@@ -99,9 +100,6 @@ export const useAuthorization = (raffleId) => {
     }
   };
 
-  /**
-   * Deletes the documents.
-   */
   const handleDeleteDocument = async (docId) => {
     const result = await confirmDelete({
       titleKey: 'confirm_delete_title',
@@ -122,6 +120,27 @@ export const useAuthorization = (raffleId) => {
     }
   };
 
+  /**
+   * Updates authorization status by admin.
+   * @param {{ status: string, rejectionReason?: string }} payload
+   */
+  const handleReviewAuthorization = async ({
+    status,
+    rejectionReason = '',
+  }) => {
+    try {
+      const updated = await patchAuthorizationStatus(
+        authorization.id,
+        status,
+        rejectionReason,
+      );
+      toast({ icon: 'success', titleKey: 'update_success' });
+      setAuthorization(updated);
+    } catch {
+      errorAlert({ messageKey: 'error_updating_authorization' });
+    }
+  };
+
   useEffect(() => {
     if (raffleId) loadAuthorization();
   }, [raffleId]);
@@ -133,5 +152,6 @@ export const useAuthorization = (raffleId) => {
     handleUploadDocument,
     handleDeleteAuthorization,
     handleDeleteDocument,
+    handleReviewAuthorization,
   };
 };

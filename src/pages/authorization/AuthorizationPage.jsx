@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
+import { useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import GiftIcon from '@mui/icons-material/CardGiftcard';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
@@ -16,11 +17,13 @@ import PersonIcon from '@mui/icons-material/Person';
 import PaperclipIcon from '@mui/icons-material/AttachFile';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 
-
 import AuthorizationCreateForm from '../../components/authorization-components/AuthorizationCreateForm';
 import AuthorizationDocumentUploader from '../../components/authorization-components/AuthorizationDocumentUploader';
 import AuthorizationDocumentsList from '../../components/authorization-components/AuthorizationDocumentsList';
+import AuthorizationReviewModal from '../../components/authorization-components/AuthorizationReviewModal';
+import useAuthStore from '../../stores/auth/useAuthStore';
 import { DOCUMENT_TYPE_OPTIONS } from '../../utils/generic/documentTypes';
+import { ROLE_ADMIN } from '../../utils/generic/constants';
 
 const AuthorizationPage = ({
   authorization,
@@ -29,11 +32,12 @@ const AuthorizationPage = ({
   onUpload,
   onDelete,
   onDeleteDocument,
+  onReview,
 }) => {
   const { t } = useTranslation();
   const theme = useTheme();
-
-  const uploadedTypes = authorization?.documents?.map((d) => d.type) || [];
+  const { user } = useAuthStore();
+  const [openReviewModal, setOpenReviewModal] = useState(false);
 
   if (loading || !authorization) {
     return (
@@ -42,6 +46,11 @@ const AuthorizationPage = ({
       </Box>
     );
   }
+
+  const uploadedTypes = authorization?.documents?.map((d) => d.type) || [];
+  const showReviewButton =
+    (authorization.status === 'pending' || authorization.status === 'reviewing') &&
+    user?.role === ROLE_ADMIN;
 
   return (
     <Box px={2} py={4} maxWidth="md" mx="auto">
@@ -161,6 +170,17 @@ const AuthorizationPage = ({
                 <Typography variant="body2" mt={1} color="text.secondary">
                   {t('awaiting_admin_review')}
                 </Typography>
+
+                {showReviewButton && (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => setOpenReviewModal(true)}
+                    sx={{ mt: 2 }}
+                  >
+                    {t('review_authorization')}
+                  </Button>
+                )}
               </Paper>
             ) : (
               <AuthorizationDocumentUploader
@@ -183,6 +203,14 @@ const AuthorizationPage = ({
           </Stack>
         </Paper>
       )}
+
+      {/* Modal de revisión solo para admins */}
+      <AuthorizationReviewModal
+        open={openReviewModal}
+        onClose={() => setOpenReviewModal(false)}
+        onSubmit={onReview}
+        raffle={authorization.raffle}
+      />
     </Box>
   );
 };

@@ -111,3 +111,30 @@ export const deleteAuthorization = async (id) => {
 
   return true;
 };
+
+/**
+ * Updates the status of an authorization (approve or reject).
+ * @param {number|string} id - Authorization ID.
+ * @param {string} status - New status: 'approved' | 'rejected'.
+ * @param {string} rejectionReason - Optional rejection reason.
+ * @returns {Promise<Object>} The updated authorization.
+ */
+export const patchAuthorizationStatus = async (
+  id,
+  status,
+  rejectionReason = '',
+) => {
+  const response = await privateAxios.patch(
+    `${API_URL}/authorizations/${id}`,
+    { status, rejectionReason },
+    getHeaders(),
+  );
+
+  const { status: resStatus, code, data } = response.data;
+
+  if (!resStatus || code !== 200) {
+    throw new Error('Error updating authorization');
+  }
+
+  return data;
+};

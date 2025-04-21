@@ -319,5 +319,9 @@
   "authorize": "Solicitar autorización",
   "authorization_required_message": "Esta rifa requiere autorización para estar activa.",
   "request_authorization": "Solicitar autorización",
-  "pending_authorization": "Pendientes por autorización"
+  "pending_authorization": "Pendientes por autorización",
+  "review_authorization": "Revisión de Autorización",
+  "reject": "Rechazar",
+  "rejection_reason": "Motivo de rechazo",
+  "submit_decision": "Enviar decisión"
 }
