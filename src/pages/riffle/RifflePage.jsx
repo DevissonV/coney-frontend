@@ -40,10 +40,13 @@ const RifflePage = ({
   const canCreateRaffle = user?.role === ROLE_ADMIN || user?.role === ROLE_USER;
 
   const filteredRaffles = showMyRaffles
-    ? riffle.filter((raffle) => {
-        return String(raffle.created_by) === String(user?.id);
-      })
-    : riffle;
+    ? riffle.filter((raffle) => String(raffle.created_by) === String(user?.id))
+    : riffle.filter((raffle) => {
+        const isOwner = String(raffle.created_by) === String(user?.id);
+        const isAdmin = user?.role === ROLE_ADMIN;
+        const isAuthorized = raffle.authorization_status === 'approved';
+        return isOwner || isAdmin || isAuthorized;
+      });
 
   return (
     <Box>

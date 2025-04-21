@@ -314,5 +314,9 @@
   "upload_success": "Carga exitosa",
   "error_uploading_document": "Error al cargar el documento",
   "all_documents_uploaded": "Todos los documentos han sido cargados",
-  "awaiting_admin_review": "Estamos esperando que un administrador revise la documentación para continuar con el proceso."
+  "awaiting_admin_review": "Estamos esperando que un administrador revise la documentación para continuar con el proceso.",
+  "error_fetch_authorization": "Error al cargar la autorización",
+  "authorize": "Solicitar autorización",
+  "authorization_required_message": "Esta rifa requiere autorización para estar activa.",
+  "request_authorization": "Solicitar autorización"
 }
