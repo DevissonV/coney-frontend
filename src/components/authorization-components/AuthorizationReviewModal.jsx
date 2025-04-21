@@ -23,7 +23,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { authorizationSchema } from '../../utils/validations/authorizations/authorizationSchema';
+import { reviewAuthorizationSchema } from '../../utils/validations/authorizations/authorizationSchema';
 import {
   AUTHORIZATION_STATUS_APPROVED,
   AUTHORIZATION_STATUS_REJECTED,
@@ -41,7 +41,7 @@ const AuthorizationReviewModal = ({ open, onClose, onSubmit, raffle }) => {
     reset,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(authorizationSchema),
+    resolver: zodResolver(reviewAuthorizationSchema),
     defaultValues: {
       rejectionReason: '',
     },
