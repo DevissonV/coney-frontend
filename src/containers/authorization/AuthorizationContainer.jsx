@@ -13,7 +13,6 @@ const AuthorizationContainer = () => {
     loading,
     handleCreateAuthorization,
     handleUploadDocument,
-    handleDeleteAuthorization,
     handleDeleteDocument, 
     handleReviewAuthorization,
   } = useAuthorization(raffleId);
@@ -24,7 +23,6 @@ const AuthorizationContainer = () => {
       loading={loading}
       onCreate={handleCreateAuthorization}
       onUpload={handleUploadDocument}
-      onDelete={handleDeleteAuthorization}
       onDeleteDocument={handleDeleteDocument}
       onReview={handleReviewAuthorization}
     />

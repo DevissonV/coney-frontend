@@ -36,7 +36,6 @@ const AuthorizationPage = ({
   loading,
   onCreate,
   onUpload,
-  onDelete,
   onDeleteDocument,
   onReview,
 }) => {
@@ -216,17 +215,6 @@ const AuthorizationPage = ({
               />
             )}
 
-            {/* Botón eliminar autorización */}
-            <Box textAlign="right">
-              <Button
-                onClick={onDelete}
-                color="error"
-                variant="outlined"
-                startIcon={<DeleteIcon />}
-              >
-                {t('delete_authorization')}
-              </Button>
-            </Box>
           </Stack>
         </Paper>
       )}

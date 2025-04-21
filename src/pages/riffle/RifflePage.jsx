@@ -153,7 +153,7 @@ const RifflePage = ({
                 elevation={3}
                 sx={{
                   backgroundColor: (theme) =>
-                    theme.palette.mode === 'dark' ? '#2f2f2f' : '#fff3e0', // más suave y neutro
+                    theme.palette.mode === 'dark' ? '#2f2f2f' : '#fff3e0',
                   border: '1px solid',
                   borderColor: (theme) =>
                     theme.palette.mode === 'dark' ? '#fbc02d' : '#ffcc80',
