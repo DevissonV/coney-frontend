@@ -351,5 +351,6 @@ export const useTickets = () => {
     handlePreviousPage,
     handleTicketsPerPageChange,
     handleReservedTickets,
+    setTotalPrice,
   };
 };
