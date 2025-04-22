@@ -14,6 +14,9 @@ import {
   ROLE_ADMIN,
   ROLE_USER,
   AUTHORIZATION_STATUS_APPROVED,
+  RAFFLE_FILTER_ALL,
+  RAFFLE_FILTER_MINE,
+  RAFFLE_FILTER_PENDING,
 } from '../../utils/generic/constants';
 import RiffleCardList from '../../components/riffle-components/RiffleCardList';
 import { useState } from 'react';
@@ -36,7 +39,7 @@ const RifflePage = ({
   const { t } = useTranslation();
   const { user } = useAuthStore();
   const navigate = useNavigate();
-  const [filterView, setFilterView] = useState('all'); // 'all' | 'mine' | 'pending'
+  const [filterView, setFilterView] = useState(RAFFLE_FILTER_ALL);
 
   const handleViewTickets = (riffleId) => {
     navigate(`/tickets/${riffleId}`);
@@ -55,8 +58,8 @@ const RifflePage = ({
     const isAdmin = user?.role === ROLE_ADMIN;
     const isAuthorized = raffle.authorization_status === AUTHORIZATION_STATUS_APPROVED;
 
-    if (filterView === 'mine') return isOwner;
-    if (filterView === 'pending') {
+    if (filterView === RAFFLE_FILTER_MINE) return isOwner && isAuthorized;
+    if (filterView === RAFFLE_FILTER_PENDING) {
       return user?.role === ROLE_ADMIN
         ? raffle.authorization_status !== AUTHORIZATION_STATUS_APPROVED
         : isOwner && !isAuthorized;
@@ -118,8 +121,8 @@ const RifflePage = ({
                 <Button
                   fullWidth
                   variant="contained"
-                  color={filterView === 'all' ? 'primary' : 'inherit'}
-                  onClick={() => setFilterView('all')}
+                  color={filterView === RAFFLE_FILTER_ALL ? 'primary' : 'inherit'}
+                  onClick={() => setFilterView(RAFFLE_FILTER_ALL)}
                 >
                   {t('all_raffles')}
                 </Button>
@@ -128,8 +131,8 @@ const RifflePage = ({
                   <Button
                     fullWidth
                     variant="contained"
-                    color={filterView === 'mine' ? 'primary' : 'inherit'}
-                    onClick={() => setFilterView('mine')}
+                    color={filterView === RAFFLE_FILTER_MINE ? 'primary' : 'inherit'}
+                    onClick={() => setFilterView(RAFFLE_FILTER_MINE)}
                   >
                     {t('my_raffles')}
                   </Button>
@@ -139,8 +142,8 @@ const RifflePage = ({
                   <Button
                     fullWidth
                     variant="contained"
-                    color={filterView === 'pending' ? 'primary' : 'inherit'}
-                    onClick={() => setFilterView('pending')}
+                    color={filterView === RAFFLE_FILTER_PENDING ? 'primary' : 'inherit'}
+                    onClick={() => setFilterView(RAFFLE_FILTER_PENDING)}
                   >
                     {t('pending_authorization')}
                   </Button>
@@ -148,7 +151,7 @@ const RifflePage = ({
               </Box>
             )}
 
-            {filterView === 'pending' && (
+            {filterView === RAFFLE_FILTER_PENDING && (
               <Paper
                 elevation={3}
                 sx={{
