@@ -323,7 +323,7 @@
   "review_authorization": "Revisión de Autorización",
   "reject": "Rechazar",
   "rejection_reason": "Motivo de rechazo",
-  "submit_decision": "Enviar decisión",
+  "submit_decision": "Aprobar firma",
   "update_success_authorization": "Actualización exitosa",
   "error_updating_authorization": "Error al actualizar la autorización",
   "rejection_reason_required": "El motivo del rechazo es obligatorio.",
