@@ -22,7 +22,6 @@ const TicketsContainer = () => {
     searchraffleById,
     handleEditTicket,
     handleDeleteTicket,
-    //loadAllTickets,
     handleClickOpen,
     handleClose,
     handleNextTicket,
@@ -37,13 +36,11 @@ const TicketsContainer = () => {
     currentTickets,
     totalPages,
     totalPrice,
-    selectedTicketNumbers,
     handleReservedTickets,
   } = useTickets();
   const {
     searchQuery,
     setSearchQuery,
-    //filteredData: filteredTicketss,
   } = useSearch(tickets, ['ticket_number']);
   useEffect(() => {
     loadTickets(riffleId);
@@ -65,9 +62,8 @@ const TicketsContainer = () => {
     <TicketsPage
       tickets={filteredTickets}
       raffle={raffle}
-      onSubmit={(id, ticketData) => {
-        setOpenModal(false);
-        handleReservedTickets(id, ticketData);
+      onSubmit={async ({ ticketId, userId }) => {
+        return await handleReservedTickets({ ticketId, userId });
       }}
       onCreate={handleReservedTickets}
       openModal={openModal}
@@ -100,7 +96,8 @@ const TicketsContainer = () => {
       selectedTickets={selectedTickets}
       setSelectedTickets={setSelectedTickets}
       totalPrice={totalPrice}
-      selectedTicketNumbers={selectedTicketNumbers}
+      selectedTicketNumbers={selectedTickets.map(t => t.ticket_number).join(', ')}
+      loadTickets={loadTickets}
     />
   );
 };

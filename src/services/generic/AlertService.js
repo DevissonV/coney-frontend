@@ -23,14 +23,22 @@ export const toast = ({ icon, titleKey, messageKey }) => {
 };
 
 /**
- * Displays an error alert.
- * @param {Object} options - Alert options.
- * @param {string} [options.messageKey='error_unexpected'] - Translation key for the error message.
+ * Displays an error alert using SweetAlert2 with a localized message.
+ *
+ * @param {Object} options - The options for the error alert.
+ * @param {string} [options.messageKey='error_unexpected'] - The key for the localized error message.
+ * @param {Object} [options.interpolation={}] - The interpolation values for the localized message.
+ *
+ * @returns {void}
  */
-export const errorAlert = ({ messageKey = 'error_unexpected' }) => {
+export const errorAlert = ({
+  messageKey = 'error_unexpected',
+  interpolation = {},
+}) => {
   const formattedMessage = i18n
-    .t(messageKey)
+    .t(messageKey, interpolation)
     .replace(/(?:\r\n|\r|\n)/g, '<br>');
+
   Swal.fire({
     icon: 'error',
     title: i18n.t('error_title'),

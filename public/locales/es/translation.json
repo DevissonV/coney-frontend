@@ -254,5 +254,6 @@
   "authorization_info_title": "Estas rifas aún no están autorizadas",
   "authorization_info_message": "Debes cargar todos los documentos requeridos para que un administrador pueda revisar y aprobar la rifa. Hasta entonces, no estará disponible para los usuarios.",
   "payments": "Pagos",
-  "thank_you_for_your_purchase": "¡Gracias por tu compra!"
+  "thank_you_for_your_purchase": "¡Gracias por tu compra!",
+  "The ticket is already reserved": "La boleta {{ticket}} ya está reservada"
 }

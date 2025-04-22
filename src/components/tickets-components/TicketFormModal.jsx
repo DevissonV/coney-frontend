@@ -5,15 +5,18 @@ import { jwt_Decode } from '../../utils/generic/jwtDecode';
 
 import { create } from '../../services/payments/paymentService';
 import { errorAlert } from '../../services/generic/AlertService';
+import { editTicket } from '../../services/tickets/TicketService';
 
 const TicketFormModal = ({
   open,
   onClose,
   onSubmit,
+  setSelectedTickets,
   selectedTickets,
   selectedTicketNumbers,
   totalPrice,
   raffle,
+  loadTickets
 }) => {
   const { t } = useTranslation();
 
@@ -22,29 +25,55 @@ const TicketFormModal = ({
   const user_id = decodedToken.id;
 
   const handleSubmit = async () => {
+    const reservedTicketIds = [];
+  
     try {
-      selectedTickets.forEach((ticket) => {
-        onSubmit({
-          ticketId: ticket.id,
-          userid: user_id,
-        });
-      });
+      for (const ticket of selectedTickets) {
+        try {
+          await onSubmit({
+            ticketId: ticket.id,
+            userId: user_id,
+          });
+  
+          reservedTicketIds.push(ticket.id);
+        } catch (err) {
+          onClose();
 
+          await Promise.allSettled(
+            reservedTicketIds.map((ticketId) =>
+              editTicket({ ticketId, userId: null }),
+            ),
+          );
+  
+          const messageKey =
+            err?.response?.data?.message || 'error_updating_ticket';
+          
+          errorAlert({
+            messageKey,
+            interpolation: { ticket: ticket.ticket_number },
+          });
+
+          await loadTickets(raffle.id);
+          setSelectedTickets([]);
+
+          return;
+        }
+      }
+  
       const payload = {
         amount: raffle.price,
         tickets: selectedTickets.map((t) => t.id),
         raffleId: raffle.id,
       };
-
+  
       const sessionUrl = await create(payload);
-
       onClose();
-
       window.location.href = sessionUrl;
     } catch {
       errorAlert({ messageKey: 'error_unexpected' });
     }
   };
+  
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>

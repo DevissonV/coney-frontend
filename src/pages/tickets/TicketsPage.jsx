@@ -38,6 +38,7 @@ const TicketsPage = ({
   openModal,
   setOpenModal,
   onSubmit,
+  loadTickets
 }) => {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -271,6 +272,7 @@ const TicketsPage = ({
         totalPrice={totalPrice}
         tickets={tickets}
         raffle={raffle}
+        loadTickets={loadTickets}
       />
     </Box>
   );
