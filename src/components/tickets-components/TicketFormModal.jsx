@@ -18,6 +18,7 @@ const TicketFormModal = ({
   totalPrice,
   raffle,
   loadTickets,
+  setTotalPrice,
 }) => {
   const { t } = useTranslation();
   const { token } = useAuthStore();
@@ -58,6 +59,7 @@ const TicketFormModal = ({
 
           await loadTickets(raffle.id);
           setSelectedTickets([]);
+          setTotalPrice(0);
           setIsSubmitting(false);
           return;
         }

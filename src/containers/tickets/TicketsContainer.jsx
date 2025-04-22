@@ -37,6 +37,7 @@ const TicketsContainer = () => {
     totalPages,
     totalPrice,
     handleReservedTickets,
+    setTotalPrice,
   } = useTickets();
   const {
     searchQuery,
@@ -98,6 +99,7 @@ const TicketsContainer = () => {
       totalPrice={totalPrice}
       selectedTicketNumbers={selectedTickets.map(t => t.ticket_number).join(', ')}
       loadTickets={loadTickets}
+      setTotalPrice={setTotalPrice}
     />
   );
 };
