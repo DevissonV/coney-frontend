@@ -246,7 +246,6 @@
   "review_authorization": "Authorization Review",
   "reject": "Decline",
   "rejection_reason": "Reason for rejection",
-  "submit_decision": "Approve raffle",
   "update_success_authorization": "Successful update",
   "error_updating_authorization": "Error updating authorization",
   "rejection_reason_min": "The reason must be at least 10 characters long.",

@@ -246,7 +246,6 @@
   "review_authorization": "Revisión de Autorización",
   "reject": "Rechazar",
   "rejection_reason": "Motivo de rechazo",
-  "submit_decision": "Aprobar rifa",
   "update_success_authorization": "Actualización exitosa",
   "error_updating_authorization": "Error al actualizar la autorización",
   "rejection_reason_min": "El motivo debe tener al menos 10 caracteres.",

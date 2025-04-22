@@ -156,7 +156,7 @@ const AuthorizationReviewModal = ({ open, onClose, onSubmit, raffle }) => {
                 variant="contained"
                 color={decision === AUTHORIZATION_STATUS_APPROVED ? 'success' : 'error'}
               >
-                {t('submit_decision')}
+                {t('send')}
               </Button>
             </DialogActions>
           </Stack>
