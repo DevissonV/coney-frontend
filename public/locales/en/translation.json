@@ -253,5 +253,6 @@
   "rejection_reason_max": "The reason cannot exceed 1000 characters.",
   "resubmit_for_review": "Resubmit for review",
   "authorization_info_title": "These raffles are not yet authorized",
-  "authorization_info_message": "You must upload all required documents so an administrator can review and approve the raffle. Until then, it will not be available to users."
+  "authorization_info_message": "You must upload all required documents so an administrator can review and approve the raffle. Until then, it will not be available to users.",
+  "payments": "Payments"
 }
