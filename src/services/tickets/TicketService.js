@@ -43,19 +43,18 @@ export const deleteTicket = async (id) => {
  * @throws {Error} If the request fails or the response status is not 200.
  * @returns {Promise<Object>} A promise resolving to the updated ticket data.
  */
-export const editTicket = async (id) => {
-  const idticket = id['ticketId'];
-  const userId = id['userid'];
-
+export const editTicket = async ({ ticketId, userId }) => {
   const response = await privateAxios.patch(
-    `${API_URL}/tickets/${idticket}`,
+    `${API_URL}/tickets/${ticketId}`,
     { userId },
     getHeaders(),
   );
   const { status, code, data } = response.data;
 
   if (!status || code !== 200) {
-    throw new Error('Error updating ticket');
+    const error = new Error(data?.message || 'Error updating ticket');
+    error.response = { data: { message: data?.message } };
+    throw error;
   }
 
   return data;

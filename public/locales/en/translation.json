@@ -254,5 +254,6 @@
   "authorization_info_title": "These raffles are not yet authorized",
   "authorization_info_message": "You must upload all required documents so an administrator can review and approve the raffle. Until then, it will not be available to users.",
   "payments": "Payments",
-  "thank_you_for_your_purchase": "thanks for your purchase"
+  "thank_you_for_your_purchase": "thanks for your purchase",
+  "The ticket is already reserved": "The ticket {{ticket}} is already reserved"
 }

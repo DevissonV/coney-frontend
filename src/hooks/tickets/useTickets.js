@@ -294,20 +294,26 @@ export const useTickets = () => {
     }
   };
 
-  const handleReservedTickets = async (id) => {
+  /**
+   * Handles the reservation of tickets by editing the ticket and reloading the tickets for the specified raffle.
+   * @param {Object} params - The parameters for the function.
+   * @param {string} params.ticketId - The ID of the ticket to be reserved.
+   * @param {string} params.userId - The ID of the user reserving the ticket.
+   * @throws {Error} Throws an error if the ticket reservation or loading fails.
+   *
+   * @description
+   * This function is designed to handle ticket reservations. Errors are re-thrown
+   * intentionally to allow for silent handling in scenarios such as mass bookings,
+   * where displaying an error message for each failure is not desired.
+   */
+  const handleReservedTickets = async ({ ticketId, userId }) => {
     try {
-      await editTicket(id);
-      setLoading(true);
-      toast({ icon: 'success', titleKey: 'reserve_success' });
-
-      setTimeout(() => {
-        setLoading(true);
-        window.location.reload();
-      }, 3000);
+      await editTicket({ ticketId, userId });
+      await loadTickets(raffle?.id);
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || 'Error reserve ticket';
-      errorAlert({ messageKey: errorMessage });
+      // IMPORTANT:
+      // It is handled this way so as not to display an error message and to be able to use this function for mass booking without messages for each error.
+      throw error;
     }
   };
 
