@@ -323,7 +323,7 @@
   "review_authorization": "Revisión de Autorización",
   "reject": "Rechazar",
   "rejection_reason": "Motivo de rechazo",
-  "submit_decision": "Aprobar rifa",
+  "submit_decision": "Enviar",
   "update_success_authorization": "Actualización exitosa",
   "error_updating_authorization": "Error al actualizar la autorización",
   "rejection_reason_required": "El motivo del rechazo es obligatorio.",
