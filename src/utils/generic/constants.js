@@ -4,3 +4,7 @@ export const ROLE_ANONYMOUS =
   import.meta.env.VITE_ROLE_ANONYMOUS || 'anonymous';
 export const DEFAULT_IMAGE_NOT_RAFFLES = import.meta.env
   .VITE_DEFAULT_IMAGE_NOT_RAFFLES;
+export const AUTHORIZATION_STATUS_APPROVED = 'approved';
+export const AUTHORIZATION_STATUS_PENDING = 'pending';
+export const AUTHORIZATION_STATUS_REJECTED = 'rejected';
+export const AUTHORIZATION_STATUS_REVIEWING = 'reviewing';

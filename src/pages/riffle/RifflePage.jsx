@@ -3,16 +3,21 @@ import {
   Button,
   Typography,
   CircularProgress,
-  ButtonGroup,
+  Paper,
 } from '@mui/material';
 import SearchToolbar from '../../components/generic/search-toolbar/SearchToolbar';
 import RiffleFormModal from '../../components/riffle-components/RiffleFormModal';
 import { useTranslation } from 'react-i18next';
 import useAuthStore from '../../stores/auth/useAuthStore';
 import { useNavigate } from 'react-router-dom';
-import { ROLE_ADMIN, ROLE_USER } from '../../utils/generic/constants';
+import {
+  ROLE_ADMIN,
+  ROLE_USER,
+  AUTHORIZATION_STATUS_APPROVED,
+} from '../../utils/generic/constants';
 import RiffleCardList from '../../components/riffle-components/RiffleCardList';
 import { useState } from 'react';
+import ReportProblemIcon from '@mui/icons-material/ReportProblem';
 
 const RifflePage = ({
   riffle,
@@ -31,7 +36,7 @@ const RifflePage = ({
   const { t } = useTranslation();
   const { user } = useAuthStore();
   const navigate = useNavigate();
-  const [showMyRaffles, setShowMyRaffles] = useState(false);
+  const [filterView, setFilterView] = useState('all'); // 'all' | 'mine' | 'pending'
 
   const handleViewTickets = (riffleId) => {
     navigate(`/tickets/${riffleId}`);
@@ -39,21 +44,31 @@ const RifflePage = ({
 
   const canCreateRaffle = user?.role === ROLE_ADMIN || user?.role === ROLE_USER;
 
-  const filteredRaffles = showMyRaffles
-    ? riffle.filter((raffle) => {
-        return String(raffle.created_by) === String(user?.id);
-      })
-    : riffle;
+  const hasMyRaffles = riffle.some(r => String(r.created_by) === String(user?.id));
+  const hasPendingRaffles =
+    user?.role === ROLE_ADMIN
+      ? riffle.some(r => r.authorization_status !== AUTHORIZATION_STATUS_APPROVED)
+      : riffle.some(r => r.authorization_status !== AUTHORIZATION_STATUS_APPROVED && String(r.created_by) === String(user?.id));
+
+  const filteredRaffles = riffle.filter((raffle) => {
+    const isOwner = String(raffle.created_by) === String(user?.id);
+    const isAdmin = user?.role === ROLE_ADMIN;
+    const isAuthorized = raffle.authorization_status === AUTHORIZATION_STATUS_APPROVED;
+
+    if (filterView === 'mine') return isOwner;
+    if (filterView === 'pending') {
+      return user?.role === ROLE_ADMIN
+        ? raffle.authorization_status !== AUTHORIZATION_STATUS_APPROVED
+        : isOwner && !isAuthorized;
+    }
+
+    return isOwner || isAdmin || isAuthorized;
+  });
 
   return (
     <Box>
       {loading ? (
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          height="50vh"
-        >
+        <Box display="flex" justifyContent="center" alignItems="center" height="50vh">
           <CircularProgress />
         </Box>
       ) : (
@@ -62,13 +77,7 @@ const RifflePage = ({
             {t('riffle')}
           </Typography>
 
-          <Box
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            gap={3}
-            mb={4}
-          >
+          <Box display="flex" flexDirection="column" alignItems="center" gap={3} mb={4}>
             <Box
               display="flex"
               flexDirection={{ xs: 'column', sm: 'row' }}
@@ -81,9 +90,7 @@ const RifflePage = ({
                 searchQuery={searchQuery}
                 onSearchChange={onSearchChange}
                 placeholder={t('search_placeholder_riffle')}
-                sx={{
-                  width: { xs: '100%', sm: '400px' },
-                }}
+                sx={{ width: { xs: '100%', sm: '400px' } }}
               />
 
               {canCreateRaffle && (
@@ -94,10 +101,7 @@ const RifflePage = ({
                     setRiffleToEdit(null);
                     setOpenModal(true);
                   }}
-                  sx={{
-                    width: { xs: '100%', sm: 'auto' },
-                    minWidth: '200px',
-                  }}
+                  sx={{ width: { xs: '100%', sm: 'auto' }, minWidth: '200px' }}
                 >
                   {t('create_riffle')}
                 </Button>
@@ -107,38 +111,81 @@ const RifflePage = ({
             {canCreateRaffle && (
               <Box
                 display="flex"
-                justifyContent="center"
-                width="100%"
-                sx={{ mt: 2 }}
+                flexDirection={{ xs: 'column', sm: 'row' }}
+                gap={1}
+                width={{ xs: '100%', sm: 'auto' }}
               >
-                <ButtonGroup
+                <Button
+                  fullWidth
                   variant="contained"
-                  sx={{
-                    width: { xs: '100%', sm: 'auto' },
-                  }}
+                  color={filterView === 'all' ? 'primary' : 'inherit'}
+                  onClick={() => setFilterView('all')}
                 >
+                  {t('all_raffles')}
+                </Button>
+
+                {hasMyRaffles && (
                   <Button
-                    color={!showMyRaffles ? 'primary' : 'inherit'}
-                    onClick={() => setShowMyRaffles(false)}
-                    sx={{
-                      flex: { xs: 1, sm: 'none' },
-                      px: 4,
-                    }}
-                  >
-                    {t('all_raffles')}
-                  </Button>
-                  <Button
-                    color={showMyRaffles ? 'primary' : 'inherit'}
-                    onClick={() => setShowMyRaffles(true)}
-                    sx={{
-                      flex: { xs: 1, sm: 'none' },
-                      px: 4,
-                    }}
+                    fullWidth
+                    variant="contained"
+                    color={filterView === 'mine' ? 'primary' : 'inherit'}
+                    onClick={() => setFilterView('mine')}
                   >
                     {t('my_raffles')}
                   </Button>
-                </ButtonGroup>
+                )}
+
+                {hasPendingRaffles && (
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    color={filterView === 'pending' ? 'primary' : 'inherit'}
+                    onClick={() => setFilterView('pending')}
+                  >
+                    {t('pending_authorization')}
+                  </Button>
+                )}
               </Box>
+            )}
+
+            {filterView === 'pending' && (
+              <Paper
+                elevation={3}
+                sx={{
+                  backgroundColor: (theme) =>
+                    theme.palette.mode === 'dark' ? '#2f2f2f' : '#fff3e0',
+                  border: '1px solid',
+                  borderColor: (theme) =>
+                    theme.palette.mode === 'dark' ? '#fbc02d' : '#ffcc80',
+                  color: (theme) =>
+                    theme.palette.mode === 'dark' ? '#fffde7' : '#6d4c41',
+                  p: 3,
+                  borderRadius: 3,
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: 2,
+                  mb: 4,
+                  maxWidth: '900px',
+                  mx: 'auto',
+                }}
+              >
+                <ReportProblemIcon
+                  fontSize="large"
+                  sx={{
+                    color: (theme) =>
+                      theme.palette.mode === 'dark' ? '#ffb300' : '#fb8c00',
+                    mt: '2px',
+                  }}
+                />
+                <Box>
+                  <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
+                    {t('authorization_info_title')}
+                  </Typography>
+                  <Typography variant="body2">
+                    {t('authorization_info_message')}
+                  </Typography>
+                </Box>
+              </Paper>
             )}
           </Box>
 

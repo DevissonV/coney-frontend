@@ -9,7 +9,7 @@ import useAuthStore from '../../stores/auth/useAuthStore';
 import { useTranslation } from 'react-i18next';
 import { ROLE_ADMIN, ROLE_ANONYMOUS } from '../../utils/generic/constants';
 import { useNavigate } from 'react-router-dom';
-import { confirmLogin,confirmWinnerSelection } from '../../services/generic/AlertService';
+import { confirmLogin, confirmWinnerSelection } from '../../services/generic/AlertService';
 
 const RiffleActions = ({
   riffleId,
@@ -31,9 +31,7 @@ const RiffleActions = ({
   const handleProtectedView = async () => {
     if (isAnonymous) {
       const result = await confirmLogin({});
-      if (result.isConfirmed) {
-        navigate('/login');
-      }
+      if (result.isConfirmed) navigate('/login');
       return;
     }
 
@@ -47,15 +45,13 @@ const RiffleActions = ({
   const handleProtectedWinner = async () => {
     if (isAnonymous) {
       const result = await confirmLogin({});
-      if (result.isConfirmed) {
-        navigate('/login');
-      }
+      if (result.isConfirmed) navigate('/login');
       return;
     }
-  
+
     const confirm = await confirmWinnerSelection({});
     if (!confirm.isConfirmed) return;
-  
+
     if (typeof handleWinner === 'function') {
       handleWinner({ id: riffleId, created_by: createdBy });
     }
