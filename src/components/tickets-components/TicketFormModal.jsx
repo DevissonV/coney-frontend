@@ -72,7 +72,11 @@ const TicketFormModal = ({
       };
 
       const sessionUrl = await create(payload);
+
       onClose();
+      setSelectedTickets([]);
+      setTotalPrice(0);
+      setIsSubmitting(false);
       window.location.href = sessionUrl;
     } catch {
       errorAlert({ messageKey: 'error_unexpected' });
