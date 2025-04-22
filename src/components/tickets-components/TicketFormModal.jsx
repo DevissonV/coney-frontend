@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Dialog, Button, Card, CardContent, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import useAuthStore from '../../stores/auth/useAuthStore';
@@ -16,17 +17,19 @@ const TicketFormModal = ({
   selectedTicketNumbers,
   totalPrice,
   raffle,
-  loadTickets
+  loadTickets,
 }) => {
   const { t } = useTranslation();
-
   const { token } = useAuthStore();
   const decodedToken = jwt_Decode(token);
   const user_id = decodedToken.id;
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleSubmit = async () => {
+    setIsSubmitting(true);
     const reservedTicketIds = [];
-  
+
     try {
       for (const ticket of selectedTickets) {
         try {
@@ -34,7 +37,7 @@ const TicketFormModal = ({
             ticketId: ticket.id,
             userId: user_id,
           });
-  
+
           reservedTicketIds.push(ticket.id);
         } catch (err) {
           onClose();
@@ -44,10 +47,10 @@ const TicketFormModal = ({
               editTicket({ ticketId, userId: null }),
             ),
           );
-  
+
           const messageKey =
             err?.response?.data?.message || 'error_updating_ticket';
-          
+
           errorAlert({
             messageKey,
             interpolation: { ticket: ticket.ticket_number },
@@ -55,25 +58,25 @@ const TicketFormModal = ({
 
           await loadTickets(raffle.id);
           setSelectedTickets([]);
-
+          setIsSubmitting(false);
           return;
         }
       }
-  
+
       const payload = {
         amount: raffle.price,
         tickets: selectedTickets.map((t) => t.id),
         raffleId: raffle.id,
       };
-  
+
       const sessionUrl = await create(payload);
       onClose();
       window.location.href = sessionUrl;
     } catch {
       errorAlert({ messageKey: 'error_unexpected' });
+      setIsSubmitting(false);
     }
   };
-  
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
@@ -102,8 +105,9 @@ const TicketFormModal = ({
                   type="submit"
                   variant="contained"
                   color="primary"
+                  disabled={isSubmitting}
                 >
-                  {t('reserve')}
+                  {isSubmitting ? t('loading') : t('reserve')}
                 </Button>
               </div>
             </>
