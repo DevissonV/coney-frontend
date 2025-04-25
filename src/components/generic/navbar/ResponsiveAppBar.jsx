@@ -18,6 +18,7 @@ import useAuthStore from '../../../stores/auth/useAuthStore';
 import { useNavigate } from 'react-router-dom';
 import { toast } from '../../../services/generic/AlertService';
 import LanguageToggleButton from './LanguageToggleButton';
+import { Polyline } from '@mui/icons-material';
 
 const ResponsiveAppBar = () => {
   const { darkMode, toggleDarkMode } = useThemeContext();
@@ -36,9 +37,18 @@ const ResponsiveAppBar = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
       <CssBaseline />
-      <AppBar position="static" color="primary">
+      <AppBar
+        position="relative"
+        padding="10px 20px "
+        color="primary"
+        className="navbar"
+        style={{
+          borderRadius: '6px',
+          boxShadow: '3px 4px 5px 1px rgba(12, 12, 12, 0.2)',
+        }}
+      >
         <Toolbar>
           <IconButton
             color="inherit"

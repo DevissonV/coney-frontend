@@ -52,6 +52,24 @@ const RiffleContainer = () => {
 
     fetchRaffle();
   }, []);
+
+  const onSubmit = async (raffleData, photo) => {
+    setLoading(true);
+    try {
+      if (riffleToEdit) {
+        await handleEditRiffle(riffleToEdit.id, raffleData, photo);
+      } else {
+        await handleCreateRaffle(raffleData, photo);
+      }
+      setOpenModal(false);
+      setRiffleToEdit(null);
+    } catch (error) {
+      errorAlert({ messageKey: 'error_unexpected' });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <RifflePage
       riffle={filteredRiffle}
@@ -68,14 +86,7 @@ const RiffleContainer = () => {
       setOpenModal={setOpenModal}
       riffleToEdit={riffleToEdit}
       setRiffleToEdit={setRiffleToEdit}
-      onSubmit={(raffleData,photo) => {
-        if (riffleToEdit) {
-          handleEditRiffle(riffleToEdit.id, raffleData, photo);
-        } else {
-          handleCreateRaffle(raffleData, photo);
-        }
-        setOpenModal(false);
-      }}
+      onSubmit={onSubmit}
       handleWinner={handleWinner}
     />
   );

@@ -11,6 +11,13 @@
   text-align: center;
 }
 
+.navbar {
+  color: #ffffff;
+  position: relative;
+  border-left: 5px dashed white;
+  height: 100%;
+}
+
 .main-content {
   margin: 20px 0;
 }

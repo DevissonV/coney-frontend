@@ -47,16 +47,25 @@ const RifflePage = ({
 
   const canCreateRaffle = user?.role === ROLE_ADMIN || user?.role === ROLE_USER;
 
-  const hasMyRaffles = riffle.some(r => String(r.created_by) === String(user?.id));
+  const hasMyRaffles = riffle.some(
+    (r) => String(r.created_by) === String(user?.id),
+  );
   const hasPendingRaffles =
     user?.role === ROLE_ADMIN
-      ? riffle.some(r => r.authorization_status !== AUTHORIZATION_STATUS_APPROVED)
-      : riffle.some(r => r.authorization_status !== AUTHORIZATION_STATUS_APPROVED && String(r.created_by) === String(user?.id));
+      ? riffle.some(
+          (r) => r.authorization_status !== AUTHORIZATION_STATUS_APPROVED,
+        )
+      : riffle.some(
+          (r) =>
+            r.authorization_status !== AUTHORIZATION_STATUS_APPROVED &&
+            String(r.created_by) === String(user?.id),
+        );
 
   const filteredRaffles = riffle.filter((raffle) => {
     const isOwner = String(raffle.created_by) === String(user?.id);
     const isAdmin = user?.role === ROLE_ADMIN;
-    const isAuthorized = raffle.authorization_status === AUTHORIZATION_STATUS_APPROVED;
+    const isAuthorized =
+      raffle.authorization_status === AUTHORIZATION_STATUS_APPROVED;
 
     if (filterView === RAFFLE_FILTER_MINE) return isOwner && isAuthorized;
     if (filterView === RAFFLE_FILTER_PENDING) {
@@ -71,7 +80,12 @@ const RifflePage = ({
   return (
     <Box>
       {loading ? (
-        <Box display="flex" justifyContent="center" alignItems="center" height="50vh">
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          height="50vh"
+        >
           <CircularProgress />
         </Box>
       ) : (
@@ -80,7 +94,13 @@ const RifflePage = ({
             {t('riffle')}
           </Typography>
 
-          <Box display="flex" flexDirection="column" alignItems="center" gap={3} mb={4}>
+          <Box
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            gap={3}
+            mb={4}
+          >
             <Box
               display="flex"
               flexDirection={{ xs: 'column', sm: 'row' }}
@@ -121,7 +141,9 @@ const RifflePage = ({
                 <Button
                   fullWidth
                   variant="contained"
-                  color={filterView === RAFFLE_FILTER_ALL ? 'primary' : 'inherit'}
+                  color={
+                    filterView === RAFFLE_FILTER_ALL ? 'primary' : 'inherit'
+                  }
                   onClick={() => setFilterView(RAFFLE_FILTER_ALL)}
                 >
                   {t('all_raffles')}
@@ -131,7 +153,9 @@ const RifflePage = ({
                   <Button
                     fullWidth
                     variant="contained"
-                    color={filterView === RAFFLE_FILTER_MINE ? 'primary' : 'inherit'}
+                    color={
+                      filterView === RAFFLE_FILTER_MINE ? 'primary' : 'inherit'
+                    }
                     onClick={() => setFilterView(RAFFLE_FILTER_MINE)}
                   >
                     {t('my_raffles')}
@@ -142,7 +166,11 @@ const RifflePage = ({
                   <Button
                     fullWidth
                     variant="contained"
-                    color={filterView === RAFFLE_FILTER_PENDING ? 'primary' : 'inherit'}
+                    color={
+                      filterView === RAFFLE_FILTER_PENDING
+                        ? 'primary'
+                        : 'inherit'
+                    }
                     onClick={() => setFilterView(RAFFLE_FILTER_PENDING)}
                   >
                     {t('pending_authorization')}
@@ -181,7 +209,11 @@ const RifflePage = ({
                   }}
                 />
                 <Box>
-                  <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
+                  <Typography
+                    variant="subtitle1"
+                    fontWeight="bold"
+                    gutterBottom
+                  >
                     {t('authorization_info_title')}
                   </Typography>
                   <Typography variant="body2">
@@ -203,11 +235,14 @@ const RifflePage = ({
           <RiffleFormModal
             open={openModal}
             onClose={() => {
-              setOpenModal(false);
-              setRiffleToEdit(null);
+              if (!loading) {
+                setOpenModal(false);
+                setRiffleToEdit(null);
+              }
             }}
             onSubmit={onSubmit}
             initialValues={riffleToEdit || { name: '' }}
+            loading={loading}
           />
         </>
       )}
