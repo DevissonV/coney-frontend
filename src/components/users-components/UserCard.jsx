@@ -1,20 +1,9 @@
-import {
-  Card,
-  Avatar,
-  Typography,
-  Box,
-  IconButton,
-  Chip,
-  useTheme,
-} from '@mui/material';
+import { Avatar, Typography, Box, IconButton, useTheme } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useTranslation } from 'react-i18next';
 import { ROLE_ADMIN, ROLE_USER } from '../../utils/generic/constants';
-import { motion } from 'framer-motion';
 
 const UserCard = ({ user, onEdit, onDelete }) => {
-  const { t } = useTranslation();
   const theme = useTheme();
   const fullName = `${user.first_name} ${user.last_name}`;
 
@@ -22,90 +11,128 @@ const UserCard = ({ user, onEdit, onDelete }) => {
     user.role === ROLE_ADMIN
       ? theme.palette.error.main
       : user.role === ROLE_USER
-      ? theme.palette.warning.main
-      : theme.palette.primary.main;
+        ? theme.palette.warning.main
+        : theme.palette.primary.main;
 
   return (
-    <motion.div
-      whileHover={{ scale: 1.03 }}
-      whileTap={{ scale: 0.98 }}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, ease: 'easeOut' }}
-      style={{ margin: 8 }}
+    <Box
+      sx={{
+        width: {
+          xs: '80%',
+          sm: 'calc(40% - 8px)',
+          md: 'calc(25% - 8px)',
+        },
+        maxWidth: '300px',
+        padding: 1.5,
+        borderRadius: 2,
+        borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        backgroundColor: 'transparent',
+        textAlign: 'center',
+        gap: 0.5,
+        margin: '8px',
+        transition: 'transform 0.3s ease, border-color 0.3s ease',
+        '&:hover': {
+          transform: 'scale(1.05)',
+          borderColor: 'rgba(0, 0, 0, 0.6)',
+        },
+        '&:hover .avatar': {
+          transform: 'scale(1.3)',
+        },
+      }}
     >
-      <Card
+      <Box
         sx={{
-          width: { xs: 250, sm: 300, md: 340 },
-          height: { xs: 320, sm: 350, md: 380 },
-          borderRadius: 4,
+          position: 'relative',
+          width: 90,
+          height: 120,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'space-evenly',
-          padding: 2,
-          boxShadow: theme.shadows[4],
         }}
       >
         <Avatar
+          src={user.photo_url}
           alt={fullName}
-          src={user.photo_url || ''}
+          className="avatar"
           sx={{
-            width: { xs: 100, sm: 120, md: 140 },
-            height: { xs: 100, sm: 120, md: 140 },
-            mb: 2,
+            width: 60,
+            height: 60,
+            position: 'absolute',
+            top: 5,
+            zIndex: 4,
+            border: '3px solid black',
+            objectFit: 'cover',
+            backgroundColor: 'transparent',
+            transition: 'transform 0.3s ease',
           }}
         />
 
-        <Chip
-          label={user.role}
-          size="small"
+        <Box
           sx={{
-            mt: 0.5,
-            mb: 1,
-            color: 'white',
-            backgroundColor: roleColor,
-            textTransform: 'capitalize',
-            fontWeight: 'bold',
+            width: 80,
+            height: 40,
+            backgroundColor: theme.palette.grey[800],
+            borderRadius: '50px 50px 0 0',
+            position: 'absolute',
+            top: 65,
           }}
         />
+      </Box>
 
-        <Box textAlign="center">
-          <Typography
-            variant="subtitle1"
-            fontWeight="bold"
-            sx={{ fontSize: { xs: '1rem', md: '1.2rem' } }}
-            noWrap
-          >
-            {fullName}
-          </Typography>
-          <Typography
-            variant="body2"
-            color="textSecondary"
-            sx={{ wordBreak: 'break-word', fontSize: { xs: '0.8rem', md: '0.9rem' } }}
-          >
-            {user.email}
-          </Typography>
-        </Box>
+      <Typography
+        variant="h6"
+        sx={{
+          fontWeight: 'bold',
+          textTransform: 'capitalize',
+          marginTop: 1,
+          fontSize: '0.9rem',
+        }}
+      >
+        {fullName}
+      </Typography>
 
-        <Box display="flex" gap={1}>
-          <IconButton
-            aria-label={t('edit')}
-            color="primary"
-            onClick={() => onEdit(user.id)}
-          >
-            <EditIcon sx={{ fontSize: { xs: 20, md: 24 } }} />
-          </IconButton>
-          <IconButton
-            aria-label={t('delete')}
-            color="error"
-            onClick={() => onDelete(user.id)}
-          >
-            <DeleteIcon sx={{ fontSize: { xs: 20, md: 24 } }} />
-          </IconButton>
-        </Box>
-      </Card>
-    </motion.div>
+      <Typography
+        variant="body2"
+        sx={{
+          color: roleColor,
+          fontWeight: 'bold',
+          border: `1px solid ${roleColor}`,
+          borderRadius: 1,
+          padding: '2px 6px',
+          fontSize: '0.8rem',
+          display: 'inline-block',
+        }}
+      >
+        {user.role}
+      </Typography>
+
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          gap: 0.5,
+          marginTop: 1,
+        }}
+      >
+        <IconButton
+          color="primary"
+          onClick={() => onEdit(user.id)}
+          sx={{ fontSize: '1rem' }}
+        >
+          <EditIcon />
+        </IconButton>
+        <IconButton
+          color="error"
+          onClick={() => onDelete(user.id)}
+          sx={{ fontSize: '1rem' }}
+        >
+          <DeleteIcon />
+        </IconButton>
+      </Box>
+    </Box>
   );
 };
 

@@ -85,6 +85,10 @@ const UserMenu = ({ handleLogout }) => {
               </Typography>
             </MenuItem>
 
+            <MenuItem key="user-infos" disabled>
+              <Typography textAlign="center">{`${user?.email}`}</Typography>
+            </MenuItem>
+
             <MenuItem key="edit-profile" onClick={handleEditProfile}>
               <ListItemIcon>
                 <EditIcon fontSize="small" />
