@@ -30,8 +30,6 @@ const NavLinks = ({ darkMode }) => {
       sx={{
         display: isMobile ? 'block' : 'flex',
         gap: 2,
-        flexGrow: 1,
-        display: { xs: 'none', md: 'flex' },
         '& a': {
           textDecoration: 'none',
           color: '#FFFFFF',
