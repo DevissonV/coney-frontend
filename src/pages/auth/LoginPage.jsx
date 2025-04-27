@@ -15,6 +15,8 @@ import { errorAlert } from '../../services/generic/AlertService.js';
 import UserCreateModal from '../../components/users-components/UserCreateModal';
 import UserPasswordRecoveryModal from '../../components/users-components/UserPasswordRecoveryModal';
 import { useUsers } from '../../hooks/users/useUsers';
+import { useNavigate } from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'; // Importar el ícono de flecha atrás
 
 const LoginPage = ({ onLogin, error, loading }) => {
   const { t } = useTranslation();
@@ -24,7 +26,7 @@ const LoginPage = ({ onLogin, error, loading }) => {
   const [openRecoveryModal, setOpenRecoveryModal] = useState(false);
   //const [openResendModal, setOpenResendModal] = useState(false);
   const { handleCreateUser } = useUsers();
-
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -45,6 +47,21 @@ const LoginPage = ({ onLogin, error, loading }) => {
         alignItems: 'center',
       }}
     >
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => navigate('/dashboard')} // Redirige al dashboard
+        startIcon={<ArrowBackIcon />}
+        sx={{
+          position: 'absolute',
+          top: 16,
+          left: 16,
+          zIndex: 10, // Asegura que el botón esté encima de otros elementos
+        }}
+      >
+        {t('back_to_home')}
+      </Button>
+
       <Paper
         elevation={6}
         sx={{

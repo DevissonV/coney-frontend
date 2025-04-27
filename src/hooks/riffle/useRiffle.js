@@ -49,11 +49,13 @@ export const useRiffle = () => {
     try {
       await createRaffles(raffleData, photo);
       toast({ icon: 'success', titleKey: 'create_success' });
-      loadRaffle();
+      await loadRaffle();
     } catch (error) {
       const errorMessage =
         error.response?.data?.message || 'Error creating raffle';
       errorAlert({ messageKey: errorMessage });
+    } finally {
+      setLoading(false);
     }
   };
 

@@ -9,6 +9,8 @@ import {
   Box,
   Avatar,
   Typography,
+  Backdrop,
+  CircularProgress,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import CasinoIcon from '@mui/icons-material/Casino';
@@ -25,7 +27,13 @@ import dayjs from 'dayjs';
 import { raffleSchema } from '../../utils/validations/raffles/raffleSchema';
 import { useEffect, useState } from 'react';
 
-const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
+const RiffleFormModal = ({
+  open,
+  onClose,
+  onSubmit,
+  initialValues,
+  loading,
+}) => {
   const { t } = useTranslation();
   const isEdit = !!initialValues.name;
   const [file, setFile] = useState(null);
@@ -59,7 +67,7 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
         price: initialValues.price?.toString() || '',
         ticketCount: initialValues.tickets_created || '',
       });
-  
+
       setFile(null);
       setPreview(initialValues.photo_url || null);
     } else {
@@ -71,7 +79,7 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
         price: '',
         ticketCount: '',
       });
-  
+
       setPreview(null);
       setFile(null);
     }
@@ -97,7 +105,6 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
 
     await onSubmit(payload, file);
 
-    onClose();
     reset();
     setFile(null);
     setPreview(null);
@@ -107,7 +114,13 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <Box textAlign="center" pt={3} px={3}>
         <Avatar
-          sx={{ bgcolor: 'primary.main', width: 56, height: 56, mx: 'auto', mb: 2 }}
+          sx={{
+            bgcolor: 'primary.main',
+            width: 56,
+            height: 56,
+            mx: 'auto',
+            mb: 2,
+          }}
         >
           <CasinoIcon fontSize="large" />
         </Avatar>
@@ -115,14 +128,21 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
           {isEdit ? t('edit_riffle') : t('create_riffle')}
         </DialogTitle>
         <Typography variant="body2" sx={{ mb: 2 }}>
-          {isEdit ? t('edit_riffle_description') : t('create_riffle_description')}
+          {isEdit
+            ? t('edit_riffle_description')
+            : t('create_riffle_description')}
         </Typography>
       </Box>
 
       <IconButton
         aria-label="close"
         onClick={onClose}
-        sx={{ position: 'absolute', right: 8, top: 8, color: (theme) => theme.palette.grey[500] }}
+        sx={{
+          position: 'absolute',
+          right: 8,
+          top: 8,
+          color: (theme) => theme.palette.grey[500],
+        }}
       >
         <CloseIcon />
       </IconButton>
@@ -273,13 +293,22 @@ const RiffleFormModal = ({ open, onClose, onSubmit, initialValues }) => {
 
           {preview && (
             <Box mt={2} textAlign="center">
-              <img src={preview} alt="Preview" style={{ maxWidth: '100%', borderRadius: 8 }} />
+              <img
+                src={preview}
+                alt="Preview"
+                style={{ maxWidth: '100%', borderRadius: 8 }}
+              />
             </Box>
           )}
 
           <Box mt={3} textAlign="right">
-            <Button type="submit" variant="contained" color="primary">
-              {t('save')}
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              disabled={loading}
+            >
+              {loading ? <CircularProgress size={24} /> : t('save')}
             </Button>
           </Box>
         </form>

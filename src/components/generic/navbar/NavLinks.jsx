@@ -26,7 +26,24 @@ const NavLinks = ({ darkMode }) => {
   const { token, user } = useAuthStore();
 
   return (
-    <Box sx={{ display: isMobile ? 'block' : 'flex', gap: 2 }}>
+    <Box
+      sx={{
+        display: isMobile ? 'block' : 'flex',
+        gap: 2,
+        flexGrow: 1,
+        display: { xs: 'none', md: 'flex' },
+        '& a': {
+          textDecoration: 'none',
+          color: '#FFFFFF',
+          fontWeight: 'bold',
+          transition: 'transform 0.3s ease, color 0.3s ease',
+          '&:hover': {
+            transform: 'scale(1.2)',
+            color: '#FFD700',
+          },
+        },
+      }}
+    >
       <ListItem component={Link} to="/dashboard" sx={{ width: 'auto' }}>
         <ListItemIcon>
           <Dashboard
