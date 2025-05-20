@@ -108,10 +108,7 @@ export const useAuthorization = (raffleId) => {
     try {
       await deleteAuthorizationDocument(docId);
       toast({ icon: 'success', titleKey: 'delete_success' });
-      setAuthorization((prev) => ({
-        ...prev,
-        documents: prev.documents.filter((d) => d.id !== docId),
-      }));
+      await loadAuthorization();
     } catch {
       errorAlert({ messageKey: 'error_deleting_document' });
     }
