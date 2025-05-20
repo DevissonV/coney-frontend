@@ -32,18 +32,22 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┣ 📜react.svg
 ┃ ┃ ┗ 📜trofeo.ico
 ┃ ┣ 📂components
+┃ ┃ ┣ 📂authorization-components
+┃ ┃ ┃ ┣ 📜AuthorizationDocumentsList.jsx
+┃ ┃ ┃ ┣ 📜AuthorizationDocumentUploader.jsx
+┃ ┃ ┃ ┗ 📜AuthorizationReviewModal.jsx
 ┃ ┃ ┣ 📂countries-components
 ┃ ┃ ┃ ┣ 📜CountriesTable.jsx
 ┃ ┃ ┃ ┣ 📜CountryActions.jsx
 ┃ ┃ ┃ ┗ 📜CountryFormModal.jsx
 ┃ ┃ ┣ 📂dashboard-components
-┃ ┃ ┃ ┣ 📂layout
-┃ ┃ ┃ ┃ ┗ 📜Layout.jsx
-┃ ┃ ┃ ┣ 📜DashboardWidget.jsx
-┃ ┃ ┃ ┗ 📜WelcomeMessage.jsx
+┃ ┃ ┃ ┗ 📂layout
+┃ ┃ ┃   ┗ 📜Layout.jsx
 ┃ ┃ ┣ 📂generic
 ┃ ┃ ┃ ┣ 📂button
 ┃ ┃ ┃ ┃ ┗ 📜Button.jsx
+┃ ┃ ┃ ┣ 📂cards
+┃ ┃ ┃ ┃ ┗ 📜GenericCard.jsx
 ┃ ┃ ┃ ┣ 📂input
 ┃ ┃ ┃ ┃ ┗ 📜Input.jsx
 ┃ ┃ ┃ ┣ 📂navbar
@@ -57,47 +61,63 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┃ ┃ ┗ 📜SearchToolbar.jsx
 ┃ ┃ ┃ ┗ 📂table
 ┃ ┃ ┃   ┗ 📜CellContent.jsx
+┃ ┃ ┣ 📂payments-components
+┃ ┃ ┃ ┗ 📜PaymentCardList.jsx
 ┃ ┃ ┣ 📂riffle-components
 ┃ ┃ ┃ ┣ 📜RiffleActions.jsx
 ┃ ┃ ┃ ┣ 📜RiffleCardList.jsx
 ┃ ┃ ┃ ┗ 📜RiffleFormModal.jsx
 ┃ ┃ ┣ 📂tickets-components
 ┃ ┃ ┃ ┗ 📜TicketFormModal.jsx
-┃ ┃ ┗ 📂users-components
-┃ ┃   ┣ 📜UserActions.jsx
-┃ ┃   ┣ 📜UserChangePasswordModal.jsx
-┃ ┃   ┣ 📜UserCreateModal.jsx
-┃ ┃   ┣ 📜UserEditModal.jsx
-┃ ┃   ┣ 📜UserPasswordRecoveryModal.jsx
-┃ ┃   ┣ 📜UserResendActivationModal.jsx
-┃ ┃   ┗ 📜UsersTable.jsx
+┃ ┃ ┣ 📂users-components
+┃ ┃ ┃ ┣ 📜UserCard.jsx
+┃ ┃ ┃ ┣ 📜UserChangePasswordModal.jsx
+┃ ┃ ┃ ┣ 📜UserCreateModal.jsx
+┃ ┃ ┃ ┣ 📜UserEditModal.jsx
+┃ ┃ ┃ ┗ 📜UserPasswordRecoveryModal.jsx
+┃ ┃ ┗ 📂winners-components
+┃ ┃   ┗ 📜WinnersCardList.jsx
 ┃ ┣ 📂containers
 ┃ ┃ ┣ 📂auth
 ┃ ┃ ┃ ┗ 📜AuthContainer.jsx
+┃ ┃ ┣ 📂authorization
+┃ ┃ ┃ ┗ 📜AuthorizationContainer.jsx
 ┃ ┃ ┣ 📂countries
 ┃ ┃ ┃ ┗ 📜CountriesContainer.jsx
 ┃ ┃ ┣ 📂dashboard
 ┃ ┃ ┃ ┗ 📜DashboardContainer.jsx
+┃ ┃ ┣ 📂payments
+┃ ┃ ┃ ┗ 📜PaymentsContainer.jsx
 ┃ ┃ ┣ 📂riffle
 ┃ ┃ ┃ ┗ 📜RiffleContainer.jsx
 ┃ ┃ ┣ 📂tickets
 ┃ ┃ ┃ ┗ 📜TicketsContainer.jsx
-┃ ┃ ┗ 📂users
-┃ ┃   ┗ 📜UsersContainer.jsx
+┃ ┃ ┣ 📂users
+┃ ┃ ┃ ┗ 📜UsersContainer.jsx
+┃ ┃ ┗ 📂winners
+┃ ┃   ┗ 📜WinnersContainer.jsx
 ┃ ┣ 📂hooks
+┃ ┃ ┣ 📂authorization
+┃ ┃ ┃ ┗ 📜useAuthorization.js
 ┃ ┃ ┣ 📂countries
 ┃ ┃ ┃ ┗ 📜useCountries.js
 ┃ ┃ ┣ 📂generic
 ┃ ┃ ┃ ┗ 📜useSearch.js
+┃ ┃ ┣ 📂payments
+┃ ┃ ┃ ┗ 📜usePayments.js
 ┃ ┃ ┣ 📂riffle
 ┃ ┃ ┃ ┗ 📜useRiffle.js
 ┃ ┃ ┣ 📂tickets
 ┃ ┃ ┃ ┗ 📜useTickets.js
-┃ ┃ ┗ 📂users
-┃ ┃   ┗ 📜useUsers.jsx
+┃ ┃ ┣ 📂users
+┃ ┃ ┃ ┗ 📜useUsers.jsx
+┃ ┃ ┗ 📂winners
+┃ ┃   ┗ 📜useWinners.js
 ┃ ┣ 📂pages
 ┃ ┃ ┣ 📂auth
 ┃ ┃ ┃ ┗ 📜LoginPage.jsx
+┃ ┃ ┣ 📂authorization
+┃ ┃ ┃ ┗ 📜AuthorizationPage.jsx
 ┃ ┃ ┣ 📂countries
 ┃ ┃ ┃ ┗ 📜CountriesPage.jsx
 ┃ ┃ ┣ 📂dashboard
@@ -107,19 +127,24 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┃ ┗ 📜ThankYouPage.jsx
 ┃ ┃ ┣ 📂payments
 ┃ ┃ ┃ ┣ 📜PaymentCancelPage.jsx
+┃ ┃ ┃ ┣ 📜PaymentsPage.jsx
 ┃ ┃ ┃ ┗ 📜PaymentSuccessPage.jsx
 ┃ ┃ ┣ 📂riffle
 ┃ ┃ ┃ ┗ 📜RifflePage.jsx
 ┃ ┃ ┣ 📂tickets
 ┃ ┃ ┃ ┗ 📜TicketsPage.jsx
-┃ ┃ ┗ 📂users
-┃ ┃   ┣ 📜PasswordChangePage.jsx
-┃ ┃   ┗ 📜UsersPage.jsx
+┃ ┃ ┣ 📂users
+┃ ┃ ┃ ┣ 📜PasswordChangePage.jsx
+┃ ┃ ┃ ┗ 📜UsersPage.jsx
+┃ ┃ ┗ 📂winners
+┃ ┃   ┗ 📜WinnersPage.jsx
 ┃ ┣ 📂router
 ┃ ┃ ┗ 📜router.jsx
 ┃ ┣ 📂services
 ┃ ┃ ┣ 📂auth
 ┃ ┃ ┃ ┗ 📜AuthService.js
+┃ ┃ ┣ 📂authorization
+┃ ┃ ┃ ┗ 📜AuthorizationService.js
 ┃ ┃ ┣ 📂countries
 ┃ ┃ ┃ ┗ 📜CountryService.js
 ┃ ┃ ┣ 📂dashboard
@@ -132,8 +157,10 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┃ ┗ 📜RiffleService.js
 ┃ ┃ ┣ 📂tickets
 ┃ ┃ ┃ ┗ 📜TicketService.js
-┃ ┃ ┗ 📂users
-┃ ┃   ┗ 📜UserService.js
+┃ ┃ ┣ 📂users
+┃ ┃ ┃ ┗ 📜UserService.js
+┃ ┃ ┗ 📂winners
+┃ ┃   ┗ 📜WinnersService.js
 ┃ ┣ 📂stores
 ┃ ┃ ┣ 📂auth
 ┃ ┃ ┃ ┗ 📜useAuthStore.js
@@ -148,10 +175,18 @@ La estructura de carpetas del proyecto es la siguiente:
 ┃ ┃ ┣ 📂generic
 ┃ ┃ ┃ ┣ 📜constants.js
 ┃ ┃ ┃ ┣ 📜convertText.js
+┃ ┃ ┃ ┣ 📜documentTypes.jsx
 ┃ ┃ ┃ ┣ 📜i18n.js
 ┃ ┃ ┃ ┣ 📜jwtDecode.js
 ┃ ┃ ┃ ┣ 📜securityValidations.js
 ┃ ┃ ┃ ┗ 📜transformDates.js
+┃ ┃ ┣ 📂validations
+┃ ┃ ┃ ┣ 📂authorizations
+┃ ┃ ┃ ┃ ┗ 📜authorizationSchema.js
+┃ ┃ ┃ ┣ 📂raffles
+┃ ┃ ┃ ┃ ┗ 📜raffleSchema.js
+┃ ┃ ┃ ┗ 📂users
+┃ ┃ ┃   ┗ 📜userSchema.js
 ┃ ┃ ┗ 📜authHelpers.js
 ┃ ┣ 📂wrappers
 ┃ ┃ ┣ 📜AuthWrapper.jsx
@@ -172,6 +207,7 @@ La estructura de carpetas del proyecto es la siguiente:
 ┣ 📜package.json
 ┣ 📜README.md
 ┗ 📜vite.config.js
+
 
 
 
