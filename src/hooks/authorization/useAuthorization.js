@@ -69,12 +69,9 @@ export const useAuthorization = (raffleId) => {
     formData.append('authorizationId', authorization.id);
 
     try {
-      const document = await uploadAuthorizationDocument(formData, raffleId);
+      await uploadAuthorizationDocument(formData, raffleId);
       toast({ icon: 'success', titleKey: 'upload_success' });
-      setAuthorization((prev) => ({
-        ...prev,
-        documents: [...(prev.documents || []), document],
-      }));
+      await loadAuthorization();
     } catch {
       errorAlert({ messageKey: 'error_uploading_document' });
     }
